@@ -1,0 +1,50 @@
+TblMenus:
+    type: entity
+    table: tbl_menus
+    indexes:
+        fk_tbl_menus_tbl_menus1:
+            columns:
+                - self_id
+    id:
+        idMenu:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: id_menu
+            generator:
+                strategy: IDENTITY
+    fields:
+        nivel:
+            type: integer
+            nullable: true
+            unsigned: false
+        dsMenu:
+            type: string
+            nullable: true
+            length: 1024
+            fixed: false
+            column: DS_MENU
+        url:
+            type: string
+            nullable: true
+            length: 1024
+            fixed: false
+            column: URL
+        urlIcon:
+            type: blob
+            nullable: true
+            length: 65535
+            fixed: false
+            column: URL_ICON
+    manyToOne:
+        self:
+            targetEntity: TblMenus
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                self_id:
+                    referencedColumnName: id_menu
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

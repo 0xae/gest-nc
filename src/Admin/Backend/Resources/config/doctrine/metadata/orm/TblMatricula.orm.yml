@@ -1,0 +1,47 @@
+TblMatricula:
+    type: entity
+    table: tbl_matricula
+    indexes:
+        fk_tbl_turma_has_tbl_aluno_tbl_aluno1_idx:
+            columns:
+                - tbl_aluno_id_
+        fk_tbl_turma_has_tbl_aluno_tbl_turma1_idx:
+            columns:
+                - tbl_turma_id_
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dataInicio:
+            type: date
+            nullable: true
+            column: Data_Inicio
+        dataFim:
+            type: date
+            nullable: true
+            column: Data_Fim
+    manyToOne:
+        tblAluno:
+            targetEntity: TblAluno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_aluno_id_:
+                    referencedColumnName: id_
+            orphanRemoval: false
+        tblTurma:
+            targetEntity: TblTurma
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_turma_id_:
+                    referencedColumnName: id_
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,51 @@
+TblTurma:
+    type: entity
+    table: tbl_turma
+    indexes:
+        fk_tbl_turma_tbl_curso1_idx:
+            columns:
+                - tbl_curso_id
+        fk_tbl_turma_tbl_instrutor1_idx:
+            columns:
+                - tbl_instrutor_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: id_
+    fields:
+        descricao:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: Descricao
+        numAlum:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: Num_Alum
+    manyToOne:
+        tblCurso:
+            targetEntity: TblCurso
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_curso_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToOne:
+        tblInstrutor:
+            targetEntity: TblInstrutor
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_instrutor_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

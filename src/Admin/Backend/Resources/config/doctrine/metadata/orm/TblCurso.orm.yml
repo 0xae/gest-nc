@@ -1,0 +1,33 @@
+TblCurso:
+    type: entity
+    table: tbl_curso
+    indexes:
+        fk_tbl_curso_tbl_tipo_curso1_idx:
+            columns:
+                - tbl_tipo_curso_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        descricao:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: Descricao
+    manyToOne:
+        tblTipoCurso:
+            targetEntity: TblModalidade
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_tipo_curso_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

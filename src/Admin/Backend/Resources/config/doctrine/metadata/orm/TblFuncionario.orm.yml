@@ -1,0 +1,38 @@
+TblFuncionario:
+    type: entity
+    table: tbl_funcionario
+    indexes:
+        fk_tbl_funcionario_tbl_funcao1_idx:
+            columns:
+                - tbl_funcao_id
+        fk_tbl_funcionario_tbl_tipo_funcionario1_idx:
+            columns:
+                - tbl_tipo_funcionario_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        tblFuncao:
+            targetEntity: TblFuncao
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_funcao_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tblTipoFuncionario:
+            targetEntity: TblTipoFuncionario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_tipo_funcionario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

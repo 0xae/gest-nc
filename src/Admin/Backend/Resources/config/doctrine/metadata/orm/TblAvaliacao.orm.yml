@@ -1,0 +1,51 @@
+TblAvaliacao:
+    type: entity
+    table: tbl_avaliacao
+    indexes:
+        fk_tbl_avaliacao_tbl_aluno1_idx:
+            columns:
+                - tbl_aluno_id_
+        fk_tbl_avaliacao_tbl_desciplina1_idx:
+            columns:
+                - tbl_desciplina_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nota:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: Nota
+        simestre:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: Simestre
+    manyToOne:
+        tblAluno:
+            targetEntity: TblAluno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_aluno_id_:
+                    referencedColumnName: id_
+            orphanRemoval: false
+        tblDesciplina:
+            targetEntity: TblDesciplina
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_desciplina_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

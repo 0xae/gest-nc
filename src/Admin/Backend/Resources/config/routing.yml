@@ -1,0 +1,6 @@
+sga_homepage:
+    path:     /administration/dashboard
+    defaults: { _controller: BackendBundle:Default:index }
+
+
+

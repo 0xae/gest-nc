@@ -1,0 +1,46 @@
+TblPerfilMenu:
+    type: entity
+    table: tbl_perfil_menu
+    indexes:
+        fk_tbl_perfil_menu_tbl_menus1:
+            columns:
+                - tbl_menus_id_menu
+        fk_tbl_perfil_menu_tbl_perfil1:
+            columns:
+                - tbl_perfil_id_perfil
+    id:
+        idPerfilMenu:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: id_perfil_menu
+            generator:
+                strategy: IDENTITY
+    fields:
+        app:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            column: App
+    manyToOne:
+        tblMenusMenu:
+            targetEntity: TblMenus
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_menus_id_menu:
+                    referencedColumnName: id_menu
+            orphanRemoval: false
+        tblPerfilPerfil:
+            targetEntity: TblPerfil
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbl_perfil_id_perfil:
+                    referencedColumnName: id_perfil
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
