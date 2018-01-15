@@ -1,0 +1,72 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblPost
+ *
+ * @ORM\Table(name="tbl_post", indexes={@ORM\Index(name="fk_tbl_post_tbl_category_idx", columns={"id_category"})})
+ * @ORM\Entity
+ */
+class TblPost
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=45, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data_publish", type="string", length=45, nullable=false)
+     */
+    private $dataPublish;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=45, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estado", type="boolean", nullable=true)
+     */
+    private $estado;
+
+    /**
+     * @var \TblCategory
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="TblCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_category", referencedColumnName="id_category")
+     * })
+     */
+    private $idCategory;
+
+
+}

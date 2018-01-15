@@ -1,0 +1,53 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblPartener
+ *
+ * @ORM\Table(name="tbl_partener")
+ * @ORM\Entity
+ */
+class TblPartener
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_partner", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPartner;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=100, nullable=true)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=50, nullable=true)
+     */
+    private $logo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=100, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estado", type="boolean", nullable=true)
+     */
+    private $estado;
+
+
+}

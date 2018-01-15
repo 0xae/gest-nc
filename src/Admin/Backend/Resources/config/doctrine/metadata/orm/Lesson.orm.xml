@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Lesson" table="lesson">
+    <indexes>
+      <index name="fk_class_has_modules_modules1_idx" columns="discipline_id"/>
+      <index name="fk_class_has_modules_class1_idx" columns="klass_id"/>
+      <index name="fk_lesson_classrooms1_idx" columns="classroom_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+      <unique-constraint name="class_discipline_UNIQUE" columns="discipline_id,klass_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="startedAt" type="time" column="started_at" nullable="false"/>
+    <field name="endedAt" type="time" column="ended_at" nullable="false"/>
+    <field name="date" type="date" column="date" nullable="false"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <many-to-one field="klass" target-entity="Klass">
+      <join-columns>
+        <join-column name="klass_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="discipline" target-entity="Discipline">
+      <join-columns>
+        <join-column name="discipline_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="classroom" target-entity="Classroom">
+      <join-columns>
+        <join-column name="classroom_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

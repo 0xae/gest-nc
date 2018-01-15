@@ -1,0 +1,117 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="school_id_UNIQUE", columns={"code"})})
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthdate", type="date", nullable=true)
+     */
+    private $birthdate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="phone", type="integer", nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=45, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_dir", type="string", length=100, nullable=true)
+     */
+    private $photoDir;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=10, nullable=true)
+     */
+    private $code;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=35, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="integer", nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=128, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="fkUsers")
+     * @ORM\JoinTable(name="users_has_user_type",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="fk_users", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="fk_user_type", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $fkUserType;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fkUserType = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}

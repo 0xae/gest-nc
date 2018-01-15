@@ -1,0 +1,39 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblCategory
+ *
+ * @ORM\Table(name="tbl_category")
+ * @ORM\Entity
+ */
+class TblCategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_category", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCategory;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estado", type="boolean", nullable=true)
+     */
+    private $estado;
+
+
+}

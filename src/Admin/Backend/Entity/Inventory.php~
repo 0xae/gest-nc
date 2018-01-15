@@ -1,0 +1,67 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Inventory
+ *
+ * @ORM\Table(name="inventory", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="product_name_UNIQUE", columns={"product_name"})})
+ * @ORM\Entity
+ */
+class Inventory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_name", type="string", length=45, nullable=true)
+     */
+    private $productName;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="total_amount", type="integer", nullable=false)
+     */
+    private $totalAmount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="available_amount", type="integer", nullable=false)
+     */
+    private $availableAmount;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="integer", nullable=false)
+     */
+    private $createdBy;
+
+
+}

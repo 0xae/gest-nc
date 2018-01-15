@@ -17,7 +17,7 @@ security:
                 #rediciona para uma pagina segura quando login foi sucesso
                 default_target_path: "/administration/dashboard"
                 #caso login falhar vai cair na tela de login de novo
-                failure_path: /security/login
+                failure_path: /
                 provider: fos_userbundle
                 # csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
@@ -25,7 +25,7 @@ security:
 
             logout:
                 #quando fazer logout rediciona para pagina de login
-                    target: /security/login
+                    target: /
             anonymous:    true
 
     access_control:

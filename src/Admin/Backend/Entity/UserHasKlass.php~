@@ -1,0 +1,69 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * UserHasKlass
+ *
+ * @ORM\Table(name="user_has_klass", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="users_class_discipline_UNIQUE", columns={"user_id", "klass_id", "discipline_id"})}, indexes={@ORM\Index(name="fk_users_has_class_class1_idx", columns={"klass_id"}), @ORM\Index(name="fk_users_has_class_users1_idx", columns={"user_id"}), @ORM\Index(name="fk_users_has_class_discipline1_idx", columns={"discipline_id"})})
+ * @ORM\Entity
+ */
+class UserHasKlass
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="integer", nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @var \Klass
+     *
+     * @ORM\ManyToOne(targetEntity="Klass")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="klass_id", referencedColumnName="id")
+     * })
+     */
+    private $klass;
+
+    /**
+     * @var \Discipline
+     *
+     * @ORM\ManyToOne(targetEntity="Discipline")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="discipline_id", referencedColumnName="id")
+     * })
+     */
+    private $discipline;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}

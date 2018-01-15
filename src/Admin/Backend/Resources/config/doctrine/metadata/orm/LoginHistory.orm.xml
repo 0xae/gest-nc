@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LoginHistory" table="login_history">
+    <indexes>
+      <index name="fk_login_history_users1_idx" columns="user_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+      <unique-constraint name="login_date_UNIQUE" columns="login_date"/>
+      <unique-constraint name="logout_date_UNIQUE" columns="logout_date"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="loginDate" type="datetime" column="login_date" nullable="false"/>
+    <field name="logoutDate" type="datetime" column="logout_date" nullable="false"/>
+    <many-to-one field="user" target-entity="User">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

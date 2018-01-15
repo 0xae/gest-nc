@@ -1,0 +1,60 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TblContact
+ *
+ * @ORM\Table(name="tbl_contact")
+ * @ORM\Entity
+ */
+class TblContact
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_contact", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idContact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=100, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=100, nullable=true)
+     */
+    private $subject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=300, nullable=true)
+     */
+    private $body;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="telefone", type="integer", nullable=true)
+     */
+    private $telefone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
+     */
+    private $email;
+
+
+}

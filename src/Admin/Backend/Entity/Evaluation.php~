@@ -1,0 +1,80 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Evaluation
+ *
+ * @ORM\Table(name="evaluation", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_evaluation_lesson1_idx", columns={"lesson_id"}), @ORM\Index(name="fk_evaluation_users1_idx", columns={"student_id"})})
+ * @ORM\Entity
+ */
+class Evaluation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade", type="integer", nullable=true)
+     */
+    private $grade;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="document_dir", type="string", length=100, nullable=true)
+     */
+    private $documentDir;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=45, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start_project_date", type="datetime", nullable=true)
+     */
+    private $startProjectDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end_project_date", type="datetime", nullable=true)
+     */
+    private $endProjectDate;
+
+    /**
+     * @var \Lesson
+     *
+     * @ORM\ManyToOne(targetEntity="Lesson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lesson_id", referencedColumnName="id")
+     * })
+     */
+    private $lesson;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     * })
+     */
+    private $student;
+
+
+}

@@ -1,0 +1,60 @@
+<?php
+
+namespace Admin\Backend\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Holidays
+ *
+ * @ORM\Table(name="holidays", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="date_UNIQUE", columns={"date"}), @ORM\UniqueConstraint(name="name_UNIQUE", columns={"name"})})
+ * @ORM\Entity
+ */
+class Holidays
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="integer", nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="starts_at", type="time", nullable=true)
+     */
+    private $startsAt;
+
+
+}

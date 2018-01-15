@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LessonSession" table="lesson_session">
+    <indexes>
+      <index name="fk_teacher_session_lesson1_idx" columns="lesson_id"/>
+      <index name="fk_teacher_session_users1_idx" columns="teacher_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="summary" type="string" column="summary" length="45" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="observation" type="text" column="observation" length="65535" nullable="true"/>
+    <many-to-one field="lesson" target-entity="Lesson">
+      <join-columns>
+        <join-column name="lesson_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="teacher" target-entity="User">
+      <join-columns>
+        <join-column name="teacher_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SessionItems" table="session_items">
+    <indexes>
+      <index name="fk_teacher_session_has_inventory_inventory1_idx" columns="inventory_id"/>
+      <index name="fk_teacher_session_has_inventory_teacher_session1_idx" columns="lesson_session_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="session_inventory_UNIQUE" columns="lesson_session_id,inventory_id"/>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="itemAmount" type="integer" column="item_amount" nullable="false"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <many-to-one field="inventory" target-entity="Inventory">
+      <join-columns>
+        <join-column name="inventory_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="lessonSession" target-entity="LessonSession">
+      <join-columns>
+        <join-column name="lesson_session_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
