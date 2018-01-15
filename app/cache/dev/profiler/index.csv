@@ -1,5 +1,0 @@
-d73c93,::1,GET,http://localhost/sga/web/app_dev.php/,1516028400,,200
-6d9a03,::1,POST,http://localhost/sga/web/app_dev.php/login_check,1516028414,,302
-c587fa,::1,GET,http://localhost/sga/web/app_dev.php/administration/dashboard,1516028414,,200
-d451bc,::1,GET,http://localhost/sga/web/app_dev.php/administration/pages/UI/general.html,1516028427,c41be8,200
-c41be8,::1,GET,http://localhost/sga/web/app_dev.php/administration/pages/UI/general.html,1516028427,,404
