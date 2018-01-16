@@ -43,7 +43,6 @@ class Category
     private $createdBy;
 
 
-
     /**
      * Get id
      *

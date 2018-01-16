@@ -12,15 +12,12 @@ use Admin\Backend\Form\CategoryType;
  * Category controller.
  *
  */
-class CategoryController extends Controller
-{
-
+class CategoryController extends Controller {
     /**
      * Lists all Category entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BackendBundle:Category')->findAll();
@@ -29,22 +26,24 @@ class CategoryController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Category entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) { 
         $entity = new Category();
         $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
+        
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administrator_category_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_category_show', array('id' => $entity->getId())));
         }
 
         return $this->render('BackendBundle:Category:new.html.twig', array(
@@ -60,10 +59,12 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Category $entity)
-    {
+    private function createCreateForm(Category $entity) {
+        // XXX: get user authenticated
+        $entity->setCreatedBy(1);
+
         $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administrator_category_create'),
+            'action' => $this->generateUrl('administration_category_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +144,7 @@ class CategoryController extends Controller
     private function createEditForm(Category $entity)
     {
         $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administrator_category_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('administration_category_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +173,7 @@ class CategoryController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administrator_category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_category_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Category:edit.html.twig', array(
@@ -202,7 +203,7 @@ class CategoryController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('administrator_category'));
+        return $this->redirect($this->generateUrl('administration_category'));
     }
 
     /**
@@ -215,7 +216,7 @@ class CategoryController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('administrator_category_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('administration_category_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

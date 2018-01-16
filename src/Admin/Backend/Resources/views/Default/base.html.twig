@@ -3,74 +3,51 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>
-        {% block title %}Bem vindo!{% endblock %}
+          {% block title %}Bem vindo!{% endblock %}
         </title>
-       <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
 
         {% stylesheets
-                '@BackendBundle/Resources/public/css/bootstrap.min.css'
-                '@BackendBundle/Resources/public/css/font-awesome.min.css'
-                '@BackendBundle/Resources/public/css/ionicons.min.css'
-                '@BackendBundle/Resources/public/css/jquery-jvectormap-1.2.2.css'
-                '@BackendBundle/Resources/public/css/AdminLTE.min.css'
-                 '@BackendBundle/Resources/public/css/blue.css'
-                  '@BackendBundle/Resources/public/css/pace.min.css'
-               '@BackendBundle/Resources/public/css/_all-skins.min.css'%}
-               <link rel="stylesheet" href="{{ asset_url }}" />
+            '@BackendBundle/Resources/public/css/bootstrap.min.css'
+            '@BackendBundle/Resources/public/css/font-awesome.min.css'
+            '@BackendBundle/Resources/public/css/ionicons.min.css'
+            '@BackendBundle/Resources/public/css/jquery-jvectormap-1.2.2.css'
+            '@BackendBundle/Resources/public/css/AdminLTE.min.css'
+            '@BackendBundle/Resources/public/css/blue.css'
+            '@BackendBundle/Resources/public/css/pace.min.css'
+            '@BackendBundle/Resources/public/css/_all-skins.min.css'
+        %}
+
+        <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
 
-       </head>
+    <body class="skin-blue sidebar-mini pace-done fixed">
 
+    {% block body %}
         <div class="wrapper">
+        </div>
+    {% endblock %}
 
+    {% javascripts
+        '@BackendBundle/Resources/public/js/jQuery-2.2.0.min.js'
+        '@BackendBundle/Resources/public/js/bootstrap.min.js'
+        '@BackendBundle/Resources/public/js/fastclick.js'
+        '@BackendBundle/Resources/public/js/app.min.js'
+        '@BackendBundle/Resources/public/js/jquery.sparkline.min.js'
+        '@BackendBundle/Resources/public/js/jquery-jvectormap-1.2.2.min.js'
+        '@BackendBundle/Resources/public/js/jquery-jvectormap-world-mill-en.js'
+        '@BackendBundle/Resources/public/js/jquery.slimscroll.min.js'
+        '@BackendBundle/Resources/public/js/Chart.min.js'
+        '@BackendBundle/Resources/public/js/dashboard2.js'
+        '@BackendBundle/Resources/public/js/demo.js'
+        '@BackendBundle/Resources/public/js/pace.min.js'
+        '@BackendBundle/Resources/public/js/icheck.min.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
-        {% block body %}
-
-        {% endblock %}
-
-          </div>
-      
-
-        {% javascripts
-          '@BackendBundle/Resources/public/js/jQuery-2.2.0.min.js'
-          '@BackendBundle/Resources/public/js/bootstrap.min.js'
-          '@BackendBundle/Resources/public/js/fastclick.js'
-          '@BackendBundle/Resources/public/js/app.min.js'
-          '@BackendBundle/Resources/public/js/jquery.sparkline.min.js'
-          '@BackendBundle/Resources/public/js/jquery-jvectormap-1.2.2.min.js'
-          '@BackendBundle/Resources/public/js/jquery-jvectormap-world-mill-en.js'
-          '@BackendBundle/Resources/public/js/jquery.slimscroll.min.js'
-          '@BackendBundle/Resources/public/js/Chart.min.js'
-          '@BackendBundle/Resources/public/js/dashboard2.js'
-          '@BackendBundle/Resources/public/js/demo.js'
-           '@BackendBundle/Resources/public/js/pace.min.js'
-           '@BackendBundle/Resources/public/js/icheck.min.js'%}
-          <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
-            <script type="text/javascript">
-
-                $('.send').click(function(){
-
-                  $.ajax({
-                      url: '',
-                      type: 'post',
-                      data: {},
-                      success: function (data) {
-                        console.log(data);
-                      }
-                    });
-
-
-
-            });
-
-
-
-
-</script>
-
+    </body>
 </html>

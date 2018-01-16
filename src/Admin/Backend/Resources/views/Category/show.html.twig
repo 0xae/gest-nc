@@ -1,6 +1,6 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
-   {% block content %}
+{% block content %}
     <h1>Category</h1>
 
     <table class="record_properties">
@@ -26,12 +26,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('administrator_category') }}">
+        <a href="{{ path('administration_category') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('administrator_category_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('administration_category_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
