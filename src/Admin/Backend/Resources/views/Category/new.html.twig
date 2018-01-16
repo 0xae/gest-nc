@@ -1,15 +1,22 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Category creation</h1>
 
-    {{ form(form) }}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Criar categoria</h3>
+            </div>
+            <!-- /.box-header -->
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('administration_category') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+            <div class="box-body no-padding">
+                {{ form(form) }}
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
 {% endblock %}
