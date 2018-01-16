@@ -1,2 +1,5 @@
 /vendor
 app/cache
+nbproject
+app/logs
+app/bootstrap.php.cache
