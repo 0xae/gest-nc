@@ -11,8 +11,14 @@ backend_course:
     prefix:   /administration/course
 
 sga_homepage:
+    path:     /
+    # XXX: create a Homepage
+    defaults: { _controller: BackendBundle:Security:login }
+
+sga_dashboard:
     path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Default:index }
 
-
-
+sga_login:
+    path:     /security/login
+    defaults: { _controller: BackendBundle:Security:login }
