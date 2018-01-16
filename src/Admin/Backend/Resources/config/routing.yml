@@ -1,3 +1,7 @@
+backend_administration_category:
+    resource: "@BackendBundle/Resources/config/routing/category.yml"
+    prefix:   /administration/category
+
 sga_homepage:
     path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Default:index }
