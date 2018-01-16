@@ -1,3 +1,11 @@
+backend_administrator_category:
+    resource: "@BackendBundle/Resources/config/routing/category.yml"
+    prefix:   /administration/category
+
+backend_course:
+    resource: "@BackendBundle/Resources/config/routing/course.yml"
+    prefix:   /administration/course
+
 sga_homepage:
     path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Default:index }

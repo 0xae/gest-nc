@@ -1,0 +1,53 @@
+{% extends 'BackendBundle:Default:layout.html.twig' %}
+
+   {% block content %}
+    <h1>Course list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Monthduration</th>
+                <th>Createdat</th>
+                <th>Code</th>
+                <th>Level</th>
+                <th>Createdby</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.monthDuration }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.code }}</td>
+                <td>{{ entity.level }}</td>
+                <td>{{ entity.createdBy }}</td>
+                <td>{{ entity.isActive }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('course_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('course_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
