@@ -6,9 +6,9 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Category #{{ entity.id }}</h3>
+                <h3 class="box-title">Discipline #{{ entity.id }}</h3>
                 <p>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_discipline') }}">
                         <span class="glyphicon glyphicon-back"></span> Voltar
                     </a>
                 </p>
@@ -29,6 +29,10 @@
                         <tr>
                             <th>Createdat</th>
                             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Code</th>
+                            <td>{{ entity.code }}</td>
                         </tr>
                         <tr>
                             <th>Createdby</th>

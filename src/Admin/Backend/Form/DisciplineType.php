@@ -6,14 +6,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryType extends AbstractType
+class DisciplineType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('name');
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name')
+            ->add('createdAt')
+            ->add('code')
+            ->add('createdBy')
+            ->add('category', 'entity', [
+                'class' => 'BackendBundle:Category',
+                'choice_label' => 'name'
+            ])
+        ;
     }
     
     /**
@@ -22,7 +32,7 @@ class CategoryType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\Backend\Entity\Category'
+            'data_class' => 'Admin\Backend\Entity\Discipline'
         ));
     }
 
@@ -31,6 +41,6 @@ class CategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_backend_category';
+        return 'admin_backend_discipline';
     }
 }

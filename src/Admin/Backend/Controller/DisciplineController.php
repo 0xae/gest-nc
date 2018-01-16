@@ -5,37 +5,37 @@ namespace Admin\Backend\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Admin\Backend\Entity\Category;
-use Admin\Backend\Form\CategoryType;
+use Admin\Backend\Entity\Discipline;
+use Admin\Backend\Form\DisciplineType;
 
 /**
- * Category controller.
+ * Discipline controller.
  *
  */
-class CategoryController extends Controller
+class DisciplineController extends Controller
 {
 
     /**
-     * Lists all Category entities.
+     * Lists all Discipline entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BackendBundle:Category')->findAll();
+        $entities = $em->getRepository('BackendBundle:Discipline')->findAll();
 
-        return $this->render('BackendBundle:Category:index.html.twig', array(
+        return $this->render('BackendBundle:Discipline:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Category entity.
+     * Creates a new Discipline entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Category();
+        $entity = new Discipline();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class CategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_category_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_discipline_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('BackendBundle:Category:new.html.twig', array(
+        return $this->render('BackendBundle:Discipline:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Category entity.
+     * Creates a form to create a Discipline entity.
      *
-     * @param Category $entity The entity
+     * @param Discipline $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Category $entity)
+    private function createCreateForm(Discipline $entity)
     {
-        $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administration_category_create'),
+        $form = $this->createForm(new DisciplineType(), $entity, array(
+            'action' => $this->generateUrl('administration_discipline_create'),
             'method' => 'POST',
         ));
 
@@ -73,60 +73,60 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a form to create a new Category entity.
+     * Displays a form to create a new Discipline entity.
      *
      */
     public function newAction()
     {
-        $entity = new Category();
+        $entity = new Discipline();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('BackendBundle:Category:new.html.twig', array(
+        return $this->render('BackendBundle:Discipline:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Category entity.
+     * Finds and displays a Discipline entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BackendBundle:Category')->find($id);
+        $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
+            throw $this->createNotFoundException('Unable to find Discipline entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:Category:show.html.twig', array(
+        return $this->render('BackendBundle:Discipline:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Category entity.
+     * Displays a form to edit an existing Discipline entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BackendBundle:Category')->find($id);
+        $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
+            throw $this->createNotFoundException('Unable to find Discipline entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:Category:edit.html.twig', array(
+        return $this->render('BackendBundle:Discipline:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -134,16 +134,16 @@ class CategoryController extends Controller
     }
 
     /**
-    * Creates a form to edit a Category entity.
+    * Creates a form to edit a Discipline entity.
     *
-    * @param Category $entity The entity
+    * @param Discipline $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Category $entity)
+    private function createEditForm(Discipline $entity)
     {
-        $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administration_category_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new DisciplineType(), $entity, array(
+            'action' => $this->generateUrl('administration_discipline_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -152,17 +152,17 @@ class CategoryController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Category entity.
+     * Edits an existing Discipline entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BackendBundle:Category')->find($id);
+        $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
+            throw $this->createNotFoundException('Unable to find Discipline entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -172,17 +172,17 @@ class CategoryController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_discipline_edit', array('id' => $id)));
         }
 
-        return $this->render('BackendBundle:Category:edit.html.twig', array(
+        return $this->render('BackendBundle:Discipline:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Category entity.
+     * Deletes a Discipline entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -192,21 +192,21 @@ class CategoryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BackendBundle:Category')->find($id);
+            $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Category entity.');
+                throw $this->createNotFoundException('Unable to find Discipline entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('administration_category'));
+        return $this->redirect($this->generateUrl('administration_discipline'));
     }
 
     /**
-     * Creates a form to delete a Category entity by id.
+     * Creates a form to delete a Discipline entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -215,7 +215,7 @@ class CategoryController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('administration_category_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('administration_discipline_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

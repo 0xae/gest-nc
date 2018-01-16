@@ -1,3 +1,11 @@
+backend_administration_discipline:
+    resource: "@BackendBundle/Resources/config/routing/discipline.yml"
+    prefix:   /administration/discipline
+
+BackendBundle_administration_discipline:
+    resource: "@BackendBundle/Resources/config/routing/discipline.yml"
+    prefix:   /administration/discipline
+
 backend_administration_category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/category
