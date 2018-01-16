@@ -1,30 +1,29 @@
 {% extends 'BackendBundle:Default:base.html.twig' %}
-    {% block title %}Administração{% endblock %}
+{% block title %}Administração{% endblock %}
+
 {% block body %}
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>S</b>GA</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>SGA</b> 1.0</span>
+        </a>
 
-<header class="main-header">
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>S</b>GA</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SGA</b> 1.0</span>
-    </a>
+        {# navbar  #}
+        {{ include('BackendBundle:Default:navbar.html.twig') }}
+    </header>
+    <!-- end header -->
 
-    {# navbar  #}
-    {{ include('BackendBundle:Default:navbar.html.twig') }}
-</header>
-<!-- end header -->
+    {# menu #}
+    {{ include('BackendBundle:Default:menu.html.twig') }}
 
-{# menu #}
-{{ include('BackendBundle:Default:menu.html.twig') }}
-
-{# page content #}
-<div class="content-wrapper" style="min-height: 916px;">
-    <section class="content">
-        {% block content %}
-        {% endblock %}
-    </section>
-</div>
-
+    {# page content #}
+    <div class="content-wrapper" style="min-height: 916px;">
+        <section class="content">
+            {% block content %}
+            {% endblock %}
+        </section>
+    </div>
 {% endblock %}
