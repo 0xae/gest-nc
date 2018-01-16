@@ -4,3 +4,4 @@ nbproject
 app/logs
 app/bootstrap.php.cache
 .php~
+app/config/parameters.yml
