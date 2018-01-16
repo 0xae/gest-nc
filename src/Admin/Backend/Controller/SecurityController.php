@@ -15,10 +15,11 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends ContainerAware {
 	public function loginAction() {
-		$request = $this->container->get('request');
 		/* @var $request \Symfony\Component\HttpFoundation\Request */
-		$session = $request->getSession();
+		$request = $this->container->get('request');
+
 		/* @var $session \Symfony\Component\HttpFoundation\Session\Session */
+		$session = $request->getSession();
 
 		// get the error if any (works with forward and redirect -- see below)
 		if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -34,6 +35,7 @@ class SecurityController extends ContainerAware {
 			// TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
 			$error = $error->getMessage();
 		}
+
 		// last username entered by the user
 		$lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
