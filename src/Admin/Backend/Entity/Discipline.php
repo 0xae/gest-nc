@@ -59,7 +59,9 @@ class Discipline
      */
     private $category;
 
-
+    public function __construct() {
+        $this->createdAt = new \DateTime();        
+    }
 
     /**
      * Get id
