@@ -27,7 +27,16 @@ class CourseType extends AbstractType {
                 },
                 'choice_label' => 'name',
               ))
-            ->add('coordenator')
+            ->add('coordenator', 'entity', array(
+                'class' => 'BackendBundle:User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.username', 'ASC')
+                        ->where('u.roles LIKE :roles')
+                        ->setParameter('roles', '%"ROLE_PROFESSOR"%');
+                },
+                'choice_label' => 'username',
+              ))
         ;
     }
     

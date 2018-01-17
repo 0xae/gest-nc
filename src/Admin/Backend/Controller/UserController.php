@@ -43,7 +43,7 @@ class UserController extends Controller
             $userId = $this->getUser()->getId();
             $entity->setCreatedBy($userId);
             $entity->addRole($entity->getFkUserType()->getDescription());
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
