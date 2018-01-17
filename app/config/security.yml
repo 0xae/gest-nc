@@ -5,6 +5,9 @@ security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_STUDENT:     ROLE_USER
+        ROLE_PROFESSOR:   ROLE_USER
+        ROLE_COORDINATOR:   ROLE_USER
 
     providers:
         fos_userbundle:

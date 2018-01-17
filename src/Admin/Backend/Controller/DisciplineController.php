@@ -12,15 +12,12 @@ use Admin\Backend\Form\DisciplineType;
  * Discipline controller.
  *
  */
-class DisciplineController extends Controller
-{
-
+class DisciplineController extends Controller {
     /**
      * Lists all Discipline entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BackendBundle:Discipline')->findAll();
@@ -29,12 +26,12 @@ class DisciplineController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Discipline entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Discipline();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -57,27 +54,7 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Creates a form to create a Discipline entity.
-     *
-     * @param Discipline $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Discipline $entity)
-    {
-        $form = $this->createForm(new DisciplineType(), $entity, array(
-            'action' => $this->generateUrl('administration_discipline_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
      * Displays a form to create a new Discipline entity.
-     *
      */
     public function newAction() {
         $entity = new Discipline();
@@ -113,8 +90,7 @@ class DisciplineController extends Controller
      * Displays a form to edit an existing Discipline entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
@@ -134,29 +110,10 @@ class DisciplineController extends Controller
     }
 
     /**
-    * Creates a form to edit a Discipline entity.
-    *
-    * @param Discipline $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Discipline $entity)
-    {
-        $form = $this->createForm(new DisciplineType(), $entity, array(
-            'action' => $this->generateUrl('administration_discipline_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
      * Edits an existing Discipline entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
@@ -185,8 +142,7 @@ class DisciplineController extends Controller
      * Deletes a Discipline entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -206,14 +162,49 @@ class DisciplineController extends Controller
     }
 
     /**
+    * Creates a form to edit a Discipline entity.
+    *
+    * @param Discipline $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Discipline $entity) {
+        $form = $this->createForm(new DisciplineType(), $entity, array(
+            'action' => $this->generateUrl('administration_discipline_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a Discipline entity.
+     *
+     * @param Discipline $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Discipline $entity) {
+        $form = $this->createForm(new DisciplineType(), $entity, array(
+            'action' => $this->generateUrl('administration_discipline_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
      * Creates a form to delete a Discipline entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_discipline_delete', array('id' => $id)))
             ->setMethod('DELETE')

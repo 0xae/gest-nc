@@ -143,8 +143,7 @@ class CategoryController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Category $entity)
-    {
+    private function createEditForm(Category $entity) {
         $form = $this->createForm(new CategoryType(), $entity, array(
             'action' => $this->generateUrl('administration_category_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -154,12 +153,12 @@ class CategoryController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Category entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Category')->find($id);
@@ -184,12 +183,12 @@ class CategoryController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Category entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -215,8 +214,7 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_category_delete', array('id' => $id)))
             ->setMethod('DELETE')
