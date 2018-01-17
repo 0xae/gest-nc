@@ -6,9 +6,9 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Course #{{ entity.id }}</h3>
+                <h3 class="box-title">Classroom #{{ entity.id }}</h3>
                 <p>
-                    <a href="{{ path('administration_course') }}">
+                    <a href="{{ path('administration_classroom') }}">
                         <span class="glyphicon glyphicon-back"></span> Voltar
                     </a>
                 </p>
@@ -23,32 +23,24 @@
                             <td>{{ entity.id }}</td>
                         </tr>
                         <tr>
-                            <th>Name</th>
-                            <td>{{ entity.name }}</td>
+                            <th>Capacity</th>
+                            <td>{{ entity.capacity }}</td>
                         </tr>
                         <tr>
-                            <th>Monthduration</th>
-                            <td>{{ entity.monthDuration }}</td>
+                            <th>Name</th>
+                            <td>{{ entity.name }}</td>
                         </tr>
                         <tr>
                             <th>Createdat</th>
                             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <th>Code</th>
-                            <td>{{ entity.code }}</td>
-                        </tr>
-                        <tr>
-                            <th>Level</th>
-                            <td>{{ entity.level }}</td>
+                            <th>Available</th>
+                            <td>{{ entity.available }}</td>
                         </tr>
                         <tr>
                             <th>Createdby</th>
                             <td>{{ entity.createdBy }}</td>
-                        </tr>
-                        <tr>
-                            <th>Isactive</th>
-                            <td>{{ entity.isActive }}</td>
                         </tr>
                     </tbody>
                 </table>

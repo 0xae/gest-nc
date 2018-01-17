@@ -1,3 +1,15 @@
+backend_administration_course:
+    resource: "@BackendBundle/Resources/config/routing/course.yml"
+    prefix:   /administration/course
+
+backend_administration_klass:
+    resource: "@BackendBundle/Resources/config/routing/klass.yml"
+    prefix:   /administration/klass
+
+backend_administration_classroom:
+    resource: "@BackendBundle/Resources/config/routing/classroom.yml"
+    prefix:   /administration/classroom
+
 backend_administration_discipline:
     resource: "@BackendBundle/Resources/config/routing/discipline.yml"
     prefix:   /administration/discipline
@@ -5,10 +17,6 @@ backend_administration_discipline:
 backend_administration_category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/category
-
-backend_course:
-    resource: "@BackendBundle/Resources/config/routing/course.yml"
-    prefix:   /administration/course
 
 sga_homepage:
     path:     /
