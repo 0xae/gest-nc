@@ -30,11 +30,9 @@ security:
 
     access_control:
         # so usuario nao autenticado pode fazer login
-         - { path: ^/login$, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }
-         # so usuario com perfil de admin pade aceder esta area
-         - { path: ^/administration/dashboard, roles: ROLE_ADMIN }
-         # - { path: ^/administration/dashboard/register/confirmed, roles: ROLE_ADMIN }
-
+        # - { path: ^/login$, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }
+        - { path: ^/administration, roles: ROLE_USER }
+        - { path: ^/administration/dashboard, roles: ROLE_ADMIN }
 
 # access_control:
 #     - { path: ^/login, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }
