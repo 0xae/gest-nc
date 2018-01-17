@@ -68,7 +68,7 @@ class Course
      *
      * @ORM\Column(name="is_active", type="boolean", nullable=false)
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @var \Category
@@ -89,8 +89,12 @@ class Course
      * })
      */
     private $coordenator;
+    
 
-
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
