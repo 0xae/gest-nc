@@ -56,7 +56,10 @@ class Holidays
      */
     private $startsAt;
 
-
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
