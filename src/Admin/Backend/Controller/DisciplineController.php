@@ -62,8 +62,6 @@ class DisciplineController extends Controller
      */
     private function createCreateForm(Discipline $entity)
     {
-        $entity->setCreatedBy(1);
-        
         $form = $this->createForm(new DisciplineType(), $entity, array(
             'action' => $this->generateUrl('administration_discipline_create'),
             'method' => 'POST',
