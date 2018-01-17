@@ -1,3 +1,7 @@
+backend_administration_user:
+    resource: "@BackendBundle/Resources/config/routing/user.yml"
+    prefix:   /administration/user
+
 backend_administration_course:
     resource: "@BackendBundle/Resources/config/routing/course.yml"
     prefix:   /administration/course

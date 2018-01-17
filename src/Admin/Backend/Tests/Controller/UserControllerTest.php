@@ -1,6 +1,6 @@
 <?php
 
-namespace SgaBundle\Tests\Controller;
+namespace Admin\Backend\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -13,13 +13,13 @@ class UserControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/user/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /user/");
+        $crawler = $client->request('GET', '/administration/user/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /administration/user/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'sgabundle_user[field_name]'  => 'Test',
+            'admin_backend_user[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'sgabundle_user[field_name]'  => 'Foo',
+            'admin_backend_user[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 
