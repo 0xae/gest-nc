@@ -62,6 +62,8 @@ class CategoryController extends Controller
      */
     private function createCreateForm(Category $entity)
     {
+        $entity->setCreatedBy(1);
+        
         $form = $this->createForm(new CategoryType(), $entity, array(
             'action' => $this->generateUrl('administration_category_create'),
             'method' => 'POST',
