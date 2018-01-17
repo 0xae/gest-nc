@@ -40,6 +40,9 @@ class DisciplineController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -76,8 +79,7 @@ class DisciplineController extends Controller
      * Displays a form to create a new Discipline entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Discipline();
         $form   = $this->createCreateForm($entity);
 
@@ -91,10 +93,8 @@ class DisciplineController extends Controller
      * Finds and displays a Discipline entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Discipline')->find($id);
 
         if (!$entity) {

@@ -40,6 +40,9 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -61,9 +64,7 @@ class CategoryController extends Controller
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Category $entity)
-    {
-        $entity->setCreatedBy(1);
-        
+    {        
         $form = $this->createForm(new CategoryType(), $entity, array(
             'action' => $this->generateUrl('administration_category_create'),
             'method' => 'POST',

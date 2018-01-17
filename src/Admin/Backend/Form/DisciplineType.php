@@ -15,7 +15,6 @@ class DisciplineType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name')
-            ->add('createdAt')
             ->add('code')
             ->add('category', 'entity', array(
                 'class' => 'BackendBundle:Category',
