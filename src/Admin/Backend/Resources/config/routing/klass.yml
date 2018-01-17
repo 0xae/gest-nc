@@ -1,0 +1,30 @@
+administration_klass:
+    path:     /
+    defaults: { _controller: "BackendBundle:Klass:index" }
+
+administration_klass_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:Klass:show" }
+
+administration_klass_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:Klass:new" }
+
+administration_klass_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:Klass:create" }
+    methods:  POST
+
+administration_klass_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:Klass:edit" }
+
+administration_klass_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:Klass:update" }
+    methods:  [POST, PUT]
+
+administration_klass_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:Klass:delete" }
+    methods:  [POST, DELETE]
