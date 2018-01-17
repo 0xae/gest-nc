@@ -5,6 +5,7 @@ namespace Admin\Backend\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class KlassType extends AbstractType
 {
@@ -16,10 +17,15 @@ class KlassType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createdAt')
             ->add('schoolYear')
-            ->add('createdBy')
-            ->add('course')
+            ->add('course', 'entity', array(
+                'class' => 'BackendBundle:Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name',
+              ))
         ;
     }
     

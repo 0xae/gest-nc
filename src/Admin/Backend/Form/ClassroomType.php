@@ -17,9 +17,7 @@ class ClassroomType extends AbstractType
         $builder
             ->add('capacity')
             ->add('name')
-            ->add('createdAt')
             ->add('available')
-            ->add('createdBy')
         ;
     }
     
