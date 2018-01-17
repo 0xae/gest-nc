@@ -5,6 +5,8 @@ namespace Admin\Backend\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
+
 
 class UserType extends AbstractType {
 	/**
@@ -13,11 +15,22 @@ class UserType extends AbstractType {
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
-			->add('utilizador')
-			->add('password')
-			->add('email')
-			->add('estado')
-			->add('ultimo_login')
+                    ->add('name')
+                    ->add('username')
+                    ->add('password')
+                    ->add('code')
+                    ->add('phone')
+                    ->add('birthdate')
+                    ->add('address')
+                    ->add('email')
+                    ->add('fkUserType', 'entity', array(
+                        'class' => 'BackendBundle:Role',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                              ->orderBy('u.description', 'ASC');
+                        },
+                        'choice_label' => 'description',
+                      ))
 		;
 	}
 
@@ -26,7 +39,7 @@ class UserType extends AbstractType {
 	 */
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
 		$resolver->setDefaults(array(
-			'data_class' => 'SgaBundle\Entity\User',
+			'data_class' => 'Admin\Backend\Entity\User',
 		));
 	}
 

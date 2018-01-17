@@ -29,6 +29,17 @@
             <a href="{{ path('administration_user') }}">
               <i class="fa fa-circle-o text-gray"></i> <span>Utilizadores</span></a>
         </li>
+        <li class="treeview active">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Roles</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu menu-open" style="display: block;">
+            <li><a href="{{ path('administration_role') }}"><i class="fa fa-circle-o"></i>Ver Todos</a></li>
+            <li class=""><a href="{{ path('administration_userHasRole') }}"><i class="fa fa-circle-o"></i>Atribuir Roles</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

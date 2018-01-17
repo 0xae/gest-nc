@@ -43,18 +43,12 @@ class Role
     private $createdBy;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="fkUserType")
-     */
-    private $fkUsers;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->fkUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
+
     }
 
 
@@ -76,7 +70,13 @@ class Role
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $roleName = trim(str_replace(' ', '_', strtoupper($description)));
+        $pos = strpos($roleName, 'ROLE');
+        
+        if ($pos != 0 || $pos === false)
+                $roleName = 'ROLE_'.$roleName;
+        
+        $this->description = $roleName;
 
         return $this;
     }
@@ -137,36 +137,4 @@ class Role
         return $this->createdBy;
     }
 
-    /**
-     * Add fkUsers
-     *
-     * @param \Admin\Backend\Entity\User $fkUsers
-     * @return Role
-     */
-    public function addFkUser(\Admin\Backend\Entity\User $fkUsers)
-    {
-        $this->fkUsers[] = $fkUsers;
-
-        return $this;
-    }
-
-    /**
-     * Remove fkUsers
-     *
-     * @param \Admin\Backend\Entity\User $fkUsers
-     */
-    public function removeFkUser(\Admin\Backend\Entity\User $fkUsers)
-    {
-        $this->fkUsers->removeElement($fkUsers);
-    }
-
-    /**
-     * Get fkUsers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFkUsers()
-    {
-        return $this->fkUsers;
-    }
 }
