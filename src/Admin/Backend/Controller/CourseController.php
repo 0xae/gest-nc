@@ -47,7 +47,7 @@ class CourseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_course_show', array('id' => $entity->getId())));
         }
 
         return $this->render('BackendBundle:Course:new.html.twig', array(
@@ -66,7 +66,7 @@ class CourseController extends Controller
     private function createCreateForm(Course $entity)
     {
         $form = $this->createForm(new CourseType(), $entity, array(
-            'action' => $this->generateUrl('course_create'),
+            'action' => $this->generateUrl('administration_course_create'),
             'method' => 'POST',
         ));
 
@@ -146,7 +146,7 @@ class CourseController extends Controller
     private function createEditForm(Course $entity)
     {
         $form = $this->createForm(new CourseType(), $entity, array(
-            'action' => $this->generateUrl('course_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('administration_course_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -175,7 +175,7 @@ class CourseController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_course_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Course:edit.html.twig', array(
@@ -205,7 +205,7 @@ class CourseController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course'));
+        return $this->redirect($this->generateUrl('administration_course'));
     }
 
     /**
@@ -218,7 +218,7 @@ class CourseController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('course_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('administration_course_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

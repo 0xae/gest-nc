@@ -1,30 +1,30 @@
-course:
+administration_course:
     path:     /
     defaults: { _controller: "BackendBundle:Course:index" }
 
-course_show:
+administration_course_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Course:show" }
 
-course_new:
+administration_course_new:
     path:     /new
     defaults: { _controller: "BackendBundle:Course:new" }
 
-course_create:
+administration_course_create:
     path:     /create
     defaults: { _controller: "BackendBundle:Course:create" }
     methods:  POST
 
-course_edit:
+administration_course_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:Course:edit" }
 
-course_update:
+administration_course_update:
     path:     /{id}/update
     defaults: { _controller: "BackendBundle:Course:update" }
     methods:  [POST, PUT]
 
-course_delete:
+administration_course_delete:
     path:     /{id}/delete
     defaults: { _controller: "BackendBundle:Course:delete" }
     methods:  [POST, DELETE]
