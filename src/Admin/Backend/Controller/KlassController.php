@@ -40,6 +40,9 @@ class KlassController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

@@ -23,11 +23,10 @@ class User extends BaseUser
     protected $id;
 
     public function __construct() {
-
-
-		parent::__construct();
-		$this->fkUserType = new \Doctrine\Common\Collections\ArrayCollection();
-	}
+        parent::__construct();
+        $this->fkUserType = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * @var string
