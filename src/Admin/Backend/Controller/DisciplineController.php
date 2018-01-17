@@ -172,7 +172,7 @@ class DisciplineController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_discipline_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_discipline'));
         }
 
         return $this->render('BackendBundle:Discipline:edit.html.twig', array(

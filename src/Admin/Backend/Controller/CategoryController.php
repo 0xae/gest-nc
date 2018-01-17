@@ -175,7 +175,7 @@ class CategoryController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_category'));
         }
 
         return $this->render('BackendBundle:Category:edit.html.twig', array(
