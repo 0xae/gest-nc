@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Classroom
  *
- * @ORM\Table(name="classroom", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="classroom", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="name_UNIQUE", columns={"name"})})
  * @ORM\Entity
  */
 class Classroom
@@ -26,7 +26,7 @@ class Classroom
      *
      * @ORM\Column(name="capacity", type="integer", nullable=true)
      */
-    private $capacity;
+    private $capacity = 25;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class Classroom
      *
      * @ORM\Column(name="available", type="boolean", nullable=false)
      */
-    private $available;
+    private $available = true;
 
     /**
      * @var integer

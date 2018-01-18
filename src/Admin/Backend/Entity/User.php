@@ -24,7 +24,6 @@ class User extends BaseUser
 
     public function __construct() {
         parent::__construct();
-        $this->fkUserType = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createdAt = new \DateTime();
     }
 
@@ -88,17 +87,8 @@ class User extends BaseUser
 
     
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var string
      *
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="fkUsers")
-     * @ORM\JoinTable(name="users_has_user_type",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="fk_users", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="fk_user_type", referencedColumnName="id")
-     *   }
-     * )
      */
     private $fkUserType;
 
@@ -302,35 +292,13 @@ class User extends BaseUser
     }
 
     
-
-    /**
-     * Add fkUserType
-     *
-     * @param \Admin\Backend\Entity\Role $fkUserType
-     * @return User
-     */
-    public function addFkUserType(\Admin\Backend\Entity\Role $fkUserType)
+    public function setFkUserType($fkUserType)
     {
-        $this->fkUserType[] = $fkUserType;
+        $this->fkUserType = $fkUserType;
 
         return $this;
     }
-
-    /**
-     * Remove fkUserType
-     *
-     * @param \Admin\Backend\Entity\Role $fkUserType
-     */
-    public function removeFkUserType(\Admin\Backend\Entity\Role $fkUserType)
-    {
-        $this->fkUserType->removeElement($fkUserType);
-    }
-
-    /**
-     * Get fkUserType
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
+    
     public function getFkUserType()
     {
         return $this->fkUserType;

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ClassroomType extends AbstractType
+class UserHasRoleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,11 @@ class ClassroomType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('capacity')
-            ->add('name')
-            ->add('available')
+            ->add('createdAt')
+            ->add('isActive')
+            ->add('createdBy')
+            ->add('role')
+            ->add('user')
         ;
     }
     
@@ -27,7 +29,7 @@ class ClassroomType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\Backend\Entity\Classroom'
+            'data_class' => 'Admin\Backend\Entity\UserHasRole'
         ));
     }
 
@@ -36,6 +38,6 @@ class ClassroomType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_backend_classroom';
+        return 'admin_backend_userhasrole';
     }
 }

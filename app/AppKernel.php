@@ -16,6 +16,7 @@ class AppKernel extends Kernel {
 			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 			new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
+			new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 			new Admin\Backend\BackendBundle(),			
 			new WebcommandBundle\WebcommandBundle(),
 		);

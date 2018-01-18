@@ -2,32 +2,56 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
      <ul class="sidebar-menu">
-        <li class="header">ADMINISTRA&Ccedil;&Atilde;O</li>
-        <li>
-            <a href="{{ path('administration_course') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Cursos</span></a>
-        </li>
         <li>
             <a href="{{ path('administration_klass') }}">
               <i class="fa fa-circle-o text-gray"></i> <span>Turmas</span></a>
         </li>
         <li>
-            <a href="{{ path('administration_classroom') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Salas</span></a>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Matriculas</span></a>
         </li>
+
+        <li class="header" style="padding:0px;">
+            <a href="javascript:void(0)">
+                <i class="fa fa-cog"></i>
+                ADMINISTRA&Ccedil;&Atilde;O
+            </a>
+        </li>
+
         <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Categorias</span></a>
+            <a href="{{ path('administration_course') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Cursos</span></a>
         </li>
+
         <li>
             <a href="{{ path('administration_discipline') }}">
               <i class="fa fa-circle-o text-gray"></i> <span>Disciplinas</span>
             </a>
         </li>
-        
+
         <li>
-            <a href="{{ path('administration_user') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Utilizadores</span></a>
+            <a href="{{ path('administration_classroom') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Professores</span></a>
+        </li>
+
+        <li>
+            <a href="{{ path('administration_classroom') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Salas</span></a>
+        </li>
+
+        <li class="treeview active">
+          <a href="#">
+            <i class="fa fa-user"></i>
+            <span>Users & Roles</span>
+          </a>
+          <ul class="treeview-menu menu-open" style="display: block;">
+            <li>
+                <a href="{{ path('administration_user') }}">
+                  <i class="fa fa-circle-o text-gray"></i> <span>Utilizadores</span></a>
+            </li>
+            <li><a href="{{ path('administration_role') }}"><i class="fa fa-circle-o"></i>Ver Todos</a></li>
+            <li class=""><a href="{{ path('administration_userHasRole') }}"><i class="fa fa-circle-o"></i>Atribuir Roles</a></li>
+          </ul>
         </li>
       </ul>
     </section>

@@ -6,9 +6,9 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Classroom #{{ entity.id }}</h3>
+                <h3 class="box-title">UserHasRole #{{ entity.id }}</h3>
                 <p>
-                    <a href="{{ path('administration_classroom') }}">
+                    <a href="{{ path('administration_userHasRole') }}">
                         <span class="glyphicon glyphicon-back"></span> Voltar
                     </a>
                 </p>
@@ -23,20 +23,12 @@
                             <td>{{ entity.id }}</td>
                         </tr>
                         <tr>
-                            <th>Capacity</th>
-                            <td>{{ entity.capacity }}</td>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ entity.name }}</td>
-                        </tr>
-                        <tr>
                             <th>Createdat</th>
                             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <th>Available</th>
-                            <td>{{ entity.available }}</td>
+                            <th>Isactive</th>
+                            <td>{{ entity.isActive }}</td>
                         </tr>
                         <tr>
                             <th>Createdby</th>

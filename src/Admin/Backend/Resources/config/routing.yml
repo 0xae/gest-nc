@@ -1,6 +1,10 @@
-backend_administration_Category:
-    resource: "@BackendBundle/Resources/config/routing/category.yml"
-    prefix:   /administration/Category
+backend_administration_userHasRole:
+    resource: "@BackendBundle/Resources/config/routing/userhasrole.yml"
+    prefix:   /administration/userHasRole
+
+backend_administration_role:
+    resource: "@BackendBundle/Resources/config/routing/role.yml"
+    prefix:   /administration/role
 
 backend_administration_user:
     resource: "@BackendBundle/Resources/config/routing/user.yml"

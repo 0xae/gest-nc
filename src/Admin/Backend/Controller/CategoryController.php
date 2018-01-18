@@ -44,7 +44,7 @@ class CategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Category_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_category_show', array('id' => $entity->getId())));
         }
 
         return $this->render('BackendBundle:Category:new.html.twig', array(
@@ -63,7 +63,7 @@ class CategoryController extends Controller
     private function createCreateForm(Category $entity)
     {
         $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administration_Category_create'),
+            'action' => $this->generateUrl('administration_category_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +143,7 @@ class CategoryController extends Controller
     private function createEditForm(Category $entity)
     {
         $form = $this->createForm(new CategoryType(), $entity, array(
-            'action' => $this->generateUrl('administration_Category_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('administration_category_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +172,7 @@ class CategoryController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_category_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Category:edit.html.twig', array(
@@ -202,7 +202,7 @@ class CategoryController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('administration_Category'));
+        return $this->redirect($this->generateUrl('administration_category'));
     }
 
     /**
@@ -215,7 +215,7 @@ class CategoryController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('administration_Category_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('administration_category_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
