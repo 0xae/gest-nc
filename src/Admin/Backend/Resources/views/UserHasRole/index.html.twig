@@ -1,42 +1,58 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content -%}
-
+    
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Listagem de UserHasRole</h3>
+                    <h3 class="box-title">Listagem de User</h3>
 
                     <div class="box-tools">
                         <a class="btn btn-primary" 
-                        href="{{ path('administration_userHasRole_new') }}">
+                        href="{{ path('administration_user_new') }}">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Criar UserHasRole
+                            Criar User
                         </a>
                     </div>
                 </div>
                 <!-- /.box-header -->
-
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover table-striped">
                         <thead>
-                            <tr>                                        <th>ID#</th>
-                                    <th>Createdat</th><th>Isactive</th><th>Createdby</th>                                <th></th>
+                            <tr>
+                                <th>Name</th><th>Code</th>
+                                
+                                {% for name in roleNames %}
+                                    <th>{{ name }}</th>
+                                {% endfor %}
+                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                <tr>                                                                                    <td>
-                                                <a href="{{ path('administration_userHasRole_show', { 'id': entity.id }) }}">
-                                                #{{ entity.id }}
-                                                </a>
-                                            </td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.isActive }}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            <td><a href="{{ path('administration_userHasRole_edit', { 'id': entity.id }) }}">
-<span class="badge badge-primary">
-        EDITAR
-</span>
-</a>
-                                            </td>                                </tr>
+                                <tr>
+                                    <td>{{ entity.name }}</td>
+                                    <td>{{ entity.code }}</td>
+                                    
+                                    {% set i=loop.index0 %}    
+                                    {% for role in roleMappedVal[i] %}
+                                        <td>
+                                        {% if role == 0 %}
+                                            <input type="checkbox" disabled/>
+                                        {% else %}
+                                            <input type="checkbox" checked disabled/>
+                                        {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                    
+                                    <td>
+                                        <a href="{{ path('administration_user_edit', { 'id': entity.id }) }}">
+                                            <span class="badge badge-primary">EDITAR</span>
+                                        </a>
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>

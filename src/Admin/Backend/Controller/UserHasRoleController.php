@@ -23,10 +23,43 @@ class UserHasRoleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BackendBundle:UserHasRole')->findAll();
+        $entities = $em->getRepository('BackendBundle:User')->findAll();
+        
+        $roleNames = array_keys($this->getParameter('security.role_hierarchy.roles'));
+        
+//        echo '<pre>';
+//        print_r($roleNames);
+//        echo '</pre>';
+        
+        foreach($entities as $key=>$entity) {  
+            // create new array and map its value according
+            // to the $roleNames array
+            foreach($entity->getRoles() as $roleVal) {
+                $roleKey = array_search($roleVal, $roleNames);
+                if ($roleKey !== false)
+                    $mappedValues[$key][$roleKey] = 1;
+            }
+            // set missing keys
+            for ($i=0; $i<sizeof($roleNames); $i++)
+                if (!isset($mappedValues[$key][$i]))
+                    $mappedValues[$key][$i] = 0;
+                
+            // order array by keys
+            ksort($mappedValues[$key]);
+        }
+//        echo '<pre>';
+//        print_r($mappedValues);
+//        echo '</pre>';
+//        die;
+        
+        // prepare label for display
+        $roleNames = str_replace('ROLE_', '', $roleNames);
+        $roleNames = str_replace('_', ' ', $roleNames);
 
         return $this->render('BackendBundle:UserHasRole:index.html.twig', array(
             'entities' => $entities,
+            'roleNames'=>$roleNames,
+            'roleMappedVal'=>$mappedValues
         ));
     }
     /**
