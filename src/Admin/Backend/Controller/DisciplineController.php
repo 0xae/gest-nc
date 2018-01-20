@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\Discipline;
 use Admin\Backend\Form\DisciplineType;
+use Admin\Backend\Model\Pagination;
 
 /**
  * Discipline controller.
@@ -18,12 +19,23 @@ class DisciplineController extends Controller {
      *
      */
     public function indexAction() {
-        $em = $this->getDoctrine()->getManager();
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 2;
 
-        $entities = $em->getRepository('BackendBundle:Discipline')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $builder = $em->createQueryBuilder();
+        $q = $builder->select('x')
+            ->from(Discipline::class, 'x')
+            ->setMaxResults($perPage)
+            ->setFirstResult($pageIdx)
+            ->getQuery();
+
+        $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:Discipline:index.html.twig', array(
             'entities' => $entities,
+            'paginate' => $fanta
         ));
     }
 

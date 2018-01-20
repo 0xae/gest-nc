@@ -41,7 +41,8 @@
                                     <td>
                                     {% if entity.createdAt %}
                                         {{ entity.createdAt|date('Y-m-d H:i:s') }}
-                                    {% endif %}</td>                                                                                    
+                                    {% endif %}
+                                    </td>                                                                                    
                                     <td>{{ entity.createdBy }}</td>
                                     <td><a href="{{ path('administration_category_edit', { 'id': entity.id }) }}">
                                         <span class="badge badge-primary">
@@ -53,6 +54,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
                 </div>
                 <!-- /.box-body -->
             </div>

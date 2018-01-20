@@ -25,26 +25,26 @@
                                 <th>ID#</th>
                                 <th>Name</th>
                                 <th>Createdat</th>
-                                <th>Createdby</th>                                
+                                <th>Createdby</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                <tr>                                                                                    
+                                <tr>
                                     <td>
                                         <a href="{{ path('administration_category_show', { 'id': entity.id }) }}">
                                             #{{ entity.id }}
                                         </a>
-                                    </td>                                                                                    
-                                    <td>{{ entity.name }}</td>                                                                                    
-                                    <td>{% if entity.createdAt %}
-                                            {{ entity.createdAt|date('Y-m-d H:i:s') }}
-                                        {% endif %}
-                                    </td>                                                                                    
-                                    <td>{{ entity.createdBy }}</td>                                            
+                                    </td>                                                                
+                                    <td>{{ entity.name }}</td>                                                                               
                                     <td>
-                                        <a href="{{ path('administration_category_edit', { 'id': entity.id }) }}">
+                                    {% if entity.createdAt %}
+                                        {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                                    {% endif %}
+                                    </td>                                                                                    
+                                    <td>{{ entity.createdBy }}</td>
+                                    <td><a href="{{ path('administration_category_edit', { 'id': entity.id }) }}">
                                         <span class="badge badge-primary">
                                                 EDITAR
                                         </span>
@@ -54,6 +54,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    {{ pagerfanta(paginate) }}
                 </div>
                 <!-- /.box-body -->
             </div>

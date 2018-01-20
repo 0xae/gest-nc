@@ -21,25 +21,43 @@
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover table-striped">
                         <thead>
-                            <tr>                                        <th>ID#</th>
-                                    <th>Name</th><th>Createdat</th><th>Code</th><th>Createdby</th>                                <th></th>
+                            <tr>                                        
+                                <th>ID#</th>
+                                <th>Name</th>
+                                <th>Createdat</th>
+                                <th>Code</th>
+                                <th>Createdby</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                <tr>                                                                                    <td>
-                                                <a href="{{ path('administration_discipline_show', { 'id': entity.id }) }}">
-                                                #{{ entity.id }}
-                                                </a>
-                                            </td>                                                                                    <td>{{ entity.name }}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.code }}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            <td><a href="{{ path('administration_discipline_edit', { 'id': entity.id }) }}">
-<span class="badge badge-primary">
-        EDITAR
-</span>
-</a>
-                                            </td>                                </tr>
+                                <tr>                                                                                   
+                                    <td>
+                                        <a href="{{ path('administration_discipline_show', { 'id': entity.id }) }}">
+                                            #{{ entity.id }}
+                                        </a>
+                                    </td>                                                                             
+                                    <td>{{ entity.name }}</td>                                                                                  
+                                    <td>
+                                        {% if entity.createdAt %}
+                                            {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                                        {% endif %}
+                                    </td>                                                                                    
+                                    <td>{{ entity.code }}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            
+                                    <td>
+                                        <a href="{{ path('administration_discipline_edit', { 'id': entity.id }) }}">
+                                        <span class="badge badge-primary">
+                                                EDITAR
+                                        </span>
+                                        </a>
+                                    </td>                                
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
                 </div>
                 <!-- /.box-body -->
             </div>
