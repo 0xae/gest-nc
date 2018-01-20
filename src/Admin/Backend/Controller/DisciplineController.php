@@ -20,7 +20,7 @@ class DisciplineController extends Controller {
      *
      */
     public function indexAction() {
-        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $pageIdx = !array_key_exists('page', $_GET) ? 0 : $_GET['page'];
         $perPage = 2;
         $em = $this->getDoctrine()->getManager();
         $builder = $em->createQueryBuilder();

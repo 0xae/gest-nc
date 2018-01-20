@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\Backend\Entity\Category;
 use Admin\Backend\Form\CategoryType;
 use Admin\Backend\Model\Pagination;
+use Admin\Backend\Model\Filter;
 
 /**
  * Category controller.
@@ -19,11 +20,11 @@ class CategoryController extends Controller {
      *
      */
     public function indexAction() {
-        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $pageIdx = !array_key_exists('page', $_GET) ? 0 : $_GET['page'];
         $perPage = 10;
         $em = $this->getDoctrine()->getManager();
 
-        $q = Filter::from($em, Category::class, $perPage, $pageIdx);                    
+        $q = Filter::from($em, Category::class, $perPage, $pageIdx);              
         $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();
 

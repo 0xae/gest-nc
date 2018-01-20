@@ -1,0 +1,30 @@
+administration_professor:
+    path:     /
+    defaults: { _controller: "BackendBundle:Professor:index" }
+
+administration_professor_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:Professor:show" }
+
+administration_professor_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:Professor:new" }
+
+administration_professor_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:Professor:create" }
+    methods:  POST
+
+administration_professor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:Professor:edit" }
+
+administration_professor_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:Professor:update" }
+    methods:  [POST, PUT]
+
+administration_professor_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:Professor:delete" }
+    methods:  [POST, DELETE]
