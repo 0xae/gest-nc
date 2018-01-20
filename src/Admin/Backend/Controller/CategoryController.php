@@ -22,13 +22,8 @@ class CategoryController extends Controller {
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
         $perPage = 10;
         $em = $this->getDoctrine()->getManager();
-        $builder = $em->createQueryBuilder();
-        $q = $builder->select('x')
-            ->from(Category::class, 'x')
-            ->setMaxResults($perPage)
-            ->setFirstResult($pageIdx)
-            ->getQuery();
 
+        $q = Filter::from($em, Category::class, $perPage, $pageIdx);                    
         $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();
 
