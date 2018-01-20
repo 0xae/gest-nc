@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\User;
-use Admin\Backend\Form\UserType;
+use Admin\Backend\Form\ProfessorType;
 use Admin\Backend\Model\Filter;
 use Admin\Backend\Model\Pagination;
 
@@ -15,7 +15,6 @@ use Admin\Backend\Model\Pagination;
  *
  */
 class ProfessorController extends Controller {
-
     /**
      * Lists all professors
      *
@@ -28,6 +27,7 @@ class ProfessorController extends Controller {
         $builder = $em->createQueryBuilder();
         $q = $builder->select('x')
             ->from(User::class, 'x')
+            ->where("x.roles LIKE '%ROLE_PROFESSOR%'")
             ->setMaxResults(10)
             ->setFirstResult(0)
             ->getQuery();        
@@ -52,13 +52,16 @@ class ProfessorController extends Controller {
         if ($form->isValid()) {
             $userId = $this->getUser()->getId();
             $entity->setCreatedBy($userId);
-            $entity->addRole($entity->getFkUserType()->getDescription());
+            $username = substr($entity->getEmail(), 0, strpos($entity->getEmail(), "@"));
+            $entity->setUsername($username);
+            $entity->setPassword("123");
+            $entity->addRole('ROLE_PROFESSOR');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_professor_show', array('id' => $entity->getId())));
         }
 
         return $this->render('BackendBundle:Professor:new.html.twig', array(
@@ -75,8 +78,8 @@ class ProfessorController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(User $entity) {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('administration_user_create'),
+        $form = $this->createForm(new ProfessorType(), $entity, array(
+            'action' => $this->generateUrl('administration_professor_create'),
             'method' => 'POST',
         ));
 
@@ -151,8 +154,8 @@ class ProfessorController extends Controller {
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(User $entity) {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('administration_user_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ProfessorType(), $entity, array(
+            'action' => $this->generateUrl('administration_professor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +174,7 @@ class ProfessorController extends Controller {
         $entity = $em->getRepository('BackendBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException('Professor invalido.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -180,8 +183,7 @@ class ProfessorController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_professor_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Professor:edit.html.twig', array(
@@ -211,7 +213,7 @@ class ProfessorController extends Controller {
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('administration_user'));
+        return $this->redirect($this->generateUrl('administration_professor'));
     }
 
     /**
@@ -223,7 +225,7 @@ class ProfessorController extends Controller {
      */
     private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('administration_user_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('administration_professor_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

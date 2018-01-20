@@ -12,7 +12,7 @@ class Pagination {
      * $q is an instance of Query
      *
      */
-    public static function fromQuery($q, $perPage=5, $page=0) {
+    public static function fromQuery($q, $perPage, $page) {
         $fanta = new PagerFanta(new DoctrineORMAdapter($q));
 
         try {

@@ -8,7 +8,7 @@
             <div class="box-header">
                 <h3 class="box-title">User #{{ entity.id }}</h3>
                 <p>
-                    <a href="{{ path('administration_user') }}">
+                    <a href="{{ path('administration_professor') }}">
                         <span class="glyphicon glyphicon-back"></span> Voltar
                     </a>
                 </p>
@@ -60,6 +60,33 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+
+        <div>
+            <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Turmas</a>
+                </li>
+                <li role="presentation">
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Disciplinas</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="klass">
+                    List turmas
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="discipline">
+                    Listar disciplinas
+                </div>
+            </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
