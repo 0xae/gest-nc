@@ -292,6 +292,8 @@ class User extends BaseUser
     }
 
     
+
+    
     public function setFkUserType($fkUserType)
     {
         $this->fkUserType = $fkUserType;

@@ -42,7 +42,9 @@ class UserController extends Controller
         if ($form->isValid()) {
             $userId = $this->getUser()->getId();
             $entity->setCreatedBy($userId);
-            $entity->addRole($entity->getFkUserType()->getDescription());
+            
+            foreach ($entity->getFkUserType() as $role)
+                $entity->addRole($role);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -66,9 +68,13 @@ class UserController extends Controller
      */
     private function createCreateForm(User $entity)
     {
+        $sysRoles = array_keys($this->getParameter('security.role_hierarchy.roles'));
+        
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('administration_user_create'),
             'method' => 'POST',
+            'sysRoles' => array_combine($sysRoles, $sysRoles),
+            'userRoles'=>$entity->getRoles()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -146,9 +152,13 @@ class UserController extends Controller
     */
     private function createEditForm(User $entity)
     {
+        $sysRoles = array_keys($this->getParameter('security.role_hierarchy.roles'));
+        
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('administration_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'sysRoles' => array_combine($sysRoles, $sysRoles),
+            'userRoles'=>$entity->getRoles()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -174,6 +184,17 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $newRoles = $entity->getFkUserType();
+            $oldRoles = $entity->getRoles();
+            
+            foreach ($oldRoles as $role)
+                if (!in_array($role, $newRoles))
+                        $entity->removeRole($role);
+            
+            foreach ($newRoles as $role)
+                $entity->addRole($role);
+                        
             $em->flush();
 
             return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));

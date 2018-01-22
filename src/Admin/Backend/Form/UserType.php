@@ -25,13 +25,12 @@ class UserType extends AbstractType {
                     ->add('birthdate')
                     ->add('address')
                     ->add('email')
-                    ->add('fkUserType', 'entity', array(
-                        'class' => 'BackendBundle:Role',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                              ->orderBy('u.description', 'ASC');
-                        },
-                        'choice_label' => 'description',
+                    ->add('fkUserType', 'choice', array(
+                        'choices' => $options['sysRoles'],
+                        'multiple'=>true,
+                        'expanded'=>true,
+                        'required'=>true,
+                        'data' => $options['userRoles']
                       ))
 		;
 	}
@@ -42,6 +41,9 @@ class UserType extends AbstractType {
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
 		$resolver->setDefaults(array(
 			'data_class' => 'Admin\Backend\Entity\User',
+                    	'sysRoles' => null,
+                    	'userRoles' => null,
+
 		));
 	}
 
