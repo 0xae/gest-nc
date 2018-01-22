@@ -3,11 +3,18 @@ namespace Admin\Backend\Model;
 
 use Pagerfanta\Pagerfanta,
     Pagerfanta\Adapter\DoctrineORMAdapter,
+    Symfony\Component\DependencyInjection\ContainerInterface as Container,
     Pagerfanta\Exception\NotValidCurrentPageException;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Pagination {
+
+    function __construct(Container $container) {
+        
+           $this->container =$container;
+       } 
+    
     /**
      * $q is an instance of Query
      *

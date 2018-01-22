@@ -1,4 +1,4 @@
-services:
-#    sga.example:
-#        class: SgaBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+# services:
+#   sga.admin.table.pagination:
+#         class: Admin\Backend\Model\Pagination
+#         arguments: [@service_container]

@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\Discipline;
 use Admin\Backend\Form\DisciplineType;
-use Admin\Backend\Model\Pagination;
 use Admin\Backend\Model\Filter;
 
 /**
@@ -26,7 +25,10 @@ class DisciplineController extends Controller {
         $builder = $em->createQueryBuilder();
 
         $q = Filter::from($em, Discipline::class, $perPage, $pageIdx);
-        $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
+ 
+        $pagination = $this->container->get('sga.admin.table.pagination');
+
+        $fanta = $pagination::fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:Discipline:index.html.twig', array(
