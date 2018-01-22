@@ -30,6 +30,10 @@ backend_administration_category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/category
 
+backend_administration_professor:
+    resource: "@BackendBundle/Resources/config/routing/professor.yml"
+    prefix:   /administration/professor
+
 sga_homepage:
     path:     /
     defaults: { _controller: BackendBundle:Security:login }
