@@ -9,17 +9,14 @@ use Pagerfanta\Pagerfanta,
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Pagination {
-
-    function __construct(Container $container) {
-        
-           $this->container =$container;
-       } 
+    public function __construct(Container $container) {    
+        $this->container = $container;
+    } 
     
     /**
      * $q is an instance of Query
-     *
      */
-    public static function fromQuery($q, $perPage, $page) {
+    public function fromQuery($q, $perPage, $page) {
         $fanta = new PagerFanta(new DoctrineORMAdapter($q));
 
         try {

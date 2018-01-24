@@ -24,11 +24,14 @@ class DisciplineController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $builder = $em->createQueryBuilder();
 
-        $q = Filter::from($em, Discipline::class, $perPage, $pageIdx);
- 
-        $pagination = $this->container->get('sga.admin.table.pagination');
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, Discipline::class, $perPage, $pageIdx);
+        
+        $fanta = $this->container
+                    ->get('sga.admin.table.pagination')
+                    ->fromQuery($q, $perPage, $pageIdx);
 
-        $fanta = $pagination::fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:Discipline:index.html.twig', array(
