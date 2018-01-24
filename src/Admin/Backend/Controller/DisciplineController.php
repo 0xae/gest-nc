@@ -27,7 +27,7 @@ class DisciplineController extends Controller {
         $q = $this->container
             ->get('sga.admin.filter')
             ->from($em, Discipline::class, $perPage, $pageIdx);
-        
+
         $fanta = $this->container
                     ->get('sga.admin.table.pagination')
                     ->fromQuery($q, $perPage, $pageIdx);

@@ -124,7 +124,7 @@ class ProfessorController extends Controller {
         $editForm = $this->createEditForm($entity);
         $addDisciplineForm = $this->createTeacherDisciplineForm($entity);
         $addKlassForm = $this->createTeacherKlassForm($entity);
-        
+
         $data = $em->getRepository('BackendBundle:TeacherDiscipline')   
                    ->findBy(['teacher' => $id]);
         foreach ($data as $td) {
@@ -233,6 +233,13 @@ class ProfessorController extends Controller {
         return $form;
     }
 
+    /**
+     * A form to add a discipline to a professor
+     *
+     * @param User $prof The professor
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createTeacherDisciplineForm($prof) {
         $entity = new TeacherDiscipline();
         $entity->setTeacher($prof);
@@ -246,6 +253,13 @@ class ProfessorController extends Controller {
         return $form;
     }
 
+    /**
+     * A form to add a klass to a professor
+     *
+     * @param User $prof The professor
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createTeacherKlassForm($prof) {
         $entity = new UserHasKlass();
         $entity->setUser($prof);
