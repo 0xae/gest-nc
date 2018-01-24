@@ -58,6 +58,7 @@ class ProfessorController extends Controller {
             $entity->setCreatedBy($userId);
             $username = substr($entity->getEmail(), 0, strpos($entity->getEmail(), "@"));
             $entity->setUsername($username);
+            // XXX: remove this
             $entity->setPassword("123");
             $entity->addRole('ROLE_PROFESSOR');
 
@@ -73,7 +74,6 @@ class ProfessorController extends Controller {
             'form'   => $form->createView(),
         ));
     }
-
 
     /**
      * Displays a form to create a new User entity.
@@ -242,7 +242,7 @@ class ProfessorController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Adicionar'));
         return $form;
     }
 
@@ -255,7 +255,7 @@ class ProfessorController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Adicionar'));
 
         return $form;
     }
