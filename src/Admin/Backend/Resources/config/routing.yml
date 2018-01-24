@@ -1,3 +1,7 @@
+backend_category:
+    resource: "@BackendBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
 backend_administration_UserHasKlass:
     resource: "@BackendBundle/Resources/config/routing/userhasklass.yml"
     prefix:   /administration/UserHasKlass

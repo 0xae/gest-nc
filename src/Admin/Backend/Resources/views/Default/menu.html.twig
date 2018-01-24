@@ -2,54 +2,58 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
      <ul class="sidebar-menu">
-        <li>
-            <a href="{{ path('administration_klass') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Turmas</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_klass') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Matriculas</span></a>
+        <li class="header active" style="padding:0px;">
+            <a href="javascript:void(0)" >
+                <i class="fa fa-home"></i>
+                HOME
+            </a>
         </li>
 
-        <li class="header" style="padding:0px;">
-            <a href="javascript:void(0)">
+        <li>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Sugest&otilde;es</span></a>
+        </li>
+        <li>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Queixas</span></a>
+        </li>
+        <li>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Den&iacute;ncias</span></a>
+        </li>
+        <li>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Reclama&ccedil;&atilde;o interna</span></a>
+        </li>
+        <li>
+            <a href="{{ path('administration_klass') }}">
+              <i class="fa fa-circle-o text-gray"></i> <span>Reclama&ccedil;&atilde;o interna</span></a>
+        </li>
+
+        <li class="header active" style="padding:0px;">
+            <a href="javascript:void(0)" >
                 <i class="fa fa-cog"></i>
                 ADMINISTRA&Ccedil;&Atilde;O
             </a>
         </li>
 
         <li>
-            <a href="{{ path('administration_course') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Cursos</span></a>
+            <a href="{{ path('administration_user') }}">
+              {# <i class="fa fa-circle-o text-gray"></i>  #}
+              <span>Utilizadores</span></a>
         </li>
 
         <li>
             <a href="{{ path('administration_discipline') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Disciplinas</span>
+              {# <i class="fa fa-circle-o text-gray"></i>  #}
+              <span>Entidades</span>
             </a>
         </li>
 
         <li>
             <a href="{{ path('administration_professor') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Professores</span></a>
-        </li>
-
-        <li>
-            <a href="{{ path('administration_classroom') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Salas</span></a>
-        </li>
-
-        <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-user"></i>
-            <span>Users & Roles</span>
-          </a>
-          <ul class="treeview-menu menu-open" style="display: block;">
-            <li>
-                <a href="{{ path('administration_user') }}">
-                  <i class="fa fa-circle-o text-gray"></i> <span>Utilizadores</span></a>
-            </li>
-          </ul>
+              {# <i class="fa fa-circle-o text-gray"></i> #}
+               <span>Permiss&otilde;es</span></a>
         </li>
       </ul>
     </section>
