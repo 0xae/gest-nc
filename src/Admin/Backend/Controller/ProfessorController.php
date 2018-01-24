@@ -7,8 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\ProfessorType;
-use Admin\Backend\Model\Filter;
-use Admin\Backend\Model\Pagination;
 
 /**
  * Professor controller.
@@ -30,9 +28,10 @@ class ProfessorController extends Controller {
             ->where("x.roles LIKE '%ROLE_PROFESSOR%'")
             ->setMaxResults(10)
             ->setFirstResult(0)
-            ->getQuery();        
+            ->getQuery();
 
-        $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
+        $pagination = $this->container->get('sga.admin.table.pagination');
+        $fanta = $pagination::fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();        
 
         return $this->render('BackendBundle:Professor:index.html.twig', array(

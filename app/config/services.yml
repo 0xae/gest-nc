@@ -5,5 +5,9 @@ parameters:
 
 services:
   sga.admin.table.pagination:
-        class: Admin\Backend\Model\Pagination
-        arguments: [@service_container]
+      class: Admin\Backend\Model\Pagination
+      arguments: [@service_container]
+
+  sga.admin.filter:
+      class: Admin\Backend\Model\Filter
+      arguments: [@service_container]

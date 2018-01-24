@@ -24,8 +24,14 @@ class CategoryController extends Controller {
         $perPage = 10;
         $em = $this->getDoctrine()->getManager();
 
-        $q = Filter::from($em, Category::class, $perPage, $pageIdx);              
-        $fanta = Pagination::fromQuery($q, $perPage, $pageIdx);
+        $q = $this->container
+                ->get('sga.admin.filter')
+                ->from($em, Category::class, $perPage, $pageIdx);
+
+        $fanta = $this->container
+                ->get('sga.admin.table.pagination')
+                ->fromQuery($q, $perPage, $pageIdx);
+
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:Category:index.html.twig', array(
