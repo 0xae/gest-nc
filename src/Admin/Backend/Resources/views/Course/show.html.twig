@@ -72,12 +72,12 @@
                                         <th>Nome</th>
                                         <th>Ano Lectivo</th>
                                     </tr>
-                                    <tr>
-                                        {% for class in classes %}
+                                    {% for class in classes %}
+                                        <tr>
                                             <td>{{class.name}}</td>
                                             <td>{{class.schoolYear|date('Y')}}</td>
-                                        {% endfor %}
-                                    </tr>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
 
@@ -96,12 +96,14 @@
                                     <tr>
                                         <th>Nome</th>
                                     </tr>
-                                    <tr>
-{#                                        {{dump(disciplines)}}#}
-                                        {% for discipline in disciplines %}
+                                    {#                                        {{dump(disciplines)}}#}
+                                    {% for discipline in disciplines %}
+                                        <tr>
+
                                             <td>{{discipline.name}}</td>
-                                        {% endfor %}
-                                    </tr>
+                                        </tr>
+
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
