@@ -3,15 +3,14 @@
 namespace Admin\Backend\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use FOS\UserBundle\Entity\User as BaseUser;
 /**
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="entity", columns={"entity"})})
  * @ORM\Entity
  */
-class User
-{
+class User extends BaseUser {
     /**
      * @var integer
      *
@@ -19,7 +18,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -64,13 +63,6 @@ class User
     private $createdBy;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=128, nullable=false)
-     */
-    private $password;
-
-    /**
      * @var \Admin\Backend\Entity\AppEntity
      *
      * @ORM\ManyToOne(targetEntity="Admin\Backend\Entity\AppEntity")
@@ -80,7 +72,10 @@ class User
      */
     private $entity;
 
-
+    public function __construct() {
+        parent::__construct();
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id

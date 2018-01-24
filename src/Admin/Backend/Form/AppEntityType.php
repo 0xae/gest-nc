@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryType extends AbstractType
+class AppEntityType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,7 +27,7 @@ class CategoryType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\Backend\Entity\Category'
+            'data_class' => 'Admin\Backend\Entity\AppEntity'
         ));
     }
 
@@ -36,6 +36,6 @@ class CategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_backend_category';
+        return 'admin_backend_appentity';
     }
 }

@@ -10,7 +10,7 @@
 
                     <div class="box-tools">
                         <a class="btn btn-primary" 
-                        href="{{ path('category_new') }}">
+                        href="{{ path('administration_category_new') }}">
                             <span class="glyphicon glyphicon-plus"></span>
                             Criar Category
                         </a>
@@ -28,10 +28,10 @@
                         <tbody>
                             {% for entity in entities %}
                                 <tr>                                                                                    <td>
-                                                <a href="{{ path('category_show', { 'id': entity.id }) }}">
+                                                <a href="{{ path('administration_category_show', { 'id': entity.id }) }}">
                                                 #{{ entity.id }}
                                                 </a>
-                                            </td>                                                                                    <td>{{ entity.name }}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            <td><a href="{{ path('category_edit', { 'id': entity.id }) }}">
+                                            </td>                                                                                    <td>{{ entity.name }}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            <td><a href="{{ path('administration_category_edit', { 'id': entity.id }) }}">
 <span class="badge badge-primary">
         EDITAR
 </span>
@@ -40,8 +40,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
-                </div>
+                                    </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->

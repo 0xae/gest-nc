@@ -1,10 +1,14 @@
-backend_administration_user:
-    resource: "@BackendBundle/Resources/config/routing/user.yml"
-    prefix:   /administration/user
+backend_administration_entities:
+    resource: "@BackendBundle/Resources/config/routing/appentity.yml"
+    prefix:   /administration/entities
 
 backend_administration_category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/category
+
+backend_administration_user:
+    resource: "@BackendBundle/Resources/config/routing/user.yml"
+    prefix:   /administration/user
 
 sga_homepage:
     path:     /
