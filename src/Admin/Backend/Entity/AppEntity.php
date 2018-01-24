@@ -5,12 +5,12 @@ namespace Admin\Backend\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * AppEntity
  *
- * @ORM\Table(name="category", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="app_entity", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
-class Category
+class AppEntity
 {
     /**
      * @var integer
@@ -31,14 +31,14 @@ class Category
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\Column(name="created_by", type="bigint", nullable=true)
      */
     private $createdBy;
 
@@ -58,7 +58,7 @@ class Category
      * Set name
      *
      * @param string $name
-     * @return Category
+     * @return AppEntity
      */
     public function setName($name)
     {
@@ -81,7 +81,7 @@ class Category
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return Category
+     * @return AppEntity
      */
     public function setCreatedAt($createdAt)
     {
@@ -104,7 +104,7 @@ class Category
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return Category
+     * @return AppEntity
      */
     public function setCreatedBy($createdBy)
     {

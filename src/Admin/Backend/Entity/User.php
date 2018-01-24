@@ -3,44 +3,30 @@
 namespace Admin\Backend\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\User as BaseUser;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
  *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="school_id_UNIQUE", columns={"code"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="entity", columns={"entity"})})
  * @ORM\Entity
  */
-class User extends BaseUser
+class User
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
-
-    public function __construct() {
-        parent::__construct();
-        $this->createdAt = new \DateTime();
-    }
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
      */
     private $name;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="birthdate", type="date", nullable=true)
-     */
-    private $birthdate;
 
     /**
      * @var integer
@@ -64,13 +50,6 @@ class User extends BaseUser
     private $photoDir;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=10, nullable=true)
-     */
-    private $code;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -80,22 +59,36 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="integer", nullable=true)
+     * @ORM\Column(name="created_by", type="bigint", nullable=true)
      */
     private $createdBy;
-    
+
     /**
      * @var string
      *
+     * @ORM\Column(name="password", type="string", length=128, nullable=false)
      */
-    private $fkUserType;
+    private $password;
+
+    /**
+     * @var \Admin\Backend\Entity\AppEntity
+     *
+     * @ORM\ManyToOne(targetEntity="Admin\Backend\Entity\AppEntity")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="entity", referencedColumnName="id")
+     * })
+     */
+    private $entity;
+
+
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -105,8 +98,10 @@ class User extends BaseUser
      * @param string $name
      * @return User
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
@@ -115,28 +110,9 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
-    }
-
-    /**
-     * Set birthdate
-     *
-     * @param \DateTime $birthdate
-     * @return User
-     */
-    public function setBirthdate($birthdate) {
-        $this->birthdate = $birthdate;
-        return $this;
-    }
-
-    /**
-     * Get birthdate
-     *
-     * @return \DateTime 
-     */
-    public function getBirthdate() {
-        return $this->birthdate;
     }
 
     /**
@@ -145,8 +121,10 @@ class User extends BaseUser
      * @param integer $phone
      * @return User
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -155,7 +133,8 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
@@ -165,8 +144,10 @@ class User extends BaseUser
      * @param string $address
      * @return User
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
+
         return $this;
     }
 
@@ -175,7 +156,8 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
@@ -185,8 +167,10 @@ class User extends BaseUser
      * @param string $photoDir
      * @return User
      */
-    public function setPhotoDir($photoDir) {
+    public function setPhotoDir($photoDir)
+    {
         $this->photoDir = $photoDir;
+
         return $this;
     }
 
@@ -195,28 +179,9 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getPhotoDir() {
+    public function getPhotoDir()
+    {
         return $this->photoDir;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return User
-     */
-    public function setCode($code) {
-        $this->code = $code;
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode() {
-        return $this->code;
     }
 
     /**
@@ -225,8 +190,10 @@ class User extends BaseUser
      * @param \DateTime $createdAt
      * @return User
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -235,7 +202,8 @@ class User extends BaseUser
      *
      * @return \DateTime 
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -245,8 +213,10 @@ class User extends BaseUser
      * @param integer $createdBy
      * @return User
      */
-    public function setCreatedBy($createdBy) {
+    public function setCreatedBy($createdBy)
+    {
         $this->createdBy = $createdBy;
+
         return $this;
     }
 
@@ -255,16 +225,54 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->createdBy;
-    }    
-    
-    public function setFkUserType($fkUserType) {
-        $this->fkUserType = $fkUserType;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
         return $this;
     }
-    
-    public function getFkUserType() {
-        return $this->fkUserType;
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param \Admin\Backend\Entity\AppEntity $entity
+     * @return User
+     */
+    public function setEntity(\Admin\Backend\Entity\AppEntity $entity = null)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \Admin\Backend\Entity\AppEntity 
+     */
+    public function getEntity()
+    {
+        return $this->entity;
     }
 }
