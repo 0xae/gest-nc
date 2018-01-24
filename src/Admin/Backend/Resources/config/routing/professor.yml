@@ -19,6 +19,10 @@ administration_professor_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:Professor:edit" }
 
+administration_professor_add_discipline:
+    path:     /{id}/add/discipline
+    defaults: { _controller: "BackendBundle:Professor:addDiscipline" }
+
 administration_professor_update:
     path:     /{id}/update
     defaults: { _controller: "BackendBundle:Professor:update" }

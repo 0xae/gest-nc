@@ -7,7 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\User;
 use Admin\Backend\Entity\TeacherDiscipline;
+use Admin\Backend\Entity\Discipline;
 use Admin\Backend\Form\ProfessorType;
+use Admin\Backend\Form\TeacherDisciplineType;
+use Admin\Backend\Entity\UserHasKlass;
+use Admin\Backend\Form\UserHasKlassType;
 
 /**
  * Professor controller.
@@ -19,7 +23,7 @@ class ProfessorController extends Controller {
      *
      */
     public function indexAction() {
-        $perPage = 10;
+        $perPage = 2;
         $pageIdx = !array_key_exists('page', $_GET) ? 0 : $_GET['page'];
         $em = $this->getDoctrine()->getManager();
 
@@ -27,12 +31,12 @@ class ProfessorController extends Controller {
         $q = $builder->select('x')
             ->from(User::class, 'x')
             ->where("x.roles LIKE '%ROLE_PROFESSOR%'")
-            ->setMaxResults(10)
-            ->setFirstResult(0)
+            ->setMaxResults($perPage)
+            ->setFirstResult($pageIdx)
             ->getQuery();
 
-        $pagination = $this->container->get('sga.admin.table.pagination');
-        $fanta = $pagination::fromQuery($q, $perPage, $pageIdx);
+        $fanta = $this->container->get('sga.admin.table.pagination')
+                 ->fromQuery($q, $perPage, $pageIdx);
         $entities = $q->getResult();        
 
         return $this->render('BackendBundle:Professor:index.html.twig', array(
@@ -70,23 +74,6 @@ class ProfessorController extends Controller {
         ));
     }
 
-    /**
-     * Creates a form to create a User entity.
-     *
-     * @param User $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(User $entity) {
-        $form = $this->createForm(new ProfessorType(), $entity, array(
-            'action' => $this->generateUrl('administration_professor_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
 
     /**
      * Displays a form to create a new User entity.
@@ -135,7 +122,9 @@ class ProfessorController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-
+        $addDisciplineForm = $this->createTeacherDisciplineForm($entity);
+        $addKlassForm = $this->createTeacherKlassForm($entity);
+        
         $data = $em->getRepository('BackendBundle:TeacherDiscipline')   
                    ->findBy(['teacher' => $id]);
         foreach ($data as $td) {
@@ -156,26 +145,10 @@ class ProfessorController extends Controller {
             'edit_form' => $editForm->createView(),
             'courses' => $courses,
             'klasses' => $klasses,
-            'disciplines' => $disciplines
+            'disciplines' => $disciplines,
+            'add_discipline_form' => $addDisciplineForm->createView(),
+            'add_klass_form' => $addKlassForm->createView()
         ));
-    }
-
-    /**
-    * Creates a form to edit a User entity.
-    *
-    * @param User $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(User $entity) {
-        $form = $this->createForm(new ProfessorType(), $entity, array(
-            'action' => $this->generateUrl('administration_professor_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
     }
 
     /**
@@ -228,6 +201,81 @@ class ProfessorController extends Controller {
         }
 
         return $this->redirect($this->generateUrl('administration_professor'));
+    }
+
+    public function addDisciplineAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:User')->find($id);
+
+        $editForm = $this->createAddDiscipline($entity);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isValid()) {
+            
+        }
+    }
+
+    /**
+    * Creates a form to edit a User entity.
+    *
+    * @param User $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(User $entity) {
+        $form = $this->createForm(new ProfessorType(), $entity, array(
+            'action' => $this->generateUrl('administration_professor_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    private function createTeacherDisciplineForm($prof) {
+        $entity = new TeacherDiscipline();
+        $entity->setTeacher($prof);
+
+        $form = $this->createForm(new TeacherDisciplineType(), $entity, array(
+            'action' => $this->generateUrl('administration_TeacherDiscipline_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    private function createTeacherKlassForm($prof) {
+        $entity = new UserHasKlass();
+        $entity->setUser($prof);
+
+        $form = $this->createForm(new UserHasKlassType(), $entity, array(
+            'action' => $this->generateUrl('administration_UserHasKlass_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a User entity.
+     *
+     * @param User $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(User $entity) {
+        $form = $this->createForm(new ProfessorType(), $entity, array(
+            'action' => $this->generateUrl('administration_professor_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
     }
 
     /**

@@ -1,3 +1,11 @@
+backend_administration_UserHasKlass:
+    resource: "@BackendBundle/Resources/config/routing/userhasklass.yml"
+    prefix:   /administration/UserHasKlass
+
+backend_administration_TeacherDiscipline:
+    resource: "@BackendBundle/Resources/config/routing/teacherdiscipline.yml"
+    prefix:   /administration/TeacherDiscipline
+
 backend_administration_userHasRole:
     resource: "@BackendBundle/Resources/config/routing/userhasrole.yml"
     prefix:   /administration/userHasRole

@@ -19,9 +19,6 @@ class ProfessorType extends AbstractType {
 		$builder
 			->add('name')
 			->add('email')
-			// ->add('username')
-			// ->add('password')
-			// ->add('code')
 			->add('phone')
 			->add('birthdate')
 			->add('address')

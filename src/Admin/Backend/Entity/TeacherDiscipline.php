@@ -121,7 +121,7 @@ class TeacherDiscipline {
      * @param \Admin\Backend\Entity\Discipline $dicipline
      * @return TeacherDiscipline
      */
-    public function setDicipline(\Admin\Backend\Entity\Discipline $dicipline = null)
+    public function setDiscipline(\Admin\Backend\Entity\Discipline $dicipline = null)
     {
         $this->dicipline = $dicipline;
 
