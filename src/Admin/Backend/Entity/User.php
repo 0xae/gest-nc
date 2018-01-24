@@ -4,6 +4,7 @@ namespace Admin\Backend\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -76,15 +77,12 @@ class User extends BaseUser
      */
     private $createdAt;
 
-    
-
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=true)
      */
     private $createdBy;
-
     
     /**
      * @var string
@@ -92,16 +90,12 @@ class User extends BaseUser
      */
     private $fkUserType;
 
-    
-   
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -111,10 +105,8 @@ class User extends BaseUser
      * @param string $name
      * @return User
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -123,8 +115,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -134,10 +125,8 @@ class User extends BaseUser
      * @param \DateTime $birthdate
      * @return User
      */
-    public function setBirthdate($birthdate)
-    {
+    public function setBirthdate($birthdate) {
         $this->birthdate = $birthdate;
-
         return $this;
     }
 
@@ -146,8 +135,7 @@ class User extends BaseUser
      *
      * @return \DateTime 
      */
-    public function getBirthdate()
-    {
+    public function getBirthdate() {
         return $this->birthdate;
     }
 
@@ -157,10 +145,8 @@ class User extends BaseUser
      * @param integer $phone
      * @return User
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -169,8 +155,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -180,10 +165,8 @@ class User extends BaseUser
      * @param string $address
      * @return User
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-
         return $this;
     }
 
@@ -192,8 +175,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -203,10 +185,8 @@ class User extends BaseUser
      * @param string $photoDir
      * @return User
      */
-    public function setPhotoDir($photoDir)
-    {
+    public function setPhotoDir($photoDir) {
         $this->photoDir = $photoDir;
-
         return $this;
     }
 
@@ -215,8 +195,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getPhotoDir()
-    {
+    public function getPhotoDir() {
         return $this->photoDir;
     }
 
@@ -226,10 +205,8 @@ class User extends BaseUser
      * @param string $code
      * @return User
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
-
         return $this;
     }
 
@@ -238,8 +215,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
@@ -249,10 +225,8 @@ class User extends BaseUser
      * @param \DateTime $createdAt
      * @return User
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -261,12 +235,9 @@ class User extends BaseUser
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
-
-    
 
     /**
      * Set createdBy
@@ -274,10 +245,8 @@ class User extends BaseUser
      * @param integer $createdBy
      * @return User
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
-
         return $this;
     }
 
@@ -286,23 +255,16 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
-    }
-
+    }    
     
-
-    
-    public function setFkUserType($fkUserType)
-    {
+    public function setFkUserType($fkUserType) {
         $this->fkUserType = $fkUserType;
-
         return $this;
     }
     
-    public function getFkUserType()
-    {
+    public function getFkUserType() {
         return $this->fkUserType;
     }
 }

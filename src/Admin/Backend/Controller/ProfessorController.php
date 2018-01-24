@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\User;
+use Admin\Backend\Entity\TeacherDiscipline;
 use Admin\Backend\Form\ProfessorType;
 
 /**
@@ -107,18 +108,14 @@ class ProfessorController extends Controller {
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:User')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Professor invalido.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('BackendBundle:Professor:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity
         ));
     }
 
@@ -128,20 +125,38 @@ class ProfessorController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
+        $courses = [];
+        $disciplines = [];
+        $klasses = [];
 
         $entity = $em->getRepository('BackendBundle:User')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Professor invalido');
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+
+        $data = $em->getRepository('BackendBundle:TeacherDiscipline')   
+                   ->findBy(['teacher' => $id]);
+        foreach ($data as $td) {
+            $disciplines[] = $td->getDiscipline();
+        }
+
+        $data = $em->getRepository('BackendBundle:UserHasKlass')   
+                    ->findBy(['user' => $id]);
+        foreach ($data as $tk) {
+            $klasses[] = [
+                "klass" => $tk->getKlass(),
+                "discipline" => $tk->getDiscipline()
+            ];
+        }
 
         return $this->render('BackendBundle:Professor:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'courses' => $courses,
+            'klasses' => $klasses,
+            'disciplines' => $disciplines
         ));
     }
 

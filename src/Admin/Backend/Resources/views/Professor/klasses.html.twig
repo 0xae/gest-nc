@@ -1,0 +1,24 @@
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>                                        
+            <th>Nome</th>
+            <th>Ano Lectivo</th>
+            <th>Curso</th>
+            <th>Disciplina</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for k in klasses %}
+            <tr>                                                                                    
+                <td>
+                    <a href="{{ path('administration_klass_show', {'id': k.klass.id}) }}">
+                        {{ k.klass.name }}
+                    </a>
+                </td>
+                <td>{{ k.klass.schoolYear }}</td>
+                <td>{{ k.klass.course.name }}</td>
+                <td>{{ k.discipline.name }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

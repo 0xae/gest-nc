@@ -38,7 +38,7 @@ class Klass
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="school_year", type="date", nullable=false)
+     * @ORM\Column(name="school_year", type="text", nullable=false)
      */
     private $schoolYear;
 

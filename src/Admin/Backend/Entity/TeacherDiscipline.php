@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="teacher_discipline", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="users_discipline_UNIQUE", columns={"teacher_id", "dicipline_id"})}, indexes={@ORM\Index(name="fk_users_has_modules_modules1_idx", columns={"dicipline_id"}), @ORM\Index(name="fk_users_has_modules_users1_idx", columns={"teacher_id"})})
  * @ORM\Entity
  */
-class TeacherDiscipline
-{
+class TeacherDiscipline {
     /**
      * @var integer
      *
@@ -134,7 +133,7 @@ class TeacherDiscipline
      *
      * @return \Admin\Backend\Entity\Discipline 
      */
-    public function getDicipline()
+    public function getDiscipline()
     {
         return $this->dicipline;
     }
