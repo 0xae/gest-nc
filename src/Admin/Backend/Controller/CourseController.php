@@ -29,6 +29,7 @@ class CourseController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Course entity.
      *
@@ -74,6 +75,59 @@ class CourseController extends Controller
 
         return $form;
     }
+    
+    private function createAddDisciplinesForm(Course $entity)
+    {
+        $form = $this->createForm(new CourseDisciplinesType(), $entity, array(
+            'action' => $this->generateUrl('administration_course_disciplines_add'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+    
+    private function createEditDisciplinesForm(Course $entity)
+    {
+        $form = $this->createForm(new CourseType(), $entity, array(
+            'action' => $this->generateUrl('administration_course_disciplines_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    
+    private function addDisciplinesAction() {
+        $entity = new Course();
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render('BackendBundle:Course:disciplines_add.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+    
+    private function editDisciplinesAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BackendBundle:Course')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Course entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('BackendBundle:Course:disciplines_edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
 
     /**
      * Displays a form to create a new Course entity.
@@ -99,6 +153,20 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Course')->find($id);
+        $classes = $em->getRepository('BackendBundle:Klass')->findByCourse($id);
+        $disciplines = $em->getRepository('BackendBundle:CourseHasDiscipline')
+                ->createQueryBuilder('cd')
+                ->join('cd.discipline', 'd')
+                ->where('cd.course = :parameter')
+                ->setParameter('parameter',$id)
+                ->select('d.name')
+                ->getQuery()
+                ->getResult();
+        
+//        echo '<pre>';
+//        print_r($classes);
+//        echo '</pre>';
+//        die;
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Course entity.');
@@ -109,6 +177,8 @@ class CourseController extends Controller
         return $this->render('BackendBundle:Course:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'classes'=>$classes,
+            'disciplines'=>$disciplines
         ));
     }
 

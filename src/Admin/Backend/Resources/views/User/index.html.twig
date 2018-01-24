@@ -10,7 +10,7 @@
 
                     <div class="box-tools">
                         <a class="btn btn-primary" 
-                        href="{{ path('administration_user_new') }}">
+                           href="{{ path('administration_user_new') }}">
                             <span class="glyphicon glyphicon-plus"></span>
                             Criar User
                         </a>
@@ -27,7 +27,6 @@
                                 <th>Birthdate</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Photodir</th>
                                 <th>Code</th>
                                 <th>Createdat</th>
                                 <th>Createdby</th>
@@ -39,15 +38,16 @@
                             {% for entity in entities %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('administration_user_show', { 'id': entity.id }) }}">
                                         {{ entity.id }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('administration_user_show', { 'id': entity.id }) }}">
+                                            {{ entity.name }}
                                         </a>
                                     </td>
-                                    <td>{{ entity.name }}</td>
-                                    <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d') }}{% endif %}</td>
                                     <td>{{ entity.phone }}</td>
                                     <td>{{ entity.address }}</td>
-                                    <td>{{ entity.photoDir }}</td>
                                     <td>{{ entity.code }}</td>
                                     <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                     <td>{{ entity.createdBy }}</td>
@@ -59,7 +59,7 @@
                                     <td>
                                         <a href="{{ path('administration_user_edit', { 'id': entity.id }) }}">
                                             <span class="badge badge-primary">
-                                                    EDITAR
+                                                EDITAR
                                             </span>
                                         </a>
                                     </td>
