@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="course_has_discipline", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="courses_discipline_UNIQUE", columns={"course_id", "discipline_id"})}, indexes={@ORM\Index(name="fk_courses_has_modules_modules1_idx", columns={"discipline_id"}), @ORM\Index(name="fk_courses_has_modules_courses1_idx", columns={"course_id"})})
  * @ORM\Entity
  */
-class CourseHasDiscipline
-{
+class CourseHasDiscipline {
+
     /**
      * @var integer
      *
@@ -62,15 +62,16 @@ class CourseHasDiscipline
      */
     private $discipline;
 
-
+    public function __construct() {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -80,8 +81,7 @@ class CourseHasDiscipline
      * @param \DateTime $createdAt
      * @return CourseHasDiscipline
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -92,8 +92,7 @@ class CourseHasDiscipline
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -103,8 +102,7 @@ class CourseHasDiscipline
      * @param integer $hourWorkload
      * @return CourseHasDiscipline
      */
-    public function setHourWorkload($hourWorkload)
-    {
+    public function setHourWorkload($hourWorkload) {
         $this->hourWorkload = $hourWorkload;
 
         return $this;
@@ -115,8 +113,7 @@ class CourseHasDiscipline
      *
      * @return integer 
      */
-    public function getHourWorkload()
-    {
+    public function getHourWorkload() {
         return $this->hourWorkload;
     }
 
@@ -126,8 +123,7 @@ class CourseHasDiscipline
      * @param integer $createdBy
      * @return CourseHasDiscipline
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
 
         return $this;
@@ -138,8 +134,7 @@ class CourseHasDiscipline
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 
@@ -149,8 +144,7 @@ class CourseHasDiscipline
      * @param \Admin\Backend\Entity\Course $course
      * @return CourseHasDiscipline
      */
-    public function setCourse(\Admin\Backend\Entity\Course $course = null)
-    {
+    public function setCourse(\Admin\Backend\Entity\Course $course = null) {
         $this->course = $course;
 
         return $this;
@@ -161,8 +155,7 @@ class CourseHasDiscipline
      *
      * @return \Admin\Backend\Entity\Course 
      */
-    public function getCourse()
-    {
+    public function getCourse() {
         return $this->course;
     }
 
@@ -172,8 +165,7 @@ class CourseHasDiscipline
      * @param \Admin\Backend\Entity\Discipline $discipline
      * @return CourseHasDiscipline
      */
-    public function setDiscipline(\Admin\Backend\Entity\Discipline $discipline = null)
-    {
+    public function setDiscipline(\Admin\Backend\Entity\Discipline $discipline = null) {
         $this->discipline = $discipline;
 
         return $this;
@@ -184,8 +176,8 @@ class CourseHasDiscipline
      *
      * @return \Admin\Backend\Entity\Discipline 
      */
-    public function getDiscipline()
-    {
+    public function getDiscipline() {
         return $this->discipline;
     }
+
 }

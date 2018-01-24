@@ -2,6 +2,15 @@ administration_course:
     path:     /
     defaults: { _controller: "BackendBundle:Course:index" }
 
+administration_course_disciplines:
+    path:     /{id}/disciplines
+    defaults: { _controller: "BackendBundle:Course:editDisciplines" }
+
+administration_course_update_disciplines:
+    path:     /{id}/disciplines/update
+    defaults: { _controller: "BackendBundle:Course:updateDisciplines" }
+    methods:  [POST, PUT]
+
 administration_course_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Course:show" }
