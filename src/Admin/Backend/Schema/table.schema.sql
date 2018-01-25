@@ -26,3 +26,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `author` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(250),
+  `email` VARCHAR(250),
+  `phone` VARCHAR(250),
+  `morada` VARCHAR(250),
+  `localidade` VARCHAR(250),
+
+  `created_at` DATETIME NOT NULL,
+  `created_by` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
