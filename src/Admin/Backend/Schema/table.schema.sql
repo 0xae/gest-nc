@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` VARCHAR(250) NULL,
   `created_at` DATETIME,
   `created_by` INT,
-  `email` VARCHAR(35) NULL,
   `password` VARCHAR(128) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
