@@ -15,67 +15,72 @@
 
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top bg-green" role="navigation">
-    <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-    </a>
-
-    {# <center>
-    <h3>Gest&atilde;o de Den&uacute;ncias, Queixas, Reclama&ccedil;&otilde;es e Sugest&otilde;es</h3>
-    </center> #}
-
-    <!-- Navbar Right Menu -->
-    <div class="navbar-custom-menu">
-
-
-    <ul class="nav navbar-nav">
-        <!-- Messages: style can be found in dropdown.less-->
-        <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-envelope-o"></i>
-                <span class="label label-success">4</span>
+    <div class="row">
+        <div class="col-md-7">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
             </a>
-            <ul class="dropdown-menu">
-                <!-- User image -->
-                <li class="user-header">
-                <p>
-                    <small>{{ 'layout.logged_in_as'|trans({'%username%': app.user.lastlogin|date("d-m-y")}, 'FOSUserBundle') }}</small>
-                </p>
-                </li>
+            
+            <div class="container">
+                <h3 class="app-title">Gest&atilde;o de Den&uacute;ncias, Queixas, Reclama&ccedil;&otilde;es e Sugest&otilde;es</h3>
+                <!-- Navbar Right Menu -->
+            </div>
+        </div>
 
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                <div class="pull-left">
-                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Perfil</a>
-                </div>
+        <div class="col-md-4 pull-right"> 
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                            <p>
+                                <small>{{ 'layout.logged_in_as'|trans({'%username%': app.user.lastlogin|date("d-m-y")}, 'FOSUserBundle') }}</small>
+                            </p>
+                            </li>
 
-                <div class="pull-right">
-                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sair</a>
-                </div>
-                </li>
-            </ul>
-        </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Perfil</a>
+                            </div>
 
-        <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:14px;">
-                <i class="fa fa-user"></i>
-                <strong>{{ app.user.username }}</strong>
-            </a>
+                            <div class="pull-right">
+                                <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sair</a>
+                            </div>
+                            </li>
+                        </ul>
+                    </li>
 
-            <ul class="dropdown-menu">
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                    <div class="pull-left">
-                        <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Minha conta</a>
-                    </div>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:14px;">
+                            <i class="fa fa-user"></i>
+                            <strong>{{ app.user.username }}</strong>
+                        </a>
 
-                    <div class="pull-right">
-                        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sair</a>
-                    </div>
-                </li>
-            </ul>
-        </li>
-    </ul>
+                        <ul class="dropdown-menu">
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Minha conta</a>
+                                </div>
+
+                                <div class="pull-right">
+                                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sair</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+
 </nav>
