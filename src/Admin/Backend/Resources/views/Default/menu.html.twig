@@ -2,131 +2,119 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
      <ul class="sidebar-menu">
-       <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" >
+        <li class="header active" style="padding:0px;">
+            <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 ADMINISTRA&Ccedil;&Atilde;O
             </a>
+
+            <ul class="treeview-menu" style="display: none">
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Gestao de acesso</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Servi&ccedil;os</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Documentos</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Morada/Localidade</span></a>
+                </li>
+            </ul>
         </li>
 
-        <li>
-            <a href="{{ path('administration_user') }}">
-              {# <i class="fa fa-circle-o text-gray"></i>  #}
-              <span>Gestao de acesso</span></a>
-        </li>
-
-        <li>
-            <a href="{{ path('administration_user') }}">
-              {# <i class="fa fa-circle-o text-gray"></i>  #}
-              <span>Servi&ccedil;os</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_user') }}">
-              {# <i class="fa fa-circle-o text-gray"></i>  #}
-              <span>Documentos</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_user') }}">
-              {# <i class="fa fa-circle-o text-gray"></i>  #}
-              <span>Morada/Localidade</span></a>
-        </li>
-
-        <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" >
+        <li class="header tree-view" style="padding:0px;">
+            <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE QUEIXAS/DEN&Uacute;NCIAS
             </a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Registrar Queixa/Denuncia</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Listagem Queixa/Denuncia</span></a>
-        </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Acompanhar Queixa/Denuncia</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Tratar Queixa/Denuncia</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+            <ul class="treeview-menu" style="display: none;">
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Registrar Queixa/Denuncia</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Listagem Queixa/Denuncia</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhar Queixa/Denuncia</span></a>
+                </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Tratar Queixa/Denuncia</span></a>
+                </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                </li>
+            </ul>
         </li>
 
         <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" >
+            <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES/SUGESTAO
             </a>
-        </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Registrar Reclamacao</span>
-            </a>
-        </li>
+            <ul class="treeview-menu" style="display: none;">
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Registrar Reclamacao</span>
+                    </a>
+                </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Listagem Reclamacao</span></a>
-        </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Listagem Reclamacao</span></a>
+                </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Acompanhar Reclamacao</span></a>
-        </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhar Reclamacao</span></a>
+                </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Tratar Reclamacao</span></a>
-        </li>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Tratar Reclamacao</span></a>
+                </li>
 
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                </li>
+            </ul>            
         </li>
 
         <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" >
+            <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 N&Atilde;O CONFORMIDADES
             </a>
         </li>
 
         <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" >
+            <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
-                ESTAT&Iacute;STICA
+                ESTAT&Iacute;STICA                
             </a>
         </li>
-
-        {# <li>
-            <a href="{{ path('administration_sugestao') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Sugest&otilde;es</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Queixas</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Den&uacute;ncias</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Reclama&ccedil;&atilde;o interna</span></a>
-        </li>
-        <li>
-            <a href="{{ path('administration_category') }}">
-              <i class="fa fa-circle-o text-gray"></i> <span>Reclama&ccedil;&atilde;o interna</span></a>
-        </li> #}
       </ul>
     </section>
     <!-- /.sidebar -->
