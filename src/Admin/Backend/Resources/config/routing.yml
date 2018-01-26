@@ -6,6 +6,10 @@ backend_administration_category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/category
 
+backend_administration_sugestao:
+    resource: "@BackendBundle/Resources/config/routing/sugestao.yml"
+    prefix:   /administration/sugestao
+
 backend_administration_user:
     resource: "@BackendBundle/Resources/config/routing/user.yml"
     prefix:   /administration/user
