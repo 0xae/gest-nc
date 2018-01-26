@@ -2,6 +2,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
      <ul class="sidebar-menu">
+        <!-- Administracao -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -17,6 +18,7 @@
             </ul>
         </li>
 
+        <!-- Queixas/Denuncias -->
         <li class="header tree-view" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -48,7 +50,8 @@
                 </li>
             </ul>
         </li>
-
+        
+        <!-- Reclamacoes/sugestoes -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -84,6 +87,7 @@
             </ul>            
         </li>
 
+        <!-- N conformidades -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -91,13 +95,42 @@
             </a>
         </li>
 
+        <!-- Estatistica -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 ESTAT&Iacute;STICA                
             </a>
+
+
+            <ul class="treeview-menu" style="display: none;">
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Relatorio mensal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Relatorio di&aacute;rio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Relatorio de tempo de resposta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Relatorio de n&atilde;o conformidade</span>
+                    </a>
+                </li>
+            </ul>            
         </li>
 
+        <!-- Parametrizacao -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
