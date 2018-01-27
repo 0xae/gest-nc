@@ -201,6 +201,7 @@ class ModuleController extends Controller {
      */
     private function createStageProfileForm($module) {
         $entity = new StageProfile();
+        $entity->setModule($module);
         $form = $this->createForm(new StageProfileType(), $entity, array(
             'action' => $this->generateUrl('administration_StageProfile_create'),
             'method' => 'POST',

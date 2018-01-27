@@ -18,9 +18,17 @@ class StageProfileType extends AbstractType {
         $builder
             ->add('moduleStage', 'entity', array(
                 'class' => 'BackendBundle:ModuleStage',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                    ->orderBy('u.id', 'ASC');
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    $obj = $options['data'];
+                    $q = $er->createQueryBuilder('u')
+                            ->orderBy('u.id', 'ASC');
+
+                    if ($obj->getModule()) {
+                        $q->where('u.module = ?1')
+                        ->setParameter(1, $obj->getModule()->getId());
+                    }
+
+                    return $q;
                 },
                 'choice_label' => 'stage.name',
             ))

@@ -40,6 +40,16 @@ class StageProfile {
      */
     private $profile;
 
+    private $module;
+
+    public function getModule() {
+        return $this->module;
+    }
+
+    public function setModule($value) {
+        $this->module = $value;
+    }
+
     public function getProfile() {
         return $this->profile;
     }
