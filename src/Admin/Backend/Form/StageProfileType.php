@@ -13,8 +13,7 @@ class StageProfileType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('moduleStage', 'entity', array(
                 'class' => 'BackendBundle:ModuleStage',
@@ -46,8 +45,7 @@ class StageProfileType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Admin\Backend\Entity\StageProfile'
         ));
@@ -56,8 +54,7 @@ class StageProfileType extends AbstractType {
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'admin_backend_stageprofile';
     }
 }

@@ -187,7 +187,13 @@ class ModuleController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Adicionar', 
+            'attr'=> [
+                'class' => 'btn btn-success',
+                'style' => 'margin-top: 25px;'
+            ])
+        );
 
         return $form;
     }
@@ -207,7 +213,14 @@ class ModuleController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Adicionar', 
+            'attr'=> [
+                'class' => 'btn btn-success',
+                'style' => 'margin-top: 25px;'
+            ])
+        );
+
 
         return $form;
     }
@@ -245,7 +258,13 @@ class ModuleController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Adicionar', 
+            'attr'=> [
+                'class' => 'btn btn-success',
+                'style' => 'margin-top: 25px;'
+            ])
+        );
 
         return $form;
     }
