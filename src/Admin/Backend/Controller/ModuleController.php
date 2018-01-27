@@ -9,13 +9,14 @@ use Admin\Backend\Entity\Module;
 use Admin\Backend\Form\ModuleType;
 use Admin\Backend\Entity\ModuleStage;
 use Admin\Backend\Form\ModuleStageType;
+use Admin\Backend\Entity\StageProfile;
+use Admin\Backend\Form\StageProfileType;
 
 /**
  * Module controller.
  *
  */
 class ModuleController extends Controller {
-
     /**
      * Lists all Module entities.
      *
@@ -59,7 +60,7 @@ class ModuleController extends Controller {
      */
     public function newAction() {
         $entity = new Module();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Module:new.html.twig', array(
             'entity' => $entity,
@@ -73,7 +74,6 @@ class ModuleController extends Controller {
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Module')->find($id);
 
         if (!$entity) {
@@ -81,7 +81,6 @@ class ModuleController extends Controller {
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
         $stages = $em->getRepository('BackendBundle:ModuleStage')   
                      ->findBy(['module' => $id]);
 
@@ -98,7 +97,6 @@ class ModuleController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Module')->find($id);
 
         if (!$entity) {
@@ -108,15 +106,17 @@ class ModuleController extends Controller {
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         $stageForm = $this->createStageForm($entity);
+        $stageProfileForm = $this->createStageProfileForm($entity);
 
         $stages = $em->getRepository('BackendBundle:ModuleStage')   
                    ->findBy(['module' => $id]);                
 
         return $this->render('BackendBundle:Module:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'stage_form'  => $stageForm->createView(),
+            'stage_form' => $stageForm->createView(),
+            'stage_profile' => $stageProfileForm->createView(),
             'stages' => $stages
         ));
     }
@@ -188,6 +188,25 @@ class ModuleController extends Controller {
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a StageProfile entity.
+     *
+     * @param StageProfile $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createStageProfileForm($module) {
+        $entity = new StageProfile();
+        $form = $this->createForm(new StageProfileType(), $entity, array(
+            'action' => $this->generateUrl('administration_StageProfile_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }

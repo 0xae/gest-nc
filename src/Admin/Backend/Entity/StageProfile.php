@@ -21,7 +21,7 @@ class StageProfile {
     private $id;
 
     /**
-     * @var \Stage
+     * @var \ModuleStage
      *
      * @ORM\ManyToOne(targetEntity="ModuleStage")
      * @ORM\JoinColumns({

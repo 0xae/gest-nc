@@ -35,7 +35,7 @@
         </style>
     </head>
 
-    <body class="skin-blue sidebar-mini pace-done fixed">
+    <body class="skin-blue sidebar-mini pace-done fixed" ng-app="app">
         {% block body %}
             <div class="wrapper">
             </div>
@@ -51,11 +51,14 @@
             '@BackendBundle/Resources/public/js/jquery-jvectormap-world-mill-en.js'
             '@BackendBundle/Resources/public/js/jquery.slimscroll.min.js'
             '@BackendBundle/Resources/public/js/Chart.min.js'
-            '@BackendBundle/Resources/public/js/dashboard2.js'
             '@BackendBundle/Resources/public/js/demo.js'
             '@BackendBundle/Resources/public/js/pace.min.js'
             '@BackendBundle/Resources/public/js/icheck.min.js'
+            '@BackendBundle/Resources/public/js/angular.min.js'
+            '@BackendBundle/Resources/public/js/app/app.js'
+            '@BackendBundle/Resources/public/js/app/controllers/module.js'
         %}
+
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     </body>

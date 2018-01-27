@@ -6,8 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class StageProfileType extends AbstractType
-{
+use Doctrine\ORM\EntityRepository;
+
+class StageProfileType extends AbstractType {
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,8 +16,22 @@ class StageProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('stage')
-            ->add('profile')
+            ->add('moduleStage', 'entity', array(
+                'class' => 'BackendBundle:ModuleStage',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                    ->orderBy('u.id', 'ASC');
+                },
+                'choice_label' => 'stage.name',
+            ))
+            ->add('profile', 'entity', array(
+                'class' => 'BackendBundle:Profile',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                    ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name',
+            ))
         ;
     }
     
