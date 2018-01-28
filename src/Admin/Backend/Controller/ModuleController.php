@@ -188,7 +188,7 @@ class ModuleController extends Controller {
         ));
 
         $form->add('submit', 'submit', array(
-            'label' => 'Adicionar', 
+            'label' => 'Guardar', 
             'attr'=> [
                 'class' => 'btn btn-success',
                 'style' => 'margin-top: 25px;'
