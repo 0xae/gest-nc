@@ -5,24 +5,41 @@ namespace Admin\Backend\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class SugestionType extends AbstractType
-{
+class SugestionType extends AbstractType {
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('type')
+            ->add('type', 'choice', array(
+                'choices'  => array(
+                    'reclamation' => 'Reclamacao',
+                    'sugestion' => 'Sugestion'
+                ),
+            ))
             ->add('name')
             ->add('address')
             ->add('phone')
-            ->add('email')
-            ->add('description')
+            ->add('email', 'email')
+            ->add('description', 'textarea', array(
+                'attr' => array(
+                    'class' => 'my-textarea',
+                    'rows' => 6,
+                    'placeholder' => 'Insira o ocorrido...'
+                )
+            ))
             ->add('createdAt')
-            ->add('createdBy')
+            ->add('submit', 'submit', array(
+                'label' => 'Guardar',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ));
+            
+            // ->add('createdBy')
         ;
     }
     

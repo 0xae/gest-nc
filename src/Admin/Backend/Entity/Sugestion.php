@@ -65,7 +65,7 @@ class Sugestion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="date", nullable=false)
      */
     private $createdAt;
 

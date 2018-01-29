@@ -19,28 +19,29 @@ class SugestionController extends Controller
      * Lists all Sugestion entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('BackendBundle:Sugestion')->findAll();
 
         return $this->render('BackendBundle:Sugestion:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Sugestion entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Sugestion();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+
             $em->persist($entity);
             $em->flush();
 
@@ -66,8 +67,6 @@ class SugestionController extends Controller
             'action' => $this->generateUrl('administration_Sugestion_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -147,7 +146,7 @@ class SugestionController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        // $form->add('submit', 'submit', array('label' => 'Guardar'));
 
         return $form;
     }
