@@ -1,3 +1,11 @@
+backend_administration_Complaint:
+    resource: "@BackendBundle/Resources/config/routing/complaint.yml"
+    prefix:   /administration/Complaint
+
+backend_administration_Sugestion:
+    resource: "@BackendBundle/Resources/config/routing/sugestion.yml"
+    prefix:   /administration/Sugestion
+
 backend_administration_StageProfile:
     resource: "@BackendBundle/Resources/config/routing/stageprofile.yml"
     prefix:   /administration/StageProfile

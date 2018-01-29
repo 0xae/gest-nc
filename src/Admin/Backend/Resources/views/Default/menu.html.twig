@@ -19,20 +19,20 @@
         </li>
 
         <!-- Queixas/Denuncias -->
-        <li class="header tree-view" style="padding:0px;">
+        <li class="header active tree-view" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE QUEIXAS/DEN&Uacute;NCIAS
             </a>
 
-            <ul class="treeview-menu" style="display: none;">
+            <ul class="treeview-menu" style="">
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Complaint_new') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Registrar Queixa/Denuncia</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Complaint') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Listagem Queixa/Denuncia</span></a>
                 </li>
 
@@ -53,20 +53,20 @@
         
         <!-- Reclamacoes/sugestoes -->
         <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" class="bg-green">
+            <a href="{{ path('administration_Sugestion') }}" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES/SUGESTAO
             </a>
 
-            <ul class="treeview-menu" style="display: none;">
+            <ul class="treeview-menu" style="">
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Sugestion_new') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Registrar Reclamacao</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Sugestion') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Listagem Reclamacao</span></a>
                 </li>
 

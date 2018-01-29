@@ -23,7 +23,6 @@ class ModuleController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('BackendBundle:Module')->findAll();
 
         return $this->render('BackendBundle:Module:index.html.twig', array(
@@ -220,7 +219,6 @@ class ModuleController extends Controller {
                 'style' => 'margin-top: 25px;'
             ])
         );
-
 
         return $form;
     }

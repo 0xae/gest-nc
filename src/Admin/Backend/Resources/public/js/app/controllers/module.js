@@ -4,6 +4,6 @@ angular.module("app")
 
     $scope.log = function (val) {
         console.info(val);
-        $("#admin_backend_stageprofile_moduleStage").val(val);
+        // $("#admin_backend_stageprofile_moduleStage").val(val);
     }
 }]);
