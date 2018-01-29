@@ -26,7 +26,7 @@ class SugestionType extends AbstractType {
             ->add('email', 'email')
             ->add('description', 'textarea', array(
                 'attr' => array(
-                    'class' => 'my-textarea',
+                    'class' => 'my-textarea text-editor',
                     'rows' => 6,
                     'placeholder' => 'Insira o ocorrido...'
                 )
@@ -38,16 +38,12 @@ class SugestionType extends AbstractType {
                     'class' => 'btn btn-success'
                 )
             ));
-            
-            // ->add('createdBy')
-        ;
     }
     
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Admin\Backend\Entity\Sugestion'
         ));
@@ -56,8 +52,7 @@ class SugestionType extends AbstractType {
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'admin_backend_sugestion';
     }
 }

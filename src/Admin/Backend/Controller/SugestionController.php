@@ -90,10 +90,8 @@ class SugestionController extends Controller
      * Finds and displays a Sugestion entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 
         if (!$entity) {
@@ -112,10 +110,8 @@ class SugestionController extends Controller
      * Displays a form to edit an existing Sugestion entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 
         if (!$entity) {
@@ -139,14 +135,11 @@ class SugestionController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Sugestion $entity)
-    {
+    private function createEditForm(Sugestion $entity) {
         $form = $this->createForm(new SugestionType(), $entity, array(
             'action' => $this->generateUrl('administration_Sugestion_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        // $form->add('submit', 'submit', array('label' => 'Guardar'));
 
         return $form;
     }
@@ -154,10 +147,8 @@ class SugestionController extends Controller
      * Edits an existing Sugestion entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 
         if (!$entity) {
@@ -170,7 +161,6 @@ class SugestionController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('administration_Sugestion_edit', array('id' => $id)));
         }
 
@@ -184,8 +174,7 @@ class SugestionController extends Controller
      * Deletes a Sugestion entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -211,8 +200,7 @@ class SugestionController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_Sugestion_delete', array('id' => $id)))
             ->setMethod('DELETE')
