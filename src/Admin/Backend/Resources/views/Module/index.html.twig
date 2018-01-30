@@ -25,7 +25,7 @@
                                 <th>ID#</th>
                                 <th>Name</th>
                                 <th>Data de cria&ccedil;&atilde;o</th>
-                                <th>Criado por</th>
+                                {# <th>Criado por</th> #}
                                 <th></th>
                             </tr>
                         </thead>
@@ -39,7 +39,7 @@
                                     </td>
                                     <td>{{ entity.name }}</td>
                                     <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                    <td>{{ entity.createdBy }}</td>
+                                    {# <td>{{ entity.createdBy }}</td> #}
                                     <td><a href="{{ path('administration_Module_edit', { 'id': entity.id }) }}">
                                         <span class="badge badge-primary">
                                                 EDITAR
