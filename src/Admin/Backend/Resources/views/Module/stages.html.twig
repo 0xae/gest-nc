@@ -15,9 +15,11 @@
                     </a>
                 </td>
                 <td>
+                    {% if edit_stage %}
                     <a class="badge badge-primary" ng-click="log({{ms.stage.id}})" data-toggle="modal" data-target="#example-modal">
                      associar perfil
                     </a>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="#">
@@ -28,6 +30,8 @@
         {% endfor %}
     </tbody>
 </table>
+
+{% if edit_stage %}
 
 <div class="example-modal">
     <div class="modal fade" id="example-modal">
@@ -68,4 +72,6 @@
     </div>
     <!-- /.modal -->
 </div>
+
+{% endif %}
 
