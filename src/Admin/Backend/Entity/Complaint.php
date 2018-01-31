@@ -59,7 +59,7 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="string", type="string", length=250, nullable=false)
+     * @ORM\Column(name="string", type="string", length=250, nullable=true)
      */
     private $type;
 

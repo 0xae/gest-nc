@@ -38,7 +38,7 @@ class ComplaintController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $userId = $this->getUser()->getId();
+            $userId = $this->getUser();
             $entity->setCreatedBy($userId);
 
             // $file = $entity->getFactAnnex();
@@ -179,10 +179,6 @@ class ComplaintController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->addFlash(
-                'complaint',
-                'A etapa nao pode ser removido pois esta em uso.'
-            );
             return $this->redirect($this->generateUrl('administration_Complaint_edit', array('id' => $id)));
         }
 

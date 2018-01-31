@@ -19,7 +19,8 @@ class ComplaintType extends AbstractType {
                 'class' => 'BackendBundle:Module',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                      ->orderBy('u.name', 'ASC');
+                    ->where("lower(u.name) like '%quei%' or lower(u.name) like '%den%'")                    
+                    ->orderBy('u.name', 'ASC');
                 },
                 'choice_label' => 'name'                
             ))
@@ -28,7 +29,9 @@ class ComplaintType extends AbstractType {
                 'query_builder' => function (EntityRepository $er) use ($options) {
                     $qb=$er->createQueryBuilder('u');                    
 
-                    if ($options['data'] && $options['data']->getModule()->getId()) {
+                    if ($options['data'] && 
+                            $options['data']->getModule() && 
+                            $options['data']->getModule()->getId()) {
                         $moduleId = $options['data']->getModule()->getId();
                         $qb->join('BackendBundle:ModuleStage ms', 
                                   'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
@@ -44,12 +47,12 @@ class ComplaintType extends AbstractType {
             ->add('locality')
             ->add('phone')
             ->add('email', 'email')
-            ->add('type', 'choice', array(
-                'choices'  => array(
-                    'queixa' => 'Queixa',
-                    'denuncia' => 'Denuncia'
-                ),
-            ))
+            // ->add('type', 'choice', array(
+            //     'choices'  => array(
+            //         'queixa' => 'Queixa',
+            //         'denuncia' => 'Denuncia'
+            //     ),
+            // ))
             // ->add('type', 'choice', array(
             //     'expanded' => true,
             //     'multiple' => true,

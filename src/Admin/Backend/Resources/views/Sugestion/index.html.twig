@@ -36,13 +36,13 @@
                         <tbody>
                             {% for entity in entities %}
                                 <tr>                                                                                  
-                                  <td>                        
+                                <td>                        
                                     <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
                                     #{{ entity.id }}
                                     </a>
                                 </td>                                                                                    
-                                <td>{{ entity.type }}</td>                                                            
-                                <td>{{ entity.module.name }}</td>             
+                                <td>{{ entity.module.name|capitalize }}</td>             
+                                <td>{{ entity.name }}</td>             
                                 <td>{{ entity.address }}</td>                                                
                                 <td>{{ entity.phone }}</td>                                                            
                                 <td>{{ entity.email }}</td>                                                             

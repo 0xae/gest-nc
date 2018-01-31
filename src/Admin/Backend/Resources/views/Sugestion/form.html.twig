@@ -58,10 +58,16 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Enviar para</label>
-                {{ form_widget(form.stage) }}
-            </div>
+            {% if entity.id %}
+                <div class="form-group">
+                    <label>Enviar para</label>
+                    {{ form_widget(form.stage) }}
+                </div>
+            {% else %}
+                <div class="form-group" style="display:none">
+                    {{ form_widget(form.stage) }}
+                </div>
+            {% endif %}
 
             <div class="form-group">
                 <label>Criado por</label>
