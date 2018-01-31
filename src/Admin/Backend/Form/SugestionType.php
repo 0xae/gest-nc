@@ -21,7 +21,7 @@ class SugestionType extends AbstractType {
                 'class' => 'BackendBundle:Module',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                    ->where("lower(u.name) like '%suge%' or lower(u.name) like '%extern%'")
+                    ->where("lower(u.name) like '%suge%' or lower(u.name) like '%recl%' or lower(u.name) like '%extern%'")
                     ->orderBy('u.name', 'ASC');
                 },
                 'choice_label' => 'name'                
