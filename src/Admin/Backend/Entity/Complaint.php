@@ -3,6 +3,7 @@
 namespace Admin\Backend\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -103,12 +104,15 @@ class Complaint {
      * @ORM\Column(name="fact_date", type="date", length=45, nullable=false)
      */
     private $factDate;
+
     /**
      * @var string
      *
      * @ORM\Column(name="fact_annex", type="string", length=250, nullable=true)
+     * @Assert\File(mimeTypes={"application/pdf"})
      */
     private $factAnnex;
+
     /**
      * @var string
      *
@@ -119,9 +123,23 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="has_product", type="string", length=250, nullable=false)
+     * @ORM\Column(name="fact_locality", type="string", length=250, nullable=false)
+     */
+    private $factLocality; 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="has_product", type="boolean", nullable=true)
      */
     private $hasProduct; 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="has_annex", type="boolean", nullable=true)
+     */
+    private $hasAnnex; 
 
     /**
      * @var string
@@ -167,10 +185,8 @@ class Complaint {
      * @param string $name
      * @return Category
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -179,9 +195,17 @@ class Complaint {
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
+    }
+
+    public function getFactLocality() {
+        return $this->factLocality;
+    }
+
+    public function setFactLocality($val) {
+        $this->factLocality = $val;
+        return $this;
     }
 
     /**
@@ -190,10 +214,8 @@ class Complaint {
      * @param \DateTime $createdAt
      * @return Category
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -202,8 +224,7 @@ class Complaint {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -213,10 +234,8 @@ class Complaint {
      * @param integer $createdBy
      * @return Category
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
-
         return $this;
     }
 
@@ -225,8 +244,7 @@ class Complaint {
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 
@@ -236,10 +254,8 @@ class Complaint {
      * @param string $address
      * @return Complaint
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-
         return $this;
     }
 
@@ -248,8 +264,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -259,10 +274,8 @@ class Complaint {
      * @param string $locality
      * @return Complaint
      */
-    public function setLocality($locality)
-    {
+    public function setLocality($locality) {
         $this->locality = $locality;
-
         return $this;
     }
 
@@ -271,8 +284,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getLocality()
-    {
+    public function getLocality() {
         return $this->locality;
     }
 
@@ -282,10 +294,8 @@ class Complaint {
      * @param string $phone
      * @return Complaint
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -294,8 +304,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -305,10 +314,8 @@ class Complaint {
      * @param string $email
      * @return Complaint
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
-
         return $this;
     }
 
@@ -317,8 +324,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -328,10 +334,8 @@ class Complaint {
      * @param string $type
      * @return Complaint
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
-
         return $this;
     }
 
@@ -340,8 +344,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -351,10 +354,8 @@ class Complaint {
      * @param string $opName
      * @return Complaint
      */
-    public function setOpName($opName)
-    {
+    public function setOpName($opName) {
         $this->opName = $opName;
-
         return $this;
     }
 
@@ -363,8 +364,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getOpName()
-    {
+    public function getOpName() {
         return $this->opName;
     }
 
@@ -374,10 +374,8 @@ class Complaint {
      * @param string $opAddress
      * @return Complaint
      */
-    public function setOpAddress($opAddress)
-    {
+    public function setOpAddress($opAddress) {
         $this->opAddress = $opAddress;
-
         return $this;
     }
 
@@ -386,8 +384,7 @@ class Complaint {
      *
      * @return string 
      */
-    public function getOpAddress()
-    {
+    public function getOpAddress() {
         return $this->opAddress;
     }
 
@@ -397,10 +394,8 @@ class Complaint {
      * @param string $opLocality
      * @return Complaint
      */
-    public function setOpLocality($opLocality)
-    {
+    public function setOpLocality($opLocality) {
         $this->opLocality = $opLocality;
-
         return $this;
     }
 
@@ -550,6 +545,29 @@ class Complaint {
     public function getHasProduct()
     {
         return $this->hasProduct;
+    }
+
+    /**
+     * Set hasProduct
+     *
+     * @param string $hasProduct
+     * @return Complaint
+     */
+    public function setHasAnnex($val)
+    {
+        $this->hasAnnex = $val;
+
+        return $this;
+    }
+
+    /**
+     * Get hasProduct
+     *
+     * @return string 
+     */
+    public function getHasAnnex()
+    {
+        return $this->hasAnnex;
     }
 
     /**

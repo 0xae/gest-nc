@@ -12,9 +12,7 @@ use Admin\Backend\Form\ComplaintType;
  * Complaint controller.
  *
  */
-class ComplaintController extends Controller
-{
-
+class ComplaintController extends Controller {
     /**
      * Lists all Complaint entities.
      *
@@ -33,14 +31,27 @@ class ComplaintController extends Controller
      * Creates a new Complaint entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Complaint();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+
+            $file = $entity->getFactAnnex();
+            if ($file) {
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('complaints_directory'),
+                    $fileName
+                );
+
+                $entity->setFactAnnex($fileName);
+            }            
+
             $em->persist($entity);
             $em->flush();
 
@@ -60,14 +71,11 @@ class ComplaintController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Complaint $entity)
-    {
+    private function createCreateForm(Complaint $entity) {
         $form = $this->createForm(new ComplaintType(), $entity, array(
             'action' => $this->generateUrl('administration_Complaint_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -76,10 +84,9 @@ class ComplaintController extends Controller
      * Displays a form to create a new Complaint entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Complaint();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Complaint:new.html.twig', array(
             'entity' => $entity,
@@ -91,10 +98,8 @@ class ComplaintController extends Controller
      * Finds and displays a Complaint entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
 
         if (!$entity) {
@@ -113,8 +118,7 @@ class ComplaintController extends Controller
      * Displays a form to edit an existing Complaint entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
@@ -140,25 +144,21 @@ class ComplaintController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Complaint $entity)
-    {
+    private function createEditForm(Complaint $entity) {
         $form = $this->createForm(new ComplaintType(), $entity, array(
             'action' => $this->generateUrl('administration_Complaint_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Complaint entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
 
         if (!$entity) {
@@ -181,12 +181,12 @@ class ComplaintController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Complaint entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -212,8 +212,7 @@ class ComplaintController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_Complaint_delete', array('id' => $id)))
             ->setMethod('DELETE')

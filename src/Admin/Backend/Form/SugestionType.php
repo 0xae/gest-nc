@@ -33,7 +33,7 @@ class SugestionType extends AbstractType {
             ))
             ->add('createdAt')
             ->add('submit', 'submit', array(
-                'label' => 'Guardar',
+                'label' => 'Enviar formulário',
                 'attr' => array(
                     'class' => 'btn btn-success'
                 )

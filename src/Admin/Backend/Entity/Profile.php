@@ -28,6 +28,13 @@ class Profile {
     private $name;
 
     /**
+     * @var string (read|write)
+     *
+     * @ORM\Column(name="permission", type="string", length=45, nullable=false)
+     */
+    private $permission;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
