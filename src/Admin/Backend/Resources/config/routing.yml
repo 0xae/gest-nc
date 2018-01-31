@@ -1,3 +1,7 @@
+backend_administration_Document:
+    resource: "@BackendBundle/Resources/config/routing/document.yml"
+    prefix:   /administration/Document
+
 backend_administration_Complaint:
     resource: "@BackendBundle/Resources/config/routing/complaint.yml"
     prefix:   /administration/Complaint

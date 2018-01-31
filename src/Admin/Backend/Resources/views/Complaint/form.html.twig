@@ -107,12 +107,32 @@
                 <label>Local</label>
                 {{ form_widget(form.factLocality) }}
             </div>
+
+            <div class="form-group">
+                <label>Descri&ccedil;&atilde;o</label>
+                {{ form_widget(form.factDetail) }}
+            </div>
+
+            <div class="form-group">
+                <label>Entrega do produto a ARFA</label>
+                {{ form_widget(form.hasProduct) }}
+            </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
-                <label>Descri&ccedil;&atilde;o</label>
-                {{ form_widget(form.factDetail) }}
+                <label>Incluir anexo</label>
+                {{ form_widget(form.hasAnnex) }}
+            </div>
+
+            <div class="form-group">
+                <label>Anexo</label>
+                {{ form_widget(form.factAnnex) }}
+            </div>
+
+            <div class="form-group">
+                <label>Tipo do anexo</label>
+                {{ form_widget(form.annexType) }}
             </div>
 
             {{ form(form) }}

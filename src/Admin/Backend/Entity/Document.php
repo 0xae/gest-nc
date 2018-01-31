@@ -5,12 +5,12 @@ namespace Admin\Backend\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AppEntity
+ * Category
  *
- * @ORM\Table(name="profile", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="document", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
-class Profile {
+class Document {
     /**
      * @var integer
      *
@@ -28,11 +28,11 @@ class Profile {
     private $name;
 
     /**
-     * @var string (read|write)
+     * @var string
      *
-     * @ORM\Column(name="permission", type="string", length=45, nullable=false)
+     * @ORM\Column(name="description", type="string", length=45, nullable=true)
      */
-    private $permission;
+    private $description;    
 
     /**
      * @var \DateTime
@@ -48,12 +48,14 @@ class Profile {
      */
     private $createdBy;
 
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -61,7 +63,7 @@ class Profile {
      * Set name
      *
      * @param string $name
-     * @return AppEntity
+     * @return Category
      */
     public function setName($name) {
         $this->name = $name;
@@ -81,7 +83,7 @@ class Profile {
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return AppEntity
+     * @return Category
      */
     public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
@@ -93,7 +95,8 @@ class Profile {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -101,10 +104,12 @@ class Profile {
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return AppEntity
+     * @return Category
      */
-    public function setCreatedBy($createdBy) {
+    public function setCreatedBy($createdBy)
+    {
         $this->createdBy = $createdBy;
+
         return $this;
     }
 
@@ -113,30 +118,31 @@ class Profile {
      *
      * @return integer 
      */
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->createdBy;
     }
 
     /**
-     * Set permission
+     * Set description
      *
-     * @param string $permission
-     * @return Profile
+     * @param string $description
+     * @return Document
      */
-    public function setPermission($permission)
+    public function setDescription($description)
     {
-        $this->permission = $permission;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get permission
+     * Get description
      *
      * @return string 
      */
-    public function getPermission()
+    public function getDescription()
     {
-        return $this->permission;
+        return $this->description;
     }
 }

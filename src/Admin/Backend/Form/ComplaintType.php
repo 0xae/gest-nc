@@ -5,6 +5,7 @@ namespace Admin\Backend\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ComplaintType extends AbstractType {
     /**
@@ -53,8 +54,15 @@ class ComplaintType extends AbstractType {
             ))
             ->add('hasProduct', 'checkbox')
             ->add('hasAnnex', 'checkbox')            
-            ->add('annex')
-            ->add('annexType')
+            // ->add('annex')
+            ->add('annexType', 'entity', array(
+                'class' => 'BackendBundle:Document',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name'                
+            ))
             ->add('createdAt')
             // ->add('createdBy')
             ->add('submit', 'submit', array(

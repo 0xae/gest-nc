@@ -144,16 +144,19 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="annex", type="string", length=250, nullable=false)
+     * @ORM\Column(name="annex", type="string", length=250, nullable=true)
      */
     private $annex; 
     
     /**
-     * @var string
+     * @var \Document
      *
-     * @ORM\Column(name="annex_type", type="string", length=250, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Document")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="document_id", referencedColumnName="id", nullable=true)
+     * })
      */
-    private $annexType; 
+     private $annexType;
     
     /**
      * @var \DateTime
