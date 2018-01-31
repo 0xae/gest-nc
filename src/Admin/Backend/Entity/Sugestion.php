@@ -23,7 +23,7 @@ class Sugestion {
     /**
      * @var string (reclamacao_externa | sugestao)
      *
-     * @ORM\Column(name="type", type="string", length=45, nullable=false)
+     * @ORM\Column(name="type", type="string", length=45, nullable=true)
      */
     private $type;    
     

@@ -25,7 +25,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="Module")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $module;
@@ -35,7 +35,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="Stage")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $stage;
