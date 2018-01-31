@@ -39,7 +39,7 @@ class SugestionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $userId = $this->getUser()->getId();
+            $userId = $this->getUser();
             $entity->setCreatedBy($userId);
 
             $em->persist($entity);
@@ -155,12 +155,20 @@ class SugestionController extends Controller
             throw $this->createNotFoundException('Unable to find Sugestion entity.');
         }
 
+        $userId = $entity->getCreatedBy();        
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setCreatedBy($userId);
+
             $em->flush();
+            $this->addFlash(
+                'sugestion',
+                'Guardado com sucesso.'
+            );
             return $this->redirect($this->generateUrl('administration_Sugestion_edit', array('id' => $id)));
         }
 

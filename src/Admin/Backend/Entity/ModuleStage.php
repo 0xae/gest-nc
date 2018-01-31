@@ -40,6 +40,25 @@ class ModuleStage {
      */
     private $stage;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     * })
+     * 
+     * old: ORM\Column(name="created_by", type="bigint", nullable=false)
+     */
+    private $createdBy;
+
     public function getStage() {
         return $this->stage;
     }
@@ -64,4 +83,28 @@ class ModuleStage {
     public function getId() {
         return $this->id;
     }
+
+    public function getCreatedAt(){
+		return $this->createdAt;
+	}
+
+	public function setCreatedAt($createdAt){
+		$this->createdAt = $createdAt;
+	}
+
+	public function getCode(){
+		return $this->code;
+	}
+
+	public function setCode($code){
+		$this->code = $code;
+	}
+
+	public function getCreatedBy(){
+		return $this->createdBy;
+	}
+
+	public function setCreatedBy($createdBy){
+		$this->createdBy = $createdBy;
+	}
 }

@@ -3,6 +3,7 @@
         <tr>                                        
             <th>Etapa</th>
             <th>Intervenientes</th>
+            <th>Criado por</th>
             <th></th>
         </tr>
     </thead>
@@ -23,6 +24,11 @@
                 </td>
                 <td>
                     <a href="#">
+                        <span class="">{{ ms.createdBy.name|capitalize }}</span>
+                    </a>                    
+                </td>
+                <td>
+                    <a href="#" ng-click="removeMs('{{path('administration_ModuleStage_delete', {'id':ms.id})}}')">
                         <span class="fa fa-remove text-danger"></span>
                     </a>
                 </td>

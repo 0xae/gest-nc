@@ -15,6 +15,30 @@ class ComplaintType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+            ->add('module', 'entity', array(
+                'class' => 'BackendBundle:Module',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name'                
+            ))
+            ->add('stage', 'entity', array(
+                'class' => 'BackendBundle:Stage',
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    $qb=$er->createQueryBuilder('u');                    
+
+                    if ($options['data'] && $options['data']->getModule()->getId()) {
+                        $moduleId = $options['data']->getModule()->getId();
+                        $qb->join('BackendBundle:ModuleStage ms', 
+                                  'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
+                           ->orderBy('u.name', 'ASC');
+                    }
+
+                    return $qb;
+                },
+                'choice_label' => 'name'                
+            ))
             ->add('name')
             ->add('address')
             ->add('locality')

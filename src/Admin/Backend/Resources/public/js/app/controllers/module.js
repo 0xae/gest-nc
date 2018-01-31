@@ -6,4 +6,9 @@ angular.module("app")
         console.info(val);
         // $("#admin_backend_stageprofile_moduleStage").val(val);
     }
+
+    $scope.removeMs = function (link) {
+        if (!confirm("Deseja mesmo eliminar esta etapa?")) return;
+        location.href = link;
+    }
 }]);

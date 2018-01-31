@@ -4,6 +4,7 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 use Admin\Backend\Entity\ModuleStage;
 use Admin\Backend\Form\ModuleStageType;
@@ -41,6 +42,10 @@ class ModuleStageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $entity->setCreatedBy($user);
+            $entity->setCreatedAt(new \DateTime());
+
             $em->persist($entity);
             $em->flush();
 
@@ -185,24 +190,38 @@ class ModuleStageController extends Controller
      * Deletes a ModuleStage entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+    public function deleteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BackendBundle:ModuleStage')->find($id);
+        $q = $em->createQuery('update BackendBundle:Sugestion m set m.stage = null where m.stage = ' . $id);
+        $q->execute();
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ModuleStage entity.');
-            }
+        $q = $em->createQuery('update BackendBundle:Complaint m set m.stage = null where m.stage = ' . $id);
+        $q->execute();        
 
-            $em->remove($entity);
-            $em->flush();
+        $q = $em->createQuery('update BackendBundle:ModuleStage m set m.stage = null where m.stage = ' . $id);
+        $q->execute();
+
+        $entity = $em->getRepository('BackendBundle:ModuleStage')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ModuleStage entity.');
         }
 
-        return $this->redirect($this->generateUrl('administration_ModuleStage'));
+        $c = array('id' => $entity->getModule()->getId());
+        
+        try {            
+            $em->remove($entity);
+            $em->flush();
+        } catch (ForeignKeyConstraintViolationException $fk) {
+            $this->addFlash(
+                'ms',
+                'A etapa nao pode ser removido pois esta em uso.'
+            );
+        }
+        
+        $url = $this->generateUrl('administration_Module_edit', $c);
+        return $this->redirect($url);
     }
 
     /**

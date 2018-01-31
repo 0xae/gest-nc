@@ -139,14 +139,8 @@ class Complaint {
      *
      * @ORM\Column(name="has_annex", type="boolean", nullable=true)
      */
-    private $hasAnnex; 
+    private $hasAnnex;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="annex", type="string", length=250, nullable=true)
-     */
-    private $annex; 
     
     /**
      * @var \Document
@@ -157,6 +151,26 @@ class Complaint {
      * })
      */
      private $annexType;
+
+    /**
+     * @var \Module
+     *
+     * @ORM\ManyToOne(targetEntity="Module")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $module;
+
+    /**
+     * @var \Stage
+     *
+     * @ORM\ManyToOne(targetEntity="Stage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $stage;
     
     /**
      * @var \DateTime
@@ -168,9 +182,30 @@ class Complaint {
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     * })
+     * 
+     * old: ORM\Column(name="created_by", type="bigint", nullable=false)
      */
     private $createdBy;
+
+    public function getModule(){
+		return $this->module;
+	}
+
+	public function setModule($module){
+		$this->module = $module;
+	}
+
+	public function getStage(){
+		return $this->stage;
+	}
+
+	public function setStage($stage){
+		$this->stage = $stage;
+	}
 
     /**
      * Get id

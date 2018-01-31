@@ -179,6 +179,10 @@ class ComplaintController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->addFlash(
+                'complaint',
+                'A etapa nao pode ser removido pois esta em uso.'
+            );
             return $this->redirect($this->generateUrl('administration_Complaint_edit', array('id' => $id)));
         }
 

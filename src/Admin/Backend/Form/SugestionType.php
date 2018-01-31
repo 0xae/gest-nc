@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+use Doctrine\ORM\EntityRepository;
+
+
 class SugestionType extends AbstractType {
     /**
      * @param FormBuilderInterface $builder
@@ -14,11 +17,37 @@ class SugestionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+            ->add('module', 'entity', array(
+                'class' => 'BackendBundle:Module',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                    ->where("lower(u.name) like '%suge%' or lower(u.name) like '%extern%'")
+                    ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name'                
+            ))
+            ->add('stage', 'entity', array(
+                'class' => 'BackendBundle:Stage',
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    $qb=$er->createQueryBuilder('u');                    
+
+                    if ($options['data'] && $options['data']->getModule() 
+                            && $options['data']->getModule()->getId()) {
+                        $moduleId = $options['data']->getModule()->getId();
+                        $qb->join('BackendBundle:ModuleStage ms', 
+                                'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
+                        ->orderBy('u.name', 'ASC');
+                    }
+
+                    return $qb;
+                },
+                'choice_label' => 'name'                
+            ))
             ->add('type', 'choice', array(
-                'choices'  => array(
-                    'reclamation' => 'Reclamacao',
-                    'sugestion' => 'Sugestion'
-                ),
+                    'choices'  => array(
+                        'reclamation' => 'Reclamacao',
+                        'sugestion' => 'Sugestion'
+                    ),
             ))
             ->add('name')
             ->add('address')
@@ -32,6 +61,18 @@ class SugestionType extends AbstractType {
                 )
             ))
             ->add('createdAt')
+            ->add('createdBy', 'entity', array(
+                'class' => 'BackendBundle:User',
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    $qb=$er->createQueryBuilder('u');
+                    if ($options['data'] && $options['data']->getCreatedBy()) {
+                        $qb->where('u.id = ' . $options['data']->getCreatedBy()->getId());
+                    }
+    
+                    return $qb->orderBy('u.name', 'ASC');                
+                },
+                'choice_label' => 'name',
+            ))
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

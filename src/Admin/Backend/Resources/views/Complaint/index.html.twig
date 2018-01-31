@@ -24,11 +24,13 @@
                             <tr>
                                 <th>ID#</th>
                                 <th>Nome</th>
+                                <th>Data</th>
                                 <th>Morada</th>
                                 <th>Localidade</th>
                                 <th>Telefone</th>
                                 <th>Email</th>
                                 <th>Tipo</th>
+                                <th>Criado por</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -41,11 +43,13 @@
                                         </a>
                                     </td>
                                     <td>{{ entity.name }}</td>
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                                     <td>{{ entity.address }}</td>
                                     <td>{{ entity.locality }}</td>
                                     <td>{{ entity.phone }}</td>
                                     <td>{{ entity.email }}</td>
                                     <td>{{ entity.type|capitalize }}</td>
+                                    <td>{{ entity.createdBy }}</td>
                                     <td>
                                         <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
                                             <span class="badge badge-primary">

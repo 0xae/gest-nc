@@ -282,4 +282,21 @@ class ModuleController extends Controller {
             ->getForm()
         ;
     }
+
+    /**
+     * Creates a form to delete a ModuleStage entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createMSDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('administration_ModuleStage_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+        ;
+    }
 }

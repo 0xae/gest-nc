@@ -72,9 +72,50 @@ class Sugestion {
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     * })
+     * 
+     * old: ORM\Column(name="created_by", type="bigint", nullable=false)
      */
     private $createdBy;
+
+    /**
+     * @var \Module
+     *
+     * @ORM\ManyToOne(targetEntity="Module")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $module;
+    
+    /**
+     * @var \Stage
+     *
+     * @ORM\ManyToOne(targetEntity="Stage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $stage;
+
+    public function getModule(){
+		return $this->module;
+	}
+
+	public function setModule($module){
+		$this->module = $module;
+	}
+
+	public function getStage(){
+		return $this->stage;
+	}
+
+	public function setStage($stage){
+		$this->stage = $stage;
+	}    
 
     /**
      * Get id
