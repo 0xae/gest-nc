@@ -43,7 +43,7 @@ assetic:
     # debug:          "%kernel.debug%"
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [BackendBundle,WebcommandBundle]
+    bundles:        [BackendBundle,WebcommandBundle,FOSUserBundle]
     assets:
       font-awesome-ttf:
         inputs: '@BackendBundle/Resources/public/fonts/fontawesome-webfont.ttf'
