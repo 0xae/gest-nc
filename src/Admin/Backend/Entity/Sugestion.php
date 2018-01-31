@@ -26,7 +26,7 @@ class Sugestion {
      * @ORM\Column(name="type", type="string", length=45, nullable=true)
      */
     private $type;    
-    
+
     /**
      * @var string
      *
