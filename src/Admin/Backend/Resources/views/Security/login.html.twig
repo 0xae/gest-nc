@@ -11,52 +11,54 @@
 
                 <div class="login-box-body" style="border-radius:5px;">
                     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
-                    <div class="login-logo">
-                        <img src="{{ asset_url }}" class="user-image" width="100" alt="ARFA LOGO" />
-                        <br/>
-                        <a href="#" style="font-size:21px">
-                            <b>Sistema de Gest&atilde;o de Qualidade</b>
+                    <div class="login-logo" style="margin-bottom: 30px">
+                        <img src="{{ asset_url }}" class="user-image" width="120" alt="ARFA LOGO" style="float: left" />
+                        <a href="#" style="float: left;margin-top:20px;margin-left:10px;">
+                            <b>SGDRS</b>
                         </a>
+                        {# <span style="font-size:12px">Gestao de Queixas,Denuncias,Reclamacoes e Sugestoes</span> #}
                     </div>
                     {% endimage %}
 
+                    <hr style="clear:both;margin-top:30px;margin-bottom:20px;" />
+
                     <!-- /.login-logo -->
-                    <form action={{ path("fos_user_security_check") }} method="post">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <form action={{ path("fos_user_security_check") }} method="post" style="margin-top:30px;clear:both">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-                    <div class="form-group has-feedback">
-                        <label>Username</label>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">
-                                <span class="fa fa-user"></span>
-                            </span>
-                            <input type="text" class="form-control" placeholder={{ 'security.login.username'|trans({}, 'FOSUserBundle') }} name="_username" value="{{ last_username }}" required="required">
+                        <div class="form-group has-feedback">
+                            <label>Username</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">
+                                    <span class="fa fa-user"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder={{ 'security.login.username'|trans({}, 'FOSUserBundle') }} name="_username" value="{{ last_username }}" required="required">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group has-feedback">
-                        <label>Password</label>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">
-                                <span class="fa fa-lock text-success"></span>
-                            </span>
-                            <input type="password" class="form-control" placeholder={{ 'security.login.password'|trans({}, 'FOSUserBundle') }} name="_password" required="required">
+                        <div class="form-group has-feedback">
+                            <label>Password</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">
+                                    <span class="fa fa-lock text-success"></span>
+                                </span>
+                                <input type="password" class="form-control" placeholder={{ 'security.login.password'|trans({}, 'FOSUserBundle') }} name="_password" required="required">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xs-8">
-                        <div class="checkbox icheck" style="margin-left: 21px;">
-                            <label> <input type="checkbox"  name="_remember_me" value="on"> Lembrar me </label>
+                        <div class="row">
+                            <div class="col-xs-8">
+                            <div class="checkbox icheck" style="margin-left: 21px;">
+                                <label> <input type="checkbox"  name="_remember_me" value="on"> Lembrar me </label>
+                            </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat"  value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" >Entrar</button>
+                            </div>
+                            <!-- /.col -->
                         </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat"  value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" >Entrar</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    {% if error %}
+                        {% if error %}
                             <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
                         {% endif %}
                     </form>
