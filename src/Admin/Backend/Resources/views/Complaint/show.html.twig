@@ -71,8 +71,14 @@
                             <td>{{ entity.factDate|date('Y-m-d H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <th>Factannex</th>
-                            <td>{{ entity.factAnnex }}</td>
+                            <th>Anexo</th>
+                            <td>
+                                {% if entity.factAnnex %}
+                                    <a href="{{ asset('uploads/complaints/' ~ entity.factAnnex) }}">
+                                        Ver anexo
+                                    </a>
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Factdetail</th>
@@ -82,14 +88,14 @@
                             <th>Hasproduct</th>
                             <td>{{ entity.hasProduct }}</td>
                         </tr>
-                        <tr>
+                        {# <tr>
                             <th>Annex</th>
                             <td>{{ entity.annex }}</td>
-                        </tr>
-                        <tr>
+                        </tr> #}
+                        {# <tr>
                             <th>Annextype</th>
                             <td>{{ entity.annexType }}</td>
-                        </tr>
+                        </tr> #}
                         <tr>
                             <th>Createdat</th>
                             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>

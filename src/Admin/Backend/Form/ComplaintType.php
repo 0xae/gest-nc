@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
+
 class ComplaintType extends AbstractType {
     /**
      * @param FormBuilderInterface $builder
@@ -42,19 +43,12 @@ class ComplaintType extends AbstractType {
             ->add('opEmail')
             ->add('factDate')
             ->add('factLocality')
-            ->add('factAnnex', 'file', array(
-                'attr' => array(
-                    'class' => "form-control"
-                )
-            ))
+            // ->add('factAnnex', 'file')
             ->add('factDetail', 'textarea', array(
-                'attr' => array(
-                    'rows' => 6
-                )
+                'attr' => array('rows' => 6)
             ))
             ->add('hasProduct', 'checkbox')
             ->add('hasAnnex', 'checkbox')            
-            // ->add('annex')
             ->add('annexType', 'entity', array(
                 'class' => 'BackendBundle:Document',
                 'query_builder' => function (EntityRepository $er) {
@@ -64,7 +58,6 @@ class ComplaintType extends AbstractType {
                 'choice_label' => 'name'                
             ))
             ->add('createdAt')
-            // ->add('createdBy')
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

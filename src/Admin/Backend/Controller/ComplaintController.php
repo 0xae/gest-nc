@@ -4,6 +4,7 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 
 use Admin\Backend\Entity\Complaint;
 use Admin\Backend\Form\ComplaintType;
@@ -17,16 +18,15 @@ class ComplaintController extends Controller {
      * Lists all Complaint entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('BackendBundle:Complaint')->findAll();
 
         return $this->render('BackendBundle:Complaint:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Complaint entity.
      *
@@ -41,16 +41,15 @@ class ComplaintController extends Controller {
             $userId = $this->getUser()->getId();
             $entity->setCreatedBy($userId);
 
-            $file = $entity->getFactAnnex();
-            if ($file) {
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                $file->move(
-                    $this->getParameter('complaints_directory'),
-                    $fileName
-                );
-
-                $entity->setFactAnnex($fileName);
-            }            
+            // $file = $entity->getFactAnnex();
+            // if ($file) {
+            //     $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            //     $file->move(
+            //         $this->getParameter('complaints_directory'),
+            //         $fileName
+            //     );
+            //     $entity->setFactAnnex($fileName);
+            // }
 
             $em->persist($entity);
             $em->flush();
@@ -106,11 +105,15 @@ class ComplaintController extends Controller {
             throw $this->createNotFoundException('Unable to find Complaint entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        // $annex = $entity->getFactAnnex();        
+        // $path = false;
+        // if ($annex) {
+        //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
+        //     $entity->setFactAnnex(new File($path));
+        // }
 
         return $this->render('BackendBundle:Complaint:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity
         ));
     }
 
@@ -120,20 +123,68 @@ class ComplaintController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Complaint entity.');
         }
 
+        // $annex = $entity->getFactAnnex();
+        // $path = false;
+        // if ($annex) {
+        //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
+        //     $entity->setFactAnnex(new File($path));
+        // }
+
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        return $this->render('BackendBundle:Complaint:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
+            // 'upload_path' => $path
+        ));
+    }
+
+    /**
+     * Edits an existing Complaint entity.
+     *
+     */
+    public function updateAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Complaint entity.');
+        }
+
+        // $annex = $entity->getFactAnnex();
+        // $path = false;
+        // if ($annex) {
+        //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
+        //     $entity->setFactAnnex(new File($path));
+        // }
+        // $name = $entity->getFactAnnex();
+        // if ($name) {
+        //     $path = $this->getParameter('complaints_directory') . '/' . $name;
+        //     $file=new File($path);
+        //     $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        //     $file->move(
+        //         $this->getParameter('complaints_directory'),
+        //         $fileName
+        //     );
+        //     $entity->setFactAnnex($file);
+        // }    
+
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+            return $this->redirect($this->generateUrl('administration_Complaint_edit', array('id' => $id)));
+        }
 
         return $this->render('BackendBundle:Complaint:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -151,35 +202,6 @@ class ComplaintController extends Controller {
         ));
 
         return $form;
-    }
-
-    /**
-     * Edits an existing Complaint entity.
-     *
-     */
-    public function updateAction(Request $request, $id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Complaint entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('administration_Complaint_edit', array('id' => $id)));
-        }
-
-        return $this->render('BackendBundle:Complaint:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
