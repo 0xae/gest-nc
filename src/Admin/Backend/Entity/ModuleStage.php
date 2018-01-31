@@ -43,7 +43,7 @@ class ModuleStage {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
     
@@ -55,7 +55,7 @@ class ModuleStage {
      *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
      * })
      * 
-     * old: ORM\Column(name="created_by", type="bigint", nullable=false)
+     * old: ORM\Column(name="created_by", type="bigint", nullable=true)
      */
     private $createdBy;
 
