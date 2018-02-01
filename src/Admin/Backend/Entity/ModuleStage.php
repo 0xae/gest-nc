@@ -43,7 +43,7 @@ class ModuleStage {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
     
@@ -52,7 +52,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      * })
      * 
      * old: ORM\Column(name="created_by", type="bigint", nullable=true)
