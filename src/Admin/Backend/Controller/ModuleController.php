@@ -41,6 +41,9 @@ class ModuleController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+            $entity->setCreatedAt(new \DateTime);
             $em->persist($entity);
             $em->flush();
 
@@ -186,13 +189,13 @@ class ModuleController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array(
-            'label' => 'Guardar', 
-            'attr'=> [
-                'class' => 'btn btn-success',
-                'style' => 'margin-top: 25px;'
-            ])
-        );
+        // $form->add('submit', 'submit', array(
+        //     'label' => 'Guardar', 
+        //     'attr'=> [
+        //         'class' => 'btn btn-success',
+        //         'style' => 'margin-top: 25px;'
+        //     ])
+        // );
 
         return $form;
     }

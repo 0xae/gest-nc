@@ -13,9 +13,10 @@ class ModuleType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name')
-            ->add('createdAt')
-            ->add('createdBy')
+            ->add('name', 'text', array(
+                'label' => 'Nome'
+            ))
+            // ->add('createdBy')
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(
