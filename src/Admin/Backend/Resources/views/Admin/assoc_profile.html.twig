@@ -1,2 +1,17 @@
-{{ form(form) }}
- 
+{{ form_start(form) }}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+<div class="col-md-5">
+    <div class="form-group">
+        <label>Utilizador</label>
+        {{ form_widget(form.user) }}
+    </div>
+
+    <div class="form-group">
+        <label>Perfil</label>
+        {{ form_widget(form.profile) }}
+    </div>
+    {{ form(form) }}
+</div>
+
+{{ form_end(form) }}
