@@ -3,6 +3,7 @@
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
@@ -30,6 +31,43 @@ class AdminController extends Controller {
             'profile_form' => $profileForm->createView(),
             'profile_list' => $profileList,
             'assoc_profile_form' => $assocProfile->createView(),
+        ));
+    }
+
+   /**
+     * Fetches all profiles of a user
+     * @param User $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    public function profilesAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $results = $em->getRepository('BackendBundle:UserProfile')
+            ->findBy(array(
+                'user' => $id
+            ));
+
+        $ary = [];
+        foreach ($results as $val) {
+            $ary[] = [
+                'id' => $val->getid(),
+                'profile_id' => $val->getProfile()->getId(),
+                'name' => $val->getProfile()->getName(),
+                'permission' => $val->getProfile()->getPermission()
+            ];
+        }
+
+        return new JsonResponse($ary);
+    }
+
+    public function removeUserProfileAction($id) {
+        $em = $this->getDoctrine()->getManager();        
+        $entity = $em->getRepository('BackendBundle:UserProfile')->find($id);
+        $em->remove($entity);
+        $em->flush();
+
+        return new JsonResponse(array(
+            'status' => 200,
+            'message' => 'Perfil removido com sucesso'
         ));
     }
 

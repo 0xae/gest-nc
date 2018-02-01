@@ -54,6 +54,14 @@ backend_administration_main:
     path:  /administration/main
     defaults:  { _controller: BackendBundle:Admin:index }
 
+backend_administration_main_profiles:    
+    path:  /administration/profiles_of/{id}
+    defaults:  { _controller: BackendBundle:Admin:profiles }
+
+backend_administration_main_profiles_remove:    
+    path:  /administration/remove_userp/{id}
+    defaults:  { _controller: BackendBundle:Admin:removeUserProfile }
+
 sga_homepage:
     path:     /
     defaults: { _controller: BackendBundle:Security:login }
