@@ -28,7 +28,15 @@
     <label>Perfis associados {# {{"{{userId}}"}} #}</label>
     <ul class="list-group">
         <li ng-repeat="p in profiles" class="list-group-item">
-            {{ "{{p.name}}" }}
+            <span>{{ "{{p.name}}" }}
+                <br/>
+                <span class="badge badge-primary" ng-if="p.permission == 'write'">
+                    Escrita
+                </span>
+                <span class="badge badge-primary" ng-if="p.permission == 'read'">
+                    Leitura
+                </span>
+            </span>
 
             <a href="#" class="pull-right" ng-click="removeProfile(p.id, $index)">
                 Remover
