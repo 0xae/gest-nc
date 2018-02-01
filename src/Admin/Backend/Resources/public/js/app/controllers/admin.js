@@ -39,16 +39,12 @@ angular.module("app")
                 $('#mySubmitButton').show();
                 console.log(data);
 
-                $scope.$apply(function () {
-                    $scope.profiles.push(data);
-                });
-
-                if (data.status == 'saved'){
-                    console.log("entity saved ! ");
-                }
-
-                if (data.status == 'invalid'){
-                    console.log("entity submitted was invalid, use try catch and getMessage of eventual errors in you controller action, you can pass all that to the returning array you can receive and parse here ! ");
+                if (data.status != 200) {
+                    console.error(data.msg);
+                } else {
+                    $scope.$apply(function () {
+                        $scope.profiles.push(data.object);
+                    });
                 }
             }
         });

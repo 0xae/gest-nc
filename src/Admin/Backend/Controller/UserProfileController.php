@@ -41,14 +41,24 @@ class UserProfileController extends Controller {
             // $userId = $this->getUser()->getId();
             // $entity->setCreatedBy($userId);
 
-            $em->persist($entity);
-            $em->flush();
+            try {
+                $em->persist($entity);
+                $em->flush();
+            } catch (Exception $e) {
+                return new JsonResponse(array(
+                    'status' => 400,
+                    'msg' => 'verifique todos os campos'
+                ));
+            }
 
             // return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'assoc')));
             return new JsonResponse(array(
-                'id' => $entity->getId(),
-                'name' => $entity->getProfile()->getName(),
-                'permission' => $entity->getProfile()->getPermission()
+                'status' => 200,
+                'object' => [
+                    'id' => $entity->getId(),
+                    'name' => $entity->getProfile()->getName(),
+                    'permission' => $entity->getProfile()->getPermission()
+                ]
             ));
         }
 
