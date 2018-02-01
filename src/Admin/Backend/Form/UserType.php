@@ -15,6 +15,10 @@ class UserType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name')
+            ->add('email', 'email')
+            ->add('username')
+            ->add('password', 'password')
+            // ->add('password_confir', 'password')
             ->add('phone')
             ->add('address')
             ->add('photoDir')
@@ -23,7 +27,7 @@ class UserType extends AbstractType {
                 'attr' => array(
                     'class' => 'btn btn-success'
                 )
-            ));
+            ))
         ;
     }
     
