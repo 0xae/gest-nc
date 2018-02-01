@@ -65,7 +65,7 @@ class Sugestion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="date", nullable=false)
+     * @ORM\Column(name="created_at", type="date", nullable=true)
      */
     private $createdAt;
 
@@ -74,7 +74,7 @@ class Sugestion {
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      * })
      * 
      * old: ORM\Column(name="created_by", type="bigint", nullable=true)
