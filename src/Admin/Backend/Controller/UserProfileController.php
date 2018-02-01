@@ -3,6 +3,7 @@
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\UserProfile;
@@ -43,7 +44,12 @@ class UserProfileController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'assoc')));
+            // return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'assoc')));
+            return new JsonResponse(array(
+                'id' => $entity->getId(),
+                'name' => $entity->getProfile()->getName(),
+                'permission' => $entity->getProfile()->getPermission()
+            ));
         }
 
         return $this->render('BackendBundle:UserProfile:new.html.twig', array(
