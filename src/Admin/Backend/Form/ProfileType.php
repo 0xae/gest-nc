@@ -21,8 +21,12 @@ class ProfileType extends AbstractType {
                     'write' => 'Escrita'
                 ),
             ))
-            // ->add('createdAt')
-            // ->add('createdBy')
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ));
         ;
     }
 

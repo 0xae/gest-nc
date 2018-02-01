@@ -40,7 +40,8 @@ class UserController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
+            // return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_user')));            
         }
 
         return $this->render('BackendBundle:User:new.html.twig', array(
@@ -141,7 +142,8 @@ class UserController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));
+            // return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_user')));                        
         }
 
         return $this->render('BackendBundle:User:edit.html.twig', array(

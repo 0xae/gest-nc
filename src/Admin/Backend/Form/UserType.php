@@ -18,6 +18,12 @@ class UserType extends AbstractType {
             ->add('phone')
             ->add('address')
             ->add('photoDir')
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ));
         ;
     }
     

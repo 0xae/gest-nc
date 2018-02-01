@@ -2,13 +2,16 @@
 
 {% block content -%}
 
-<div class="row">
+<div class="row" ng-controller="AdminController">
     <div class="col-md-12">
         <div class="box">
-            <h3 class="box-title" style="margin-left:20px;margin-top:10px;">Gest&atilde;o de acesso</h3>
+            <h3 class="box-title" style="margin-left:20px;margin-bottom:15px;margin-top:10px;">
+                <span class="fa fa-users" style="font-size:21px"></span>
+                Gest&atilde;o de acesso
+            </h3>
             <div role="tabpanel">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-tabs" role="tablist" id="adminTab">
                     <li role="presentation" class="active"><a href="#create_user" aria-controls="home" role="tab" data-toggle="tab">
                         Registar Utilizador
                     </a></li>

@@ -41,10 +41,15 @@ class ProfileController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setCreatedAt(new \DateTime);
+            $userId = $this->getUser()->getId();
+            $entity->setCreatedBy($userId);
+
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Profile_show', array('id' => $entity->getId())));
+            // return $this->redirect($this->generateUrl('administration_Profile_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_profile')));            
         }
 
         return $this->render('BackendBundle:Profile:new.html.twig', array(

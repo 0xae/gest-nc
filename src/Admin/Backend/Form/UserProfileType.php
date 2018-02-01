@@ -30,6 +30,12 @@ class UserProfileType extends AbstractType {
                 },
                 'choice_label' => 'name'                
             ))
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ))
         ;
     }
 

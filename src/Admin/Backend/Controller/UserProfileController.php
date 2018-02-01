@@ -37,13 +37,13 @@ class UserProfileController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $userId = $this->getUser()->getId();
-            $entity->setCreatedBy($userId);
+            // $userId = $this->getUser()->getId();
+            // $entity->setCreatedBy($userId);
 
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_UserProfile_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'assoc')));
         }
 
         return $this->render('BackendBundle:UserProfile:new.html.twig', array(

@@ -29,7 +29,7 @@ class AdminController extends Controller {
             'user_list' => $userList,
             'profile_form' => $profileForm->createView(),
             'profile_list' => $profileList,
-            'assoc_profile_form' => $assocProfile->createView()
+            'assoc_profile_form' => $assocProfile->createView(),
         ));
     }
 
@@ -45,8 +45,6 @@ class AdminController extends Controller {
             'action' => $this->generateUrl('administration_user_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
@@ -62,9 +60,6 @@ class AdminController extends Controller {
             'action' => $this->generateUrl('administration_Profile_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -80,8 +75,6 @@ class AdminController extends Controller {
             'action' => $this->generateUrl('administration_UserProfile_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 }
