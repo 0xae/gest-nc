@@ -8,6 +8,8 @@ use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
 use Admin\Backend\Entity\Profile;
 use Admin\Backend\Form\ProfileType;
+use Admin\Backend\Entity\UserProfile;
+use Admin\Backend\Form\UserProfileType;
 
 /**
  * Category controller.
@@ -20,12 +22,14 @@ class AdminController extends Controller {
         $profileForm = $this->createProfileForm();
         $userList = $em->getRepository('BackendBundle:User')->findAll();
         $profileList = $em->getRepository('BackendBundle:Profile')->findAll();
+        $assocProfile = $this->createAssocProfileForm();
         
         return $this->render('BackendBundle:Admin:index.html.twig', array(
             'user_form' => $userForm->createView(),
             'user_list' => $userList,
             'profile_form' => $profileForm->createView(),
-            'profile_list' => $profileList
+            'profile_list' => $profileList,
+            'assoc_profile_form' => $assocProfile->createView()
         ));
     }
 
@@ -61,6 +65,23 @@ class AdminController extends Controller {
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a UserProfile entity.
+     *
+     * @param UserProfile $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createAssocProfileForm() {
+        $form = $this->createForm(new UserProfileType(), new UserProfile(), array(
+            'action' => $this->generateUrl('administration_UserProfile_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 }

@@ -49,7 +49,7 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="assoc">
-                            Associar perfis
+                            {{ include('BackendBundle:Admin:assoc_profile.html.twig', {'form' : assoc_profile_form}) }}
                         </div>
                     </div>
                 </div>
