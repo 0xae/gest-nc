@@ -21,7 +21,7 @@ class UserProfile {
     private $id;
 
     /**
-     * @var \Stage
+     * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -39,7 +39,6 @@ class UserProfile {
      * })
      */
     private $profile;
-    
 
     public function getProfile() {
         return $this->profile;

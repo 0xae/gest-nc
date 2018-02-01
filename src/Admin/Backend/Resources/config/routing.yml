@@ -1,3 +1,7 @@
+backend_administration_UserProfile:
+    resource: "@BackendBundle/Resources/config/routing/userprofile.yml"
+    prefix:   /administration/UserProfile
+
 backend_administration_Document:
     resource: "@BackendBundle/Resources/config/routing/document.yml"
     prefix:   /administration/Document
@@ -46,8 +50,12 @@ backend_administration_user:
     resource: "@BackendBundle/Resources/config/routing/user.yml"
     prefix:   /administration/user
 
+backend_administration:    
+    path:  /administration/main
+    defaults:  { _controller: BackendBundle:Admin:index }
+
 sga_homepage:
-    path:     /
+    path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Security:login }
 
 sga_dashboard:

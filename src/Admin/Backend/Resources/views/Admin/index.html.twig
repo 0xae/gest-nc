@@ -1,0 +1,68 @@
+{% extends 'BackendBundle:Default:layout.html.twig' %}
+
+{% block content -%}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#create_user" aria-controls="home" role="tab" data-toggle="tab">
+                            Registar Utilizador
+                        </a></li>
+
+                        <li role="presentation"><a href="#list_user" aria-controls="profile" role="tab" data-toggle="tab">
+                            Listar Utilizador
+                        </a></li>
+                        
+                        <li role="presentation"><a href="#create_profile" aria-controls="messages" role="tab" data-toggle="tab">
+                            Registar perfil
+                        </a></li>
+                        
+                        <li role="presentation"><a href="#list_profile" aria-controls="settings" role="tab" data-toggle="tab">
+                            Listar perfil
+                        </a></li>
+
+                        <li role="presentation"><a href="#assoc" aria-controls="settings" role="tab" data-toggle="tab">
+                            Associar perfil
+                        </a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="create_user">
+                            {{ include('BackendBundle:Admin:create_user.html.twig', {'form' : user_form}) }}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="list_user">
+                            {{ include('BackendBundle:Admin:list_user.html.twig', {'entities' : user_list}) }}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="create_profile">
+                            {{ include('BackendBundle:Admin:create_profile.html.twig', {'form' : profile_form}) }}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="list_profile">
+                            {{ include('BackendBundle:Admin:list_profile.html.twig', {'entities' : profile_list}) }}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="assoc">
+                            Associar perfis
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#  
+<div class="row">
+    <div class="col-md-12">
+    </div>
+</div> 
+#}
+
+{% endblock %}

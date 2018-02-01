@@ -25,7 +25,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="Module")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false)
      * })
      */
     private $module;
@@ -35,7 +35,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="Stage")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="stage_id", referencedColumnName="id", nullable=false)
      * })
      */
     private $stage;
@@ -43,7 +43,7 @@ class ModuleStage {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
     
@@ -52,7 +52,7 @@ class ModuleStage {
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
      * })
      * 
      * old: ORM\Column(name="created_by", type="bigint", nullable=true)

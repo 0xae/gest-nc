@@ -175,7 +175,7 @@ class Complaint {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
@@ -184,7 +184,7 @@ class Complaint {
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
      * })
      * 
      */
