@@ -2,6 +2,13 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
      <ul class="sidebar-menu">
+        <li class="header active" style="padding:0px;">
+            <a href="{{ path('sga_dashboard') }}" class="bg-green">
+                <i class="fa fa-cog"></i>
+                <span>MENU INICIAL</span>
+            </a>
+        </li>
+
         <!-- Administracao -->
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
@@ -19,6 +26,46 @@
                     <a href="{{ path('administration_Module') }}">
                     <i class="fa fa-circle-o text-gray"></i>
                     <span>M&oacute;dulos</span></a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Parametrizacao -->
+        <li class="header active" style="padding:0px;">
+            <a href="javascript:void(0)" class="bg-green">
+                <i class="fa fa-cog"></i>
+                PARAMETRIZA&Ccedil;&Atilde;O
+            </a>
+
+            <ul class="treeview-menu" style="display: none">
+                {# <li>
+                    <a href="{{ path('administration_Profile') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Perfis</span></a>
+                </li> #}
+
+                <li>
+                    <a href="{{ path('administration_Stage') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Etapas</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Servi&ccedil;os</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_Document') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Documentos</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_user') }}">
+                    <i class="fa fa-circle-o text-gray"></i>
+                    <span>Morada/Localidade</span></a>
                 </li>
             </ul>
         </li>
@@ -52,6 +99,11 @@
                 <li>
                     <a href="{{ path('administration_category') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                 </li>
             </ul>
         </li>
@@ -88,6 +140,11 @@
                 <li>
                     <a href="{{ path('administration_category') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_category') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                 </li>
             </ul>            
         </li>
@@ -132,46 +189,6 @@
                     </a>
                 </li>
             </ul>            
-        </li>
-
-        <!-- Parametrizacao -->
-        <li class="header active" style="padding:0px;">
-            <a href="javascript:void(0)" class="bg-green">
-                <i class="fa fa-cog"></i>
-                PARAMETRIZA&Ccedil;&Atilde;O
-            </a>
-
-            <ul class="treeview-menu" style="display: none">
-                {# <li>
-                    <a href="{{ path('administration_Profile') }}">
-                    <i class="fa fa-circle-o text-gray"></i>
-                    <span>Perfis</span></a>
-                </li> #}
-
-                <li>
-                    <a href="{{ path('administration_Stage') }}">
-                    <i class="fa fa-circle-o text-gray"></i>
-                    <span>Etapas</span></a>
-                </li>
-
-                <li>
-                    <a href="{{ path('administration_user') }}">
-                    <i class="fa fa-circle-o text-gray"></i>
-                    <span>Servi&ccedil;os</span></a>
-                </li>
-
-                <li>
-                    <a href="{{ path('administration_Document') }}">
-                    <i class="fa fa-circle-o text-gray"></i>
-                    <span>Documentos</span></a>
-                </li>
-
-                <li>
-                    <a href="{{ path('administration_user') }}">
-                    <i class="fa fa-circle-o text-gray"></i>
-                    <span>Morada/Localidade</span></a>
-                </li>
-            </ul>
         </li>
       </ul>
     </section>
