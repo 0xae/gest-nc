@@ -106,6 +106,19 @@ class Sugestion {
      */
     private $stage;
 
+    public function getObjCode() {
+        if ($this->type == 'reclamacao') {
+            $ty = '/RE/';
+        } else {
+            $ty = '/SG/';
+        }
+
+        $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
+        return $id . $ty .  
+                $this->createdBy->getEntity()->getCode() .
+                '/' . $this->createdAt->format("Y");
+    }
+
     public function getState(){
 		return $this->state;
 	}
@@ -113,7 +126,6 @@ class Sugestion {
 	public function setState($value){
 		$this->state = $value;
 	}
-
 
     public function getModule(){
 		return $this->module;

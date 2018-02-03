@@ -79,7 +79,8 @@ class SugestionController extends Controller
     public function newAction()
     {
         $entity = new Sugestion();
-        $form   = $this->createCreateForm($entity);
+        $entity->setCreatedAt(new \DateTime);
+        $form  = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Sugestion:new.html.twig', array(
             'entity' => $entity,

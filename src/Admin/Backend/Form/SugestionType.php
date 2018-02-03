@@ -45,7 +45,7 @@ class SugestionType extends AbstractType {
             // ))
             ->add('type', 'choice', array(
                     'choices'  => array(
-                        'reclamacao' => 'Reclamação',
+                        'reclamacao' => 'Reclamação externa',
                         'sugestao' => 'Sugestão'
                     ),
             ))

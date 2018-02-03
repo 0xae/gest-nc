@@ -58,8 +58,7 @@ class ComplaintController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
-            $entity->setCreatedBy($userId);
-
+            $entity->setCreatedBy($userId);           
             $entity->setState('acompanhamento');
 
             // $file = $entity->getFactAnnex();
@@ -106,6 +105,7 @@ class ComplaintController extends Controller {
      */
     public function newAction() {
         $entity = new Complaint();
+        $entity->setCreatedAt(new \DateTime);        
         $form = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Complaint:new.html.twig', array(

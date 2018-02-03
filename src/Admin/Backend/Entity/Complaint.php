@@ -181,7 +181,7 @@ class Complaint {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="date", nullable=true)
      */
     private $createdAt;
 
@@ -195,6 +195,19 @@ class Complaint {
      * 
      */
     private $createdBy;
+
+    public function getObjCode() {
+        if ($this->type == 'queixa') {
+            $ty = '/QX/';
+        } else {
+            $ty = '/DN/';
+        }
+
+        $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
+        return $id . 
+                $ty .  $this->createdBy->getEntity()->getCode() .
+                '/' . $this->createdAt->format("Y");
+    }
 
     public function getModule(){
 		return $this->module;
