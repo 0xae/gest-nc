@@ -59,9 +59,16 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="string", type="string", length=250, nullable=true)
+     * @ORM\Column(name="type", type="string", length=250, nullable=true)
      */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=250, nullable=true)
+     */
+    private $state;
 
     /**
      * @var string
@@ -195,6 +202,14 @@ class Complaint {
 
 	public function setModule($module){
 		$this->module = $module;
+	}
+
+    public function getState(){
+		return $this->state;
+	}
+
+	public function setState($value){
+		$this->state = $value;
 	}
 
 	public function getStage(){
