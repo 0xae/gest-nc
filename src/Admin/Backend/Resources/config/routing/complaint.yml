@@ -19,6 +19,10 @@ administration_Complaint_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:Complaint:edit" }
 
+administration_Complaint_bystate:
+    path:     /{state}
+    defaults: { _controller: "BackendBundle:Complaint:byState" }
+
 administration_Complaint_update:
     path:     /{id}/update
     defaults: { _controller: "BackendBundle:Complaint:update" }

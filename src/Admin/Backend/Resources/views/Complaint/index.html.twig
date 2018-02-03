@@ -57,7 +57,7 @@
                                     <td>{{ entity.locality }}</td>
                                     <td>{{ entity.phone }}</td>
                                     <td>{{ entity.email }}</td>
-                                    <td>{{ entity.createdBy }}</td>
+                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td>
                                         <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
                                             <span class="badge badge-primary">

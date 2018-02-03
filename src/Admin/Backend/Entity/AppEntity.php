@@ -1,7 +1,6 @@
 <?php
 
 namespace Admin\Backend\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_entity", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
-class AppEntity
-{
+class AppEntity {
     /**
      * @var integer
      *
@@ -24,9 +22,23 @@ class AppEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=45, nullable=false)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=45, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo", type="string", length=45, nullable=false)
+     */
+    private $code;
 
     /**
      * @var \DateTime
@@ -42,7 +54,21 @@ class AppEntity
      */
     private $createdBy;
 
+    public function setCode($value) {
+        $this->code = $value;
+    }
 
+    public function getCode() {
+        return $this->code;
+    }
+
+    public function setDescription($value) {
+        $this->description = $value;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
 
     /**
      * Get id

@@ -19,6 +19,14 @@ class UserType extends AbstractType {
             ->add('username')
             ->add('password', 'password')
             // ->add('password_confir', 'password')
+            ->add('entity', 'entity', array(
+                'class' => 'BackendBundle:AppEntity',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name'                
+            ))
             ->add('phone')
             ->add('address')
             ->add('photoDir')

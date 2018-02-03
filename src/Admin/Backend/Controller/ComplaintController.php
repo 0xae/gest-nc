@@ -27,6 +27,25 @@ class ComplaintController extends Controller {
         ));
     }
 
+    public function byStateAction($state) {
+        $em = $this->getDoctrine()->getManager();        
+        $tpl = '';
+        if ($state == 'acompanhamento') {
+            $tpl = 'acomp';
+        } else if ($state == 'tratamento') { 
+            $tpl = 'treat';            
+        } else {
+            $tpl = 'acomp';
+        }
+
+        $ary = $em->getRepository('BackendBundle:Complaint')
+                  ->findBy(['state' => $state]);
+
+        return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
+            'objects' => $ary
+        ));
+    }
+
     /**
      * Creates a new Complaint entity.
      *

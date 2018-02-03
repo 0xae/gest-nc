@@ -55,7 +55,8 @@
                                 <td>{{ entity.phone }}</td>
                                 <td>{{ entity.email }}</td>
                                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>     
-                                <td>{{ entity.createdBy.name }}</td>                             
+                                {# <td>{{ entity.createdBy.name }}</td> #}
+                                <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                 <td>
                                     <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
                                         <span class="badge badge-primary">

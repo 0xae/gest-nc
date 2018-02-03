@@ -9,7 +9,7 @@
             </a>
         </li>
 
-        <!-- Administracao -->
+        {#  Administracao #}
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -30,7 +30,7 @@
             </ul>
         </li>
 
-        <!-- Parametrizacao -->
+        {#  Parametrizacao #}
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -51,9 +51,9 @@
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_user') }}">
+                    <a href="{{ path('administration_entities') }}">
                     <i class="fa fa-circle-o text-gray"></i>
-                    <span>Servi&ccedil;os</span></a>
+                    <span>Departamentos</span></a>
                 </li>
 
                 <li>
@@ -70,7 +70,7 @@
             </ul>
         </li>
 
-        <!-- Queixas/Denuncias -->
+        {# Queixas/Denuncias #}
         <li class="header active tree-view" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -89,11 +89,11 @@
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'acompanhamento'}) }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Acompanhar Queixa/Denuncia</span></a>
                 </li>
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'tratamento'}) }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Tratar Queixa/Denuncia</span></a>
                 </li>
                 <li>
@@ -107,8 +107,8 @@
                 </li>
             </ul>
         </li>
-        
-        <!-- Reclamacoes/sugestoes -->
+
+        {# Reclamacoes/sugestoes #}
         <li class="header active" style="padding:0px;">
             <a href="{{ path('administration_Sugestion') }}" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -149,7 +149,7 @@
             </ul>            
         </li>
 
-        <!-- N conformidades -->
+        {# N conformidades  #}
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -157,7 +157,7 @@
             </a>
         </li>
 
-        <!-- Estatistica -->
+        {#  Estatistica #}
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
