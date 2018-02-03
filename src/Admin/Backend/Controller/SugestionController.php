@@ -41,6 +41,7 @@ class SugestionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
+            $entity->setState('acompanhamento');            
 
             $em->persist($entity);
             $em->flush();
@@ -165,10 +166,6 @@ class SugestionController extends Controller
             $entity->setCreatedBy($userId);
 
             $em->flush();
-            $this->addFlash(
-                'sugestion',
-                'Guardado com sucesso.'
-            );
             return $this->redirect($this->generateUrl('administration_Sugestion_edit', array('id' => $id)));
         }
 

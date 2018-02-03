@@ -24,6 +24,7 @@
                             <tr>                                        
                                 <th>ID#</th>
                                 <th>Tipo</th>
+                                <th>Estado</th>
                                 <th>Nome</th>
                                 <th>Endere&ccedil;o</th>
                                 <th>Telefone</th>
@@ -48,6 +49,7 @@
                                         Sugestão
                                     {% endif %}
                                 </td>
+                                <td>{{ entity.state }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.address }}</td>
                                 <td>{{ entity.phone }}</td>

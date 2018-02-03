@@ -28,6 +28,11 @@ class Sugestion {
     private $type;
 
     /**
+     * @ORM\Column(name="state", type="string", length=45, nullable=true)
+     */
+    private $state;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=45, nullable=true)
@@ -100,6 +105,15 @@ class Sugestion {
      * })
      */
     private $stage;
+
+    public function getState(){
+		return $this->state;
+	}
+
+	public function setState($value){
+		$this->state = $value;
+	}
+
 
     public function getModule(){
 		return $this->module;

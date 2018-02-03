@@ -41,6 +41,8 @@ class ComplaintController extends Controller {
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
 
+            $entity->setState('acompanhamento');
+
             // $file = $entity->getFactAnnex();
             // if ($file) {
             //     $fileName = md5(uniqid()).'.'.$file->guessExtension();
