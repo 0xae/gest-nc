@@ -17,7 +17,7 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>C&oacute;digo</th>
                                 <th>Responsável</th>
                                 <th>Data</th>
                                 <th>Data Prevista de resposta</th>
@@ -25,10 +25,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {# {% for entity in entities %}
+                            {% for entity in objects %}
                                 <tr>
+                                    <td>
+                                        <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                            {{ entity.objCode }}
+                                        </a>
+                                    </td>
+                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                    <td></td>
                                 </tr>
-                            {% endfor %} #}
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

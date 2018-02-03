@@ -32,8 +32,8 @@ class ComplaintController extends Controller {
         $tpl = '';
         if ($state == 'acompanhamento') {
             $tpl = 'acomp';
-        } else if ($state == 'tratamento') { 
-            $tpl = 'treat';            
+        } else if ($state == 'tratamento') {
+            $tpl = 'treat';
         } else {
             $tpl = 'acomp';
         }
@@ -44,6 +44,9 @@ class ComplaintController extends Controller {
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
             'objects' => $ary
         ));
+    }
+
+    public function forwardAction($state) {        
     }
 
     /**

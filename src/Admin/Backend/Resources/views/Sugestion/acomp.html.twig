@@ -18,24 +18,35 @@
                         <thead>
                             <tr>
                                 <th>C&oacute;digo</th>
+                                <th>Tipo</th>
                                 <th>Responsável</th>
                                 <th>Data</th>
-                                <th>Data Prevista de resposta</th>
-                                <th></th>
+                                <th>Tem fundamento</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in objects %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                        <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
                                             {{ entity.objCode }}
                                         </a>
                                     </td>
-                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                                     <td>
+                                        {% if entity.type == 'reclamacao' %}
+                                            Reclamação
+                                        {% else %}
+                                            Sugestão
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}
+                                    </td>
+                                    <td>
+                                        {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                                    </td>
+                                    <td>
+                                        Sim | Nao
                                     </td>
                                 </tr>
                             {% endfor %}

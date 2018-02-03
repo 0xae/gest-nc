@@ -1,12 +1,8 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content -%}
-
     <div class="row">
         <div class="col-xs-12">
-            {# <button class="btn btn-default" type="button">Registar reclamacao externa/sugestao</button>
-            <button class="btn btn-default" type="button">Registar reclamacao interna</button> #}
-
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Acompanhamento de Queixas/Denuncias</h3>
@@ -18,10 +14,10 @@
                         <thead>
                             <tr>
                                 <th>C&oacute;digo</th>
+                                <th>Tipo</th>
                                 <th>Responsável</th>
                                 <th>Data</th>
-                                <th>Data Prevista de resposta</th>
-                                <th></th>
+                                <th>Tem fundamento</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,13 +28,20 @@
                                             {{ entity.objCode }}
                                         </a>
                                     </td>
+                                    <td>
+                                        {% if entity.type == 'queixa' %}
+                                            Queixa
+                                        {% else %}
+                                            Denuncia
+                                        {% endif %}
+                                    </td>
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                                     <td>
+                                        Sim | Nao
                                     </td>
                                 </tr>
-                            {% endfor %}
+                            {% endfor %} 
                         </tbody>
                     </table>
                 </div>
@@ -47,5 +50,4 @@
             <!-- /.box -->
         </div>
     </div>
-
 {% endblock %}
