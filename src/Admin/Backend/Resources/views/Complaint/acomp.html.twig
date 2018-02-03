@@ -27,7 +27,16 @@
                         <tbody>
                             {% for entity in objects %}
                                 <tr>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                            {{ entity.objCode }}
+                                        </a>
+                                    </td>
+                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                    <td>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

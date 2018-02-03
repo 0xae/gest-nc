@@ -10,11 +10,8 @@ use Admin\Backend\Form\SugestionType;
 
 /**
  * Sugestion controller.
- *
  */
-class SugestionController extends Controller
-{
-
+class SugestionController extends Controller {
     /**
      * Lists all Sugestion entities.
      *
@@ -25,6 +22,25 @@ class SugestionController extends Controller
 
         return $this->render('BackendBundle:Sugestion:index.html.twig', array(
             'entities' => $entities,
+        ));
+    }
+
+    public function byStateAction($state) {
+        $em = $this->getDoctrine()->getManager();        
+        $tpl = '';
+        if ($state == 'acompanhamento') {
+            $tpl = 'acomp';
+        } else if ($state == 'tratamento') { 
+            $tpl = 'treat';            
+        } else {
+            $tpl = 'acomp';
+        }
+
+        $ary = $em->getRepository('BackendBundle:Sugestion')
+                  ->findBy(['state' => $state]);
+
+        return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
+            'objects' => $ary
         ));
     }
 
@@ -56,28 +72,10 @@ class SugestionController extends Controller
     }
 
     /**
-     * Creates a form to create a Sugestion entity.
-     *
-     * @param Sugestion $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Sugestion $entity)
-    {
-        $form = $this->createForm(new SugestionType(), $entity, array(
-            'action' => $this->generateUrl('administration_Sugestion_create'),
-            'method' => 'POST',
-        ));
-
-        return $form;
-    }
-
-    /**
      * Displays a form to create a new Sugestion entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Sugestion();
         $entity->setCreatedAt(new \DateTime);
         $form  = $this->createCreateForm($entity);
@@ -131,21 +129,6 @@ class SugestionController extends Controller
     }
 
     /**
-    * Creates a form to edit a Sugestion entity.
-    *
-    * @param Sugestion $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Sugestion $entity) {
-        $form = $this->createForm(new SugestionType(), $entity, array(
-            'action' => $this->generateUrl('administration_Sugestion_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        return $form;
-    }
-    /**
      * Edits an existing Sugestion entity.
      *
      */
@@ -176,6 +159,7 @@ class SugestionController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Sugestion entity.
      *
@@ -197,6 +181,38 @@ class SugestionController extends Controller
         }
 
         return $this->redirect($this->generateUrl('administration_Sugestion'));
+    }
+
+    /**
+    * Creates a form to edit a Sugestion entity.
+    *
+    * @param Sugestion $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Sugestion $entity) {
+        $form = $this->createForm(new SugestionType(), $entity, array(
+            'action' => $this->generateUrl('administration_Sugestion_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a Sugestion entity.
+     *
+     * @param Sugestion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Sugestion $entity) {
+        $form = $this->createForm(new SugestionType(), $entity, array(
+            'action' => $this->generateUrl('administration_Sugestion_create'),
+            'method' => 'POST',
+        ));
+
+        return $form;
     }
 
     /**

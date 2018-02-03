@@ -2,6 +2,10 @@ administration_Sugestion:
     path:     /
     defaults: { _controller: "BackendBundle:Sugestion:index" }
 
+administration_Sugestion_byState:
+    path:     /{state}
+    defaults: { _controller: "BackendBundle:Sugestion:byState" }
+
 administration_Sugestion_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Sugestion:show" }
