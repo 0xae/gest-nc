@@ -141,7 +141,6 @@ class Complaint {
      */
     private $hasAnnex;
 
-    
     /**
      * @var \Document
      *

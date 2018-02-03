@@ -42,7 +42,13 @@
                                         #{{ entity.id }}
                                         </a>
                                     </td>
-                                    <td>{{ entity.module.name|capitalize }}</td>
+                                    <td>
+                                        {% if entity.type == 'queixa' %}
+                                            Queixa
+                                        {% else %}
+                                            Denuncia
+                                        {% endif %}
+                                    </td>
                                     <td>{{ entity.name }}</td>
                                     <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                                     <td>{{ entity.address }}</td>

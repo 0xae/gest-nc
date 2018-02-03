@@ -15,44 +15,44 @@ class ComplaintType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('module', 'entity', array(
-                'class' => 'BackendBundle:Module',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                    ->where("lower(u.name) like '%quei%' or lower(u.name) like '%den%'")                    
-                    ->orderBy('u.name', 'ASC');
-                },
-                'choice_label' => 'name'                
-            ))
-            ->add('stage', 'entity', array(
-                'class' => 'BackendBundle:Stage',
-                'query_builder' => function (EntityRepository $er) use ($options) {
-                    $qb=$er->createQueryBuilder('u');                    
+            // ->add('module', 'entity', array(
+            //     'class' => 'BackendBundle:Module',
+            //     'query_builder' => function (EntityRepository $er) {
+            //         return $er->createQueryBuilder('u')
+            //         ->where("lower(u.name) like '%quei%' or lower(u.name) like '%den%'")                    
+            //         ->orderBy('u.name', 'ASC');
+            //     },
+            //     'choice_label' => 'name'                
+            // ))
+            // ->add('stage', 'entity', array(
+            //     'class' => 'BackendBundle:Stage',
+            //     'query_builder' => function (EntityRepository $er) use ($options) {
+            //         $qb=$er->createQueryBuilder('u');                    
 
-                    if ($options['data'] && 
-                            $options['data']->getModule() && 
-                            $options['data']->getModule()->getId()) {
-                        $moduleId = $options['data']->getModule()->getId();
-                        $qb->join('BackendBundle:ModuleStage ms', 
-                                  'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
-                           ->orderBy('u.name', 'ASC');
-                    }
+            //         if ($options['data'] && 
+            //                 $options['data']->getModule() && 
+            //                 $options['data']->getModule()->getId()) {
+            //             $moduleId = $options['data']->getModule()->getId();
+            //             $qb->join('BackendBundle:ModuleStage ms', 
+            //                       'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
+            //                ->orderBy('u.name', 'ASC');
+            //         }
 
-                    return $qb;
-                },
-                'choice_label' => 'name'                
-            ))
+            //         return $qb;
+            //     },
+            //     'choice_label' => 'name'                
+            // ))
             ->add('name')
             ->add('address')
             ->add('locality')
             ->add('phone')
             ->add('email', 'email')
-            // ->add('type', 'choice', array(
-            //     'choices'  => array(
-            //         'queixa' => 'Queixa',
-            //         'denuncia' => 'Denuncia'
-            //     ),
-            // ))
+            ->add('type', 'choice', array(
+                'choices'  => array(
+                    'queixa' => 'Queixa',
+                    'denuncia' => 'Denuncia'
+                ),
+            ))
             // ->add('type', 'choice', array(
             //     'expanded' => true,
             //     'multiple' => true,

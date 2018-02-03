@@ -18,13 +18,13 @@ use Admin\Backend\Form\UserProfileType;
  */
 class AdminController extends Controller {
     public function indexAction() {
-        $em = $this->getDoctrine()->getManager();        
+        $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
         $userList = $em->getRepository('BackendBundle:User')->findAll();
         $profileList = $em->getRepository('BackendBundle:Profile')->findAll();
         $assocProfile = $this->createAssocProfileForm();
-        
+
         return $this->render('BackendBundle:Admin:index.html.twig', array(
             'user_form' => $userForm->createView(),
             'user_list' => $userList,

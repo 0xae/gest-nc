@@ -21,11 +21,11 @@ class Sugestion {
     private $id;
 
     /**
-     * @var string (reclamacao_externa | sugestao)
+     * @var string (reclamacao | sugestao)
      *
      * @ORM\Column(name="type", type="string", length=45, nullable=true)
      */
-    private $type;    
+    private $type;
 
     /**
      * @var string
