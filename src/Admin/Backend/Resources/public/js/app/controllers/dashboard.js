@@ -2,10 +2,10 @@ angular.module("app")
 .controller("DashboardController", ['$http', '$scope', function ($http, $scope) {
     console.info("--- init dash controller ---");
     
-    function renderDepartments() {
-        fetchData('by_department')
+    function renderDepartments(year) {
+        fetchData('by_department', {year: year})
         .then(function (data) {
-            var deps = data.departments;
+            var deps = data.rows;
             var keys = Object.keys(deps);
             var series = {};
             var types=["denuncia", "queixa", "reclamacao", "sugestao"];
@@ -35,8 +35,6 @@ angular.module("app")
                 });
             });
 
-            console.info("series", series);
-
             var render = Object.keys(series).map(function (k){ return series[k]; });
             renderBar(
                 'Queixas/Denúncias/Sugestões/Reclamações por Direções', 
@@ -49,10 +47,10 @@ angular.module("app")
         });
     }
 
-    function renderPerMonth() {
-        fetchData('by_month')
+    function renderPerMonth(year) {
+        fetchData('by_month', {year: year})
         .then(function (data) {
-            var objects = data.complaints;
+            var objects = data.rows;
             var keys = _.sortBy(Object.keys(objects))
             var series = {
                 queixa: {
@@ -110,11 +108,69 @@ angular.module("app")
         });
     }
 
-    renderPerMonth();
-    renderDepartments();
+    function renderPerDay(year, month) {
+        fetchData('by_day', {year: year, month: month})
+        .then(function(data){
+            var objects = data.rows;
+            var keys = _.sortBy(Object.keys(objects));
+            var columns = keys;            
+            var series = {
+                queixa: {
+                    name: "Queixa",
+                    data: []
+                },
+                denuncia:{
+                    name: "Denúncias",
+                    data: []
+                },
+                sugestao:{
+                    name: "Sugestao",
+                    data: []
+                },
+                reclamacao:{
+                    name: "Reclamacao",
+                    data: []
+                },
+            };
 
-    function fetchData(type) {
-        return $http.get('/arfa/web/app_dev.php/dashboard/stats/'+type)
+            keys.forEach(function (key){
+                var entry = objects[key];
+                entry.forEach(function (obj){
+                    series[obj.type].data.push(parseInt(obj.count));
+                });
+            });
+
+            console.info("series: ", series);
+            
+            var render = Object.keys(series).map(function (k){ return series[k]; });
+            renderBar('Queixas/Denúncias/Sugestões por dia',
+                'Ocorrencias',
+                'subtitulo',
+                'by_day',
+                columns,
+                render
+            );  
+        });        
+    }
+
+    // $scope.loadPerDay = function () {
+    // }
+
+    // $scope.loadPerMonth = function () {
+    // }
+
+    // $scope.loadPerDepartment = function () {
+    // }
+
+    renderPerMonth(2018);
+    renderDepartments(2018);
+    renderPerDay(2018, '01');
+
+    function fetchData(type, conf) {
+        var queryStr= Object.keys(conf)
+                        .map(function (k){ return k+'='+encodeURIComponent(conf[k]); })
+                        .join('&');
+        return $http.get('/arfa/web/app_dev.php/dashboard/stats/'+type + '?' + queryStr)
         .then(function (resp) {
             return resp.data;
         });

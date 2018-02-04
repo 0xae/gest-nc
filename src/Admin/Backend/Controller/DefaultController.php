@@ -11,11 +11,17 @@ class DefaultController extends Controller {
 	}
 
 	public function statsAction($type) {
-		$year = 2018;
-		if ($type == 'by_department')
+		$year = $_GET['year'];
+		if ($type == 'by_department'){
 			$db = $this->groupByDepartment($year);
-		else if ($type == 'by_month')
+		}
+		else if ($type == 'by_month') {
 			$db = $this->groupByMonth($year);
+		}
+		else if ($type == 'by_day') {
+			$month = $_GET['month'];
+			$db = $this->groupByDay($year, $month);
+		}
 
 		return new JsonResponse($db);
 	}
@@ -58,19 +64,50 @@ class DefaultController extends Controller {
 			}
 		}
 
-		// $db = [];
-		// $deps = $this->fetchAll('select c.codigo as code,c.name from app_entity c', []);
-		// $obj = [
-		// 	['type'=>'queixa', 'count'=>0],
-		// 	['type'=>'denuncia', 'count'=>0],
-		// 	['type'=>'sugestao', 'count'=>0],
-		// 	['type'=>'reclamacao', 'count'=>0]
-		// ];
-
-		return ["departments" => $table];
+		return ["rows" => $table];
 	}
 
 	private function groupByDay($year, $month) {		
+		$complaints = '
+			select COUNT(type) as count,
+				DATE_FORMAT(created_at, "%Y-%m-%d") as period,
+				type 
+			from complaint 
+			where year(created_at) = :year
+			and month(created_at) = :month
+			group by DATE_FORMAT(created_at, "%Y-%m-%d"),type ;
+		';
+
+		$sugestions = '
+			select COUNT(type) as count,
+				DATE_FORMAT(created_at, "%Y-%m-%d") as period,
+				type 
+			from sugestion
+			where year(created_at) = :year
+			and month(created_at) = :month
+			group by DATE_FORMAT(created_at, "%Y-%m-%d"),type 
+		';
+
+		$params = ['year'=>$year, 'month'=>$month];
+		$ary = $this->fetchAll($complaints, $params);
+		$ary = array_merge($ary, $this->fetchAll($sugestions, $params));
+
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['period'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		$db = ["rows" => $table];	
+		return $db;
 	}
 
 	private function groupByMonth($year) {
@@ -124,10 +161,7 @@ class DefaultController extends Controller {
 			}
 		}
 
-		$db = [
-			"complaints" => $table			
-		];	
-
+		$db = ["rows" => $table];	
 		return $db;
 	}
 
