@@ -42,7 +42,7 @@ angular.module("app")
                 'Queixas/Denúncias/Sugestões/Reclamações por Direções', 
                 'Ocorrencias',
                 'subtitulo',
-                'graph2',
+                'by_department',
                 categories,
                 render
             );
@@ -103,7 +103,7 @@ angular.module("app")
             renderBar('Queixas/Denúncias/Sugestões por Mês',
                 'Ocorrencias',
                 'subtitulo',
-                'graph1',
+                'by_month',
                 columns,
                 render
             );    

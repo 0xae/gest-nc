@@ -131,6 +131,9 @@ class DefaultController extends Controller {
 		return $db;
 	}
 
+	private function getCounters() {		
+	}
+
 	private function fetchAll($sql, $params) {
         $em = $this->getDoctrine()->getManager();
 		$stmt = $em->getConnection()->prepare($sql);
