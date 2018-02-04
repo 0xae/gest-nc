@@ -177,7 +177,7 @@ class Complaint {
      * })
      */
     private $stage;
-    
+
     /**
      * @var \DateTime
      *
@@ -195,6 +195,36 @@ class Complaint {
      * 
      */
     private $createdBy;
+
+    /**
+     * @var \Stage
+     *
+     * @ORM\Column(name="approval_reason", type="string", length=250, nullable=true)
+     */
+    private $approvalReason;
+
+    /**
+     * @var \Stage
+     *
+     * @ORM\Column(name="rejection_reason", type="string", length=250, nullable=true)
+     */
+    private $rejectionReason;
+
+    public function getApprovalReason(){
+		return $this->approvalReason;
+	}
+
+	public function setApprovalReason($approvalReason){
+		$this->approvalReason = $approvalReason;
+	}
+
+	public function getRejectionReason(){
+		return $this->rejectionReason;
+	}
+
+	public function setRejectionReason($rejectionReason){
+		$this->rejectionReason = $rejectionReason;
+	}
 
     public function getObjCode() {
         if ($this->type == 'queixa') {

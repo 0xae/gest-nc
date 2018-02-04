@@ -67,7 +67,7 @@ class DefaultController extends Controller {
 		return ["rows" => $table];
 	}
 
-	private function groupByDay($year, $month) {		
+	private function groupByDay($year, $month) {
 		$complaints = '
 			select COUNT(type) as count,
 				DATE_FORMAT(created_at, "%Y-%m-%d") as period,
