@@ -63,7 +63,7 @@ backend_administration_main_profiles_remove:
     defaults:  { _controller: BackendBundle:Admin:removeUserProfile }
 
 dashboard_stats:
-    path:     /dashboard/stats
+    path:     /dashboard/stats/{type}
     defaults: { _controller: BackendBundle:Default:stats }
 
 sga_homepage:

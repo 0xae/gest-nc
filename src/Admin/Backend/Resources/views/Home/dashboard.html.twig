@@ -1,10 +1,11 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content %}
+<div ng-controller="DashboardController">
     <h1>Dashboard</h1>
     <p>Estatisticas sobre Denúncias, Queixas, Reclamações e Sugestões</p>
 
-    <div class="row">
+    {# <div class="row">
         <div class="col-md-6">
             <div class="box">
                 <div class="">
@@ -140,28 +141,112 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>0</h3>
+                    <p>Este M&ecirc;s</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Reclamações resolvidas
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>0</h3>
+                    <p>Este M&ecirc;s</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Reclamações respondidas
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>0</h3>
+                    <p>Este M&ecirc;s</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Reclamações n&atilde;o respondidas
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>0</h3>
+                    <p>Este M&ecirc;s</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-user"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Reclamações pendentes
+                </a>
+            </div>
+        </div>
+
+        {# <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h4 class="box-title">Nº de Queixas/Denúncias/Sugestões por Mês</h4>
+                    <h4 class="box-title"></h4>
                 </div>
                 <div class="box-body no-padding">
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div> #}
+
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h4 class="box-title"></h4>
+                </div>
+                <div class="box-body no-padding">
+                    <div id="graph1"></div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="box">
-                <div class="">
-                    <h4 class="box-title">Nº de Queixas/Denúncias/Sugestões por Direções</h4>
+                <div class="box-header">
+                    <h4 class="box-title"></h4>
                 </div>
                 <div class="box-body no-padding">
+                    <div id="graph1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box">
+                <div class="">
+                    <h4 class="box-title"></h4>
+                </div>
+                <div class="box-body no-padding">
+                    <div id="graph2"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 {% endblock %}
 
