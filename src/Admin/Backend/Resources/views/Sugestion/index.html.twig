@@ -45,8 +45,10 @@
                                 <td>
                                     {% if entity.type == 'reclamacao' %}
                                         Reclamação
-                                    {% else %}
+                                    {% else if entity.type == 'sugestao' %}
                                         Sugestão
+                                    {% else %}
+                                        {{entity.type}}
                                     {% endif %}
                                 </td>
                                 <td>{{ entity.state }}</td>

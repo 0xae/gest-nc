@@ -46,8 +46,10 @@
                                     <td>
                                         {% if entity.type == 'queixa' %}
                                             Queixa
-                                        {% else %}
+                                        {% else if entity.type == 'denuncia'  %}
                                             Denuncia
+                                        {% else %}
+                                            {{entity.type}}
                                         {% endif %}
                                     </td>
                                     <td>{{ entity.state }}</td>
