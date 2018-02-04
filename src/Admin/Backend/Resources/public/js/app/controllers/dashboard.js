@@ -82,8 +82,8 @@ angular.module("app")
             });
     
             var render = Object.keys(series).map(function (k){ return series[k]; });
-    
-            var columns = [
+
+            var months = [
                 'Janeiro',
                 'Fevereiro',
                 'Marco',
@@ -102,7 +102,7 @@ angular.module("app")
                 'Ocorrencias',
                 'subtitulo',
                 'by_month',
-                columns,
+                months,
                 render
             );    
         });
@@ -112,8 +112,6 @@ angular.module("app")
         fetchData('by_day', {year: year, month: month})
         .then(function(data){
             var objects = data.rows;
-            var keys = _.sortBy(Object.keys(objects));
-            var columns = keys;            
             var series = {
                 queixa: {
                     name: "Queixa",
@@ -132,22 +130,27 @@ angular.module("app")
                     data: []
                 },
             };
+            var months = _.sortBy(Object.keys(objects));            
+            var types = _.sortBy(Object.keys(series));
 
-            keys.forEach(function (key){
-                var entry = objects[key];
-                entry.forEach(function (obj){
-                    series[obj.type].data.push(parseInt(obj.count));
+            types.forEach(function (t){
+                months.forEach(function (m){
+                    var found=_.find(objects[m], function (mt) { return mt.type==t});
+                    if (found) {
+                        series[t].data.push(parseInt(found.count));
+                    } else {
+                        series[t].data.push(0);                        
+                    }
                 });
-            });
+            });            
 
-            console.info("series: ", series);
-            
-            var render = Object.keys(series).map(function (k){ return series[k]; });
+            var render = types.map(function (k){ return series[k]; });
+            console.info("series: ", render);
             renderBar('Queixas/Denúncias/Sugestões por dia',
                 'Ocorrencias',
                 'subtitulo',
                 'by_day',
-                columns,
+                months,
                 render
             );  
         });        
