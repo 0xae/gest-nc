@@ -76,7 +76,7 @@ class DefaultController extends Controller {
 	private function groupByMonth($year) {
         $em = $this->getDoctrine()->getManager();
 		$year = 2018;		
-		$sql = '
+		$complaints = '
 			select COUNT(type) as count,
 				   DATE_FORMAT(created_at, "%Y-%m") as period,
 				   type 
@@ -85,7 +85,18 @@ class DefaultController extends Controller {
 			group by DATE_FORMAT(created_at, "%Y-%m"),type ;
 		';
 
-		$ary = $this->fetchAll($sql, ['year' => $year]);
+		$sugestions = '
+			select COUNT(type) as count,
+				DATE_FORMAT(created_at, "%Y-%m") as period,
+				type 
+			from sugestion 
+			where year(created_at) = :year
+			group by DATE_FORMAT(created_at, "%Y-%m"),type ;
+		';	
+
+		$ary = $this->fetchAll($complaints, ['year' => $year]);
+		$ary = array_merge($ary, $this->fetchAll($sugestions, ['year' => $year]));
+
 		$table = [];
 		foreach($ary as $val) {
 			$entry = [
