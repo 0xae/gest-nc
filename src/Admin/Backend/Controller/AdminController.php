@@ -60,7 +60,7 @@ class AdminController extends Controller {
     }
 
     public function removeUserProfileAction($id) {
-        $em = $this->getDoctrine()->getManager();        
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:UserProfile')->find($id);
         $em->remove($entity);
         $em->flush();

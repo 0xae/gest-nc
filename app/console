@@ -6,6 +6,8 @@
 // for more information
 //umask(0000);
 
+date_default_timezone_set('Atlantic/Cape_Verde');
+
 set_time_limit(0);
 
 require_once __DIR__.'/bootstrap.php.cache';

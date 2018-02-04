@@ -1,7 +1,9 @@
 <?php
 ini_set("display_errors", 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL ^ E_WARNING);
 ini_set('display_startup_erros', 1);
+
+date_default_timezone_set('Atlantic/Cape_Verde');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
@@ -21,7 +23,6 @@ use Symfony\Component\Debug\Debug;
  //   exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 //}
 
-date_default_timezone_set('GMT');
 
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 Debug::enable();

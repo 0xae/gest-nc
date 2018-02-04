@@ -3,7 +3,7 @@ administration_Sugestion:
     defaults: { _controller: "BackendBundle:Sugestion:index" }
 
 administration_Sugestion_byState:
-    path:     /{state}
+    path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:Sugestion:byState" }
 
 administration_Sugestion_show:
