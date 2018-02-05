@@ -20,10 +20,13 @@
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
+                <span style="font-weight: bold;font-size: 19px;">GESTÃO DE DENÚNCIAS, QUEIXAS, RECLAMAÇÕES E SUGESTÕES</span>
             </a>
             
-            <div class="container">
-                <h3 class="app-title">Gest&atilde;o de Den&uacute;ncias, Queixas, Reclama&ccedil;&otilde;es e Sugest&otilde;es</h3>
+            <div class="">
+                <h3 class="app-title">
+                {# Gest&atilde;o de Den&uacute;ncias, Queixas, Reclama&ccedil;&otilde;es e Sugest&otilde;es</h3> #}
+                {# GESTÃO DE DENÚNCIAS, QUEIXAS, RECLAMAÇÕES E SUGESTÕES #}
                 <!-- Navbar Right Menu -->
             </div>
         </div>
@@ -40,9 +43,9 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                            <p>
-                                <small>{{ 'layout.logged_in_as'|trans({'%username%': app.user.lastlogin|date("d-m-y")}, 'FOSUserBundle') }}</small>
-                            </p>
+                                <p>
+                                    <small>{{ 'layout.logged_in_as'|trans({'%username%': app.user.lastlogin|date("d-m-y")}, 'FOSUserBundle') }}</small>
+                                </p>
                             </li>
 
                             <!-- Menu Footer-->
@@ -61,19 +64,22 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:14px;">
-                            <i class="fa fa-user"></i>
+                            {% image '@BackendBundle/Resources/public/img/avatar.png' %}
+                            <img src="{{ asset_url }}" class="user-image" alt="User Image">
+                            {% endimage %}
                             <strong>{{ app.user.username }}/{{ app.user.entity.name }}</strong>
                         </a>
 
                         <ul class="dropdown-menu">
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                {# <div class="pull-left">
-                                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Minha conta</a>
-                                </div> #}
-
-                                <div class="pull-right">
-                                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sair</a>
+                                <div class="">
+                                    <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Alterar palavra-passe</a>
+                                </div>
+                            </li>
+                            <li class="user-footer">
+                                <div class="">
+                                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Terminar sess&atilde;o</a>
                                 </div>
                             </li>
                         </ul>

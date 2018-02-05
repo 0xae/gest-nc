@@ -272,13 +272,13 @@ class SugestionController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Sugestion $entity) {
-        $dev = true;
-        if ($dev) {
-            $entity->setName("Jonhy Gomes");
-            $entity->setAddress("Praia, Cabo Verde");
-            $entity->setPhone("255 12 90");
-            $entity->setEmail("djonhy@gmail.com");
-        }
+        // $dev = true;
+        // if ($dev) {
+        //     $entity->setName("Jonhy Gomes");
+        //     $entity->setAddress("Praia, Cabo Verde");
+        //     $entity->setPhone("255 12 90");
+        //     $entity->setEmail("djonhy@gmail.com");
+        // }
 
         $entity->setDescription("teste 123 djonhy@gmail.com");
         

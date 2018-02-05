@@ -308,22 +308,22 @@ class ComplaintController extends Controller {
      */
     private function createCreateForm(Complaint $entity) {
         $dev = true;
-        if ($dev) {
-            $entity->setName("Ayrton Gomes");
-            $entity->setAddress("Praia, Cabo Verde");
-            $entity->setLocality("Palmarejo");
-            $entity->setPhone("255 12 90");
-            $entity->setEmail("com.ayrton@gmail.com");
+        // if ($dev) {
+        //     $entity->setName("Ayrton Gomes");
+        //     $entity->setAddress("Praia, Cabo Verde");
+        //     $entity->setLocality("Palmarejo");
+        //     $entity->setPhone("255 12 90");
+        //     $entity->setEmail("com.ayrton@gmail.com");
 
-            $entity->setOpName("Farmacia 2000");
-            $entity->setOpAddress("Praia, Cabo Verde");
-            $entity->setOpLocality("Achada St. Antonio");
-            $entity->setOpPhone("262 64 10");
-            $entity->setOpEmail("arfa@arfa.gov.cv");
+        //     $entity->setOpName("Farmacia 2000");
+        //     $entity->setOpAddress("Praia, Cabo Verde");
+        //     $entity->setOpLocality("Achada St. Antonio");
+        //     $entity->setOpPhone("262 64 10");
+        //     $entity->setOpEmail("arfa@arfa.gov.cv");
 
-            $entity->setFactLocality("Praia, Cabo Verde");
-            $entity->setFactDetail("teste 123");            
-        }
+        //     $entity->setFactLocality("Praia, Cabo Verde");
+        //     $entity->setFactDetail("teste 123");            
+        // }
 
         $entity->setFactDate(new \DateTime);
         $form = $this->createForm(new ComplaintType(), $entity, array(
