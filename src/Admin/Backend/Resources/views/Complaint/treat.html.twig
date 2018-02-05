@@ -29,7 +29,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for entity in objects %}
+                        {% for idx,entity in objects %}
                             <tr id="row-{{entity.id}}">
                                 <td>
                                     <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
@@ -49,7 +49,7 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                             <li>
-                                                <a href="#" ng-click="loadComplaint({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
+                                                <a href="#" ng-click="respondComplaint({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
                                                     Responder
                                                 </a>
                                             </li>
@@ -73,7 +73,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Responder ao utente</h4>
                         </div>
-
+                        <form ng-submit="sendForm(responseForm.$valid)" name="responseForm">
                         <div class="modal-body">
                             <h4>
                                 <a href="#">{{ '{{complaint.code}}' }}</a>
@@ -90,16 +90,20 @@
                                 <label>Email</label>
                                 <input class="form-control" disabled="disabled" value="{{ '{{complaint.email}}' }}" />
                             </div>
-                            <textarea ng-model="response" 
+
+                            <label>Resposta para o utente (<span style="color:orangered">*</span>)</label>
+                            <textarea ng-model="obj.response" 
+                                required
                                 class="form-control"
                                 rows="7"
-                                placeholder="Resposta para o utente"></textarea>
+                                placeholder="..."></textarea>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-success" ng-click="respondClient()">Enviar formul&aacute;rio</button>
+                            <button type="submit" class="btn btn-success">Enviar formul&aacute;rio</button>
                         </div>
+                        </form>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->

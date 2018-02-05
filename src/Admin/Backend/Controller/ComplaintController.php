@@ -75,6 +75,20 @@ class ComplaintController extends Controller {
     }
 
     public function respondAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        $entity->setState(Stage::RESPONDIDO);
+        $entity->setClientResponse($object['clientResponse']);
+        $em->persist($entity);       
+        $em->flush();
+        return new JsonResponse($object);
     }
 
     /**
