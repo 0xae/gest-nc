@@ -97,12 +97,12 @@
                     <i class="fa fa-circle-o text-gray"></i> <span>Tratar Queixa/Denuncia</span></a>
                 </li>
                 <li>
-                    <a href="{{ path('administration_category') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'respondido'}) }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de respostas</span></a>
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_resposta'}) }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                 </li>
             </ul>
@@ -138,12 +138,12 @@
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_category') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Responder utente</span></a>
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'respondido'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de respostas</span></a>
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_category') }}">
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_resposta'})  }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                 </li>
             </ul>            
