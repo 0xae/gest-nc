@@ -33,4 +33,13 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
+
+    $scope.respondClient = function (id, response) {        
+    }
+
+    $scope.loadComplaint = function(obj) {
+        console.info(obj);
+        $scope.complaint = obj;
+        $('#myModal').modal();        
+    }
 }]);

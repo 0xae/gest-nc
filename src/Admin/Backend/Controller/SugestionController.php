@@ -3,6 +3,7 @@
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\Sugestion;
@@ -43,6 +44,32 @@ class SugestionController extends Controller {
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
             'objects' => $ary
         ));
+    }
+
+    public function updateStateAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        $state = $object['state'];
+        if ($state == Stage::TRATAMENTO) {
+            $entity->setState(Stage::TRATAMENTO);
+        } else if ($state == Stage::REJEITADO) { 
+            $entity->setState(Stage::REJEITADO);
+            $entity->setRejectionReason($object['rejectionReason']);
+        } else {
+            // throw new Exception
+            throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
+        }
+
+        $em->persist($entity);
+        $em->flush();
+        return new JsonResponse($object);
     }
 
     /**

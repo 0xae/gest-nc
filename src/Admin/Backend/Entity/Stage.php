@@ -15,7 +15,7 @@ class Stage {
     const TRATAMENTO='tratamento';
     const ACEITADO='aceitado';
     const REJEITADO='rejeitado';
-    const RESPONDIDA='respondida';
+    const RESPONDIDO='respondido';
     const SEM_RESPOSTA='sem_resposta';
 
     /**

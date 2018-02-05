@@ -124,7 +124,15 @@ class Sugestion {
      * @ORM\Column(name="client_response", type="string", length=250, nullable=true)
      */
     private $clientResponse;
-    
+
+	public function getRejectionReason(){
+		return $this->rejectionReason;
+	}
+
+	public function setRejectionReason($rejectionReason){
+		$this->rejectionReason = $rejectionReason;
+	}
+
     public function setClientResponse($value) {
         $this->clientResponse = $value;
     }
@@ -132,7 +140,6 @@ class Sugestion {
     public function getClientResponse() {
         return $this->clientResponse;
     }
-    
 
     public function getApprovalReason(){
         return $this->approvalReason;

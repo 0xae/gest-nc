@@ -74,6 +74,9 @@ class ComplaintController extends Controller {
         return new JsonResponse($object);
     }
 
+    public function respondAction($id) {
+    }
+
     /**
      * Creates a new Complaint entity.
      *

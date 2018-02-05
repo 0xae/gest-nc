@@ -6,6 +6,16 @@ administration_Sugestion_byState:
     path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:Sugestion:byState" }
 
+administration_Sugestion_updateState:
+    path:     /update_state/{id}
+    defaults: { _controller: "BackendBundle:Sugestion:updateState" }
+    methods:  [POST]
+
+administration_Sugestion_respond:
+    path:     /respond/{id}
+    defaults: { _controller: "BackendBundle:Sugestion:respond" }
+    methods:  [POST]
+
 administration_Sugestion_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Sugestion:show" }

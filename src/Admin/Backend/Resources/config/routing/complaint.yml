@@ -11,6 +11,11 @@ administration_Complaint_updateState:
     defaults: { _controller: "BackendBundle:Complaint:updateState" }
     methods:  [POST]
 
+administration_Complaint_respond:
+    path:     /respond/{id}
+    defaults: { _controller: "BackendBundle:Complaint:respond" }
+    methods:  [POST]
+
 administration_Complaint_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Complaint:show" }
