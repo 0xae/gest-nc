@@ -34,32 +34,5 @@ angular.module("app")
         });
     }
 
-    $scope.respondComplaint = function (obj) {        
-        $scope.complaint = obj;
-        $('#myModal').modal();
-    }
 
-    $scope.sendForm = function() {
-        if (!confirm('Confirmar envio de resposta?')) return;
-        var response = $scope.obj.response;
-        var id = $scope.complaint.id;
-        var code = $scope.complaint.code;
-        var req = {
-            id: id,
-            clientResponse: response
-        };
-
-        $http.post('/arfa/web/app_dev.php/administration/Complaint/respond/'+id, req)
-        .then(function (data){
-            $scope.obj.response='';
-            $("#row-" + id).remove();
-            $.notify(code+" respondido!", "success");
-            setTimeout(function(){
-                $('#myModal').modal('hide');                
-            }, 500);
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
-
-    }
 }]);

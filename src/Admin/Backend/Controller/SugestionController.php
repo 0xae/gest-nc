@@ -46,6 +46,23 @@ class SugestionController extends Controller {
         ));
     }
 
+    public function respondAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        $entity->setState(Stage::RESPONDIDO);
+        $entity->setClientResponse($object['clientResponse']);
+        $em->persist($entity);       
+        $em->flush();
+        return new JsonResponse($object);
+    }
+
     public function updateStateAction($id) {
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
@@ -59,6 +76,8 @@ class SugestionController extends Controller {
         $state = $object['state'];
         if ($state == Stage::TRATAMENTO) {
             $entity->setState(Stage::TRATAMENTO);
+        } else if ($state == Stage::SEM_RESPOSTA) { 
+            $entity->setState(Stage::SEM_RESPOSTA);
         } else if ($state == Stage::REJEITADO) { 
             $entity->setState(Stage::REJEITADO);
             $entity->setRejectionReason($object['rejectionReason']);

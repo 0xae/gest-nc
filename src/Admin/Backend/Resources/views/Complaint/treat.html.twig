@@ -2,7 +2,7 @@
 
 {% block content -%}
 
-<div class="row" ng-controller="ComplaintController">
+<div class="row" ng-controller="TratamentoController">
     <div class="col-xs-12">
         {# 
             <button class="btn btn-default" type="button">Registar reclamacao externa/sugestao</button>
@@ -16,7 +16,7 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" style="margin-bottom:70px">
                     <thead>
                         <tr>
                             <th>C&oacute;digo</th>
@@ -47,14 +47,14 @@
                                             Responder
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                             <li>
-                                                <a href="#" ng-click="respondComplaint({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
+                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
                                                     Responder
                                                 </a>
                                             </li>
                                             <li >
-                                                <a href="#" ng-click="rejectComplaint({{entity.id}}, $index, '{{entity.objCode}}', 'sem_resposta')">
+                                                <a href="#" ng-click="noResponseObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
                                                     Sem resposta
                                                 </a>
                                             </li>
@@ -66,33 +66,33 @@
                     </tbody>
                 </table>
 
-                <div class="modal fade" id="myModal">
+                <div class="modal fade" id="respondModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header bg-green">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Responder ao utente</h4>
                         </div>
-                        <form ng-submit="sendForm(responseForm.$valid)" name="responseForm">
+                        <form ng-submit="respondSubmit()" name="responseForm">
                         <div class="modal-body">
                             <h4>
-                                <a href="#">{{ '{{complaint.code}}' }}</a>
+                                <a href="#">{{ '{{mObject.code}}' }}</a>
                             </h4>
                             <div class="form-group">
                                 <label>Nome do utente</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{complaint.name}}' }}" />
+                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.name}}' }}" />
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{complaint.phone}}' }}" />
+                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.phone}}' }}" />
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{complaint.email}}' }}" />
+                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.email}}' }}" />
                             </div>
 
                             <label>Resposta para o utente (<span style="color:orangered">*</span>)</label>
-                            <textarea ng-model="obj.response" 
+                            <textarea ng-model="responseForm.response" 
                                 required
                                 class="form-control"
                                 rows="7"
