@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\Sugestion;
+use Admin\Backend\Entity\Stage;
 use Admin\Backend\Form\SugestionType;
 
 /**
@@ -28,9 +29,9 @@ class SugestionController extends Controller {
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
         $tpl = '';
-        if ($state == 'acompanhamento') {
+        if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
-        } else if ($state == 'tratamento') { 
+        } else if ($state == Stage::TRATAMENTO) { 
             $tpl = 'treat';            
         } else {
             $tpl = 'acomp';
@@ -57,7 +58,7 @@ class SugestionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
-            $entity->setState('acompanhamento');            
+            $entity->setState(Stage::ACOMPANHAMENTO);            
 
             $em->persist($entity);
             $em->flush();

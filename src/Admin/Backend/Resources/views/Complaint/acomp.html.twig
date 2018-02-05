@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         {% for entity in objects %}
-                            <tr>
+                            <tr id="row-{{entity.id}}">
                                 <td>
                                     <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
                                         {{ entity.objCode }}
@@ -47,10 +47,10 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <li>
-                                            <a href="#" ng-click="acceptComplaint({{entity.id}}, '{{entity.objCode}}')">Aceitar (com fundamento)</a>
+                                            <a href="#" ng-click="acceptComplaint({{entity.id}}, $index, '{{entity.objCode}}')">Aceitar (com fundamento)</a>
                                         </li>
                                         <li >
-                                            <a href="#" ng-click="rejectComplaint({{entity.id}}, '{{entity.objCode}}')">Rejeitar (sem fundamento)</a>
+                                            <a href="#" ng-click="rejectComplaint({{entity.id}}, $index, '{{entity.objCode}}')">Rejeitar (sem fundamento)</a>
                                         </li>
                                     </ul>
                                     </div>

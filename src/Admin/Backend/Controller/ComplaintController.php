@@ -5,8 +5,10 @@ namespace Admin\Backend\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Admin\Backend\Entity\Complaint;
+use Admin\Backend\Entity\Stage;
 use Admin\Backend\Form\ComplaintType;
 
 /**
@@ -30,9 +32,9 @@ class ComplaintController extends Controller {
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
         $tpl = '';
-        if ($state == 'acompanhamento') {
+        if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
-        } else if ($state == 'tratamento') {
+        } else if ($state == Stage::TRATAMENTO) {
             $tpl = 'treat';
         } else {
             $tpl = 'acomp';
@@ -46,7 +48,30 @@ class ComplaintController extends Controller {
         ));
     }
 
-    public function forwardAction($state) {        
+    public function updateStateAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        $state = $object['state'];
+        if ($state == Stage::TRATAMENTO) {
+            $entity->setState(Stage::TRATAMENTO);
+        } else if ($state == Stage::REJEITADO) { 
+            $entity->setState(Stage::REJEITADO);
+            $entity->setRejectionReason($object['rejectionReason']);
+        } else {
+            // throw new Exception
+            throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
+        }
+
+        $em->persist($entity);       
+        $em->flush();
+        return new JsonResponse($object);
     }
 
     /**
@@ -62,7 +87,7 @@ class ComplaintController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);           
-            $entity->setState('acompanhamento');
+            $entity->setState(Stage::ACOMPANHAMENTO);
 
             // $file = $entity->getFactAnnex();
             // if ($file) {
@@ -84,41 +109,6 @@ class ComplaintController extends Controller {
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
-    }
-
-    /**
-     * Creates a form to create a Complaint entity.
-     *
-     * @param Complaint $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Complaint $entity) {
-        $dev = true;
-        if ($dev) {
-            $entity->setName("Ayrton Gomes");
-            $entity->setAddress("Praia, Cabo Verde");
-            $entity->setLocality("Palmarejo");
-            $entity->setPhone("255 12 90");
-            $entity->setEmail("com.ayrton@gmail.com");
-
-            $entity->setOpName("Farmacia 2000");
-            $entity->setOpAddress("Praia, Cabo Verde");
-            $entity->setOpLocality("Achada St. Antonio");
-            $entity->setOpPhone("262 64 10");
-            $entity->setOpEmail("arfa@arfa.gov.cv");
-
-            $entity->setFactLocality("Praia, Cabo Verde");
-            $entity->setFactDetail("teste 123");            
-        }
-
-        $entity->setFactDate(new \DateTime);
-        $form = $this->createForm(new ComplaintType(), $entity, array(
-            'action' => $this->generateUrl('administration_Complaint_create'),
-            'method' => 'POST',
-        ));
-
-        return $form;
     }
 
     /**
@@ -232,22 +222,6 @@ class ComplaintController extends Controller {
     }
 
     /**
-    * Creates a form to edit a Complaint entity.
-    *
-    * @param Complaint $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Complaint $entity) {
-        $form = $this->createForm(new ComplaintType(), $entity, array(
-            'action' => $this->generateUrl('administration_Complaint_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        return $form;
-    }
-
-    /**
      * Deletes a Complaint entity.
      *
      */
@@ -268,6 +242,58 @@ class ComplaintController extends Controller {
         }
 
         return $this->redirect($this->generateUrl('administration_Complaint'));
+    }
+
+    /**
+    * Creates a form to edit a Complaint entity.
+    *
+    * @param Complaint $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Complaint $entity) {
+        $form = $this->createForm(new ComplaintType(), $entity, array(
+            'action' => $this->generateUrl('administration_Complaint_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        return $form;
+    }
+
+
+    /**
+     * Creates a form to create a Complaint entity.
+     *
+     * @param Complaint $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Complaint $entity) {
+        $dev = true;
+        if ($dev) {
+            $entity->setName("Ayrton Gomes");
+            $entity->setAddress("Praia, Cabo Verde");
+            $entity->setLocality("Palmarejo");
+            $entity->setPhone("255 12 90");
+            $entity->setEmail("com.ayrton@gmail.com");
+
+            $entity->setOpName("Farmacia 2000");
+            $entity->setOpAddress("Praia, Cabo Verde");
+            $entity->setOpLocality("Achada St. Antonio");
+            $entity->setOpPhone("262 64 10");
+            $entity->setOpEmail("arfa@arfa.gov.cv");
+
+            $entity->setFactLocality("Praia, Cabo Verde");
+            $entity->setFactDetail("teste 123");            
+        }
+
+        $entity->setFactDate(new \DateTime);
+        $form = $this->createForm(new ComplaintType(), $entity, array(
+            'action' => $this->generateUrl('administration_Complaint_create'),
+            'method' => 'POST',
+        ));
+
+        return $form;
     }
 
     /**

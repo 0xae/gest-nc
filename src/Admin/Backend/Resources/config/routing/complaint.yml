@@ -2,6 +2,15 @@ administration_Complaint:
     path:     /
     defaults: { _controller: "BackendBundle:Complaint:index" }
 
+administration_Complaint_bystate:
+    path:     /by_state/{state}
+    defaults: { _controller: "BackendBundle:Complaint:byState" }
+
+administration_Complaint_updateState:
+    path:     /update_state/{id}
+    defaults: { _controller: "BackendBundle:Complaint:updateState" }
+    methods:  [POST]
+
 administration_Complaint_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Complaint:show" }
@@ -18,10 +27,6 @@ administration_Complaint_create:
 administration_Complaint_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:Complaint:edit" }
-
-administration_Complaint_bystate:
-    path:     /{state}
-    defaults: { _controller: "BackendBundle:Complaint:byState" }
 
 administration_Complaint_update:
     path:     /{id}/update

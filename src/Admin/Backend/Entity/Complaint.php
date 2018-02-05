@@ -197,18 +197,27 @@ class Complaint {
     private $createdBy;
 
     /**
-     * @var \Stage
-     *
      * @ORM\Column(name="approval_reason", type="string", length=250, nullable=true)
      */
     private $approvalReason;
 
     /**
-     * @var \Stage
-     *
      * @ORM\Column(name="rejection_reason", type="string", length=250, nullable=true)
      */
     private $rejectionReason;
+
+    /**
+     * @ORM\Column(name="client_response", type="string", length=250, nullable=true)
+     */
+    private $clientResponse;
+
+    public function setClientResponse($value) {
+        $this->clientResponse = $value;
+    }
+
+    public function getClientResponse() {
+        return $this->clientResponse;
+    }
 
     public function getApprovalReason(){
 		return $this->approvalReason;

@@ -11,6 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class Stage {
+    const ACOMPANHAMENTO='acompanhamento';
+    const TRATAMENTO='tratamento';
+    const ACEITADO='aceitado';
+    const REJEITADO='rejeitado';
+    const RESPONDIDA='respondida';
+    const SEM_RESPOSTA='sem_resposta';
+
     /**
      * @var integer
      *
