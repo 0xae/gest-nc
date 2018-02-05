@@ -11,7 +11,7 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped"  style="margin-bottom:70px">
                     <thead>
                         <tr>
                             <th>C&oacute;digo</th>
@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                         {% for entity in objects %}
-                            <tr>
+                            <tr id="row-{{entity.id}}">
                                 <td>
                                     <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
                                         {{ entity.objCode }}
