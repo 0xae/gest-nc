@@ -126,7 +126,9 @@ class ComplaintController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Complaint_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_Complaint_show', 
+                array('id' => $entity->getId(),
+                    'is_new' => true)));
         }
 
         return $this->render('BackendBundle:Complaint:new.html.twig', array(
