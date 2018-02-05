@@ -39,7 +39,7 @@ angular.module("app")
             renderBar(
                 'Queixas/Denúncias/Sugestões/Reclamações por Direções', 
                 'Ocorrencias',
-                'subtitulo',
+                '',
                 'by_department',
                 categories,
                 render
@@ -100,7 +100,7 @@ angular.module("app")
     
             renderBar('Queixas/Denúncias/Sugestões por Mês',
                 'Ocorrencias',
-                'subtitulo',
+                '',
                 'by_month',
                 months,
                 render
@@ -148,7 +148,7 @@ angular.module("app")
             console.info("series: ", render);
             renderBar('Queixas/Denúncias/Sugestões por dia',
                 'Ocorrencias',
-                'subtitulo',
+                '',
                 'by_day',
                 months,
                 render
