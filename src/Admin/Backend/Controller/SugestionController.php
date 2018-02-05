@@ -20,10 +20,22 @@ class SugestionController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BackendBundle:Sugestion')->findAll();
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 10;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, Sugestion::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:Sugestion:index.html.twig', array(
             'entities' => $entities,
+            'paginate' => $fanta
         ));
     }
 

@@ -22,10 +22,22 @@ class ComplaintController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BackendBundle:Complaint')->findAll();
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 10;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, Complaint::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();            
 
         return $this->render('BackendBundle:Complaint:index.html.twig', array(
             'entities' => $entities,
+            'paginate' => $fanta
         ));
     }
 

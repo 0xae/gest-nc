@@ -2,80 +2,88 @@
 
 {% block content -%}
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Listagem de Queixas e Den&uacute;ncias</h3>
+<style>
+ul.pagination {
+    margin-top:0px;
+}
+</style>
 
-                    <div class="box-tools">
-                        <a class="btn btn-primary" 
-                        href="{{ path('administration_Complaint_new') }}">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            Criar Queixa/Den&uacute;ncias
-                        </a>
-                    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listagem de Queixas e Den&uacute;ncias</h3>
+
+                <div class="box-tools">
+                    <a class="btn btn-primary" 
+                    href="{{ path('administration_Complaint_new') }}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Criar Queixa/Den&uacute;ncias
+                    </a>
                 </div>
-                <!-- /.box-header -->
-
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>C&oacute;digo#</th>
-                                <th>Tipo</th>
-                                <th>Estado</th>
-                                <th>Nome</th>
-                                <th>Data</th>
-                                <th>Morada</th>
-                                <th>Localidade</th>
-                                <th>Telefone</th>
-                                <th>Email</th>
-                                <th>Criado por</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entity in entities %}
-                                <tr>
-                                    <td>
-                                        <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
-                                            {{ entity.objCode }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {% if entity.type == 'queixa' %}
-                                            Queixa
-                                        {% elseif entity.type == 'denuncia'  %}
-                                            Denuncia
-                                        {% else %}
-                                            {{entity.type}}
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ entity.state }}</td>
-                                    <td>{{ entity.name }}</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                    <td>{{ entity.address }}</td>
-                                    <td>{{ entity.locality }}</td>
-                                    <td>{{ entity.phone }}</td>
-                                    <td>{{ entity.email }}</td>
-                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                    <td>
-                                        <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
-                                            <span class="badge badge-primary">
-                                                    EDITAR
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                                    </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
+            <!-- /.box-header -->
+
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>C&oacute;digo#</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Morada</th>
+                            <th>Localidade</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Criado por</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                        {{ entity.objCode }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if entity.type == 'queixa' %}
+                                        Queixa
+                                    {% elseif entity.type == 'denuncia'  %}
+                                        Denuncia
+                                    {% else %}
+                                        {{entity.type}}
+                                    {% endif %}
+                                </td>
+                                <td>{{ entity.state }}</td>
+                                <td>{{ entity.name }}</td>
+                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.address }}</td>
+                                <td>{{ entity.locality }}</td>
+                                <td>{{ entity.phone }}</td>
+                                <td>{{ entity.email }}</td>
+                                <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                <td>
+                                    <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
+                                        <span class="badge badge-primary">
+                                                EDITAR
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
         </div>
+
+        {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
+        <!-- /.box -->
     </div>
+</div>
 
 {% endblock %}
