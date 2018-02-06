@@ -6,6 +6,7 @@ angular.module("app")
     setTimeout(function(){
         renderGraph1();
         renderGraph2();
+        renderGraph3();
     }, 1500);
 
     function renderDepartments(year) {
@@ -481,6 +482,70 @@ angular.module("app")
                     },
                     { name: 'RECLAMAÇÕES', y: 20 },
                 ]
+            }]
+        });        
+    }
+
+    function renderGraph3() {
+        Highcharts.chart('graph3', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Tempo medio de resposta por direcao'
+            },
+            xAxis: {
+                categories: ['DENÚNCIAS', 'QUEIXAS', 'RECLAMAÇÕES']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total fruit consumption'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+            },
+            series: [{
+                name: 'D1',
+                data: [11, 10, 12]
+            }, {
+                name: 'D2',
+                data: [21, 21, 31]
+            }, {
+                name: 'D3',
+                data: [31, 42, 42]
+            }, {
+                name: 'D4',
+                data: [31, 42, 42]
             }]
         });        
     }
