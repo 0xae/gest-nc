@@ -1,0 +1,24 @@
+{% extends 'BackendBundle:Default:layout.html.twig' %}
+{% block content %}
+
+<div ng-controller="DashboardController">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body no-padding">
+                    <div id="graph1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body no-padding">
+                    <div id="graph2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

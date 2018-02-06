@@ -50,9 +50,13 @@ backend_administration_user:
     resource: "@BackendBundle/Resources/config/routing/user.yml"
     prefix:   /administration/user
 
-backend_administration_main:    
+backend_administration_main:
     path:  /administration/main
     defaults:  { _controller: BackendBundle:Admin:index }
+
+backend_administration_stats:
+    path:  /administration/stats
+    defaults:  { _controller: BackendBundle:Stats:index }
 
 backend_administration_main_profiles:    
     path:  /administration/profiles_of/{id}

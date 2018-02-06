@@ -1,7 +1,13 @@
+
 angular.module("app")
 .controller("DashboardController", ['$http', '$scope', function ($http, $scope) {
     console.info("--- init dash controller ---");
-    
+
+    setTimeout(function(){
+        renderGraph1();
+        renderGraph2();
+    }, 1500);
+
     function renderDepartments(year) {
         fetchData('by_department', {year: year})
         .then(function (data) {
@@ -300,6 +306,182 @@ angular.module("app")
                 }
             },
             series: series
+        });        
+    }
+
+    function renderGraph1() {
+        Highcharts.chart('graph1', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Crescimento das DENÚNCIAS, QUEIXAS E RECLAMAÇÕES'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Date'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Ocorrencias'
+                },
+                min: 0
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x:%e. %b}: {point.y:.2f}'
+            },
+        
+            plotOptions: {
+                spline: {
+                    marker: {
+                        enabled: true
+                    }
+                }
+            },
+        
+            series: [{
+                name: 'DENÚNCIAS',
+                // Define the data points. All series have a dummy year
+                // of 1970/71 in order to be compared on the same x axis. Note
+                // that in JavaScript, months start at 0 for January, 1 for February etc.
+                data: [
+                    [Date.UTC(1970, 9, 21), 20],
+                    [Date.UTC(1970, 10, 4), 28],
+                    [Date.UTC(1970, 10, 9), 25],
+                    [Date.UTC(1970, 10, 27), 42],
+                    [Date.UTC(1970, 11, 2), 28],
+                    [Date.UTC(1970, 11, 26), 28],
+                    [Date.UTC(1970, 11, 29), 47],
+                    [Date.UTC(1971, 0, 11), 79],
+                    [Date.UTC(1971, 0, 26), 42],
+                    [Date.UTC(1971, 1, 3), 42],
+                    [Date.UTC(1971, 1, 11), 42],
+                    [Date.UTC(1971, 1, 25), 22],
+                    [Date.UTC(1971, 2, 11), 18],
+                    [Date.UTC(1971, 3, 11), 19],
+                    [Date.UTC(1971, 4, 1), 85],
+                    [Date.UTC(1971, 4, 5), 22],
+                    [Date.UTC(1971, 4, 19), 15],
+                    [Date.UTC(1971, 5, 3), 0]
+                ]
+            }, {
+                name: 'QUEIXAS',
+                data: [
+                    [Date.UTC(1970, 9, 29), 10],
+                    [Date.UTC(1970, 10, 9), 14],
+                    [Date.UTC(1970, 11, 1), 25],
+                    [Date.UTC(1971, 0, 1), 66],
+                    [Date.UTC(1971, 0, 10), 18],
+                    [Date.UTC(1971, 1, 19), 36],
+                    [Date.UTC(1971, 2, 25), 62],
+                    [Date.UTC(1971, 3, 19), 41],
+                    [Date.UTC(1971, 3, 30), 15],
+                    [Date.UTC(1971, 4, 14), 47],
+                    [Date.UTC(1971, 4, 24), 31],
+                    [Date.UTC(1971, 5, 10), 12]
+                ]
+            }, {
+                name: 'RECLAMAÇÕES',
+                data: [
+                    [Date.UTC(1970, 10, 25), 0],
+                    [Date.UTC(1970, 11, 6), 0.25],
+                    [Date.UTC(1970, 11, 20), 1.41],
+                    [Date.UTC(1970, 11, 25), 1.64],
+                    [Date.UTC(1971, 0, 4), 1.6],
+                    [Date.UTC(1971, 0, 17), 2.55],
+                    [Date.UTC(1971, 0, 24), 62],
+                    [Date.UTC(1971, 1, 4), 55],
+                    [Date.UTC(1971, 1, 14), 42],
+                    [Date.UTC(1971, 2, 6), 74],
+                    [Date.UTC(1971, 2, 14), 62],
+                    [Date.UTC(1971, 2, 24), 46],
+                    [Date.UTC(1971, 3, 2), 81],
+                    [Date.UTC(1971, 3, 12), 63],
+                    [Date.UTC(1971, 3, 28), 77],
+                    [Date.UTC(1971, 4, 5), 68],
+                    [Date.UTC(1971, 4, 10), 56],
+                    [Date.UTC(1971, 4, 15), 39],
+                    [Date.UTC(1971, 4, 20), 43],
+                    [Date.UTC(1971, 5, 5), 32],
+                    [Date.UTC(1971, 5, 10), 85],
+                    [Date.UTC(1971, 5, 15), 49],
+                    [Date.UTC(1971, 5, 23), 38]
+                ]
+            }]
+        });        
+    }
+
+    function renderGraph2() {
+        // Radialize the colors
+        Highcharts.setOptions({
+            colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                return {
+                    radialGradient: {
+                        cx: 0.5,
+                        cy: 0.3,
+                        r: 0.7
+                    },
+                    stops: [
+                        [0, color],
+                        [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                    ]
+                };
+            })
+        });
+
+        // Build the chart
+        Highcharts.chart('graph2', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'DENÚNCIAS, QUEIXAS E RECLAMAÇÕES'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        },
+                        connectorColor: 'silver'
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                data: [
+                    { 
+                        name: 'DENÚNCIAS', y: 50.00,
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: 'QUEIXAS',
+                        y: 30.00,
+                    },
+                    { name: 'RECLAMAÇÕES', y: 20 },
+                ]
+            }]
         });        
     }
 }]);
