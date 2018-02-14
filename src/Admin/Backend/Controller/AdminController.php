@@ -42,9 +42,9 @@ class AdminController extends Controller {
     public function profilesAction($id) {
         $em = $this->getDoctrine()->getManager();
         $results = $em->getRepository('BackendBundle:UserProfile')
-            ->findBy(array(
-                'user' => $id
-            ));
+        ->findBy(array(
+            'user' => $id
+        ));
 
         $ary = [];
         foreach ($results as $val) {

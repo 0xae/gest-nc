@@ -115,54 +115,6 @@ angular.module("app")
         });
     }
 
-    function renderPerDay(year, month) {
-        fetchData('by_day', {year: year, month: month})
-        .then(function(data){
-            var objects = data.rows;
-            var series = {
-                queixa: {
-                    name: "Queixa",
-                    data: []
-                },
-                denuncia:{
-                    name: "Denúncias",
-                    data: []
-                },
-                sugestao:{
-                    name: "Sugestao",
-                    data: []
-                },
-                reclamacao:{
-                    name: "Reclamacao",
-                    data: []
-                },
-            };
-            var months = _.sortBy(Object.keys(objects));            
-            var types = _.sortBy(Object.keys(series));
-
-            types.forEach(function (t){
-                months.forEach(function (m){
-                    var found=_.find(objects[m], function (mt) { return mt.type==t});
-                    if (found) {
-                        series[t].data.push(parseInt(found.count));
-                    } else {
-                        series[t].data.push(0);                        
-                    }
-                });
-            });            
-
-            var render = types.map(function (k){ return series[k]; });
-            console.info("series: ", render);
-            renderBar('Queixas/Denúncias/Sugestões por dia',
-                'Ocorrencias',
-                '',
-                'by_day',
-                months,
-                render
-            );  
-        });        
-    }
-
     // $scope.loadPerDay = function () {
     // }
 
@@ -174,7 +126,6 @@ angular.module("app")
 
     renderPerMonth(2018);
     renderDepartments(2018);
-    renderPerDay(2018, '01');
 
     function fetchData(type, conf) {
         var queryStr= Object.keys(conf)
@@ -187,23 +138,6 @@ angular.module("app")
     }
 
     function renderGraph(xtitle, ytitle, subtitle, container, series) {
-        var seriesExample = [{
-            name: 'Installation',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }, {
-            name: 'Manufacturing',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-        }, {
-            name: 'Sales & Distribution',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-        }, {
-            name: 'Project Development',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-        }, {
-            name: 'Other',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-        }];
-
         Highcharts.chart(container, {
             title: {
                 text: xtitle
