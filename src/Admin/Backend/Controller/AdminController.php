@@ -13,8 +13,7 @@ use Admin\Backend\Entity\UserProfile;
 use Admin\Backend\Form\UserProfileType;
 
 /**
- * Category controller.
- *
+ * Admin controller.
  */
 class AdminController extends Controller {
     public function indexAction() {
