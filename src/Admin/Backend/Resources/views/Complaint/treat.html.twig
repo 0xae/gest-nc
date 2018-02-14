@@ -44,22 +44,23 @@
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Responder
+                                            Parecer
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                             <li>
                                                 <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
-                                                    Responder
+                                                    T&eacute;nico
                                                 </a>
                                             </li>
                                             <li >
                                                 <a href="#" ng-click="noResponseObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
-                                                    Sem resposta
+                                                    Cient&iacute;fico
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>                                
+                                    </div>    
+                                    <span class="fa fa-eyes"></span>                            
                                 </td>
                             </tr>
                         {% endfor %}
