@@ -14,6 +14,21 @@
 </div>
 
 <div class="col-md-6">
+    <label>Associar permiss&atilde;o</label>
+    <div class="form-group">
+        <select class="form-control" ng-model="permissionAdd">
+            <option value="perm1">Perm 1</option>
+            <option value="perm2">Perm 2</option>
+            <option value="perm3">Perm 3</option>
+        </select>
+        <button class="btn btn-success" ng-click="addPermission(profileId, permissionAdd)"
+                ng-disabled="!profileId">
+            <span class="fa fa-plus"></span>
+        </button>
+    </div>
+</div>
+
+<div class="col-md-6">
     <label>Permiss&otilde;es associadas</label>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="p in permissions">

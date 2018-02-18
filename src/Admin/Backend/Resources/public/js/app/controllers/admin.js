@@ -9,15 +9,18 @@ angular.module("app")
     }
 
     $scope.ativateProfile = function (id, name) {
-        console.info({
-            id: id,
-            name: name
-        });
-
+        $scope.profileId = id;
         fetchPermissions(id)
         .then(function (data){
             $scope.permissions = data;
         })
+    }
+
+    $scope.addPermission = function (profileId, permissionId) {
+        console.info({
+            profileId: profileId,
+            permissionId: permissionId
+        });
     }
 
     function fetchPermissions (profileId) { 
@@ -31,18 +34,5 @@ angular.module("app")
     $scope.removePermission = function (id) {
         if (!confirm("Deseja mesmo remover essa permissao?")) 
             return;
-    }
-
-    $scope.removeProfile = function (userProfileId, index) {
-        if (!confirm("Deseja mesmo remover esse perfil do utilizador?")) 
-            return;
-
-        $http.get('/arfa/web/app_dev.php/administration/remove_userp/' + userProfileId)
-        .then(function (_resp) {
-            var resp=_resp.data;
-            if (resp.status == 200) {
-                $scope.profiles.splice(index, 1);
-            }
-        });
     }
 }]);
