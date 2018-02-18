@@ -1,0 +1,162 @@
+
+{{ form_start(form) }}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-user"></span>
+            Dados do utente
+        </div>
+
+        <div class="form-group">
+            <label>Nome</label>
+            {{ form_widget(form.name) }}
+        </div>
+
+        <div class="form-group">
+            <label>Direcção</label>
+            {{ form_widget(form.direction) }}
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-archive"></span>
+            Reclamacao Interna
+        </div>
+
+        <div class="form-group">
+            <label>Tipo</label>
+            {{ form_widget(form.type) }}
+        </div>
+
+        <div class="form-group">
+            <label>Data</label>
+            {{ form_widget(form.createdAt) }}
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-archive"></span>
+            Descrição sum&aacute;ria dos fatos
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Data</label>
+            {{ form_widget(form.factDate) }}
+        </div>
+
+        <div class="form-group">
+            <label>Descri&ccedil;&atilde;o</label>
+            {{ form_widget(form.factDetail) }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Anexo ?</label>
+            {{ form_widget(form.factAnnex) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-archive"></span>
+            Análise da Reclamação
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Data</label>
+            {{ form_widget(form.analysisDate) }}
+        </div>
+
+        <div class="form-group">
+            <label>Descri&ccedil;&atilde;o</label>
+            {{ form_widget(form.analysisDetail) }}
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Responsavel</label>
+            {{ form_widget(form.analysisResp) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-archive"></span>
+            Decisão a ser tomada
+            <hr/>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Data</label>
+            {{ form_widget(form.decisionDate) }}
+        </div>
+
+        <div class="form-group">
+            <label>Descri&ccedil;&atilde;o</label>
+            {{ form_widget(form.decisionDetail) }}
+        </div>        
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Responsavel</label>
+            {{ form_widget(form.decisionResp) }}
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="color: gray;margin-bottom: 20px;">
+            <span class="fa fa-archive"></span>
+            Ação a ser tomada
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Data</label>
+            {{ form_widget(form.actionDate) }}
+        </div>
+
+        <div class="form-group">
+            <label>Descri&ccedil;&atilde;o</label>
+            {{ form_widget(form.actionDetail) }}
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Responsavel</label>
+            {{ form_widget(form.actionResp) }}
+        </div>
+    </div>
+</div>
+
+{{ form(form) }}
+
+{{ form_end(form) }}
+

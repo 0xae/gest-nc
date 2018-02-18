@@ -153,6 +153,54 @@
         <li class="header" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
+                GEST&Atilde;O DE RECLAMA&Ccedil;&Atilde;O INTERNA
+            </a>
+
+            <ul class="treeview-menu" style="">
+                <li>
+                    <a href="{{ path('administration_IReclamation_new') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Registo (Director)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_IReclamation') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
+                </li>
+                
+                <li>
+                    <a href="{{ path('administration_IReclamation') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento (Nao conformidade NC)</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_IReclamation') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span></a>
+                </li>
+                {# <li>
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'tratamento'}) }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Tratamento</span></a>
+                </li> #}
+            </ul> 
+        </li>
+
+        {# N conformidades  #}
+        <li class="header" style="padding:0px;">
+            <a href="javascript:void(0)" class="bg-green" style="text-transform: uppercase"> {# lazy #}
+                <i class="fa fa-cog"></i>
+                Livro de reclama&ccedil;&otilde;es
+            </a>
+        </li>
+
+        {# N conformidades  #}
+        <li class="header" style="padding:0px;">
+            <a href="javascript:void(0)" class="bg-green">
+                <i class="fa fa-cog"></i>
                 N&Atilde;O CONFORMIDADES
             </a>
         </li>

@@ -1,0 +1,42 @@
+{% extends 'BackendBundle:Default:layout.html.twig' %}
+
+{% block content -%}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Listagem de Reclamacao Interna</h3>
+                </div>
+                <!-- /.box-header -->
+
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>                                        <th>ID#</th>
+                                    <th>Name</th><th>Direction</th><th>Type</th><th>Factdate</th><th>Factannex</th><th>Factdetail</th><th>Analysisdetail</th><th>Analysisdate</th><th>Decisiondetail</th><th>Decisiondate</th><th>Actiondetail</th><th>Actiondate</th><th>Createdat</th><th>Createdby</th>                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr>                                                                                    <td>
+                                                <a href="{{ path('administration_IReclamation_show', { 'id': entity.id }) }}">
+                                                #{{ entity.id }}
+                                                </a>
+                                            </td>                                                                                    <td>{{ entity.name }}</td>                                                                                    <td>{{ entity.direction }}</td>                                                                                    <td>{{ entity.type }}</td>                                                                                    <td>{% if entity.factDate %}{{ entity.factDate|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.factAnnex }}</td>                                                                                    <td>{{ entity.factDetail }}</td>                                                                                    <td>{{ entity.analysisDetail }}</td>                                                                                    <td>{% if entity.analysisDate %}{{ entity.analysisDate|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.decisionDetail }}</td>                                                                                    <td>{% if entity.decisionDate %}{{ entity.decisionDate|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.actionDetail }}</td>                                                                                    <td>{% if entity.actionDate %}{{ entity.actionDate|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{{ entity.createdBy }}</td>                                            <td><a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}">
+<span class="badge badge-primary">
+        EDITAR
+</span>
+</a>
+                                            </td>                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                                    </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+{% endblock %}

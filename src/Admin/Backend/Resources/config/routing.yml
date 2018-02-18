@@ -1,3 +1,7 @@
+backend_administration_IReclamation:
+    resource: "@BackendBundle/Resources/config/routing/ireclamation.yml"
+    prefix:   /administration/IReclamation
+
 backend_administration_UserProfile:
     resource: "@BackendBundle/Resources/config/routing/userprofile.yml"
     prefix:   /administration/UserProfile
