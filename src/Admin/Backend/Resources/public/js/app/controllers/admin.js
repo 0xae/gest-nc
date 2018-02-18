@@ -28,6 +28,11 @@ angular.module("app")
         });
     }
 
+    $scope.removePermission = function (id) {
+        if (!confirm("Deseja mesmo remover essa permissao?")) 
+            return;
+    }
+
     $scope.removeProfile = function (userProfileId, index) {
         if (!confirm("Deseja mesmo remover esse perfil do utilizador?")) 
             return;
