@@ -16,7 +16,11 @@
 <div class="col-md-6">
     <label>Permiss&otilde;es associadas</label>
     <ul class="list-group">
-        <li class="list-group-item">
+        <li class="list-group-item" ng-repeat="p in permissions">
+            {{ '{{p.permission}}' }}
+        </li>
+
+        <li class="list-group-item" ng-if="permissions.length == 0">
             Sem permiss&otilde;es associados.
         </li>
     </ul>

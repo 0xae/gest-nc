@@ -12,6 +12,7 @@ use Admin\Backend\Entity\Profile;
 use Admin\Backend\Form\ProfileType;
 use Admin\Backend\Entity\UserProfile;
 use Admin\Backend\Form\UserProfileType;
+use Admin\Backend\Entity\ProfilePermission;
 
 /**
  * Admin controller.
@@ -35,24 +36,24 @@ class AdminController extends Controller {
     }
 
    /**
-     * Fetches all profiles of a user
+     * Fetches all permissions of a profile
      * @param User $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    public function profilesAction($id) {
+    public function permissionsOfAction($id) {
         $em = $this->getDoctrine()->getManager();
-        $results = $em->getRepository('BackendBundle:UserProfile')
+        $results = $em->getRepository('BackendBundle:ProfilePermission')
         ->findBy(array(
-            'user' => $id
+            'profile' => $id
         ));
 
+        // XXX: working on stuff
         $ary = [];
         foreach ($results as $val) {
             $ary[] = [
                 'id' => $val->getid(),
-                'profile_id' => $val->getProfile()->getId(),
-                'name' => $val->getProfile()->getName(),
-                'permission' => $val->getProfile()->getPermission()
+                'profile' => $id,
+                'permission' => $val->getPermission()
             ];
         }
 
