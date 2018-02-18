@@ -122,7 +122,7 @@ class ComplaintController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
-            $entity->setCreatedBy($userId);           
+            $entity->setCreatedBy($userId);
             $entity->setState(Stage::ACOMPANHAMENTO);
 
             // $file = $entity->getFactAnnex();

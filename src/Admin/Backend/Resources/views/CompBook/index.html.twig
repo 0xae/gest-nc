@@ -6,13 +6,13 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Listagem de CompBook</h3>
+                    <h3 class="box-title">Livro de reclama&ccedil;&atilde;o</h3>
 
                     <div class="box-tools">
                         <a class="btn btn-primary" 
                         href="{{ path('administration_CompBook_new') }}">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Criar CompBook
+                            Registar reclama&ccedil;&atilde;o
                         </a>
                     </div>
                 </div>
@@ -21,26 +21,48 @@
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover table-striped">
                         <thead>
-                            <tr>                                        <th>ID#</th>
-                                    <th>Clientname</th><th>Suppliername</th><th>Supplieraddress</th><th>Clientaddress</th><th>Clientnacionality</th><th>Clientphone</th><th>Clientpassport</th><th>Clientemail</th><th>Complaint</th><th>Complaintdate</th><th>Createdat</th>                                <th></th>
+                            <tr>                                       
+                                <th>ID#</th>
+                                <th>Cliente</th>
+                                <th>Telefone do utente</th>
+                                <th>Email do utente</th>
+                                <th>Fornecedor</th>
+                                <th>Data da reclama&ccedil;&atilde;o</th>
+                                <th>Criado em</th>
+                                <th>Criado por</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                <tr>                                                                                    <td>
-                                                <a href="{{ path('administration_CompBook_show', { 'id': entity.id }) }}">
-                                                #{{ entity.id }}
-                                                </a>
-                                            </td>                                                                                    <td>{{ entity.clientName }}</td>                                                                                    <td>{{ entity.supplierName }}</td>                                                                                    <td>{{ entity.supplierAddress }}</td>                                                                                    <td>{{ entity.clientAddress }}</td>                                                                                    <td>{{ entity.clientNacionality }}</td>                                                                                    <td>{{ entity.clientPhone }}</td>                                                                                    <td>{{ entity.clientPassport }}</td>                                                                                    <td>{{ entity.clientEmail }}</td>                                                                                    <td>{{ entity.complaint }}</td>                                                                                    <td>{% if entity.complaintDate %}{{ entity.complaintDate|date('Y-m-d H:i:s') }}{% endif %}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                            <td><a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
-<span class="badge badge-primary">
-        EDITAR
-</span>
-</a>
-                                            </td>                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('administration_CompBook_show', { 'id': entity.id }) }}">
+                                        #{{ entity.id }}
+                                        </a>
+                                    </td>
+                                    <td>{{ entity.clientName }}</td>
+                                    <td>{{ entity.clientPhone }}</td>
+                                    <td>{{ entity.clientEmail }}</td>
+                                    <td>{{ entity.supplierName }}</td>
+                                    <td>{{ entity.complaintDate|date('Y-m-d H:i:s') }}</td>      
+                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td> 
+                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                    <td><a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
+                                        <span class="badge badge-primary">
+                                                EDITAR
+                                        </span>
+                                        </a>
+                                    </td>   
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                                    </div>
+
+                    {% if entities %}
+                        {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
+                    {% endif %}
+                </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->

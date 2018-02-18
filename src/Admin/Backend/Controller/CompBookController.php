@@ -12,35 +12,46 @@ use Admin\Backend\Form\CompBookType;
  * CompBook controller.
  *
  */
-class CompBookController extends Controller
-{
-
+class CompBookController extends Controller {
     /**
      * Lists all CompBook entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 10;
 
-        $entities = $em->getRepository('BackendBundle:CompBook')->findAll();
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, CompBook::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();         
 
         return $this->render('BackendBundle:CompBook:index.html.twig', array(
             'entities' => $entities,
+            'paginate' => $fanta
         ));
     }
+
     /**
      * Creates a new CompBook entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new CompBook();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userId = $this->getUser();
+            $entity->setCreatedBy($userId);
+            $entity->setCreatedAt(new \DateTime);
             $em->persist($entity);
             $em->flush();
 
@@ -60,15 +71,12 @@ class CompBookController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CompBook $entity)
-    {
+    private function createCreateForm(CompBook $entity) {
+        $entity->setComplaintDate(new \DateTime);
         $form = $this->createForm(new CompBookType(), $entity, array(
             'action' => $this->generateUrl('administration_CompBook_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -91,10 +99,8 @@ class CompBookController extends Controller
      * Finds and displays a CompBook entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
 
         if (!$entity) {
@@ -102,7 +108,6 @@ class CompBookController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('BackendBundle:CompBook:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
@@ -113,10 +118,8 @@ class CompBookController extends Controller
      * Displays a form to edit an existing CompBook entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
 
         if (!$entity) {
@@ -140,27 +143,22 @@ class CompBookController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(CompBook $entity)
-    {
+    private function createEditForm(CompBook $entity) {
         $form = $this->createForm(new CompBookType(), $entity, array(
             'action' => $this->generateUrl('administration_CompBook_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing CompBook entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CompBook entity.');
         }
@@ -171,22 +169,21 @@ class CompBookController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('administration_CompBook_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:CompBook:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView()
         ));
     }
+
     /**
      * Deletes a CompBook entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -212,8 +209,7 @@ class CompBookController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_CompBook_delete', array('id' => $id)))
             ->setMethod('DELETE')
