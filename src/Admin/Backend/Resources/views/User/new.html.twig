@@ -11,7 +11,7 @@
             <!-- /.box-header -->
 
             <div class="box-body no-padding">
-                {{ form(form) }}
+                {{ include('BackendBundle:User:form.html.twig', {'form' : form}) }}
             </div>
             <!-- /.box-body -->
         </div>

@@ -90,7 +90,7 @@ class ComplaintType extends AbstractType {
                 'attr' => array(
                     'class' => 'btn btn-success'
                 )
-            ));
+            ))
         ;
     }
     

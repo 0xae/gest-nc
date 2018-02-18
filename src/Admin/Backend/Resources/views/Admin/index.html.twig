@@ -30,7 +30,7 @@
                     </a></li>
 
                     <li role="presentation"><a href="#assoc" aria-controls="settings" role="tab" data-toggle="tab">
-                        Associar perfil
+                        Associar permiss&atilde;o
                     </a></li>
                 </ul>
 
@@ -54,7 +54,12 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="assoc">
-                            {{ include('BackendBundle:Admin:assoc_profile.html.twig', {'form' : assoc_profile_form}) }}
+                            {{
+                                include('BackendBundle:Admin:assoc_permission.html.twig', {
+                                    'form' : assoc_profile_form,
+                                    'profiles' : profile_list
+                                })
+                            }}
                         </div>
                     </div>
                 </div>

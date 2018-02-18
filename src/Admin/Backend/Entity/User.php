@@ -61,6 +61,7 @@ class User extends BaseUser {
      * @ORM\Column(name="created_by", type="bigint", nullable=true)
      */
     private $createdBy;
+    
 
     /**
      * @var \Admin\Backend\Entity\AppEntity
@@ -71,6 +72,8 @@ class User extends BaseUser {
      * })
      */
     private $entity;
+
+    private $passwordConf;    
 
     public function __construct() {
         parent::__construct();
@@ -270,4 +273,12 @@ class User extends BaseUser {
     {
         return $this->entity;
     }
+
+    public function getPasswordConf(){
+		return $this->passwordConf;
+	}
+
+	public function setPasswordConf($passwordConf){
+		$this->passwordConf = $passwordConf;
+	}
 }

@@ -17,7 +17,9 @@ class UserType extends AbstractType {
             ->add('name')
             ->add('email', 'email')
             ->add('username')
-            ->add('password', 'password')
+            ->add('plainPassword', 'password')
+            ->add('passwordConf', 'password')
+            
             // ->add('password_confir', 'password')
             ->add('entity', 'entity', array(
                 'class' => 'BackendBundle:AppEntity',
@@ -30,6 +32,12 @@ class UserType extends AbstractType {
             ->add('phone')
             ->add('address')
             ->add('photoDir')
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ))
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

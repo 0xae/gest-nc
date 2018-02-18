@@ -96,7 +96,7 @@ class AdminController extends Controller {
     private function createProfileForm() {
         $form = $this->createForm(new ProfileType(), new Profile(), array(
             'action' => $this->generateUrl('administration_Profile_create'),
-            'method' => 'POST',
+            'method' => 'POST'
         ));
         return $form;
     }
@@ -111,7 +111,7 @@ class AdminController extends Controller {
     private function createAssocProfileForm() {
         $form = $this->createForm(new UserProfileType(), new UserProfile(), array(
             'action' => $this->generateUrl('administration_UserProfile_create'),
-            'method' => 'POST',
+            'method' => 'POST'
         ));
         return $form;
     }

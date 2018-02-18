@@ -1,0 +1,23 @@
+<div class="col-md-5">
+    <div class="form-group">
+        <label>Perfil</label>
+        <ul class="list-group">
+            {% for p in profiles %}
+                <li class="list-group-item">
+                    <a href="#" ng-click="ativateProfile({{p.id}}, '{{p.name}}')">
+                        <span>{{ p.name|capitalize }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <label>Permiss&otilde;es associadas</label>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Sem permiss&otilde;es associados.
+        </li>
+    </ul>
+</div>

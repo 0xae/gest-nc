@@ -4,9 +4,11 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
+
 
 /**
  * User controller.
@@ -34,12 +36,37 @@ class UserController extends Controller {
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $loginFieldsOk = true;
 
-        if ($form->isValid()) {
+        if ($this->alreadyExists('email', $entity->getEmail())) {
+            $form->get('email')
+                ->addError(new FormError('Email nao disponivel!'));
+            $loginFieldsOk = false;
+        } 
+
+        if ($this->alreadyExists('username', $entity->getUsername())) {
+            $form->get('username')
+                ->addError(new FormError('Username nao disponivel!'));
+            $loginFieldsOk = false;
+        } 
+        
+        if ($entity->getPlainPassword() != $entity->getPasswordConf()) {
+            $form->get('plainPassword')
+                ->addError(new FormError('As passwords nao coincidem'));
+            $form->get('passwordConf')
+                ->addError(new FormError('As passwords nao coincidem'));
+            $loginFieldsOk = false;                
+        } 
+        
+        if ($form->isValid() && $loginFieldsOk) {
             $em = $this->getDoctrine()->getManager();
             $entity->setEnabled(true);
             $em->persist($entity);
             $em->flush();
+
+            // supposed to generate password after create ?
+            $this->container->get('fos_user.user_manager')
+                ->updateUser($entity);
 
             // return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
             return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_user')));            
@@ -49,6 +76,13 @@ class UserController extends Controller {
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+    private function alreadyExists($field, $value) {        
+        $em = $this->getDoctrine()->getManager();        
+        $resp = $em->getRepository('BackendBundle:User')
+                ->findBy([$field=>$value]);
+        return $resp;
     }
 
     /**
@@ -63,8 +97,6 @@ class UserController extends Controller {
             'action' => $this->generateUrl('administration_user_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 

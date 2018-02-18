@@ -36,7 +36,7 @@ backend_administration_Stage:
 
 backend_administration_Profile:
     resource: "@BackendBundle/Resources/config/routing/profile.yml"
-    prefix:   /administration/Profile
+    prefix:   /administration/Profile/
 
 backend_administration_Module:
     resource: "@BackendBundle/Resources/config/routing/module.yml"
@@ -78,10 +78,10 @@ dashboard_stats:
     path:     /dashboard/stats/{type}
     defaults: { _controller: BackendBundle:Default:stats }
 
-sga_homepage:
-    path:     /
-    defaults: { _controller: BackendBundle:Security:login }
-
 sga_dashboard:
     path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Default:index }
+
+sga_homepage:
+    path:     /
+    defaults: { _controller: BackendBundle:Security:login }

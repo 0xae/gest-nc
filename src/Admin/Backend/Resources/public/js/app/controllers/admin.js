@@ -56,12 +56,14 @@ angular.module("app")
         $('#adminTab a[href="#'+tab+'"]').tab('show');    
     }
 
-    $scope.loadProfiles = function(userId) {
-        $http.get('/arfa/web/app_dev.php/administration/profiles_of/' + userId)
-        .then(function (resp) {
-            var profiles=resp.data;
-            $scope.profiles = profiles;
+    $scope.ativateProfile = function (id, name) {
+        console.info({
+            id: id,
+            name: name
         });
+    }
+
+    $scope.fetchPermissions = function (profileId) {        
     }
 
     $scope.removeProfile = function (userProfileId, index) {
