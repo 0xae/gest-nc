@@ -29,6 +29,14 @@ class UserType extends AbstractType {
                 },
                 'choice_label' => 'name'                
             ))
+            ->add('profile', 'entity', array(
+                'class' => 'BackendBundle:Profile',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                      ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name'                
+            ))
             ->add('phone')
             ->add('address')
             ->add('photoDir')

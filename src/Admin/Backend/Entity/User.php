@@ -71,7 +71,7 @@ class User extends BaseUser {
      * })
      */
      private $profile;
-    
+
     /**
      * @var \Admin\Backend\Entity\AppEntity
      *
