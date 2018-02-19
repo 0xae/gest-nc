@@ -9,7 +9,7 @@ angular.module("app")
     }
 
     $scope.ativateProfile = function (id, name) {
-        $scope.pprofileId = id;
+        $scope.profileId = id;
         fetchPermissions(id)
         .then(function (data){
             $scope.permissions = data;
@@ -17,13 +17,20 @@ angular.module("app")
     }
 
     $scope.addPermission = function (profileId, permissionId) {
-        if (!profileId || !permissionId) {
-            return;
-        }
-
         console.info({
             profileId: profileId,
             permissionId: permissionId
+        });
+
+        //arfa/web/app_dev.php/administration/add_permission?permission=teste+123&profile_id=1
+        $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
+                    'profile_id=' + profileId+
+                    '&permission=' + permissionId)
+        .then(function (_resp) {
+            var resp=_resp.data;
+            $.notify("Permissao adicionado com sucesso", "success");
+            $scope.permissions.push(resp);
+            return resp;
         });
     }
 
@@ -35,8 +42,16 @@ angular.module("app")
         });
     }
 
-    $scope.removePermission = function (id) {
+    $scope.removePermission = function (id, index) {
         if (!confirm("Deseja mesmo remover essa permissao?")) 
             return;
+
+        $http.get('/arfa/web/app_dev.php/administration/remove_permission/' + id)
+        .then(function (_resp) {
+            var resp=_resp.data;
+            $.notify("Permissao removida com sucesso", "success");
+            $scope.permissions.splice(index, 1);            
+            return resp;
+        });
     }
 }]);

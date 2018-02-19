@@ -18,8 +18,8 @@ use Admin\Backend\Entity\ProfilePermission;
  * Admin controller.
  */
 class AdminController extends Controller {
-    const PermissionMap = [        
-    ];
+    const PermissionMap = [];
+
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
@@ -59,7 +59,69 @@ class AdminController extends Controller {
                 'permission' => $val->getPermission()
             ];
         }
+
         return new JsonResponse($ary);
+    }
+
+    public function removePermissionAction($id) {  
+        $em = $this->getDoctrine()->getManager();                
+        $ent = $em->getRepository('BackendBundle:ProfilePermission')->find($id);
+
+        if (!$ent) {
+            throw $this->createNotFoundException("Perfil ($profileId) invalido!");
+        }
+
+        $em->remove($ent);
+        $em->flush();
+
+        return new JsonResponse([
+            'msg' => 'Permissao removida'
+        ]);
+    }
+
+    public function addPermissionAction() {
+        $em = $this->getDoctrine()->getManager();        
+        $permission = trim(strtolower($_GET['permission']));
+        $profileId = $_GET['profile_id'];
+        
+        $ent = $em->getRepository('BackendBundle:ProfilePermission')
+            ->findBy(array(
+                'profile' => $profileId,
+                'permission' => $permission
+            ));
+
+        // this profile already has that permission
+        if ($ent) {
+            $resp = [
+                'id' => $ent[0]->getId(),
+                'permission' => $ent[0]->getPermission(),
+                'profile' => $ent[0]->getProfile()->getId(),
+            ];
+        } else {
+            $profile = $em->getRepository('BackendBundle:Profile')
+                ->find($profileId);
+
+            if (!$profile) {
+                throw $this->createNotFoundException("Perfil ($profileId) invalido!");
+            }        
+
+            $ent = new ProfilePermission;
+            $ent->setPermission($permission);
+            $ent->setCreatedBy($this->getUser());
+            $ent->setCreatedAt(new \DateTime);
+            $ent->setProfile($profile);
+    
+            $em->persist($ent);
+            $em->flush();
+
+            $resp = [
+                'id' => $ent->getId(),
+                'permission' => $ent->getPermission(),
+                'profile' => $ent->getProfile()->getId(),
+            ];
+        }
+
+        return new JsonResponse($resp);
     }
 
     private function getPermissions() {

@@ -21,8 +21,9 @@
                 <option value="{{p}}">{{p}}</option>
             {% endfor %}
         </select>
+
         <button class="btn btn-success" ng-click="addPermission(profileId, permissionAdd)"
-                ng-disabled="!profileId">
+                ng-disabled="!profileId || !permissionAdd ">
             <span class="fa fa-plus"></span>
         </button>
     </div>
@@ -33,7 +34,7 @@
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="p in permissions">
             {{ '{{p.permission}}' }}
-            <a href="#" class="text-danger pull-right" ng-click="removePermission(p.id)">
+            <a href="#" class="text-danger pull-right" ng-click="removePermission(p.id, $index)">
                 <span class="fa fa-remove"></span>
             </a>
         </li>
