@@ -17,9 +17,9 @@
     <label>Associar permiss&atilde;o</label>
     <div class="form-group">
         <select class="form-control" ng-model="permissionAdd">
-            <option value="perm1">Perm 1</option>
-            <option value="perm2">Perm 2</option>
-            <option value="perm3">Perm 3</option>
+            {% for p in permissions %}
+                <option value="{{p}}">{{p}}</option>
+            {% endfor %}
         </select>
         <button class="btn btn-success" ng-click="addPermission(profileId, permissionAdd)"
                 ng-disabled="!profileId">

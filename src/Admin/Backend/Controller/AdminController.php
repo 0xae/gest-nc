@@ -18,6 +18,8 @@ use Admin\Backend\Entity\ProfilePermission;
  * Admin controller.
  */
 class AdminController extends Controller {
+    const PermissionMap = [        
+    ];
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
@@ -25,6 +27,7 @@ class AdminController extends Controller {
         $userList = $em->getRepository('BackendBundle:User')->findAll();
         $profileList = $em->getRepository('BackendBundle:Profile')->findAll();
         $assocProfile = $this->createAssocProfileForm();
+        $permissions = $this->getPermissions();
 
         return $this->render('BackendBundle:Admin:index.html.twig', array(
             'user_form' => $userForm->createView(),
@@ -32,6 +35,7 @@ class AdminController extends Controller {
             'profile_form' => $profileForm->createView(),
             'profile_list' => $profileList,
             'assoc_profile_form' => $assocProfile->createView(),
+            'permissions' => $permissions
         ));
     }
 
@@ -47,7 +51,6 @@ class AdminController extends Controller {
             'profile' => $id
         ));
 
-        // XXX: working on stuff
         $ary = [];
         foreach ($results as $val) {
             $ary[] = [
@@ -56,20 +59,22 @@ class AdminController extends Controller {
                 'permission' => $val->getPermission()
             ];
         }
-
         return new JsonResponse($ary);
     }
 
-    public function removeUserProfileAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:UserProfile')->find($id);
-        $em->remove($entity);
-        $em->flush();
+    private function getPermissions() {
+        $routeCollection = $this->get('router')
+                                ->getRouteCollection();
+        
+        foreach ($routeCollection->all() as $routeName => $route) {
+            if ($routeName[0] == '_' || strstr($routeName, 'webcommand') ||
+                    strstr($routeName, 'commandrunner')){
+                continue;
+            }
+            $ary[] = $routeName;
+        }
 
-        return new JsonResponse(array(
-            'status' => 200,
-            'message' => 'Perfil removido com sucesso'
-        ));
+        return $ary;
     }
 
    /**
