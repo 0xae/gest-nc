@@ -4,19 +4,23 @@ angular.module("app")
     var tab=url.searchParams.get('tab');
     $scope.permissions = [];
 
-    if (tab) {
-        $('#adminTab a[href="#'+tab+'"]').tab('show');    
+    if (tab) { 
+        $('#adminTab a[href="#'+tab+'"]').tab('show');  
     }
 
     $scope.ativateProfile = function (id, name) {
-        $scope.profileId = id;
+        $scope.pprofileId = id;
         fetchPermissions(id)
         .then(function (data){
             $scope.permissions = data;
-        })
+        });
     }
 
     $scope.addPermission = function (profileId, permissionId) {
+        if (!profileId || !permissionId) {
+            return;
+        }
+
         console.info({
             profileId: profileId,
             permissionId: permissionId
