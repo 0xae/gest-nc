@@ -61,8 +61,17 @@ class User extends BaseUser {
      * @ORM\Column(name="created_by", type="bigint", nullable=true)
      */
     private $createdBy;
-    
 
+    /**
+     * @var \Admin\Backend\Entity\Profile
+     *
+     * @ORM\ManyToOne(targetEntity="Admin\Backend\Entity\Profile")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     * })
+     */
+     private $profile;
+    
     /**
      * @var \Admin\Backend\Entity\AppEntity
      *
@@ -72,13 +81,20 @@ class User extends BaseUser {
      * })
      */
     private $entity;
-
-    private $passwordConf;    
+    private $passwordConf;
 
     public function __construct() {
         parent::__construct();
         $this->createdAt = new \DateTime();
     }
+
+    public function getProfile(){
+		return $this->profile;
+	}
+
+	public function setProfile($profile){
+		$this->profile = $profile;
+	}
 
     /**
      * Get id

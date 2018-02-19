@@ -43,8 +43,9 @@ angular.module("app")
     }
 
     $scope.removePermission = function (id, index) {
-        if (!confirm("Deseja mesmo remover essa permissao?")) 
+        if (!confirm("Deseja mesmo remover essa permissao?")) {
             return;
+        }
 
         $http.get('/arfa/web/app_dev.php/administration/remove_permission/' + id)
         .then(function (_resp) {
