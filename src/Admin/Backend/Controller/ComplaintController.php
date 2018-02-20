@@ -96,6 +96,67 @@ class ComplaintController extends Controller {
         return new JsonResponse($object);
     }
 
+    public function updateParAction($id) {
+        $content = $this->get("request")->getContent();
+        $data = json_decode($content, true);
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Essa Queixa/Reclamacao nao foi encontrada.');
+        }
+
+        $entity->setParCode($data['code']);
+        $entity->setParSubject($data['subject']);
+        $entity->setParDest($data['dest']);
+        $entity->setParDescription($data['description']);
+        $entity->setParType($data['type']);
+        $entity->setParAuthor($this->getUser());
+        // sends it back to acomp
+        $entity->setState(Stage::ACOMPANHAMENTO);        
+
+        $em->persist($entity);       
+        $em->flush();
+
+        return new JsonResponse([
+            "id" => $entity->getId()
+        ]);
+    }
+
+    public function showJsonAction($id) {
+        $entity = $this->getDoctrine()
+                    ->getRepository('BackendBundle:Complaint')                
+                    ->find($id);
+
+        $cb = $entity->getCreatedBy();
+        $obj = [
+            "id" => $entity->getId(),
+            "name" => $entity->getName(),
+            "factDetail" => $entity->getFactDetail(),
+            "factDate" => $entity->getFactDate(),
+            "opPhone" => $entity->getOpPhone(),
+            "opEmail" => $entity->getOpEmail(),        
+            "opName" => $entity->getOpName(),                    
+            "phone" => $entity->getPhone(),
+            "email" => $entity->getEmail(),
+            "type" => $entity->getType(),            
+            "objCode" => $entity->getObjCode(),
+            "createByName" => $cb->getName(),
+            "createByEnt" => $cb->getEntity()->getName(),
+        ];
+
+        if ($entity->getParCode()) {            
+            $obj["parCode"] = $entity->getParCode();
+            $obj["parAuthorName"] = $entity->getParAuthor()->getName();
+            $obj["parSubject"] = $entity->getParSubject();
+            $obj["parDest"] = $entity->getParDest();
+            $obj["parDescription"] = $entity->getParDescription();
+        }
+
+        return new JsonResponse($obj);
+    }
+
     public function respondAction($id) {
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
@@ -103,7 +164,7 @@ class ComplaintController extends Controller {
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Objecto nao encontrado!');
+            throw $this->createNotFoundException('Essa Queixa/Reclamacao nao foi encontrada.');
         }
 
         $entity->setState(Stage::RESPONDIDO);
@@ -137,7 +198,6 @@ class ComplaintController extends Controller {
             //     );
             //     $entity->setFactAnnex($fileName);
             // }
-
             $em->persist($entity);
             $em->flush();
 
@@ -185,7 +245,6 @@ class ComplaintController extends Controller {
         //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
         //     $entity->setFactAnnex(new File($path));
         // }
-
         return $this->render('BackendBundle:Complaint:show.html.twig', array(
             'entity' => $entity
         ));

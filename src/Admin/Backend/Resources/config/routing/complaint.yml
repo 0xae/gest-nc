@@ -33,6 +33,14 @@ administration_Complaint_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:Complaint:edit" }
 
+administration_Complaint_byJson:
+    path:     /{id}/json
+    defaults: { _controller: "BackendBundle:Complaint:showJson" }
+
+administration_Complaint_updatePar:
+    path:     /{id}/update_par
+    defaults: { _controller: "BackendBundle:Complaint:updatePar" }
+
 administration_Complaint_update:
     path:     /{id}/update
     defaults: { _controller: "BackendBundle:Complaint:update" }

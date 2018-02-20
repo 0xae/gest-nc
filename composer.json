@@ -21,7 +21,8 @@
         "friendsofsymfony/user-bundle": "~1.3",
         "white-october/pagerfanta-bundle": "^1.1",
         "ob/highcharts-bundle": "^1.6",
-        "oro/doctrine-extensions": "dev-master"       
+        "oro/doctrine-extensions": "dev-master",
+        "jms/serializer-bundle": "^2.3"       
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

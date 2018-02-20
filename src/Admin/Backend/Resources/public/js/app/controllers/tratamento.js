@@ -7,9 +7,31 @@ angular.module("app")
     var SEM_RESPOSTA='sem_resposta';
     var type='Complaint';
 
+    $scope.viewObject = function(id) {
+        console.info("")
+        $scope.entity = undefined;
+        $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
+        .then(function (resp){
+            var data = resp.data;
+            $scope.entity = data;
+            $scope.modalTitle = "Visualizando " + label(type);
+            $('#viewComplaintModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
     $scope.setType = function (v) {
         console.log("changing type to: ", v);
         type = v;
+    }
+
+    function label(type) {
+        if (type == "Complaint") {
+            return "Queixa/Denuncia";
+        } else {
+            return "Sugestao/Reclamacao";            
+        }
     }
 
     $scope.noResponseObj = function(obj) {
@@ -18,7 +40,7 @@ angular.module("app")
         $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+obj.id, req)
         .then(function (data){
             $.notify(obj.code+" arquivado com sucesso.", "success");            
-            $("#row-" + obj.id).remove();
+            $("#row-" + obj.id).addClass('success');
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
@@ -26,25 +48,40 @@ angular.module("app")
 
     $scope.respondObj = function (obj, title) {
         $scope.mObject = obj;
-        $scope.modalTitle = title;
+        if (obj.type == 'par_tec') {
+            $scope.modalTitle = 'Parecer Tecnico';
+        } else {
+            $scope.modalTitle = 'Parecer Cientifico';            
+        }
         $('#respondModal').modal();
     }
 
     $scope.respondSubmit = function() {
-        if (!confirm('Confirmar envio de resposta?')) return;
-        var response = $scope.responseForm.response;
+        if (!confirm('Confirmar envio de parecer?')) return;
+        var response = $scope.responseForm;
         var id = $scope.mObject.id;
-        var code = $scope.mObject.code;
+        var type = $scope.mObject.type;
         var req = {
             id: id,
-            clientResponse: response
+            code: response.parecerCode,
+            subject: response.parecerSubject,
+            dest: response.destination,
+            description: response.description,
+            type: type
         };
 
-        $http.post('/arfa/web/app_dev.php/administration/'+type+'/respond/'+id, req)
+        console.info(req);
+
+        $http.post('/arfa/web/app_dev.php/administration/Complaint/'+id+'/update_par', req)
         .then(function (data){
             $scope.responseForm.response='';
-            $.notify(code+" respondido!", "success");
-            $("#row-" + id).remove();            
+            $.notify($scope.modalTitle+" atribuido com sucesso!", "success");
+            $("#row-" + id).addClass('success');
+            $("#xop__"+id).remove();
+            $("#xstat_"+id).text($scope.modalTitle);
+            $("#xstat_"+id).removeClass('hidden');
+            
+            $scope.responseForm = false;
             setTimeout(function(){
                 $('#respondModal').modal('hide');                
             }, 500);

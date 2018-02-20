@@ -26,6 +26,7 @@
                             <th>Utente</th>
                             <th>Contato do utente</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,83 +43,38 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <div class="dropdown">
+                                    <div class="dropdown" id="xop__{{entity.id}}">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Parecer
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                             <li>
-                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', code:'{{ entity.objCode }}'}, 'Parecer Tecnico')">
+                                                <a href="#" ng-click="respondObj({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_tec' })">
                                                     T&eacute;cnico
                                                 </a>
                                             </li>
                                             <li >
-                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', code:'{{ entity.objCode }}'}, 'Parecer Cientifico')">
+                                                <a href="#" ng-click="respondObj({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_cent' })">
                                                     Cient&iacute;fico
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>    
-                                    <span class="fa fa-eyes"></span>                            
+                                    </div>
+                                    <span id="xstat_{{entity.id}}" class="hidden badge badge-success"></span>
+                                </td>
+                                <td>
+                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                        <span class="text-warning fa fa-eye"></span>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
 
-                <div class="modal fade" id="respondModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header bg-green">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
-                        </div>
-                        <form ng-submit="respondSubmit()" name="responseForm">
-                        <div class="modal-body">
-                            <label>Queixa/Denuncia</label>
-                            {# <a href="#">{{ '{{mObject.code}}' }}</a> #}
-                            <input class="form-control" disabled="disabled" value="{{ '{{mObject.code}}' }}" />
-                            <br/>
-
-                            <div class="form-group">
-                                <label>Nome do utente</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.name}}' }}" />
-                            </div>
-
-                            <div class="form-group">
-                                <label>C&oacute;digo PTC</label>
-                                <input class="form-control" required ng-model="respondeForm.parecerCode" />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Assunto</label>
-                                <input class="form-control" required ng-model="respondeForm.parecerSubject" />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Destinat&aacute;rios</label>
-                                <textarea ng-model="responseForm.destination" 
-                                    required
-                                    class="form-control"
-                                    rows="2" placeholder="..."></textarea>
-                            </div>
-
-                            <label>Texto do parecer (<span style="color:orangered">*</span>)</label>
-                            <textarea ng-model="responseForm.response" 
-                                required
-                                class="form-control"
-                                rows="5" placeholder="..."></textarea>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-success">Enviar formul&aacute;rio</button>
-                        </div>
-                        </form>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                {{ include('BackendBundle:Complaint:modals/updatePar.html.twig') }}
+                {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
             </div>
             <!-- /.box-body -->
         </div>

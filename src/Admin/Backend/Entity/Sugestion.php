@@ -126,6 +126,11 @@ class Sugestion {
     private $clientResponse;
 
     /**
+     * @ORM\Column(name="par_type", type="string", length=250, nullable=true)
+     */
+    private $parType;
+
+    /**
      * @ORM\Column(name="par_code", type="string", length=250, nullable=true)
      */
     private $parCode;
@@ -144,6 +149,33 @@ class Sugestion {
      * @ORM\Column(name="par_description", type="string", length=250, nullable=true)
      */
     private $parDescription;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="par_author", referencedColumnName="id", nullable=true)
+     * })
+     * 
+     */
+    private $parAuthor;
+
+    public function getParType(){
+		return $this->parType;
+	}
+
+	public function setParType($parType){
+		$this->parType = $parType;
+	}
+
+    public function getParAuthor(){
+		return $this->parAuthor;
+	}
+
+	public function setParAuthor($parAuthor){
+		$this->parAuthor = $parAuthor;
+	}
 
     public function getParCode(){
 		return $this->parCode;

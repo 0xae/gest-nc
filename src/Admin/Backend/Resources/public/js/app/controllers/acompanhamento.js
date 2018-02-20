@@ -19,6 +19,28 @@ angular.module("app")
         label = l;
     }
 
+    function label(type) {
+        if (type == "Complaint") {
+            return "Queixa/Denuncia";
+        } else {
+            return "Sugestao/Reclamacao";            
+        }
+    }
+
+    $scope.viewObject = function(id) {
+        console.info("asdasd")
+        $scope.entity = undefined;
+        $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
+        .then(function (resp){
+            var data = resp.data;
+            $scope.entity = data;
+            $scope.modalTitle = "Visualizando " + label;
+            $('#viewComplaintModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
     $scope.acceptObj = function(obj) {
         if (!confirm("Confirmar " + label + " como favoravel?")){ 
             return;

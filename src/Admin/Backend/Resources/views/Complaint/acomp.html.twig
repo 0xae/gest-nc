@@ -20,7 +20,7 @@
                             <th>Data</th>
                             <th>Utente</th>
                             <th>Contato do utente</th>
-                            <th>Tem fundamento</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,40 +43,49 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <div class="dropdown">
-                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Despachar
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
-                                        <li>
-                                            <a href="#" ng-click="acceptObj({
-                                                id:{{entity.id}}, 
-                                                code:'{{entity.objCode}}',
-                                                name:'{{entity.name}}',
-                                                email:'{{entity.email}}',
-                                                phone:'{{entity.phone}}',
-                                            })">Favor&aacute;vel</a>                                        
-                                        </li>
-                                        <li >
-                                            <a href="#" ng-click="rejectObj({
-                                                id:{{entity.id}}, 
-                                                code:'{{entity.objCode}}',
-                                                name:'{{entity.name}}',
-                                                email:'{{entity.email}}',
-                                                phone:'{{entity.phone}}',
-                                                })">N&atilde;o Favor&aacute;vel</a>
-                                        </li>
-                                        <li >
-                                            <a href="#" ng-click="">Sem compet&ecirc;ncia</a>
-                                        </li>
-                                    </ul>
-                                    </div>
+                                    {% if entity.parCode %}
+                                        <span class="label label-success">Com Parecer ({{entity.parCode}})</span>
+                                        <a href="#" ng-click="viewObject({{entity.id}})">
+                                            <span class="text-warning fa fa-eye"></span>
+                                        </a>
+                                    {% else %}
+                                        <div class="dropdown">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Despachar
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                                <li>
+                                                    <a href="#" ng-click="acceptObj({
+                                                        id:{{entity.id}}, 
+                                                        code:'{{entity.objCode}}',
+                                                        name:'{{entity.name}}',
+                                                        email:'{{entity.email}}',
+                                                        phone:'{{entity.phone}}',
+                                                    })">Favor&aacute;vel</a>                                        
+                                                </li>
+                                                <li >
+                                                    <a href="#" ng-click="rejectObj({
+                                                        id:{{entity.id}}, 
+                                                        code:'{{entity.objCode}}',
+                                                        name:'{{entity.name}}',
+                                                        email:'{{entity.email}}',
+                                                        phone:'{{entity.phone}}',
+                                                        })">N&atilde;o Favor&aacute;vel</a>
+                                                </li>
+                                                <li >
+                                                    <a href="#" ng-click="">Sem compet&ecirc;ncia</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %} 
                     </tbody>
                 </table>
+
+                {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
 
                 <div class="modal fade" id="rejectModal">
                     <div class="modal-dialog">
