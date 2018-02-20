@@ -24,8 +24,9 @@ angular.module("app")
         });
     }
 
-    $scope.respondObj = function (obj) {
+    $scope.respondObj = function (obj, title) {
         $scope.mObject = obj;
+        $scope.modalTitle = title;
         $('#respondModal').modal();
     }
 

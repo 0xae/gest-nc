@@ -49,12 +49,12 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                             <li>
-                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
+                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', code:'{{ entity.objCode }}'}, 'Parecer Tecnico')">
                                                     T&eacute;cnico
                                                 </a>
                                             </li>
                                             <li >
-                                                <a href="#" ng-click="noResponseObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
+                                                <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', code:'{{ entity.objCode }}'}, 'Parecer Cientifico')">
                                                     Cient&iacute;fico
                                                 </a>
                                             </li>
@@ -72,7 +72,7 @@
                         <div class="modal-content">
                         <div class="modal-header bg-green">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Parecer</h4>
+                            <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
                         </div>
                         <form ng-submit="respondSubmit()" name="responseForm">
                         <div class="modal-body">
