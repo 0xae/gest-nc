@@ -35,20 +35,31 @@
     </div>
 
     <div class="form-group">
+        <label>Perfil</label>
+        {{ form_widget(form.profile) }}
+    </div>
+
+    <div class="form-group">
         <label>Username</label>
-        {{ form_widget(form.username) }}
+        {{ form_widget(form.username, {'attr' : {
+            'disabled': is_edit
+        }}) }}
         {{ form_errors(form.username) }}
     </div>
 
     <div class="form-group">
         <label>Password</label>
-        {{ form_widget(form.plainPassword) }}
+        {{ form_widget(form.plainPassword, {'attr' : {
+            'disabled': is_edit
+        }}) }}
         {{ form_errors(form.plainPassword) }}
     </div>
 
     <div class="form-group">
         <label>Password (Confirma&ccedil;&atilde;o)</label>
-        {{ form_widget(form.passwordConf) }}
+        {{ form_widget(form.passwordConf, {'attr' : {
+            'disabled': is_edit
+        }}) }}
         {{ form_errors(form.passwordConf) }}
     </div>
 
@@ -56,6 +67,7 @@
         <label></label>
         {{ form_widget(form.photoDir) }}
     </div>
+
     {{ form(form) }}
 </div>
 

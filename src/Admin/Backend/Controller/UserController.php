@@ -163,6 +163,7 @@ class UserController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:User')->find($id);
+        $oldUsername = $entity->getUsername();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -173,6 +174,7 @@ class UserController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setUserName($oldUsername);
             $em->flush();
 
             // return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));

@@ -110,7 +110,6 @@ class AdminController extends Controller {
             $ent->setCreatedBy($this->getUser());
             $ent->setCreatedAt(new \DateTime);
             $ent->setProfile($profile);
-    
             $em->persist($ent);
             $em->flush();
 

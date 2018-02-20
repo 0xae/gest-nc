@@ -1,3 +1,11 @@
+backend_administration_ImplMeasure:
+    resource: "@BackendBundle/Resources/config/routing/implmeasure.yml"
+    prefix:   /administration/ImplMeasure
+
+backend_administration_Correction:
+    resource: "@BackendBundle/Resources/config/routing/correction.yml"
+    prefix:   /administration/Correction
+
 backend_administration_CompBook:
     resource: "@BackendBundle/Resources/config/routing/compbook.yml"
     prefix:   /administration/CompBook
