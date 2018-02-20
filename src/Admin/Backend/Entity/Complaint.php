@@ -211,6 +211,19 @@ class Complaint {
      */
     private $clientResponse;
 
+    /**
+     * @ORM\Column(name="complaint_category", type="text",  nullable=true)
+     */
+    private $complaintCategory;
+
+    public function getComplaintCategory(){
+		return $this->complaintCategory;
+	}
+
+	public function setComplaintCategory($complaintCategory){
+		$this->complaintCategory = $complaintCategory;
+	}    
+
     public function setClientResponse($value) {
         $this->clientResponse = $value;
     }

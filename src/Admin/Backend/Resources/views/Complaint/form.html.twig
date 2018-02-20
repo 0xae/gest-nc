@@ -60,6 +60,36 @@
                 <label>Data</label>
                 {{ form_widget(form.createdAt) }}
             </div>
+
+            <div class="form-group" ng-init="setCategory('{{entity.complaintCategory}}')">
+                <input type="checkbox" ng-model="categoryConf.cat_sf.active" />
+                <label>Setor Farmacêutico</label>
+                <div>
+                    <ul class="unstyled">
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op1" /> Biocidas</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op2" /> Medicamentos de Uso Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op3" /> Produtos Cosméticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op4" /> Produtos Químico-farmacêuticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op5" /> Outros</li>
+                    </ul>
+                </div>
+                {{ form_widget(form.complaintCategory, {'attr': {
+                    'style' : 'display: none'
+                }}) }}
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" ng-model="categoryConf.cat_sa.active" />
+                <label>Setor Alimentar</label>
+                <div>
+                    <ul class="unstyled">
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op1" /> Alimentos destinados ao Consumo Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op2" /> Suplementos e Aditivos Alimentares</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op3" /> Alimentos com propriedades Funcionais</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op4" /> Outros</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         {# <div class="col-md-12">
@@ -162,8 +192,8 @@
                 <label>Tipo do anexo</label>
                 {{ form_widget(form.annexType) }}
             </div>
-
-            {{ form(form) }}
         </div>
+
+        {{ form(form) }}
     </div>
 {{ form_end(form) }}
