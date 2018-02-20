@@ -97,6 +97,10 @@ class SugestionController extends Controller {
         } else if ($state == Stage::REJEITADO) { 
             $entity->setState(Stage::REJEITADO);
             $entity->setRejectionReason($object['rejectionReason']);
+        } else if ($state == Stage::NO_FAVORABLE) { 
+            $entity->setState(Stage::NO_FAVORABLE);
+        } else if ($state == Stage::NO_COMP) { 
+            $entity->setState(Stage::NO_COMP);
         } else {
             // throw new Exception
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
@@ -278,10 +282,8 @@ class SugestionController extends Controller {
         //     $entity->setAddress("Praia, Cabo Verde");
         //     $entity->setPhone("255 12 90");
         //     $entity->setEmail("djonhy@gmail.com");
-        // }
-
-        $entity->setDescription("teste 123 djonhy@gmail.com");
-        
+        // $entity->setDescription("teste 123 djonhy@gmail.com");        
+        // }        
 
         $form = $this->createForm(new SugestionType(), $entity, array(
             'action' => $this->generateUrl('administration_Sugestion_create'),

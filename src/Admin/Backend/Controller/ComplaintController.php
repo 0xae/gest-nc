@@ -82,7 +82,10 @@ class ComplaintController extends Controller {
             $entity->setRejectionReason($object['rejectionReason']);
         } else if ($state == Stage::SEM_RESPOSTA) { 
             $entity->setState(Stage::SEM_RESPOSTA);
-            // $entity->setRejectionReason($object['rejectionReason']);
+        } else if ($state == Stage::NO_FAVORABLE) { 
+            $entity->setState(Stage::NO_FAVORABLE);
+        } else if ($state == Stage::NO_COMP) { 
+            $entity->setState(Stage::NO_COMP);
         }  else {
             // throw new Exception
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');

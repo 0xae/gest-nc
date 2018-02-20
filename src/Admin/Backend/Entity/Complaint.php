@@ -212,9 +212,61 @@ class Complaint {
     private $clientResponse;
 
     /**
+     * @ORM\Column(name="par_code", type="string", length=250, nullable=true)
+     */
+    private $parCode;
+    
+    /**
+     * @ORM\Column(name="par_subject", type="string", length=250, nullable=true)
+     */
+    private $parSubject;
+
+    /**
+     * @ORM\Column(name="par_dest", type="string", length=250, nullable=true)
+     */
+    private $parDest;
+
+    /**
+     * @ORM\Column(name="par_description", type="string", length=250, nullable=true)
+     */
+    private $parDescription;
+
+    /**
      * @ORM\Column(name="complaint_category", type="text",  nullable=true)
      */
     private $complaintCategory;
+
+    public function getParCode(){
+		return $this->parCode;
+	}
+
+	public function setParCode($parCode){
+		$this->parCode = $parCode;
+	}
+
+	public function getParSubject(){
+		return $this->parSubject;
+	}
+
+	public function setParSubject($parSubject){
+		$this->parSubject = $parSubject;
+	}
+
+	public function getParDest(){
+		return $this->parDest;
+	}
+
+	public function setParDest($parDest){
+		$this->parDest = $parDest;
+	}
+
+	public function getParDescription(){
+		return $this->parDescription;
+	}
+
+	public function setParDescription($parDescription){
+		$this->parDescription = $parDescription;
+	}
 
     public function getComplaintCategory(){
 		return $this->complaintCategory;

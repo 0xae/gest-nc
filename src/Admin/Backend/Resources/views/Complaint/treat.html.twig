@@ -50,7 +50,7 @@
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                             <li>
                                                 <a href="#" ng-click="respondObj({id:{{entity.id}}, name:'{{entity.name}}', phone:'{{entity.phone}}', email:'{{entity.email}}', code:'{{ entity.objCode }}'})">
-                                                    T&eacute;nico
+                                                    T&eacute;cnico
                                                 </a>
                                             </li>
                                             <li >
@@ -72,32 +72,43 @@
                         <div class="modal-content">
                         <div class="modal-header bg-green">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Responder ao utente</h4>
+                            <h4 class="modal-title">Parecer</h4>
                         </div>
                         <form ng-submit="respondSubmit()" name="responseForm">
                         <div class="modal-body">
-                            <h4>
-                                <a href="#">{{ '{{mObject.code}}' }}</a>
-                            </h4>
+                            <label>Queixa/Denuncia</label>
+                            {# <a href="#">{{ '{{mObject.code}}' }}</a> #}
+                            <input class="form-control" disabled="disabled" value="{{ '{{mObject.code}}' }}" />
+                            <br/>
+
                             <div class="form-group">
                                 <label>Nome do utente</label>
                                 <input class="form-control" disabled="disabled" value="{{ '{{mObject.name}}' }}" />
                             </div>
+
                             <div class="form-group">
-                                <label>Telefone</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.phone}}' }}" />
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input class="form-control" disabled="disabled" value="{{ '{{mObject.email}}' }}" />
+                                <label>C&oacute;digo PTC</label>
+                                <input class="form-control" required ng-model="respondeForm.parecerCode" />
                             </div>
 
-                            <label>Resposta para o utente (<span style="color:orangered">*</span>)</label>
+                            <div class="form-group">
+                                <label>Assunto</label>
+                                <input class="form-control" required ng-model="respondeForm.parecerSubject" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Destinat&aacute;rios</label>
+                                <textarea ng-model="responseForm.destination" 
+                                    required
+                                    class="form-control"
+                                    rows="2" placeholder="..."></textarea>
+                            </div>
+
+                            <label>Texto do parecer (<span style="color:orangered">*</span>)</label>
                             <textarea ng-model="responseForm.response" 
                                 required
                                 class="form-control"
-                                rows="7"
-                                placeholder="..."></textarea>
+                                rows="5" placeholder="..."></textarea>
                         </div>
 
                         <div class="modal-footer">
