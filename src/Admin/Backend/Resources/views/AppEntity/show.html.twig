@@ -6,7 +6,7 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">AppEntity #{{ entity.id }}</h3>
+                <h3 class="box-title">Departamento {{ entity.name }}</h3>
                 <p>
                     <a href="{{ path('administration_entities') }}">
                         <span class="glyphicon glyphicon-back"></span> Voltar
@@ -23,16 +23,20 @@
                             <td>{{ entity.id }}</td>
                         </tr>
                         <tr>
-                            <th>Name</th>
+                            <th>Nome</th>
                             <td>{{ entity.name }}</td>
                         </tr>
                         <tr>
-                            <th>Createdat</th>
+                            <th>Data de cria&ccedil;&atilde;o</th>
                             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <th>Createdby</th>
-                            <td>{{ entity.createdBy }}</td>
+                            <th><span class="fa fa-user"></span> Criado por</th>
+                            <td>
+                                {% if entity.createdBy %}
+                                    {{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}
+                                {% endif %}                                
+                            </td>
                         </tr>
                     </tbody>
                 </table>

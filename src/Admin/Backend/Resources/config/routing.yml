@@ -1,3 +1,7 @@
+backend_administration_Category:
+    resource: "@BackendBundle/Resources/config/routing/category.yml"
+    prefix:   /administration/Category
+
 backend_administration_ImplMeasure:
     resource: "@BackendBundle/Resources/config/routing/implmeasure.yml"
     prefix:   /administration/ImplMeasure

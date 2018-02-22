@@ -16,7 +16,14 @@ class AppEntityType extends AbstractType {
             ->add('name')
             ->add('code')
             ->add('description')
-        ;
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success',
+                    'ng-click' => 'onSubmitForm()'
+                )
+            ))
+            ;
     }
 
     /**

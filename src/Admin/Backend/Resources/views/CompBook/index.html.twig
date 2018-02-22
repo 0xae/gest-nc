@@ -28,6 +28,7 @@
                                 <th>Email do utente</th>
                                 <th>Fornecedor</th>
                                 <th>Data da reclama&ccedil;&atilde;o</th>
+                                <th>Data prevista (10 dias)</th>
                                 <th>Criado em</th>
                                 <th>Criado por</th>
                                 <th></th>
@@ -46,6 +47,7 @@
                                     <td>{{ entity.clientEmail }}</td>
                                     <td>{{ entity.supplierName }}</td>
                                     <td>{{ entity.complaintDate|date('Y-m-d H:i:s') }}</td>      
+                                    <td>{{ entity.respDate|date('Y-m-d H:i:s') }}</td>
                                     <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td> 
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td><a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">

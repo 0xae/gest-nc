@@ -111,6 +111,12 @@ class CompBook {
 
     public function getComplaintDate(){
 		return $this->complaintDate;
+    }
+    
+    public function getRespDate(){
+        $date = clone $this->complaintDate;
+        $date->add(new \DateInterval("P10D"));
+        return $date;
 	}
 
 	public function setComplaintDate($complaintDate){

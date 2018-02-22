@@ -42,6 +42,13 @@ class IReclamation {
     private $type;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type_data", type="string", length=250, nullable=true)
+     */
+    private $typeData;
+
+    /**
      * @var DateTime
      *
      * @ORM\Column(name="fact_date", type="date", length=45, nullable=false)
@@ -140,18 +147,36 @@ class IReclamation {
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     * })
+     * 
      */
     private $createdBy;
 
+
+    public function getTypeData() {
+        return $this->typeData;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Category
+     */
+    public function setTypeData($val) {
+        $this->typeData = $val;
+        return $this;
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 

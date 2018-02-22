@@ -57,6 +57,9 @@ class IReclamationType extends AbstractType {
             ->add('analysisResp')
             ->add('decisionResp')
             ->add('actionResp')
+            ->add('typeData', 'textarea', array(
+                'attr' => array('rows' => 2)
+            ))            
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

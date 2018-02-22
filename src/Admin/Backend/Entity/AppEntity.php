@@ -50,7 +50,11 @@ class AppEntity {
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     * })
+     * 
      */
     private $createdBy;
 

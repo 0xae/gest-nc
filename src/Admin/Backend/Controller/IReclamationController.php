@@ -37,9 +37,11 @@ class IReclamationController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userId = $this->getUser();
+            $entity->setCreatedBy($userId);
+
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('administration_IReclamation_show', array('id' => $entity->getId())));
         }
 

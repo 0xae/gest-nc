@@ -21,7 +21,7 @@
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" ng-init="defChoice = 'c1'">
         <div style="color: gray;margin-bottom: 20px;">
             <span class="fa fa-archive"></span>
             Reclamacao Interna
@@ -29,7 +29,15 @@
 
         <div class="form-group">
             <label>Tipo</label>
-            {{ form_widget(form.type) }}
+            {{ form_widget(form.type, {'attr' : {
+                'ng-model' : 'defChoice'
+            } }) }}
+            <div style="padding: 10px;" ng-if="defChoice == 'c9'">
+                <span style="color:gray;">
+                <strong>Descreva<strong>
+                </span>
+                {{ form_widget(form.typeData) }}
+            </div>
         </div>
 
         <div class="form-group">
@@ -37,7 +45,6 @@
             {{ form_widget(form.createdAt) }}
         </div>
     </div>
-    
 </div>
 
 <div class="row">
@@ -154,6 +161,10 @@
             {{ form_widget(form.actionResp) }}
         </div>
     </div>
+</div>
+
+<div class="hidden">
+{{ form_widget(form.createdBy) }}
 </div>
 
 {{ form(form) }}

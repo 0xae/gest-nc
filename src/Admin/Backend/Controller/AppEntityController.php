@@ -37,7 +37,7 @@ class AppEntityController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $userId = $this->getUser()->getId();
+            $userId = $this->getUser();
             $entity->setCreatedBy($userId);
             $entity->setCreatedAt(new \DateTime);
 
@@ -128,6 +128,10 @@ class AppEntityController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            if ($entity->getCreatedBy() == null) {
+                $userId = $this->getUser();
+                $entity->setCreatedBy($userId);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('administration_entities_edit', array('id' => $id)));
@@ -176,8 +180,6 @@ class AppEntityController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -193,8 +195,6 @@ class AppEntityController extends Controller {
             'action' => $this->generateUrl('administration_entities_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
