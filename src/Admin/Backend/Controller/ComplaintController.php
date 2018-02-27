@@ -107,14 +107,14 @@ class ComplaintController extends Controller {
             throw $this->createNotFoundException('Essa Queixa/Reclamacao nao foi encontrada.');
         }
 
-        $entity->setParCode($data['code']);
-        $entity->setParSubject($data['subject']);
-        $entity->setParDest($data['dest']);
-        $entity->setParDescription($data['description']);
+        $entity->setParCode($data['parCode']);
+        $entity->setParSubject($data['parSubject']);
+        $entity->setParDest($data['parDest']);
+        $entity->setParDescription($data['parDescription']);
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
         // sends it back to acomp
-        $entity->setState(Stage::ACOMPANHAMENTO);        
+        // $entity->setState(Stage::ACOMPANHAMENTO);        
 
         $em->persist($entity);       
         $em->flush();
@@ -140,7 +140,7 @@ class ComplaintController extends Controller {
             "opName" => $entity->getOpName(),                    
             "phone" => $entity->getPhone(),
             "email" => $entity->getEmail(),
-            "type" => $entity->getType(),            
+            "type" => $entity->getType(),
             "objCode" => $entity->getObjCode(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),

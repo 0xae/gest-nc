@@ -247,6 +247,12 @@ class Complaint {
      */
     private $parAuthor;
 
+    public function getRespDate(){
+        $date = clone $this->createdAt;
+        $date->add(new \DateInterval("P15D"));
+        return $date;
+	}
+
     /**
      * @ORM\Column(name="complaint_category", type="text",  nullable=true)
      */

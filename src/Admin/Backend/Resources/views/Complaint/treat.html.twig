@@ -38,8 +38,8 @@
                                     </a>
                                 </td>
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.createdAt|date('Y-m-d') }}</td>
+                                <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>

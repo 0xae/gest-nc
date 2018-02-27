@@ -63,10 +63,10 @@ angular.module("app")
         var type = $scope.mObject.type;
         var req = {
             id: id,
-            code: response.parecerCode,
-            subject: response.parecerSubject,
-            dest: response.destination,
-            description: response.description,
+            parCode: response.parCode,
+            parSubject: response.parSubject,
+            parDestination: response.parDestination,
+            parDescription: response.parDescription,
             type: type
         };
 

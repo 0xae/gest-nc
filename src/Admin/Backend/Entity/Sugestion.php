@@ -161,6 +161,12 @@ class Sugestion {
      */
     private $parAuthor;
 
+    public function getRespDate(){
+        $date = clone $this->createdAt;
+        $date->add(new \DateInterval("P15D"));
+        return $date;
+	}
+
     public function getParType(){
 		return $this->parType;
 	}
