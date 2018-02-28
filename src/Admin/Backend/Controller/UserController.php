@@ -9,10 +9,8 @@ use Symfony\Component\Form\FormError;
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
 
-
 /**
  * User controller.
- *
  */
 class UserController extends Controller {
     /**
@@ -61,6 +59,8 @@ class UserController extends Controller {
         if ($form->isValid() && $loginFieldsOk) {
             $em = $this->getDoctrine()->getManager();
             $entity->setEnabled(true);
+            $user = $this->getUser();
+            $entity->setCreatedBy($user->getId());
             $em->persist($entity);
             $em->flush();
 
@@ -125,7 +125,6 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('BackendBundle:User:show.html.twig', array(
@@ -175,9 +174,12 @@ class UserController extends Controller {
 
         if ($editForm->isValid()) {
             $entity->setUserName($oldUsername);
-            $em->flush();
+            if (!$entity->getCreatedBy()) {
+                $user = $this->getUser();
+                $entity->setCreatedBy($user->getId());    
+            }
 
-            // return $this->redirect($this->generateUrl('administration_user_edit', array('id' => $id)));
+            $em->flush();
             return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_user')));                        
         }
 
@@ -187,6 +189,7 @@ class UserController extends Controller {
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a User entity.
      *
@@ -240,7 +243,6 @@ class UserController extends Controller {
             ->setAction($this->generateUrl('administration_user_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

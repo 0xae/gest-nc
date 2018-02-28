@@ -11,7 +11,7 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-striped"  style="margin-bottom:70px">
+                <table class="table table-hover table-striped"  style="">
                     <thead>
                         <tr>
                             <th>C&oacute;digo</th>
@@ -37,7 +37,7 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <div class="dropdown">
+                                    <div class="dropdown" style="display: inline">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Responder
                                             <span class="caret"></span>
@@ -55,6 +55,10 @@
                                             </li>
                                         </ul>
                                     </div>
+
+                                    <a href="{{ path('administration_Sugestion_edit', {'id':entity.id})}}" style="font-size:16px">
+                                        <span class="text-warning fa fa-edit"></span>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -49,6 +49,10 @@
                                     {% if entity.parCode %}
                                         <span class="label label-success">Com Parecer ({{entity.parCode}})</span>
                                     {% else %}
+                                        <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
+                                            <span class="text-warning fa fa-edit"></span>
+                                        </a>
+
                                         <div class="dropdown">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Despachar
