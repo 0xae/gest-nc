@@ -57,8 +57,10 @@
             </div>
 
             <div class="form-group">
-                <label>Data</label>
-                {{ form_widget(form.createdAt) }}
+                <label>Data de criação</label>
+                {{ form_widget(form.createdAt, {
+                    'read_only' : true
+                }) }}
             </div>
 
             <div class="form-group" ng-init="setCategory('{{entity.complaintCategory}}')">

@@ -70,6 +70,7 @@ angular.module("app")
             type: type
         };
 
+        console.info(response);
         console.info(req);
 
         $http.post('/arfa/web/app_dev.php/administration/Complaint/'+id+'/update_par', req)

@@ -109,12 +109,13 @@ class ComplaintController extends Controller {
 
         $entity->setParCode($data['parCode']);
         $entity->setParSubject($data['parSubject']);
-        $entity->setParDest($data['parDest']);
+        $entity->setParDest($data['parDestination']);
         $entity->setParDescription($data['parDescription']);
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
+        $entity->setParDate(new \DateTime());    
         // sends it back to acomp
-        // $entity->setState(Stage::ACOMPANHAMENTO);        
+        // $entity->setState(Stage::ACOMPANHAMENTO);
 
         $em->persist($entity);       
         $em->flush();
@@ -148,6 +149,8 @@ class ComplaintController extends Controller {
 
         if ($entity->getParCode()) {            
             $obj["parCode"] = $entity->getParCode();
+            if ($entity->getParDate())
+                $obj["parDate"] = $entity->getParDate()->format("Y-m-d");            
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();

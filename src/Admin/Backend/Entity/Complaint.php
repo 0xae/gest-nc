@@ -220,7 +220,7 @@ class Complaint {
      * @ORM\Column(name="par_code", type="string", length=250, nullable=true)
      */
     private $parCode;
-    
+
     /**
      * @ORM\Column(name="par_subject", type="string", length=250, nullable=true)
      */
@@ -236,6 +236,11 @@ class Complaint {
      */
     private $parDescription;
 
+    /**
+     * @ORM\Column(name="par_date", type="date", length=250, nullable=true)
+     */
+    private $parDate;
+    
     /**
      * @var integer
      *
@@ -257,6 +262,14 @@ class Complaint {
      * @ORM\Column(name="complaint_category", type="text",  nullable=true)
      */
     private $complaintCategory;
+
+    public function getParDate(){
+		return $this->parDate;
+	}
+
+	public function setParDate($date){
+		$this->parDate = $date;
+	}
 
     public function getParType(){
 		return $this->parType;

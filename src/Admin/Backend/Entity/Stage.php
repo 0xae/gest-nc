@@ -17,11 +17,10 @@ class Stage {
     const REJEITADO='rejeitado';
     const RESPONDIDO='respondido';
     const SEM_RESPOSTA='sem_resposta';
-
     const FAVORABLE='favoravel';
     const NO_FAVORABLE='nao_favoravel';
     const NO_COMP='sem_competencia';
-    
+
     /**
      * @var integer
      *
