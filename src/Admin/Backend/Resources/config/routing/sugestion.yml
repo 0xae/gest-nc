@@ -22,7 +22,7 @@ administration_Sugestion_show:
 
 administration_Sugestion_showJson:
     path:     /{id}/json
-    defaults: { _controller: "BackendBundle:Sugestion:showAsJson" }
+    defaults: { _controller: "BackendBundle:Sugestion:showJson" }
 
 
 administration_Sugestion_new:

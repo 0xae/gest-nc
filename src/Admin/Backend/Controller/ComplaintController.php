@@ -155,7 +155,7 @@ class ComplaintController extends Controller {
         if ($entity->getParCode()) {            
             $obj["parCode"] = $entity->getParCode();
             if ($entity->getParDate())
-                $obj["parDate"] = $entity->getParDate()->format("Y-m-d");            
+                $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();

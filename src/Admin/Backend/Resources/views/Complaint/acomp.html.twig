@@ -99,7 +99,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                    <a href="#" ng-click="viewComplaint({{entity.id}})">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
 
@@ -113,7 +113,6 @@
                 </table>
 
                 {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
-
                 <div class="modal fade" id="rejectModal">
                     <div class="modal-dialog">
                         <div class="modal-content">

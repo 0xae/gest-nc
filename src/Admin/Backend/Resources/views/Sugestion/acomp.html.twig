@@ -14,7 +14,7 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-striped" style=";">
+                <table class="table table-hover table-striped" style="margin-bottom:70px;">
                     <thead>
                         <tr>
                             <th>C&oacute;digo</th>
@@ -23,7 +23,8 @@
                             <th>Data</th>
                             <th>Utente</th>
                             <th>Contato do utente</th>
-                            <th>Tem fundamento</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,20 +78,27 @@
                                             </li>
 
                                             <li>
-                                                <a href="#" ng-click="">Sem compet&ecirc;ncia</a>
+                                                {# <a href="#" ng-click="">Sem compet&ecirc;ncia</a> #}
+                                                <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}',{{entity.id}})">Sem compet&ecirc;ncia</a>
                                             </li>
                                         </ul>
                                     </div>
+                                </td>
 
-                                    <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
-                                        <span class="text-warning fa fa-edit"></span>
+                                <td>
+                                    <a href="#" ng-click="viewSugestion({{entity.id}})">
+                                        <span class="text-warning fa fa-eye"></span>
                                     </a>
+                                    {# <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
+                                        <span class="text-warning fa fa-edit"></span>
+                                    </a> #}
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
 
+                {{ include('BackendBundle:Sugestion:modals/viewSugestion.html.twig') }}
                 <div class="modal fade" id="rejectModal">
                     <div class="modal-dialog">
                         <div class="modal-content">

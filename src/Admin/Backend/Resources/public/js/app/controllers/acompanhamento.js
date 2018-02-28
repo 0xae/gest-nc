@@ -98,4 +98,31 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
+
+    $scope.viewSugestion = function (id) {
+        $scope.entity = undefined;
+        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
+        .then(function (resp){
+            var data = resp.data;
+            $scope.entity = data;
+            $scope.modalTitle = "Visualizando " + label;
+            $('#viewSugestionModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.viewComplaint = function (id) {
+        $scope.entity = undefined;
+        $http.get('/arfa/web/app_dev.php/administration/Complaint/'+id+'/json')
+        .then(function (resp){
+            var data = resp.data;
+            $scope.entity = data;
+            $scope.modalTitle = "Visualizando " + label;
+            console.info("fetched ", data);
+            $('#viewComplaintModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
 }]);

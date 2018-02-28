@@ -41,24 +41,26 @@ class SugestionController extends Controller {
 
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
-        $tpl = '';
+        $tpl = 'listing';
+        $label = $state;
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) { 
-            $tpl = 'treat';            
+            $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
             $tpl = 'sem_resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
-        } else {
-            $tpl = 'acomp';
+        } else if ($state == Stage::NO_COMP) {
+            $label = 'Sem competencia';
         }
 
         $ary = $em->getRepository('BackendBundle:Sugestion')
                   ->findBy(['state' => $state]);
 
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
-            'objects' => $ary
+            'objects' => $ary,
+            'label' => $label
         ));
     }
 
@@ -109,6 +111,29 @@ class SugestionController extends Controller {
         $em->persist($entity);
         $em->flush();
         return new JsonResponse($object);
+    }
+
+    public function showJsonAction($id) {
+        $entity = $this->getDoctrine()
+                    ->getRepository('BackendBundle:Sugestion')                
+                    ->find($id);
+
+        $cb = $entity->getCreatedBy();
+        $obj = [
+            "id" => $entity->getId(),
+            "name" => $entity->getName(),
+            "state" => $entity->getState(),
+            "email" => $entity->getEmail(),
+            "phone" => $entity->getPhone(),
+            "type" => $entity->getType(),
+            "description" => $entity->getDescription(),
+            "objCode" => $entity->getObjCode(),
+            "createdAt" => $cb->getCreatedAt()->format("Y-m-d"),
+            "createByName" => $cb->getName(),
+            "createByEnt" => $cb->getEntity()->getName(),
+        ];
+
+        return new JsonResponse($obj);
     }
 
     /**
