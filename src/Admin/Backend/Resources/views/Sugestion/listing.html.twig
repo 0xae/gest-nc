@@ -9,7 +9,7 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">{{label}}</h3>
+                <h3 class="box-title">Sugestão/Reclamação {{label}}</h3>
             </div>
             <!-- /.box-header -->
 
@@ -53,10 +53,9 @@
                                     <a href="#" ng-click="viewSugestion({{entity.id}})">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
-
-                                    <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
+                                    {# <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
                                         <span class="text-warning fa fa-edit"></span>
-                                    </a>
+                                    </a> #}
                                 </td>
                             </tr>
                         {% endfor %}

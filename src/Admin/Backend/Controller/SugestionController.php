@@ -52,8 +52,10 @@ class SugestionController extends Controller {
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
-            $label = 'Sem competencia';
-        }
+            $label = 'sem competencia';
+        } else if ($state == Stage::NO_FAVORABLE) {
+            $label = 'não favoraveis';
+        }        
 
         $ary = $em->getRepository('BackendBundle:Sugestion')
                   ->findBy(['state' => $state]);
