@@ -1,12 +1,23 @@
 angular.module("app")
 .controller("SugestionTreatController", ['$http', '$scope', 'Admin', function ($http, $scope, Admin) {
     var stage=Admin.stage;
+    var RESPOND_MODAL='#sugestionRespondModal';
     console.info("SugestionTreatController");
 
+
     $scope.noResponseObj = function(obj) {
-        if (!confirm("Confirmar " + obj.code + " sem resposta?")) return;
-        var req = {id: obj.id, state: stage.SEM_RESPOSTA};
-        $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+obj.id, req)
+        if (!confirm("Confirmar " + obj.code + " sem resposta?")){
+            return;
+        }
+
+        var req = {
+            id: obj.id,
+            state: stage.NO_RESPONSE
+        };
+
+        console.info("req: ", req);    
+        console.info("Admin: ", Admin);
+        $http.post('/arfa/web/app_dev.php/administration/Sugestion/update_state/'+obj.id, req)
         .then(function (data){
             $.notify(obj.code+" arquivado com sucesso.", "success");            
             $("#row-" + obj.id).addClass('success');
@@ -17,40 +28,35 @@ angular.module("app")
 
     $scope.respondObj = function (obj, title) {
         $scope.mObject = obj;
-        if (obj.type == 'par_tec') {
-            $scope.modalTitle = 'Parecer Tecnico';
-        } else {
-            $scope.modalTitle = 'Parecer Cientifico';            
-        }
-        $('#respondModal').modal();
+        $scope.modalTitle = 'Responder ' + title;
+        $(RESPOND_MODAL).modal();
     }
 
     $scope.respondSubmit = function() {
-        if (!confirm('Confirmar envio de parecer?')) return;
-        var response = $scope.responseForm;
+        if (!confirm('Confirmar envio de parecer?')) {
+            return;
+        }
+
+        var form = $scope.responseForm;
         var id = $scope.mObject.id;
         var type = $scope.mObject.type;
         var req = {
             id: id,
-            parCode: response.parCode,
-            parSubject: response.parSubject,
-            parDestination: response.parDestination,
-            parDescription: response.parDescription,
-            type: type
+            clientResponse: form.response
         }        
 
-        $http.post('/arfa/web/app_dev.php/administration/Complaint/'+id+'/update_par', req)
+        $http.post('/arfa/web/app_dev.php/administration/Sugestion/respond/' + id, req)
         .then(function (data){
             $scope.responseForm.response='';
-            $.notify($scope.modalTitle+" atribuido com sucesso!", "success");
+            $.notify(" atribuido com sucesso!", "success");
             $("#row-" + id).addClass('success');
             $("#xop__"+id).remove();
             $("#xstat_"+id).text($scope.modalTitle);
             $("#xstat_"+id).removeClass('hidden');
-            
             $scope.responseForm = false;
+
             setTimeout(function(){
-                $('#respondModal').modal('hide');                
+                $(RESPOND_MODAL).modal('hide');                
             }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            

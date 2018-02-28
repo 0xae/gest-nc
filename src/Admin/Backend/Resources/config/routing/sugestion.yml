@@ -24,7 +24,6 @@ administration_Sugestion_showJson:
     path:     /{id}/json
     defaults: { _controller: "BackendBundle:Sugestion:showJson" }
 
-
 administration_Sugestion_new:
     path:     /new
     defaults: { _controller: "BackendBundle:Sugestion:new" }
