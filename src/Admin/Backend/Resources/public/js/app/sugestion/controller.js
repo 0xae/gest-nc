@@ -9,15 +9,17 @@ angular.module("app")
 }])
 
 .controller("SugestionController", ['$http', '$scope', function ($http, $scope) {
-    $scope.viewSugestion = function (id, type) {
-        var labelX = 'Reclamacao';
-        if (type == 'sugestao') labelX = 'Sugestao';
+    $scope.viewSugestion = function (id, label) {
         $scope.entity = undefined;
         $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
         .then(function (resp){
             var data = resp.data;
             $scope.entity = data;
-            $scope.modalTitle = "Visualizando " + labelX;
+            if (data.type == 'reclamacao') { // reclamacao
+                $scope.modalTitle = "Visualizando Reclamação";
+            } else { // sugestao
+                $scope.modalTitle = "Visualizando Sugestão";                
+            }
             $('#viewSugestionModal').modal();
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            

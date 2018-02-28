@@ -2,8 +2,8 @@
 
 {% block content -%}
 
-<div class="row" ng-controller="AcompanhamentoController">
-    <div class="col-xs-12" ng-init="setType('Sugestion'); setLabel('Sugestao/Reclamacao')">
+<div class="row" ng-controller="SugestionAcompController">
+    <div class="col-xs-12">
         {# <button class="btn btn-default" type="button">Registar reclamacao externa/sugestao</button>
         <button class="btn btn-default" type="button">Registar reclamacao interna</button> #}
 
@@ -51,7 +51,25 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <div class="dropdown" style="display: inline">
+                                    <span id="row-{{entity.id}}-ok" 
+                                        style="display:none" 
+                                        class="label label-success">
+                                        Favoravel
+                                    </span>
+
+                                    <span id="row-{{entity.id}}-not-for-me" 
+                                        style="display:none" 
+                                        class="label label-warning">
+                                        Sem competencia
+                                    </span>
+
+                                    <span id="row-{{entity.id}}-not-favor" 
+                                        style="display:none" 
+                                        class="label label-danger">
+                                        Não Favorável
+                                    </span>
+
+                                    <div id="row-{{entity.id}}-dispatch" class="dropdown" style="display: inline">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Despachar
                                             <span class="caret"></span>
@@ -78,8 +96,9 @@
                                             </li>
 
                                             <li>
-                                                {# <a href="#" ng-click="">Sem compet&ecirc;ncia</a> #}
-                                                <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}',{{entity.id}})">Sem compet&ecirc;ncia</a>
+                                                <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}', {{entity.id}})">
+                                                    Sem compet&ecirc;ncia
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
