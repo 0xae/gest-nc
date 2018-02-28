@@ -11,7 +11,7 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" style="margin-bottom:70px">
                     <thead>
                         <tr>
                             <th>C&oacute;digo</th>
@@ -20,6 +20,7 @@
                             <th>Data</th>
                             <th>Utente</th>
                             <th>Contato do utente</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,17 +44,30 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <a href="#" ng-click="viewObject({{entity.id}})">
-                                        <span class="text-warning fa fa-eye"></span>
-                                    </a>
-                                    {% if entity.parCode %}
-                                        <span class="label label-success">Com Parecer ({{entity.parCode}})</span>
-                                    {% else %}
-                                        <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
-                                            <span class="text-warning fa fa-edit"></span>
-                                        </a>
+                                    <span id="row-{{entity.id}}-no-comp" 
+                                        style="display:none" 
+                                        class="label label-warning">
+                                        Sem competencia
+                                    </span>
 
-                                        <div class="dropdown">
+                                    {% if entity.parCode %}
+                                        <span class="label label-success" style="display:inline">Parecer ({{entity.parCode}})</span>
+                                    {% endif %}
+
+                                    {% if entity.parCode %}
+                                        <div class="dropdown" style="display: inline">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Responder
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                                <li>
+                                                    <a href="#" ng-click="acceptObj({id:{{entity.id}}})">Favor&aacute;vel</a>                                        
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        <div class="dropdown" style="display: inline" id="row-{{entity.id}}-dispatch">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Despachar
                                                 <span class="caret"></span>
@@ -78,11 +92,20 @@
                                                         })">N&atilde;o Favor&aacute;vel</a>
                                                 </li>
                                                 <li >
-                                                    <a href="#" ng-click="">Sem compet&ecirc;ncia</a>
+                                                    <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}',{{entity.id}})">Sem compet&ecirc;ncia</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     {% endif %}
+                                </td>
+                                <td>
+                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                        <span class="text-warning fa fa-eye"></span>
+                                    </a>
+
+                                    <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
+                                        <span class="text-warning fa fa-edit"></span>
+                                    </a>                                    
                                 </td>
                             </tr>
                         {% endfor %} 

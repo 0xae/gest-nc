@@ -61,17 +61,20 @@ angular.module("app")
         $('#rejectModal').modal();
     }
 
-    $scope.markAsNoCompetence = function(id) {
+    $scope.markAsNoCompetence = function(label, id) {
         var obj = {id: id};
         if (!confirm("Confirmar "+label+" como sem competencia?")){ 
             return;
-        }          
+        }
 
         var req = {id: obj.id, state: NO_COMP};
         $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+obj.id, req)
         .then(function (data){
-            $.notify(obj.code+" aceite para tratamento.", "success");            
-            $("#row-" + obj.id).remove();
+            $.notify(label+" marcado como sem competencia.", "success");            
+            // $("#row-" + obj.id).remove();
+            $("#row-" + obj.id).addClass('success');
+            $("#row-"+obj.id+"-no-comp").show();
+            $("#row-"+obj.id+"-dispatch").remove();
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });

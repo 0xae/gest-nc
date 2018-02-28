@@ -104,6 +104,16 @@
                     <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_resposta'}) }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                 </li>
+
+                <li>
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_competencia'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Sem competencia</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_favoravel'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Nao favoravel</span></a>
+                </li>
             </ul>
         </li>
 
@@ -144,6 +154,11 @@
                 <li>
                     <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_resposta'})  }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_competencia'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Sem competencia</span></a>
                 </li>
             </ul>            
         </li>

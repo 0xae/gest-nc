@@ -129,7 +129,7 @@ class SugestionController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Sugestion_show', 
+            return $this->redirect($this->generateUrl('administration_Sugestion_edit', 
                         array('id' => $entity->getId(),
                               'is_new' => true)));
         }

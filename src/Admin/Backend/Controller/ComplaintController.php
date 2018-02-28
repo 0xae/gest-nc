@@ -43,24 +43,30 @@ class ComplaintController extends Controller {
 
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
-        $tpl = '';
+        $tpl = 'listing';
+        $label = $state;
+
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) {
             $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
+            $label = 'Sem resposta';            
             $tpl = 'sem_resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
-        } else {
-            $tpl = 'acomp';
+        } else if ($state == Stage::NO_COMP) {
+            $label = 'Sem competencia';            
+        } else if ($state == Stage::NO_FAVORABLE) {
+            $label = 'Nao favoravel';
         }
 
         $ary = $em->getRepository('BackendBundle:Complaint')
                   ->findBy(['state' => $state]);
 
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
-            'objects' => $ary
+            'objects' => $ary,
+            'type' => $label
         ));
     }
 
@@ -115,7 +121,7 @@ class ComplaintController extends Controller {
         $entity->setParAuthor($this->getUser());
         $entity->setParDate(new \DateTime());
         // sends it back to acomp
-        // $entity->setState(Stage::ACOMPANHAMENTO);
+        $entity->setState(Stage::ACOMPANHAMENTO);
         $em->persist($entity);       
         $em->flush();
 
@@ -203,7 +209,7 @@ class ComplaintController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Complaint_show', 
+            return $this->redirect($this->generateUrl('administration_Complaint_edit', 
                 array('id' => $entity->getId(),
                     'is_new' => true)));
         }
