@@ -113,10 +113,9 @@ class ComplaintController extends Controller {
         $entity->setParDescription($data['parDescription']);
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
-        $entity->setParDate(new \DateTime());    
+        $entity->setParDate(new \DateTime());
         // sends it back to acomp
         // $entity->setState(Stage::ACOMPANHAMENTO);
-
         $em->persist($entity);       
         $em->flush();
 
@@ -271,7 +270,6 @@ class ComplaintController extends Controller {
         //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
         //     $entity->setFactAnnex(new File($path));
         // }
-
         $editForm = $this->createEditForm($entity);
         return $this->render('BackendBundle:Complaint:edit.html.twig', array(
             'entity' => $entity,
