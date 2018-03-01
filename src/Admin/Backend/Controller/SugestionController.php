@@ -78,6 +78,7 @@ class SugestionController extends Controller {
 
         $entity->setState(Stage::RESPONDIDO);
         $entity->setClientResponse($object['clientResponse']);
+        $entity->setResponseAuthor($this->getUser());
         $em->persist($entity);
         $em->flush();
 
@@ -161,6 +162,15 @@ class SugestionController extends Controller {
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
         ];
+
+        if ($entity->getResponseAuthor()) {
+            $obj["approvalReason"] = $entity->getApprovalReason();
+            $obj["rejectionReason"] = $entity->getRejectionReason();
+            $obj["clientResponse"] = $entity->getClientResponse();
+            $obj["responseAuthor"] = $entity->getResponseAuthor()->getName();
+            $obj["responseAuthorEnt"] = $entity->getResponseAuthor()->getEntity()->getName();            
+            $obj["responseDate"] = $entity->getResponseDate()->format("Y-m-d");       
+        }
 
         return new JsonResponse($obj);
     }

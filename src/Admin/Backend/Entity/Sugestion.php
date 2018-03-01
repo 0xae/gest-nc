@@ -44,7 +44,7 @@ class Sugestion {
      *
      * @ORM\Column(name="ocurrence_date", type="date", length=45, nullable=true)
      */
-    private $date;    
+    private $date;
 
     /**
      * @var
@@ -116,21 +116,38 @@ class Sugestion {
     /**
      * @var \Stage
      *
-     * @ORM\Column(name="approval_reason", type="string", length=250, nullable=true)
+     * @ORM\Column(name="approval_reason", type="text", nullable=true)
      */
     private $approvalReason;
 
     /**
      * @var \Stage
      *
-     * @ORM\Column(name="rejection_reason", type="string", length=250, nullable=true)
+     * @ORM\Column(name="rejection_reason", type="text", nullable=true)
      */
     private $rejectionReason;
 
     /**
-     * @ORM\Column(name="client_response", type="string", length=250, nullable=true)
+     * @ORM\Column(name="client_response", type="text", nullable=true)
      */
     private $clientResponse;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="response_author", referencedColumnName="id", nullable=true)
+     * })
+     * 
+     */
+    private $responseAuthor;    
+
+    /**
+     * @var \DateTime     
+     * @ORM\Column(name="response_date", type="date", length=45, nullable=true)
+     */
+    private $responseDate;    
 
     /**
      * @ORM\Column(name="par_type", type="string", length=250, nullable=true)
@@ -167,6 +184,25 @@ class Sugestion {
      * 
      */
     private $parAuthor;
+
+
+    public function setResponseDate($value) {        
+        $this->responseDate = $value;
+        return $this;
+    }
+
+    public function getResponseDate() {
+        return $this->responseDate;
+    }
+
+    public function setResponseAuthor($value) {        
+        $this->responseAuthor = $value;
+        return $this;
+    }
+
+    public function getResponseAuthor() {
+        return $this->responseAuthor;
+    }
 
     public function getRespDate(){
         $date = clone $this->date;
