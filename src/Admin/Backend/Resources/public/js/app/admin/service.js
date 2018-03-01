@@ -8,6 +8,7 @@ angular.module("app")
     var NO_FAVORAVEL='nao_favoravel';
     var NO_COMP='sem_competencia';
     var NO_RESPONSE='sem_resposta';
+    var RESPONDED='respondido';
     
     var stage = {        
         ACEITADO : ACEITADO,
@@ -17,7 +18,8 @@ angular.module("app")
         FAVORAVEL : FAVORAVEL,
         NO_FAVORAVEL : NO_FAVORAVEL,
         NO_COMP : NO_COMP,
-        NO_RESPONSE:  NO_RESPONSE
+        NO_RESPONSE:  NO_RESPONSE,
+        RESPONDED : RESPONDED
     };
 
     return {

@@ -8,7 +8,7 @@ angular.module("app")
     }
 }])
 
-.controller("SugestionController", ['$http', '$scope', function ($http, $scope) {
+.controller("SugestionController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
     $scope.viewSugestion = function (id, label) {
         $scope.entity = undefined;
         $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
@@ -25,6 +25,9 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
+
+    $scope.NO_RESPONSE = Admin.stage.NO_RESPONSE;
+    $scope.RESPONDED = Admin.stage.RESPONDED;
 }])
 
 ;

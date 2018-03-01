@@ -3,6 +3,9 @@ angular.module("app")
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
 
+    $scope.NO_RESPONSE = Admin.stage.NO_RESPONSE;
+    $scope.RESPONDED = Admin.stage.RESPONDED;
+
     $scope.noResponseObj = function(obj) {
         if (!confirm("Confirmar " + obj.code + " sem resposta?")){
             return;

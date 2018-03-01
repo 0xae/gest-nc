@@ -7,76 +7,87 @@ ul.pagination {
 }
 </style>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Listagem de Sugestão/Reclamação</h3>
+<div class="row" ng-controller="SugestionController">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listagem de Sugestão/Reclamação</h3>
 
-                    <div class="box-tools">
-                        <a class="btn btn-primary" 
-                        href="{{ path('administration_Sugestion_new') }}">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            Criar Sugestão/Reclamação
-                        </a>
-                    </div>
+                <div class="box-tools">
+                    <a class="btn btn-primary" 
+                    href="{{ path('administration_Sugestion_new') }}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Criar Sugestão/Reclamação
+                    </a>
                 </div>
-                <!-- /.box-header -->
-
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>                                        
-                                <th>ID#</th>
-                                <th>Estado</th>
-                                <th>Utente</th>
-                                <th>Contacto</th>
-                                <th>Data de cria&ccedil;&atilde;o</th>
-                                <th>Criado por</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entity in entities %}
-                                <tr>                                                                                  
-                                <td>                
-                                    {% if entity.type == 'reclamacao' %}
-                                        Reclamação
-                                    {% elseif entity.type == 'sugestao' %}
-                                        Sugestão
-                                    {% else %}
-                                        {{entity.type}}
-                                    {% endif %}        
-                                    <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
-                                    {{ entity.objCode }}
-                                    </a>
-                                </td>                                                                                    
-                                <td>{{ entity.state }}</td>
-                                <td>{{ entity.name }}</td>
-                                <td>{{ entity.phone }} / {{ entity.email }}</td>
-                                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d') }}{% endif %}</td>     
-                                {# <td>{{ entity.createdBy.name }}</td> #}
-                                <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                <td>
-                                    <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
-                                        <span class="text-warning fa fa-edit"></span>
-                                    </a>
-                                </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                                    </div>
-                <!-- /.box-body -->
             </div>
+            <!-- /.box-header -->
 
-            {{ pagerfanta(paginate, 'twitter_bootstrap3', {
-                'next_message': 'Proximo',
-                'prev_message': 'Anterior'
-                })
-            }}
-            <!-- /.box -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>                                        
+                            <th>ID#</th>
+                            <th>Estado</th>
+                            <th>Utente</th>
+                            <th>Contacto</th>
+                            <th>Data de cria&ccedil;&atilde;o</th>
+                            <th>Criado por</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in entities %}
+                            <tr>                                                                                  
+                            <td>                
+                                {% if entity.type == 'reclamacao' %}
+                                    Reclamação
+                                {% elseif entity.type == 'sugestao' %}
+                                    Sugestão
+                                {% else %}
+                                    {{entity.type}}
+                                {% endif %}        
+                                <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
+                                {{ entity.objCode }}
+                                </a>
+                            </td>                                                                                    
+                            <td>{{ entity.state }}</td>
+                            <td>{{ entity.name }}</td>
+                            <td>{{ entity.phone }} / {{ entity.email }}</td>
+                            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d') }}{% endif %}</td>     
+                            {# <td>{{ entity.createdBy.name }}</td> #}
+                            <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                            <td>
+                                <a href="{{ path('administration_Sugestion_receipt', { 'id': entity.id }) }}"
+                                    title="Recibo do utente"
+                                    target="_blank">
+                                    <span class="text-warning fa fa-copy"></span>
+                                </a>
+
+                                <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
+                                    <span class="text-warning fa fa-edit"></span>
+                                </a>
+
+                                <a href="#" ng-click="viewSugestion({{entity.id}}, '{{entity.type}}')">
+                                    <span class="text-warning fa fa-eye"></span>
+                                </a>
+                            </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ include('BackendBundle:Sugestion:modals/viewSugestion.html.twig') }}
+            </div>
+            <!-- /.box-body -->
         </div>
+
+        {{ pagerfanta(paginate, 'twitter_bootstrap3', {
+            'next_message': 'Proximo',
+            'prev_message': 'Anterior'
+            })
+        }}
+        <!-- /.box -->
     </div>
+</div>
 
 {% endblock %}

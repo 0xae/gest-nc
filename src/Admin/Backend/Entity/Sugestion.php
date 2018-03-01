@@ -158,7 +158,7 @@ class Sugestion {
      * @ORM\Column(name="par_code", type="string", length=250, nullable=true)
      */
     private $parCode;
-    
+
     /**
      * @ORM\Column(name="par_subject", type="string", length=250, nullable=true)
      */
