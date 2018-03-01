@@ -16,6 +16,10 @@ administration_Sugestion_respond:
     defaults: { _controller: "BackendBundle:Sugestion:respond" }
     methods:  [POST]
 
+administration_Sugestion_receipt:
+    path:     /receipt/{id}
+    defaults: { _controller: "BackendBundle:Sugestion:receipt" }
+
 administration_Sugestion_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Sugestion:show" }

@@ -2,8 +2,6 @@ angular.module("app")
 .controller("SugestionTreatController", ['$http', '$scope', 'Admin', function ($http, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
-    console.info("SugestionTreatController");
-
 
     $scope.noResponseObj = function(obj) {
         if (!confirm("Confirmar " + obj.code + " sem resposta?")){
@@ -43,7 +41,7 @@ angular.module("app")
         var req = {
             id: id,
             clientResponse: form.response
-        }        
+        };
 
         $http.post('/arfa/web/app_dev.php/administration/Sugestion/respond/' + id, req)
         .then(function (data){
@@ -55,7 +53,7 @@ angular.module("app")
             $("#xstat_"+id).removeClass('hidden');
             $scope.responseForm = false;
 
-            setTimeout(function(){
+            setTimeout(function() {
                 $(RESPOND_MODAL).modal('hide');                
             }, 500);
         }, function (error) {

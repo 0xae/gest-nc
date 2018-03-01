@@ -20,6 +20,14 @@ administration_Complaint_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:Complaint:show" }
 
+administration_Complaint_parecer:
+    path:     /parecer/{id}
+    defaults: { _controller: "BackendBundle:Complaint:parecer" }
+
+administration_Complaint_receipt:
+    path:     /receipt/{id}
+    defaults: { _controller: "BackendBundle:Complaint:receipt" }
+
 administration_Complaint_new:
     path:     /new
     defaults: { _controller: "BackendBundle:Complaint:new" }

@@ -60,7 +60,7 @@ class SugestionType extends AbstractType {
                     'placeholder' => 'Insira o ocorrido...'
                 )
             ))
-            ->add('createdAt')
+            ->add('date')
             // ->add('createdBy', 'entity', array(
             //     'class' => 'BackendBundle:User',
             //     'query_builder' => function (EntityRepository $er) use ($options) {

@@ -40,6 +40,13 @@ class Sugestion {
     private $name;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ocurrence_date", type="date", length=45, nullable=true)
+     */
+    private $date;    
+
+    /**
      * @var
      *
      * @ORM\Column(name="address", type="string", length=45, nullable=true)
@@ -112,7 +119,7 @@ class Sugestion {
      * @ORM\Column(name="approval_reason", type="string", length=250, nullable=true)
      */
     private $approvalReason;
-    
+
     /**
      * @var \Stage
      *
@@ -162,7 +169,7 @@ class Sugestion {
     private $parAuthor;
 
     public function getRespDate(){
-        $date = clone $this->createdAt;
+        $date = clone $this->date;
         $date->add(new \DateInterval("P15D"));
         return $date;
 	}
@@ -398,6 +405,26 @@ class Sugestion {
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set date
+     *
+     * @param string $date
+     * @return Sugestion
+     */
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDate() {
+        return $this->date;
     }
 
     /**

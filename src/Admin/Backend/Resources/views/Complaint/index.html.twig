@@ -58,11 +58,10 @@ ul.pagination {
                                         {{entity.type}}
                                     {% endif %}
                                 </td>
-                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.createdAt|date('Y-m-d') }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone }}</td>
                                 <td>{{ entity.opName }}</td>
-
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                 <td>
                                     <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">

@@ -55,7 +55,7 @@ class SugestionController extends Controller {
             $label = 'sem competencia';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'não favoraveis';
-        }        
+        }
 
         $ary = $em->getRepository('BackendBundle:Sugestion')
                   ->findBy(['state' => $state]);
@@ -82,6 +82,32 @@ class SugestionController extends Controller {
         $em->flush();
 
         return new JsonResponse($object);
+    }
+
+    public function receiptAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        return $this->render('BackendBundle:Sugestion:docs/receipt.html.twig', array(
+            'entity' => $entity
+        ));        
+    }
+
+    public function parecerAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        return $this->render('BackendBundle:Sugestion:docs/parecer.html.twig', array(
+            'entity' => $entity
+        ));        
     }
 
     public function updateStateAction($id) {
@@ -152,6 +178,7 @@ class SugestionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
+            $entity->setCreatedAt(new \DateTime);
             $entity->setState(Stage::ACOMPANHAMENTO);            
 
             $em->persist($entity);
@@ -311,8 +338,8 @@ class SugestionController extends Controller {
         //     $entity->setPhone("255 12 90");
         //     $entity->setEmail("djonhy@gmail.com");
         // $entity->setDescription("teste 123 djonhy@gmail.com");        
-        // }        
-
+        // }
+        $entity->setDate(new \DateTime());
         $form = $this->createForm(new SugestionType(), $entity, array(
             'action' => $this->generateUrl('administration_Sugestion_create'),
             'method' => 'POST',

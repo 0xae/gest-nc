@@ -41,6 +41,32 @@ class ComplaintController extends Controller {
         ));
     }
 
+    public function receiptAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        return $this->render('BackendBundle:Complaint:docs/receipt.html.twig', array(
+            'entity' => $entity
+        ));
+    }
+
+    public function parecerAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        return $this->render('BackendBundle:Complaint:docs/parecer.html.twig', array(
+            'entity' => $entity
+        ));
+    }
+
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
         $tpl = 'listing';
@@ -90,7 +116,7 @@ class ComplaintController extends Controller {
             $entity->setState(Stage::SEM_RESPOSTA);
         } else if ($state == Stage::NO_FAVORABLE) { 
             $entity->setState(Stage::NO_FAVORABLE);
-        } else if ($state == Stage::NO_COMP) { 
+        } else if ($state == Stage::NO_COMP) {
             $entity->setState(Stage::NO_COMP);
         } else {
             // throw new Exception
@@ -120,6 +146,7 @@ class ComplaintController extends Controller {
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
         $entity->setParDate(new \DateTime());
+
         // sends it back to acomp
         $entity->setState(Stage::ACOMPANHAMENTO);
         $em->persist($entity);       

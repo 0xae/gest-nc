@@ -33,7 +33,7 @@
                         {% for idx,entity in objects %}
                             <tr id="row-{{entity.id}}">
                                 <td>
-                                    <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                    <a href="{{ path('administration_Complaint_show', {'id': entity.id}) }}">
                                         {{ entity.objCode }}
                                     </a>
                                 </td>

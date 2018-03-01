@@ -40,7 +40,7 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
@@ -51,7 +51,11 @@
                                     </span>
 
                                     {% if entity.parCode %}
-                                        <span class="label label-success" style="display:inline">Parecer ({{entity.parCode}})</span>
+                                        <a href="{{ path('administration_Complaint_parecer', {'id': entity.id}) }}" target="_blank">
+                                            <span class="label label-success" style="display:inline">
+                                                Parecer ({{entity.parCode}})
+                                            </span>
+                                        </a>
                                     {% endif %}
 
                                     {% if entity.parCode %}
@@ -99,13 +103,21 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="#" ng-click="viewComplaint({{entity.id}})">
+                                    <a href="#" ng-click="viewComplaint({{entity.id}})"
+                                        title="Visualizar">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
+ 
+                                     <a href="{{ path('administration_Complaint_receipt', { 'id': entity.id }) }}"
+                                        title="Recibo do utente"
+                                        target="_blank">
+                                        <span class="text-warning fa fa-copy"></span>
+                                    </a>
 
-                                    <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
+                                    <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}"
+                                        title="Editar">
                                         <span class="text-warning fa fa-edit"></span>
-                                    </a>                                    
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %} 

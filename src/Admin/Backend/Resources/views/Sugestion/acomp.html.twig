@@ -46,7 +46,7 @@
                                     {{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}
                                 </td>
                                 <td>
-                                    {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                                    {{ entity.createdAt|date('Y-m-d') }}
                                 </td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
@@ -105,8 +105,15 @@
                                 </td>
 
                                 <td>
-                                    <a href="#" ng-click="viewSugestion({{entity.id}})">
+                                    <a href="#" ng-click="viewSugestion({{entity.id}})"
+                                        title="Visualizar sugestao">
                                         <span class="text-warning fa fa-eye"></span>
+                                    </a>
+
+                                    <a href="{{ path('administration_Sugestion_receipt', { 'id': entity.id }) }}"
+                                        title="Recibo do utente"
+                                        target="_blank">
+                                        <span class="text-warning fa fa-copy"></span>
                                     </a>
                                     {# <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
                                         <span class="text-warning fa fa-edit"></span>
