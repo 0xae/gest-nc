@@ -14,8 +14,9 @@
                     </div>
                     <!-- /.box-header -->
 
-                    <div class="box-body no-padding">
-                        {{ form(edit_form) }}
+                    <div class="box-body">
+                        {{ include('BackendBundle:IReclamation:form.html.twig', 
+                        {'form' : edit_form}) }}
                     </div>
                     <!-- /.box-body -->
                 </div>

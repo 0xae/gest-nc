@@ -135,7 +135,6 @@ class IReclamation {
      * @ORM\Column(name="action_date", type="date", nullable=true)
      */
     private $actionDate;
-    
 
     /**
      * @var \DateTime
@@ -155,6 +154,18 @@ class IReclamation {
      */
     private $createdBy;
 
+    public function getRespDate(){
+        $date = clone $this->createdAt;
+        $date->add(new \DateInterval("P15D"));
+        return $date;
+	}
+
+    public function getObjCode() {
+        $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
+        return $id . '/RI/' . 
+                $this->createdBy->getEntity()->getCode() .
+                '/' . $this->createdAt->format("Y");
+    }
 
     public function getTypeData() {
         return $this->typeData;

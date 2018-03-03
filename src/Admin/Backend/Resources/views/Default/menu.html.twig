@@ -114,11 +114,16 @@
                     <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_favoravel'})  }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Nao favoravel</span></a>
                 </li>
+
+                <li>
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_conformidade'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i>N&atilde;o Conformidades</a>
+                </li>
             </ul>
         </li>
 
         {# Reclamacoes/sugestoes #}
-        <li class="header active" style="padding:0px;">
+        <li class="header" style="padding:0px;">
             <a href="{{ path('administration_Sugestion') }}" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES/SUGESTAO
@@ -165,11 +170,16 @@
                     <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_competencia'})  }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Sem competencia</span></a>
                 </li>
+
+                <li>
+                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'nao_conformidade'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i> N&atilde;o Conformidades</a>
+                </li>
             </ul>            
         </li>
 
         {# N conformidades  #}
-        <li class="header" style="padding:0px;">
+        <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 GEST&Atilde;O DE RECLAMA&Ccedil;&Atilde;O INTERNA
@@ -178,7 +188,7 @@
             <ul class="treeview-menu" style="">
                 <li>
                     <a href="{{ path('administration_IReclamation_new') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Registo (Director)</span>
+                    <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
                     </a>
                 </li>
 
@@ -195,6 +205,16 @@
                 <li>
                     <a href="{{ path('administration_IReclamation') }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_IReclamation') }}">
+                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span></a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_conformidade'})  }}">
+                    <i class="fa fa-circle-o text-gray"></i>N&atilde;o Conformidades</a>
                 </li>
                 {# <li>
                     <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
@@ -230,12 +250,12 @@
         </li>
 
         {# N conformidades  #}
-        <li class="header" style="padding:0px;">
+        {# <li class="header" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
                 N&Atilde;O CONFORMIDADES
             </a>
-        </li>
+        </li> #}
 
         {#  Estatistica #}
         <li class="header" style="padding:0px;">

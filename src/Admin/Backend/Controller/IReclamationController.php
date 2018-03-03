@@ -4,6 +4,7 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Admin\Backend\Entity\IReclamation;
 use Admin\Backend\Form\IReclamationType;
@@ -26,6 +27,42 @@ class IReclamationController extends Controller {
         ));
     }
 
+    public function receiptAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        return $this->render('BackendBundle:IReclamation:docs/receipt.html.twig', array(
+            'entity' => $entity
+        ));        
+    }
+
+    public function showJsonAction($id) {
+        $entity = $this->getDoctrine()
+                    ->getRepository('BackendBundle:IReclamation')                
+                    ->find($id);
+
+        $cb = $entity->getCreatedBy();
+
+        $obj = [
+            "id" => $entity->getId(),
+            "name" => $entity->getName(),
+            "objCode" => $entity->getObjCode(),
+            "direction" => $entity->getDirection(),
+            "type" => $entity->getType(),
+            "typeData" => $entity->gettypeData(),
+            "factDate" => $entity->getfactDate()->format("Y-m-d"),
+            "factDetail" => $entity->getFactDetail(),
+            "createByName" => $cb->getName(),
+            "createByEnt" => $cb->getEntity()->getName(),
+        ];
+
+        return new JsonResponse($obj);
+    }
+
     /**
      * Creates a new IReclamation entity.
      *
@@ -39,6 +76,7 @@ class IReclamationController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
+            $entity->setCreatedAt(new \DateTime);
 
             $em->persist($entity);
             $em->flush();
@@ -59,6 +97,11 @@ class IReclamationController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(IReclamation $entity) {
+        $entity->setFactDate(new \DateTime);
+        $entity->setActionDate(new \DateTime);
+        $entity->setDecisionDate(new \DateTime);
+        $entity->setAnalysisDate(new \DateTime);    
+
         $form = $this->createForm(new IReclamationType(), $entity, array(
             'action' => $this->generateUrl('administration_IReclamation_create'),
             'method' => 'POST',

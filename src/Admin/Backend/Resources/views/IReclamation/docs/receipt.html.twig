@@ -11,12 +11,7 @@
 
     <center>
         <h3 class="box-title" style="font-weight:bold">
-            Recibo de 
-            {% if entity.type == 'queixa' %}
-                Queixa
-            {% else %}
-                Den&uacute;ncia
-            {% endif %}
+            Recibo de Reclamação Interna
         </h3>
 
         <h3>
@@ -36,19 +31,15 @@
         <tbody>
             <tr>
                 <td>
-                    {% if entity.type == 'queixa' %}
-                        Queixa
-                    {% else %}
-                        Den&uacute;ncia
-                    {% endif %}
+                    Reclamação Interna
                 </td>
                 <td>#{{ entity.objCode }}</td>
             </tr>
 
             <tr>
-                <td>Data</td>
+                <td>Data da ocorrencia</td>
                 <td>
-                    {{ entity.createdAt|date('Y-m-d') }}
+                    {{ entity.factDate|date('Y-m-d') }}
                 </td>
             </tr>
 
@@ -56,56 +47,34 @@
                 <td>Utente</td>
                 <td>
                     {{ entity.name }}<br/>
-                    {{ entity.phone }}<br/>
-                    {{ entity.email }}<br/>
                 </td>
             </tr>
 
             <tr>
-                <td>Operador Economico</td>
+                <td>Dirreção</td>
                 <td>
-                    {{ entity.opName }}<br/>
-                    {{ entity.opPhone }}<br/>
-                    {{ entity.opAddress }}<br/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Tipo</td>
-                <td>
-
+                    {{ entity.direction }}<br/>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <h4>Descrição sumária dos fatos</h4>
+    <h4>Descrição sumária</h4>
     <div class="well">
         {{entity.factDetail}}
     </div>
 
-    <h4>Assinatura do Respons&aacute;vel</h4>
-    <div class="well">
-    </div>
-
-    <h4>Assinatura do Utente</h4>
-    <div class="well">
-    </div>
-
-    {% if entity.parAuthor %}
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
-            Criada por {{entity.parAuthor.name}}/{{entity.parAuthor.entity.name}}
+            Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
         </p>
     </div>
-    {% endif %}
 
     <button id="printMe" class="btn btn-primary hidden-print">
         Imprimir
     </button>
 {% endblock %}
-
 
 {% block jsCode -%}
     <script>

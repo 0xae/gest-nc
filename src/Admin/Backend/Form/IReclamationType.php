@@ -52,7 +52,7 @@ class IReclamationType extends AbstractType {
                 'attr' => array('rows' => 6)
             ))
             ->add('actionDate')
-            ->add('createdAt')
+            // ->add('createdAt')
             ->add('createdBy')
             ->add('analysisResp')
             ->add('decisionResp')

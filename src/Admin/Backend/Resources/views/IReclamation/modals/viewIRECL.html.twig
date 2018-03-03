@@ -1,0 +1,105 @@
+<div class="modal fade" id="viewIRECLModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      {# modal-header #}
+      <div class="modal-header bg-green">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
+      </div>
+
+      {# modal-body #}
+      <div class="modal-body">
+            <h3 class="box-title" style="font-weight:bold;margin-top:4px;">
+                <span>Reclama&ccedil;&atilde;o Interna</span>
+                <a href="#">
+                    {{ '{{entity.objCode}}' }}
+                </a>
+            </h3>
+            <p style="font-size:12px;color:gray">
+                <span class="fa fa-user"></span>
+                Criada por {{'{{entity.createByName}}'}}/{{'{{entity.createByEnt}}'}}
+            </p>
+            <br/>
+
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                            <span>Reclama&ccedil;&atilde;o Interna</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="padding:10px;">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="form-group">
+                            <label>Nome do utente</label>
+                            <input class="form-control" disabled="disabled" value="{{ '{{entity.name}}' }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Direcção</label>
+                            <input class="form-control" disabled="disabled" value="{{ '{{entity.direction}}' }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input class="form-control" disabled="disabled" value="{{ '{{entity.factDate}}' }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Queixa</label>
+                            <textarea 
+                                ng-model="entity.factDetail" disabled
+                                class="form-control"
+                                rows="2" placeholder="..."></textarea>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="response">
+                         <div class="form-group">
+                            <label>
+                                <span class="fa fa-user"></span>
+                                Respondido por
+                            </label>
+                            <input class="form-control" 
+                                   disabled="disabled" 
+                                   value="{{ '{{entity.responseAuthor}} / {{entity.responseAuthorEnt}}' }}" />
+                        </div>
+
+                         <div class="form-group">
+                            <label>
+                                <span class="fa fa-calendar"></span>
+                                Respondido em
+                            </label>
+                            <input class="form-control" 
+                                   disabled="disabled" 
+                                   value="{{ '{{entity.responseDate}}' }}" />
+                        </div>
+
+                        <div class="form-group" ng-if="entity.state == NO_RESPONSE">
+                            <span class="label label-warning">Sem resposta</span>
+                        </div>
+
+                        <div class="form-group" ng-if="entity.state == RESPONDED">
+                            <label>Resposta</label>
+                            <textarea 
+                                ng-model="entity.clientResponse" disabled
+                                class="form-control"
+                                rows="3" placeholder="..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+      {# modal-footer #}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

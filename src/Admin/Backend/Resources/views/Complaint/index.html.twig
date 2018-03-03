@@ -64,6 +64,12 @@ ul.pagination {
                                 <td>{{ entity.opName }}</td>
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                 <td>
+                                     <a href="{{ path('administration_Complaint_receipt', { 'id': entity.id }) }}"
+                                        title="Recibo do utente"
+                                        target="_blank">
+                                        <span class="label label-primary">Recibo de registro</span>
+                                    </a>
+
                                     <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}">
                                         <span class="text-warning fa fa-edit"></span>
                                     </a>

@@ -28,3 +28,12 @@ administration_IReclamation_delete:
     path:     /{id}/delete
     defaults: { _controller: "BackendBundle:IReclamation:delete" }
     methods:  [POST, DELETE]
+
+administration_IReclamation_byJson:
+    path:     /{id}/json
+    defaults: { _controller: "BackendBundle:IReclamation:showJson" }
+
+administration_IReclamation_receipt:
+    path:     /{id}/receipt
+    defaults: { _controller: "BackendBundle:IReclamation:receipt" }
+
