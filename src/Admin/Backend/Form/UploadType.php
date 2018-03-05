@@ -21,8 +21,8 @@ class UploadType extends AbstractType {
                     'required' => true,
                 )
             )
-            ->add('createdAt')
-            ->add('createdBy')
+            // ->add('createdAt')
+            // ->add('createdBy')
         ;
     }
 

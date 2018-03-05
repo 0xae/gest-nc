@@ -32,22 +32,26 @@
                                                 #{{ entity.id }}
                                                 </a>
                                             </td>                                                                                    <td>{{ entity.description }}</td>                                                                                    <td>{{ entity.reference }}</td>                                                                                    <td>{{ entity.filename }}</td>                                                                                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>                                            <td><a href="{{ path('administration_Upload_show', { 'id': entity.id }) }}">
-<span class="badge badge-primary">
-        Ver
-</span>
-</a>
+                                    <span class="badge badge-primary">
+                                            Ver
+                                    </span>
+                                    </a>
                                             </td>                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-
-                    {% if entities %}
-                        {{ pagerfanta(paginate, 'twitter_bootstrap3') }}
-                    {% endif %}
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+
+            {% if entities %}
+                {{ pagerfanta(paginate, 'twitter_bootstrap3', {
+                    'next_message': 'Proximo',
+                    'prev_message': 'Anterior'
+                    }) 
+                }}
+            {% endif %}
         </div>
     </div>
 
