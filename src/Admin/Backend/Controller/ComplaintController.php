@@ -70,7 +70,7 @@ class ComplaintController extends Controller {
     public function byStateAction($state) {
         $em = $this->getDoctrine()->getManager();        
         $tpl = 'listing';
-        $label = $state;
+        $label = $state;        
 
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
@@ -84,8 +84,10 @@ class ComplaintController extends Controller {
         } else if ($state == Stage::NO_COMP) {
             $label = 'Sem competencia';            
         } else if ($state == Stage::NO_FAVORABLE) {
-            $label = 'Nao favoravel';
-        }
+            $label = 'Não favoravel';
+        } else if ($state == Stage::NO_CONFOR) {
+            $label = 'Não Conformidades';
+        }        
 
         $ary = $em->getRepository('BackendBundle:Complaint')
                   ->findBy(['state' => $state]);

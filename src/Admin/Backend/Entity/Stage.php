@@ -20,7 +20,8 @@ class Stage {
     const FAVORABLE='favoravel';
     const NO_FAVORABLE='nao_favoravel';
     const NO_COMP='sem_competencia';
-
+    const NO_CONFOR='nao_conformidade';
+    
     /**
      * @var integer
      *

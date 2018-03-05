@@ -49,17 +49,26 @@ class IReclamation {
     private $typeData;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=250, nullable=true)
+     */
+    private $state;    
+
+    /**
      * @var DateTime
      *
      * @ORM\Column(name="fact_date", type="date", length=45, nullable=false)
      */
     private $factDate;
+
     /**
      * @var string
      *
      * @ORM\Column(name="fact_annex", type="string", length=250, nullable=true)
      */
     private $factAnnex;
+
     /**
      * @var string
      *
@@ -67,13 +76,13 @@ class IReclamation {
      */
     private $factDetail;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="analysis_detail", type="string", length=250, nullable=true)
      */
     private $analysisDetail;
+
     /**
      * @var \Profile
      *
@@ -83,6 +92,7 @@ class IReclamation {
      * })
      */
     private $analysisResp;
+
     /**
      * @var DateTime
      *
@@ -90,13 +100,13 @@ class IReclamation {
      */
     private $analysisDate;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="decision_detail", type="string", length=250, nullable=true)
      */
     private $decisionDetail;
+
     /**
      * @var \Profile
      *
@@ -106,6 +116,7 @@ class IReclamation {
      * })
      */
     private $decisionResp;
+
     /**
      * @var DateTime
      *
@@ -113,13 +124,13 @@ class IReclamation {
      */
     private $decisionDate;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="action_detail", type="string", length=250, nullable=true)
      */
     private $actionDetail;
+
     /**
      * @var \Profile
      *
@@ -129,6 +140,7 @@ class IReclamation {
      * })
      */
     private $actionResp;
+
     /**
      * @var string
      *

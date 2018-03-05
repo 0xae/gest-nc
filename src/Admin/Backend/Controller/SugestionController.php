@@ -56,6 +56,8 @@ class SugestionController extends Controller {
             $label = 'sem competencia';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'não favoraveis';
+        } else if ($state == Stage::NO_CONFOR) {
+            $label = 'Não Conformidades';
         }
 
         $ary = $em->getRepository('BackendBundle:Sugestion')

@@ -64,9 +64,37 @@ class IReclamationController extends Controller {
         return new JsonResponse($obj);
     }
 
+    public function byStateAction($state) {
+        $em = $this->getDoctrine()->getManager();        
+        $tpl = 'listing';
+        $label = $state;
+        if ($state == Stage::ACOMPANHAMENTO) {
+            $label = 'Acompanhamento';
+        } else if ($state == Stage::TRATAMENTO) { 
+            $label = 'Tratamento';
+        } else if ($state == Stage::SEM_RESPOSTA) {
+            $label = 'Ssem resposta';
+        } else if ($state == Stage::RESPONDIDO) {
+            $label = 'Respondidas';
+        } else if ($state == Stage::NO_COMP) {
+            $label = 'Sem competencia';
+        } else if ($state == Stage::NO_FAVORABLE) {
+            $label = 'Não favoraveis';
+        } else if ($state == Stage::NO_CONFOR) {
+            $label = 'Não Conformidades';
+        }
+
+        $ary = $em->getRepository('BackendBundle:IReclamation')
+            ->findBy(['state' => $state]);
+
+        return $this->render('BackendBundle:IReclamation:listing.html.twig', array(
+            'objects' => $ary,
+            'label' => $label
+        ));
+    }
+
     /**
      * Creates a new IReclamation entity.
-     *
      */
     public function createAction(Request $request) {
         $entity = new IReclamation();
@@ -105,9 +133,7 @@ class IReclamationController extends Controller {
 
     /**
      * Creates a form to create a IReclamation entity.
-     *
      * @param IReclamation $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(IReclamation $entity) {
@@ -126,7 +152,6 @@ class IReclamationController extends Controller {
 
     /**
      * Displays a form to create a new IReclamation entity.
-     *
      */
     public function newAction() {
         $entity = new IReclamation();
@@ -140,7 +165,6 @@ class IReclamationController extends Controller {
 
     /**
      * Finds and displays a IReclamation entity.
-     *
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -160,7 +184,6 @@ class IReclamationController extends Controller {
 
     /**
      * Displays a form to edit an existing IReclamation entity.
-     *
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -191,7 +214,6 @@ class IReclamationController extends Controller {
     * Creates a form to edit a IReclamation entity.
     *
     * @param IReclamation $entity The entity
-    *
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(IReclamation $entity) {
@@ -287,7 +309,6 @@ class IReclamationController extends Controller {
      * Creates a form to delete a IReclamation entity by id.
      *
      * @param mixed $id The entity id
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
