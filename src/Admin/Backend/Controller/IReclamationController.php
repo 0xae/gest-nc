@@ -134,6 +134,7 @@ class IReclamationController extends Controller {
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'fact_annex' => ""
         ));
     }
 
