@@ -65,9 +65,9 @@ class IReclamation {
     /**
      * @var string
      *
-     * @ORM\Column(name="fact_annex", type="string", length=250, nullable=true)
+     * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
      */
-    private $factAnnex;
+    private $annexReference;
 
     /**
      * @var string
@@ -324,10 +324,8 @@ class IReclamation {
      * @param \DateTime $factDate
      * @return IReclamation
      */
-    public function setFactDate($factDate)
-    {
+    public function setFactDate($factDate) {
         $this->factDate = $factDate;
-
         return $this;
     }
 
@@ -347,21 +345,18 @@ class IReclamation {
      * @param string $factAnnex
      * @return IReclamation
      */
-    public function setFactAnnex($factAnnex)
-    {
-        $this->factAnnex = $factAnnex;
-
+    public function setAnnexReference($val) {
+        $this->annexReference = $val;
         return $this;
     }
 
     /**
      * Get factAnnex
      *
-     * @return string 
+     * @return string
      */
-    public function getFactAnnex()
-    {
-        return $this->factAnnex;
+    public function getAnnexReference() {
+        return $this->annexReference;
     }
 
     /**
