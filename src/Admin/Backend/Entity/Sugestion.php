@@ -75,6 +75,13 @@ class Sugestion {
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="annex", type="string", length=250, nullable=true)
+     */
+    private $annex;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="date", nullable=true)
@@ -185,6 +192,14 @@ class Sugestion {
      */
     private $parAuthor;
 
+    public function setAnnex($value) {        
+        $this->annex = $value;
+        return $this;
+    }
+
+    public function getAnnex() {
+        return $this->annex;
+    }
 
     public function setResponseDate($value) {        
         $this->responseDate = $value;

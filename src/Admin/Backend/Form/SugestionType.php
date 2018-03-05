@@ -61,6 +61,7 @@ class SugestionType extends AbstractType {
                 )
             ))
             ->add('date')
+            ->add('annex')
             // ->add('createdBy', 'entity', array(
             //     'class' => 'BackendBundle:User',
             //     'query_builder' => function (EntityRepository $er) use ($options) {

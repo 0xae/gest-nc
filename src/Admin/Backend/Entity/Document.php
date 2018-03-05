@@ -1,12 +1,10 @@
 <?php
 
 namespace Admin\Backend\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
- *
+ * Document
  * @ORM\Table(name="document", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
@@ -57,8 +55,7 @@ class Document {
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -98,8 +95,7 @@ class Document {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -109,10 +105,8 @@ class Document {
      * @param integer $createdBy
      * @return Category
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
-
         return $this;
     }
 
@@ -121,8 +115,7 @@ class Document {
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 
@@ -132,10 +125,8 @@ class Document {
      * @param string $description
      * @return Document
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-
         return $this;
     }
 
@@ -144,8 +135,7 @@ class Document {
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 }
