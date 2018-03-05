@@ -25,4 +25,14 @@ angular.module("app")
     return {
         stage: stage
     };
+}])
+
+.factory('UploadService', ['$http', function($http){
+    function uploadFile() {        
+    }
+
+    return {
+        upload: uploadFile
+    };
 }]);
+;
