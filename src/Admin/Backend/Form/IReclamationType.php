@@ -31,11 +31,12 @@ class IReclamationType extends AbstractType {
                 ),
             ))
             ->add('factDate')
-            ->add('factAnnex', 'choice', array(
-                'choices'  => array(
-                    'sim' => 'Sim',
-                    'nao' => 'Nao',
-                ),
+            ->add('factAnnex', 'file', array(
+                'label' => 'Anexar documento',
+                'required' => false,
+                'attr' => [
+                    'accept' => '*'
+                ]
             ))
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)

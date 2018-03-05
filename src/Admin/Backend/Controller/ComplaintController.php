@@ -300,13 +300,6 @@ class ComplaintController extends Controller {
             throw $this->createNotFoundException('Unable to find Complaint entity.');
         }
 
-        // $annex = $entity->getFactAnnex();
-        // $path = false;
-        // if ($annex) {
-        //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
-        //     $entity->setFactAnnex(new File($path));
-        // }
-
         $annexFile = $entity->getFactAnnex();
         if ($entity->getFactAnnex()) {
             $entity->setFactAnnex(

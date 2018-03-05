@@ -71,6 +71,12 @@
         <div class="form-group">
             <label>Anexo ?</label>
             {{ form_widget(form.factAnnex) }}
+            {% if form.factAnnex %} 
+                <a href="{{ asset('uploads/sugestions/' ~ fact_annex) }}" 
+                    target="_blank">
+                    Ver ficheiro
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>
