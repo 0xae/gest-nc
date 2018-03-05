@@ -34,12 +34,23 @@ class ComplaintType extends AbstractType {
             ->add('opEmail')
             ->add('factDate')
             ->add('factLocality')
-            // ->add('factAnnex', 'file')
+            ->add('factAnnex', 'file', array(
+                'label' => 'Anexar documento',
+                'required' => false,
+            ))
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
             ))
-            ->add('hasProduct', 'checkbox')
-            ->add('hasAnnex', 'checkbox')            
+            // ->add('hasProduct', 'checkbox', array(
+            //     'attr' => [
+            //         'required' => false
+            //     ]
+            // ))
+            // ->add('hasAnnex', 'checkbox', [
+            //     'attr' => [
+            //         'required' => false
+            //     ]                
+            // ])            
             ->add('annexType', 'entity', array(
                 'class' => 'BackendBundle:Document',
                 'query_builder' => function (EntityRepository $er) {
@@ -58,7 +69,7 @@ class ComplaintType extends AbstractType {
             ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

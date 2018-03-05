@@ -171,7 +171,7 @@
 
             <div class="form-group">
                 <label>Entrega do produto a ARFA</label>
-                {{ form_widget(form.hasProduct) }}
+                {# {{ form_widget(form.hasProduct) }} #}
             </div>
 
             <div class="form-group">
@@ -181,18 +181,25 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label>Incluir anexo</label>
-                {{ form_widget(form.hasAnnex) }}
+                {# {{ form_widget(form.hasAnnex) }} #}
             </div>
-
-            {# <div class="form-group">
-                <label>Anexo</label>
-                {{ form_widget(form.factAnnex) }}
-            </div> #}
 
             <div class="form-group">
                 <label>Tipo do anexo</label>
                 {{ form_widget(form.annexType) }}
+            </div>
+
+            <div class="form-group">
+                <label>Anexo</label>
+                {{ form_widget(form.factAnnex) }}
+                <br/>
+
+                {% if form.factAnnex %} 
+                    <a href="{{ asset('uploads/sugestions/' ~ fact_annex) }}" 
+                       target="_blank">
+                        Ver ficheiro
+                    </a>
+                {% endif %}
             </div>
         </div>
 

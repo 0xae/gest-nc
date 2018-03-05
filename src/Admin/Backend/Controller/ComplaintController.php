@@ -224,15 +224,16 @@ class ComplaintController extends Controller {
             $entity->setCreatedBy($userId);
             $entity->setState(Stage::ACOMPANHAMENTO);
 
-            // $file = $entity->getFactAnnex();
-            // if ($file) {
-            //     $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            //     $file->move(
-            //         $this->getParameter('complaints_directory'),
-            //         $fileName
-            //     );
-            //     $entity->setFactAnnex($fileName);
-            // }
+            $file = $entity->getFactAnnex();
+            if ($file) {
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('sugestions_directory'),
+                    $fileName
+                );
+                $entity->setFactAnnex($fileName);
+            }
+
             $em->persist($entity);
             $em->flush();
 
@@ -280,6 +281,7 @@ class ComplaintController extends Controller {
         //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
         //     $entity->setFactAnnex(new File($path));
         // }
+        
         return $this->render('BackendBundle:Complaint:show.html.twig', array(
             'entity' => $entity
         ));
@@ -303,11 +305,19 @@ class ComplaintController extends Controller {
         //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
         //     $entity->setFactAnnex(new File($path));
         // }
+
+        $annexFile = $entity->getFactAnnex();
+        if ($entity->getFactAnnex()) {
+            $entity->setFactAnnex(
+                new File($this->getParameter('sugestions_directory').'/'.$entity->getFactAnnex())
+            );
+        }
+
         $editForm = $this->createEditForm($entity);
         return $this->render('BackendBundle:Complaint:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
-            // 'upload_path' => $path
+            'edit_form' => $editForm->createView(),
+            'fact_annex' => $annexFile
         ));
     }
 
@@ -323,23 +333,24 @@ class ComplaintController extends Controller {
             throw $this->createNotFoundException('Unable to find Complaint entity.');
         }
 
-        // $annex = $entity->getFactAnnex();
-        // $path = false;
-        // if ($annex) {
-        //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
-        //     $entity->setFactAnnex(new File($path));
-        // }
-        // $name = $entity->getFactAnnex();
-        // if ($name) {
-        //     $path = $this->getParameter('complaints_directory') . '/' . $name;
-        //     $file=new File($path);
-        //     $fileName = md5(uniqid()).'.'.$file->guessExtension();
-        //     $file->move(
-        //         $this->getParameter('complaints_directory'),
-        //         $fileName
-        //     );
-        //     $entity->setFactAnnex($file);
-        // }    
+        if ($entity->getFactAnnex() && !is_string($entity->getFactAnnex())) {
+            $file = $entity->getFactAnnex();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+            // moves the file to the directory where brochures are stored
+            $file->move(
+                $this->getParameter('sugestions_directory'),
+                $fileName
+            );
+
+            $entity->setAnnex($fileName);    
+        }
+
+        if ($entity->getFactAnnex()){
+            $entity->setFactAnnex(
+                new File($this->getParameter('sugestions_directory').'/'.$entity->getFactAnnex())
+            );            
+        }
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);

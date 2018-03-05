@@ -344,23 +344,37 @@ class SugestionController extends Controller {
             throw $this->createNotFoundException('Unable to find Sugestion entity.');
         }
 
-        $userId = $entity->getCreatedBy();        
+        $userId = $entity->getCreatedBy();
+        $oldAnnex = $entity->getAnnex();
 
-        $deleteForm = $this->createDeleteForm($id);
+        if ($entity->getAnnex() && !is_string($entity->getAnnex())) {
+            $file = $entity->getAnnex();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+            // moves the file to the directory where brochures are stored
+            $file->move(
+                $this->getParameter('sugestions_directory'),
+                $fileName
+            );
+
+            // $entity->setAnnex($fileName); 
+            $entity->setAnnex(
+                new File($this->getParameter('sugestions_directory').'/'.$fileName)
+            );            
+        }
+
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
+        
         if ($editForm->isValid()) {
             $entity->setCreatedBy($userId);
-
             $em->flush();
             return $this->redirect($this->generateUrl('administration_Sugestion_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Sugestion:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form'  => $editForm->createView()    
         ));
     }
 
