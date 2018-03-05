@@ -253,7 +253,7 @@ class SugestionController extends Controller {
 
         return $this->render('BackendBundle:Sugestion:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView()
         ));
     }
 
@@ -345,9 +345,17 @@ class SugestionController extends Controller {
         }
 
         $userId = $entity->getCreatedBy();
-        $oldAnnex = $entity->getAnnex();
+        $annex = $entity->getAnnex();
 
-        if ($entity->getAnnex() && !is_string($entity->getAnnex())) {
+        // upload is the same
+        if ($entity->getAnnex() && is_string($entity->getAnnex())) {
+            $entity->setAnnex(null);
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($entity->getAnnex()) {
             $file = $entity->getAnnex();
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
@@ -357,15 +365,11 @@ class SugestionController extends Controller {
                 $fileName
             );
 
-            // $entity->setAnnex($fileName); 
-            $entity->setAnnex(
-                new File($this->getParameter('sugestions_directory').'/'.$fileName)
-            );            
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+            $annex = $fileName;
+        } 
         
+        $entity->setAnnex($annex);
+
         if ($editForm->isValid()) {
             $entity->setCreatedBy($userId);
             $em->flush();
