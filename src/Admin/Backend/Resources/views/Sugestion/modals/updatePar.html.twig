@@ -1,13 +1,13 @@
-<div class="modal fade" id="respondModal">
+<div class="modal fade" id="sugestionParecerModal">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header bg-green">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
         </div>
-        <form ng-submit="respondSubmit()" name="responseForm">
+        <form ng-submit="updatePar()" name="responseForm">
         <div class="modal-body">
-            <label>Queixa/Denuncia</label>
+            <label>Sugestao/Reclamacao</label>
             {# <a href="#">{{ '{{mObject.code}}' }}</a> #}
             <input class="form-control" disabled="disabled" value="{{ '{{mObject.code}}' }}" />
             <br/>
@@ -19,12 +19,12 @@
 
             <div class="form-group">
                 <label>C&oacute;digo PTC</label>
-                <input class="form-control" required ng-model="respondeForm.parecerCode" />
+                <input class="form-control" required ng-model="responseForm.parecerCode" />
             </div>
 
             <div class="form-group">
                 <label>Assunto</label>
-                <input class="form-control" required ng-model="respondeForm.parecerSubject" />
+                <input class="form-control" required ng-model="responseForm.parecerSubject" />
             </div>
 
             <div class="form-group">

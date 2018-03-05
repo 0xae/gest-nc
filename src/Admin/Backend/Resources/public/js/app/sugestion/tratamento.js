@@ -2,7 +2,8 @@ angular.module("app")
 .controller("SugestionTreatController", ['$http', '$scope', 'Admin', function ($http, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
-
+    var PAR_MODAL='#sugestionParecerModal';
+    
     $scope.NO_RESPONSE = Admin.stage.NO_RESPONSE;
     $scope.RESPONDED = Admin.stage.RESPONDED;
 
@@ -10,14 +11,11 @@ angular.module("app")
         if (!confirm("Confirmar " + obj.code + " sem resposta?")){
             return;
         }
-
         var req = {
             id: obj.id,
             state: stage.NO_RESPONSE
         };
 
-        console.info("req: ", req);    
-        console.info("Admin: ", Admin);
         $http.post('/arfa/web/app_dev.php/administration/Sugestion/update_state/'+obj.id, req)
         .then(function (data){
             $.notify(obj.code+" arquivado com sucesso.", "success");            
@@ -74,6 +72,56 @@ angular.module("app")
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + labelX;
             $('#viewSugestionModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.openParModal = function (obj) {
+        $scope.mObject = obj;
+        var title = "Parecer Cientifico";
+
+        if (obj.type == 'par_tec') {
+            title = "Parecer Tecnico"
+        }
+
+        $scope.modalTitle = 'Atribuir ' + title;
+        $(PAR_MODAL).modal();                
+    }
+
+    $scope.updatePar = function() {
+        if (!confirm('Confirmar envio de parecer?')) {
+             return;
+        }
+
+        var response = $scope.responseForm;
+        var id = $scope.mObject.id;
+        var type = $scope.mObject.type;
+        var req = {
+            id: id,
+            parCode: response.parecerCode,
+            parSubject: response.parecerSubject,
+            parDestination: response.destination,
+            parDescription: response.description,
+            type: type
+        };
+
+        console.info(response);
+        console.info(req);
+
+        $http.post('/arfa/web/app_dev.php/administration/Sugestion/'+id+'/update_par', req)
+        .then(function (data){
+            $scope.responseForm.response='';
+            $.notify($scope.modalTitle+" atribuido com sucesso!", "success");
+            $("#row-" + id).addClass('success');
+            $("#xop__"+id).remove();
+            $("#xstat_"+id).text($scope.modalTitle);
+            $("#xstat_"+id).removeClass('hidden');
+            
+            $scope.responseForm = false;
+            setTimeout(function(){
+                $(PAR_MODAL).modal('hide');                
+            }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });

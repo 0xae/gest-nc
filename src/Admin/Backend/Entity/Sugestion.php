@@ -167,6 +167,11 @@ class Sugestion {
     private $parCode;
 
     /**
+     * @ORM\Column(name="par_date", type="datetime", length=250, nullable=true)
+     */
+    private $parDate;
+
+    /**
      * @ORM\Column(name="par_subject", type="string", length=250, nullable=true)
      */
     private $parSubject;
@@ -218,6 +223,14 @@ class Sugestion {
     public function getResponseAuthor() {
         return $this->responseAuthor;
     }
+
+    public function getParDate(){
+		return $this->parDate;
+	}
+
+	public function setParDate($date){
+		$this->parDate = $date;
+	}
 
     public function getRespDate(){
         $date = clone $this->date;

@@ -38,7 +38,7 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <div class="dropdown" style="display: inline">
+                                    {# <div class="dropdown" style="display: inline">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Responder
                                             <span class="caret"></span>
@@ -55,7 +55,26 @@
                                                 </a>
                                             </li>
                                         </ul>
+                                    </div> #}
+                                    <div class="dropdown" id="xop__{{entity.id}}">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Parecer
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                            <li>
+                                                <a href="#" ng-click="openParModal({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_tec' })">
+                                                    T&eacute;cnico
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" ng-click="openParModal({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_cent' })">
+                                                    Cient&iacute;fico
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
+
                                 </td>
                                 <td>
                                     <a href="#" ng-click="viewSugestion({{entity.id}}, '{{entity.type}}')">
@@ -78,6 +97,7 @@
                 </table>
 
                 {{ include('BackendBundle:Sugestion:modals/viewSugestion.html.twig') }}
+                {{ include('BackendBundle:Sugestion:modals/updatePar.html.twig') }}
                 {{ include('BackendBundle:Sugestion:modals/respond.html.twig') }}
             </div>
             <!-- /.box-body -->

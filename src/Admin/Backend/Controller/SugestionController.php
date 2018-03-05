@@ -173,7 +173,45 @@ class SugestionController extends Controller {
             $obj["responseDate"] = $entity->getResponseDate()->format("Y-m-d");       
         }
 
+        if ($entity->getParCode()) {         
+            $obj["parCode"] = $entity->getParCode();
+            $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
+            $obj["parAuthorName"] = $entity->getParAuthor()->getName();
+            $obj["parSubject"] = $entity->getParSubject();
+            $obj["parDest"] = $entity->getParDest();
+            $obj["parDescription"] = $entity->getParDescription();
+        }
+
         return new JsonResponse($obj);
+    }
+
+    public function updateParAction($id) {
+        $content = $this->get("request")->getContent();
+        $data = json_decode($content, true);
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Essa Sugestao/Reclamacao nao foi encontrada.');
+        }
+
+        $entity->setParCode($data['parCode']);
+        $entity->setParSubject($data['parSubject']);
+        $entity->setParDest($data['parDestination']);
+        $entity->setParDescription($data['parDescription']);
+        $entity->setParType($data['type']);
+        $entity->setParAuthor($this->getUser());
+        $entity->setParDate(new \DateTime());
+
+        // sends it back to acomp
+        $entity->setState(Stage::ACOMPANHAMENTO);
+        $em->persist($entity);       
+        $em->flush();
+
+        return new JsonResponse([
+            "id" => $entity->getId()
+        ]);
     }
 
     /**
