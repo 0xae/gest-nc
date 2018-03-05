@@ -67,9 +67,16 @@ class CompBook {
     /**
      * @var string
      *
-     * @ORM\Column(name="client_passport", type="string", length=45, nullable=false)
+     * @ORM\Column(name="client_passport", type="string", length=45, nullable=true)
      */
     private $clientPassport;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="client_bi", type="string", length=45, nullable=true)
+     */
+    private $clientBI;
 
     /**
      * @var string
@@ -216,6 +223,14 @@ class CompBook {
 
 	public function setSupplierAddress($supplierAddress){
 		$this->supplierAddress = $supplierAddress;
+    }
+    
+    public function getClientBi(){
+		return $this->clientBI;
+	}
+
+	public function setClientBi($val){
+		$this->clientBI = $val;
 	}
 
 	public function getClientAddress(){

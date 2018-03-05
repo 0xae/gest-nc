@@ -44,10 +44,13 @@ class Document {
     /**
      * @var integer
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
+     * })
+     * 
      */
     private $createdBy;
-
 
     /**
      * Get id
