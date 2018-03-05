@@ -37,6 +37,9 @@ class ComplaintType extends AbstractType {
             ->add('factAnnex', 'file', array(
                 'label' => 'Anexar documento',
                 'required' => false,
+                'attr' => [
+                    'accept' => '*'
+                ]
             ))
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
