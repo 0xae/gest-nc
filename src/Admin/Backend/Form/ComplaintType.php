@@ -44,16 +44,15 @@ class ComplaintType extends AbstractType {
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
             ))
-            // ->add('hasProduct', 'checkbox', array(
-            //     'attr' => [
-            //         'required' => false
-            //     ]
-            // ))
+            ->add('hasProduct', 'checkbox', array(
+                'label' => ' ',
+                'required' => false
+            ))
             // ->add('hasAnnex', 'checkbox', [
             //     'attr' => [
             //         'required' => false
             //     ]                
-            // ])            
+            // ])
             ->add('annexType', 'entity', array(
                 'class' => 'BackendBundle:Document',
                 'query_builder' => function (EntityRepository $er) {
