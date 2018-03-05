@@ -148,7 +148,7 @@ class ComplaintController extends Controller {
         $entity->setParDate(new \DateTime());
 
         // sends it back to acomp
-        $entity->setState(Stage::ACOMPANHAMENTO);
+        $entity->setState(Stage::RESPONDIDO);
         $em->persist($entity);       
         $em->flush();
 
