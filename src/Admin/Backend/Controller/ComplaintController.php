@@ -244,7 +244,8 @@ class ComplaintController extends Controller {
 
         return $this->render('BackendBundle:Complaint:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
+            "fact_annex" => ""            
         ));
     }
 
