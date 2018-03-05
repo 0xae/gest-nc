@@ -94,7 +94,7 @@ class IReclamationController extends Controller {
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('administration_IReclamation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_IReclamation_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(
