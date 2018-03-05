@@ -37,15 +37,17 @@
                         <!-- Tab panes -->
                         <div class="tab-content" style="padding: 20px">
                             <div role="tabpanel" class="tab-pane active" id="home">
-                                {{
-                                    include('BackendBundle:IReclamation:form.html.twig', {
+                                {{ include('BackendBundle:IReclamation:form.html.twig', {
                                         'form' : edit_form
                                     })
                                 }}
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="profile">
-                                <h1>Tab 2</h1>
+                                {{ include('BackendBundle:Upload:form.html.twig', {
+                                        'form' : upload_form
+                                    })
+                                }}
                             </div>
                         </div>
 

@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 use Admin\Backend\Entity\Stage;
 use Admin\Backend\Entity\IReclamation;
+use Admin\Backend\Entity\Upload;
+use Admin\Backend\Form\UploadType;
 use Admin\Backend\Form\IReclamationType;
 
 /**
@@ -143,10 +145,10 @@ class IReclamationController extends Controller {
     public function newAction() {
         $entity = new IReclamation();
         $form = $this->createCreateForm($entity);
+
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-            'fact_annex' => ""
+            'form' => $form->createView()
         ));
     }
 
@@ -174,18 +176,32 @@ class IReclamationController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
         }
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render('BackendBundle:IReclamation:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
+            'upload_form' => $this->uploadForm($entity)
         ));
+    }
+
+    private function uploadForm($irecl) {
+        $entity = new Upload();
+        $entity->setReference($irecl->getAnnexReference());
+
+        $form = $this->createForm(new UploadType(), $entity, array(
+            'action' => $this->generateUrl('administration_Upload_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form->createView();
     }
 
     /**
