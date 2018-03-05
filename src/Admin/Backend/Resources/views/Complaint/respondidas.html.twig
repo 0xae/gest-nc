@@ -1,7 +1,7 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content -%}
-    <div class="row">
+    <div class="row" ng-controller="AcompanhamentoController">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
@@ -46,6 +46,11 @@
                                     <td>{{ entity.createdAt|date('Y-m-d') }}</td>
                                     <td>{{ entity.address }}</td>
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                    <td>
+                                        <a href="#" ng-click="viewObject({{entity.id}})">
+                                            <span class="text-warning fa fa-eye"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -53,6 +58,8 @@
                                     </div>
                 <!-- /.box-body -->
             </div>
+
+            {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
             <!-- /.box -->
         </div>
     </div>

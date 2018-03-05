@@ -179,7 +179,7 @@ class ComplaintController extends Controller {
             "createByEnt" => $cb->getEntity()->getName(),
         ];
 
-        if ($entity->getParCode()) {            
+        if ($entity->getParCode()) {
             $obj["parCode"] = $entity->getParCode();
             if ($entity->getParDate())
                 $obj["parDate"] = $entity->getParDate()->format("Y-m-d");

@@ -154,6 +154,7 @@ class DefaultController extends Controller {
 			['type'=>'sugestao', 'count'=>0],
 			['type'=>'reclamacao', 'count'=>0]
 		];
+
 		for ($i=1; $i<13; $i++) {
 			$key = "$year-" . str_pad($i, 2, '0', STR_PAD_LEFT);
 			if (!array_key_exists($key, $table)) {
