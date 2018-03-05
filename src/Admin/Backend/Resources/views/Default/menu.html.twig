@@ -178,7 +178,7 @@
             </ul>            
         </li>
 
-        {# N conformidades  #}
+        {# Reclamacao Interna #}
         <li class="header active" style="padding:0px;">
             <a href="javascript:void(0)" class="bg-green">
                 <i class="fa fa-cog"></i>
@@ -198,33 +198,22 @@
                 </li>
                 
                 <li>
-                    <a href="{{ path('administration_IReclamation') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento (Nao conformidade NC)</span></a>
+                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_IReclamation') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span></a>
+                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_IReclamation') }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span></a>
+                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'nao_conformidade'})  }}">
+                        <i class="fa fa-circle-o text-gray"></i> N&atilde;o Conformidades
+                    </a>
                 </li>
-
-                <li>
-                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_conformidade'})  }}">
-                    <i class="fa fa-circle-o text-gray"></i>N&atilde;o Conformidades</a>
-                </li>
-                {# <li>
-                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
-                </li>
-
-                <li>
-                    <a href="{{ path('administration_Sugestion_byState', {'state' : 'tratamento'}) }}">
-                    <i class="fa fa-circle-o text-gray"></i> <span>Tratamento</span></a>
-                </li> #}
             </ul> 
         </li>
 

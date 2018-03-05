@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\File;
 
+use Admin\Backend\Entity\Stage;
 use Admin\Backend\Entity\IReclamation;
 use Admin\Backend\Form\IReclamationType;
 
@@ -17,7 +18,6 @@ use Admin\Backend\Form\IReclamationType;
 class IReclamationController extends Controller {
     /**
      * Lists all IReclamation entities.
-     *
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
@@ -88,7 +88,7 @@ class IReclamationController extends Controller {
             ->findBy(['state' => $state]);
 
         return $this->render('BackendBundle:IReclamation:listing.html.twig', array(
-            'objects' => $ary,
+            'entities' => $ary,
             'label' => $label
         ));
     }

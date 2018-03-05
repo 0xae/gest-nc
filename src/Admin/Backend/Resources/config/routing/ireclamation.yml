@@ -15,7 +15,7 @@ administration_IReclamation_create:
     defaults: { _controller: "BackendBundle:IReclamation:create" }
     methods:  POST
 
-administration_IReclamation_bystate:
+administration_IReclamation_byState:
     path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:IReclamation:byState" }
 
