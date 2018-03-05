@@ -6,9 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Doctrine\ORM\EntityRepository;
-
 
 class SugestionType extends AbstractType {
     /**
@@ -17,32 +17,6 @@ class SugestionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            // ->add('module', 'entity', array(
-            //     'class' => 'BackendBundle:Module',
-            //     'query_builder' => function (EntityRepository $er) {
-            //         return $er->createQueryBuilder('u')
-            //         ->where("lower(u.name) like '%suge%' or lower(u.name) like '%recl%' or lower(u.name) like '%extern%'")
-            //         ->orderBy('u.name', 'ASC');
-            //     },
-            //     'choice_label' => 'name'                
-            // ))
-            // ->add('stage', 'entity', array(
-            //     'class' => 'BackendBundle:Stage',
-            //     'query_builder' => function (EntityRepository $er) use ($options) {
-            //         $qb=$er->createQueryBuilder('u');                    
-
-            //         if ($options['data'] && $options['data']->getModule() 
-            //                 && $options['data']->getModule()->getId()) {
-            //             $moduleId = $options['data']->getModule()->getId();
-            //             $qb->join('BackendBundle:ModuleStage ms', 
-            //                     'WITH ms.module = ' . $moduleId . ' AND ms.stage = u.id')
-            //             ->orderBy('u.name', 'ASC');
-            //         }
-
-            //         return $qb;
-            //     },
-            //     'choice_label' => 'name'                
-            // ))
             ->add('type', 'choice', array(
                     'choices'  => array(
                         'reclamacao' => 'Reclamação externa',
@@ -61,7 +35,12 @@ class SugestionType extends AbstractType {
                 )
             ))
             ->add('date')
-            ->add('annex')
+            ->add('annex', 'file', array(
+                    'label' => 'Anexar documento',
+                    'required' => false,
+                )
+            )
+            // ->add('annex')
             // ->add('createdBy', 'entity', array(
             //     'class' => 'BackendBundle:User',
             //     'query_builder' => function (EntityRepository $er) use ($options) {
@@ -90,6 +69,12 @@ class SugestionType extends AbstractType {
             'data_class' => 'Admin\Backend\Entity\Sugestion'
         ));
     }
+    
+    // public function configureOptions(OptionsResolver $resolver) {
+    //     $resolver->setDefaults(array(
+    //         'data_class' => Product::class,
+    //     ));
+    // }
 
     /**
      * @return string

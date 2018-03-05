@@ -70,8 +70,10 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Anexo</label>
-                {{ form_widget(form.annex) }}
+                {{ form_row(form.annex) }}
+                {% if entity.annex %}
+                    <a href="{{ asset('uploads/sugestions/' ~ annex_file) }}">Ver ficheiro</a>
+                {% endif %}
             </div>
 
             {{ form_widget(form.submit) }}
