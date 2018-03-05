@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     sugestions_directory: '%kernel.root_dir%/../web/uploads/sugestions'
+    models_directory: '%kernel.root_dir%/../web/uploads/generic'
 
 framework:
     translator: { fallback: "%locale%" }

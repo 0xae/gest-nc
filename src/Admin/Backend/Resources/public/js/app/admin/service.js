@@ -10,7 +10,7 @@ angular.module("app")
     var NO_RESPONSE='sem_resposta';
     var RESPONDED='respondido';
     
-    var stage = {        
+    var stage = {
         ACEITADO : ACEITADO,
         REJEITADO : REJEITADO,
         TRATAMENTO : TRATAMENTO,

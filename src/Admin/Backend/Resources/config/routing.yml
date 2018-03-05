@@ -1,3 +1,7 @@
+backend_administration_Upload:
+    resource: "@BackendBundle/Resources/config/routing/upload.yml"
+    prefix:   /administration/Upload
+
 backend_administration_Category:
     resource: "@BackendBundle/Resources/config/routing/category.yml"
     prefix:   /administration/Category

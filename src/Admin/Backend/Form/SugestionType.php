@@ -69,12 +69,6 @@ class SugestionType extends AbstractType {
             'data_class' => 'Admin\Backend\Entity\Sugestion'
         ));
     }
-    
-    // public function configureOptions(OptionsResolver $resolver) {
-    //     $resolver->setDefaults(array(
-    //         'data_class' => Product::class,
-    //     ));
-    // }
 
     /**
      * @return string
