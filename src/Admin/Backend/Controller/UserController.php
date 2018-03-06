@@ -244,6 +244,7 @@ class UserController extends Controller {
         $entity = new Upload();
         $entity->setReference('user_' . $model->getId());
         $entity->setDescription('Foto de ' . $model->getName());
+
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),
                 'method' => 'POST',
