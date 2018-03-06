@@ -49,8 +49,7 @@ class Category
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,10 +59,8 @@ class Category
      * @param string $name
      * @return Category
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -72,8 +69,7 @@ class Category
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -83,10 +79,8 @@ class Category
      * @param \DateTime $createdAt
      * @return Category
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -95,8 +89,7 @@ class Category
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -106,10 +99,8 @@ class Category
      * @param integer $createdBy
      * @return Category
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
-
         return $this;
     }
 
@@ -118,8 +109,7 @@ class Category
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 }

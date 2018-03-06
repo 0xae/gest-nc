@@ -1,3 +1,7 @@
+backend_administration_Location:
+    resource: "@BackendBundle/Resources/config/routing/location.yml"
+    prefix:   /administration/Location
+
 backend_administration_Upload:
     resource: "@BackendBundle/Resources/config/routing/upload.yml"
     prefix:   /administration/Upload
