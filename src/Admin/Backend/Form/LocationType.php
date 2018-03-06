@@ -18,6 +18,12 @@ class LocationType extends AbstractType {
             ->add('localidade')
             // ->add('createdAt')
             // ->add('createdBy')
+            ->add('submit', 'submit', array(
+                'label' => 'Enviar formulário',
+                'attr' => array(
+                    'class' => 'btn btn-success'
+                )
+            ))
         ;
     }
     

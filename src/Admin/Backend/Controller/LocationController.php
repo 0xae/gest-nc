@@ -73,15 +73,11 @@ class LocationController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Location $entity)
-    {
+    private function createCreateForm(Location $entity) {
         $form = $this->createForm(new LocationType(), $entity, array(
             'action' => $this->generateUrl('administration_Location_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -89,10 +85,9 @@ class LocationController extends Controller
      * Displays a form to create a new Location entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Location();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Location:new.html.twig', array(
             'entity' => $entity,
@@ -104,10 +99,8 @@ class LocationController extends Controller
      * Finds and displays a Location entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Location')->find($id);
 
         if (!$entity) {
@@ -126,10 +119,8 @@ class LocationController extends Controller
      * Displays a form to edit an existing Location entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Location')->find($id);
 
         if (!$entity) {
@@ -137,12 +128,10 @@ class LocationController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('BackendBundle:Location:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -153,53 +142,46 @@ class LocationController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Location $entity)
-    {
+    private function createEditForm(Location $entity) {
         $form = $this->createForm(new LocationType(), $entity, array(
             'action' => $this->generateUrl('administration_Location_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Location entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Location')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Location entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('administration_Location_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Location:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
+
     /**
      * Deletes a Location entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
