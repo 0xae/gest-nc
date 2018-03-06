@@ -197,6 +197,33 @@ class Sugestion {
      */
     private $parAuthor;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
+     */
+    private $annexReference;
+
+    /**
+     * Set factAnnex
+     *
+     * @param string $factAnnex
+     * @return IReclamation
+     */
+    public function setAnnexReference($ref) {
+        $this->annexReference = $ref;
+        return $this;
+    }
+
+    /**
+     * Get factAnnex
+     *
+     * @return string
+     */
+    public function getAnnexReference() {
+        return $this->annexReference;
+    }
+
     public function setAnnex($value) {        
         $this->annex = $value;
         return $this;

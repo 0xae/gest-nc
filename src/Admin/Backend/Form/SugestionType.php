@@ -35,11 +35,7 @@ class SugestionType extends AbstractType {
                 )
             ))
             ->add('date')
-            ->add('annex', 'file', array(
-                    'label' => 'Anexar documento',
-                    'required' => false,
-                )
-            )
+            // ->add('annexReference')
             // ->add('annex')
             // ->add('createdBy', 'entity', array(
             //     'class' => 'BackendBundle:User',

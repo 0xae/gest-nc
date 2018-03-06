@@ -184,24 +184,24 @@ class IReclamationController extends Controller {
 
         $editForm = $this->createEditForm($entity);
 
+        $files = $em->getRepository('BackendBundle:Upload')
+                ->findBy(['reference' => $entity->getAnnexReference()]);
+
         return $this->render('BackendBundle:IReclamation:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'upload_form' => $this->uploadForm($entity)
+            'upload_form' => $this->uploadForm($entity),
+            'files' => $files
         ));
     }
 
     private function uploadForm($irecl) {
         $entity = new Upload();
         $entity->setReference($irecl->getAnnexReference());
-
-        $form = $this->createForm(new UploadType(), $entity, array(
-            'action' => $this->generateUrl('administration_Upload_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-        return $form->createView();
+        return $this->createForm(new UploadType(), $entity, array(
+                'action' => $this->generateUrl('administration_Upload_create'),
+                'method' => 'POST',
+            ))->createView();
     }
 
     /**

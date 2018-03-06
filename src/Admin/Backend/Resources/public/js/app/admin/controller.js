@@ -55,4 +55,25 @@ angular.module("app")
             return resp;
         });
     }
-}]);
+}])
+
+.controller('UploadController', ['$http', '$scope', function ($http, $scope){
+    $scope.remove = function (id, index) {        
+        if (!confirm("Tem a certeza que pretende eliminar este anexo?")){
+            return;
+        }
+
+        $http.get('/arfa/web/app_dev.php/administration/Upload/' + id+"/remove")
+        .then(function (resp){
+            var file = "#upload_" + id;
+            $.notify("Anexo removido com sucesso.", "success");
+            $(file).addClass('danger');
+            setTimeout(function(){
+                $(file).remove();                
+            }, 1200);
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+}])
+;

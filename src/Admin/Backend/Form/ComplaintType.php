@@ -34,13 +34,6 @@ class ComplaintType extends AbstractType {
             ->add('opEmail')
             ->add('factDate')
             ->add('factLocality')
-            ->add('factAnnex', 'file', array(
-                'label' => 'Anexar documento',
-                'required' => false,
-                'attr' => [
-                    'accept' => '*'
-                ]
-            ))
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
             ))
@@ -48,11 +41,6 @@ class ComplaintType extends AbstractType {
                 'label' => ' ',
                 'required' => false
             ))
-            // ->add('hasAnnex', 'checkbox', [
-            //     'attr' => [
-            //         'required' => false
-            //     ]                
-            // ])
             ->add('annexType', 'entity', array(
                 'class' => 'BackendBundle:Document',
                 'query_builder' => function (EntityRepository $er) {

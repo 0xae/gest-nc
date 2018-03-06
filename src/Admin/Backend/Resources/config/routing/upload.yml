@@ -28,3 +28,7 @@ administration_Upload_delete:
     path:     /{id}/delete
     defaults: { _controller: "BackendBundle:Upload:delete" }
     methods:  [POST, DELETE]
+
+administration_Upload_remove:
+    path:     /{id}/remove
+    defaults: { _controller: "BackendBundle:Upload:remove" }

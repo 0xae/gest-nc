@@ -51,31 +51,6 @@
         </div>
 
         <div class="col-md-12">
-            {# {% if entity.id %}
-                <div class="form-group">
-                    <label>Enviar para</label>
-                    {{ form_widget(form.stage) }}
-                </div>
-            {% else %}
-                <div class="form-group" style="display:none">
-                    {{ form_widget(form.stage) }}
-                </div>
-            {% endif %} #}
-
-            {# <div class="form-group">
-                <label>Criado por</label>
-                {{ form_widget(form.createdBy) }}
-            </div> #}
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                {{ form_row(form.annex) }}
-                {% if entity.annex %}
-                    <a href="{{ asset('uploads/sugestions/' ~ annex_file) }}">Ver ficheiro</a>
-                {% endif %}
-            </div>
-
             {{ form_widget(form.submit) }}
             {{ form(form) }}
         </div>

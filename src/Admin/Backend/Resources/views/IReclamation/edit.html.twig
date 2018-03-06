@@ -29,7 +29,9 @@
                             </li>
                             <li role="presentation">
                                 <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-                                    <span class="fa fa-file"></span> Anexos
+                                    <span class="fa fa-file"></span> 
+                                    Anexos
+                                    <span class="badge">{{files|length}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -44,6 +46,11 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="profile">
+                                {{ include('BackendBundle:Upload:listing.html.twig', {
+                                        'files' : files
+                                    })
+                                }}
+
                                 {{ include('BackendBundle:Upload:form.html.twig', {
                                         'form' : upload_form
                                     })

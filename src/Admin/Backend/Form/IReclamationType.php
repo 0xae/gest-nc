@@ -31,7 +31,7 @@ class IReclamationType extends AbstractType {
                 ),
             ))
             ->add('factDate')
-            ->add('annexReference')
+            // ->add('annexReference')
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
             ))

@@ -4,6 +4,7 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
@@ -99,10 +100,23 @@ class UploadController extends Controller {
             'action' => $this->generateUrl('administration_Upload_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
+    }
+
+    public function removeAction($id) {  
+        $em = $this->getDoctrine()->getManager();                
+        $ent = $em->getRepository('BackendBundle:Upload')->find($id);
+
+        if (!$ent) {
+            throw $this->createNotFoundException("Anexo invalido!");
+        }
+
+        $em->remove($ent);
+        $em->flush();
+
+        return new JsonResponse([
+            'msg' => 'Anexo eliminado com sucesso'
+        ]);
     }
 
     /**
@@ -167,9 +181,6 @@ class UploadController extends Controller {
             'action' => $this->generateUrl('administration_Upload_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 

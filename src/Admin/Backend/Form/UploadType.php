@@ -21,6 +21,13 @@ class UploadType extends AbstractType {
                     'required' => true,
                 )
             )
+            ->add('submit', 'submit', array(
+                'label' => 'Guardar',
+                'attr' => array(
+                    'class' => 'btn btn-success',
+                    'ng-click' => 'onSubmitForm()'
+                )
+            ))
             // ->add('createdAt')
             // ->add('createdBy')
         ;
