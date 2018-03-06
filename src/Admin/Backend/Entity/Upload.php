@@ -37,6 +37,13 @@ class Upload {
     /**
      * @var string
      *
+     * @ORM\Column(name="context", type="string", length=500, nullable=true)
+     */
+    private $context;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="filename", type="string", length=200, nullable=false)
      */
     private $filename;
@@ -69,51 +76,59 @@ class Upload {
         return $this->id;
     }
 
-    public function getDescription(){
-		return $this->description;
-	}
-
-	public function setDescription($description){
-		$this->description = $description;
-	}
-
-	public function getReference(){
-		return $this->reference;
-	}
-
-	public function setReference($reference){
-		$this->reference = $reference;
+    public function getContext(){
+        return $this->context;
     }
-    
+
+    public function setContext($val){
+        $this->description = $val;
+    }
+
+    public function getDescription(){
+        return $this->description;
+    }
+
+    public function setDescription($description){
+        $this->description = $description;
+    }
+
+    public function getReference(){
+        return $this->reference;
+    }
+
+    public function setReference($reference){
+        $this->reference = $reference;
+    }
+
     public function getFilename(){
-		return $this->filename;
-	}
+        return $this->filename;
+    }
 
-	public function setFile($val){
-		$this->file = $val;
-	}
+    public function setFile($val){
+        $this->file = $val;
+    }
 
-	public function getFile(){
-		return $this->file;
-	}
+    public function getFile(){
+        return $this->file;
+    }
 
-	public function setFilename($filename){
-		$this->filename = $filename;
-	}
+    public function setFilename($filename){
+        $this->filename = $filename;
+    }
 
-	public function getCreatedAt(){
-		return $this->createdAt;
-	}
+    public function getCreatedAt(){
+        return $this->createdAt;
+    }
 
-	public function setCreatedAt($createdAt){
-		$this->createdAt = $createdAt;
-	}
+    public function setCreatedAt($createdAt){
+        $this->createdAt = $createdAt;
+    }
 
-	public function getCreatedBy(){
-		return $this->createdBy;
-	}
+    public function getCreatedBy(){
+        return $this->createdBy;
+    }
 
-	public function setCreatedBy($createdBy){
-		$this->createdBy = $createdBy;
-	}
+    public function setCreatedBy($createdBy){
+        $this->createdBy = $createdBy;
+    }
 }

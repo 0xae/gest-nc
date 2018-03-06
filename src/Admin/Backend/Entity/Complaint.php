@@ -43,7 +43,7 @@ class Complaint {
      *   @ORM\JoinColumn(name="locality", referencedColumnName="id", nullable=true)
      * })
      */
-     private $locality;
+    private $locality;
 
     /**
      * @var string
@@ -95,7 +95,7 @@ class Complaint {
      *   @ORM\JoinColumn(name="op_locality", referencedColumnName="id", nullable=true)
      * })
      */
-     private $opLocality;
+    private $opLocality;
 
     /**
      * @var string
