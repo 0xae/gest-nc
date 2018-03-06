@@ -410,6 +410,15 @@ class ComplaintController extends Controller {
     private function uploadForm($model) {
         $entity = new Upload();
         $entity->setReference($model->getAnnexReference());
+
+        $entity->setContext(json_encode([
+            "path" => 'administration_Complaint_edit',
+            "path_args" => array(
+                'id' => $model->getId(),
+                'upload_added' => true
+            )
+        ]));
+
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),
                 'method' => 'POST',

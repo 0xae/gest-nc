@@ -71,13 +71,19 @@ class UploadController extends Controller {
             $pathArgs = array('id' => $entity->getId());
 
             if ($entity->getContext()) {
+                /**
+                 * {
+                 *    "path" : "",
+                 *    "path_args" : ""
+                 * }
+                 */                
                 $context = json_decode($entity->getContext());
-                if (isset($context['path'])) {
-                    $path = $context['path'];
+                if (isset($context->path)) {
+                    $path = $context->path;
                 }
 
-                if (isset($context['path_args'])) {
-                    $pathArgs = $context['path_args'];
+                if (isset($context->path_args)) {
+                    $pathArgs = (array)$context->path_args;
                 }
             }
 

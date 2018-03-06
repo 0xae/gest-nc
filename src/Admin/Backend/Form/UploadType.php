@@ -15,7 +15,7 @@ class UploadType extends AbstractType {
         $builder
             ->add('description')
             ->add('reference')
-            ->add('context')
+            ->add('context')            
             ->add('file', 'file', array(
                     'label' => 'Anexar documento',
                     'required' => true,

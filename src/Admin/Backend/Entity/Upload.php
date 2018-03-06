@@ -81,7 +81,7 @@ class Upload {
     }
 
     public function setContext($val){
-        $this->description = $val;
+        $this->context = $val;
     }
 
     public function getDescription(){
