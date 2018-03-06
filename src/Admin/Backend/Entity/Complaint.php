@@ -33,14 +33,17 @@ class Complaint {
      *
      * @ORM\Column(name="address", type="string", length=45, nullable=true)
      */
-    private $address;    
+    private $address;
 
     /**
-     * @var string
+     * @var \Location
      *
-     * @ORM\Column(name="locality", type="string", length=45, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="locality", referencedColumnName="id", nullable=true)
+     * })
      */
-    private $locality;
+     private $locality;
 
     /**
      * @var string
@@ -85,11 +88,14 @@ class Complaint {
     private $opAddress;
 
     /**
-     * @var string
+     * @var \Location
      *
-     * @ORM\Column(name="op_locality", type="string", length=250, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="op_locality", referencedColumnName="id", nullable=true)
+     * })
      */
-    private $opLocality;
+     private $opLocality;
 
     /**
      * @var string
@@ -128,11 +134,14 @@ class Complaint {
     private $factDetail; 
 
     /**
-     * @var string
+     * @var \Location
      *
-     * @ORM\Column(name="fact_locality", type="string", length=250, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fact_locality", referencedColumnName="id", nullable=true)
+     * })
      */
-    private $factLocality; 
+     private $factLocality; 
 
     /**
      * @var string

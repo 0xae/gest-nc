@@ -36,19 +36,24 @@ class CompBook {
     private $supplierName;
     
     /**
-     * @var string
+     * @var \Location
      *
-     * @ORM\Column(name="supplier_address", type="string", length=45, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="supplier_address", referencedColumnName="id", nullable=false)
+     * })
      */
     private $supplierAddress;
 
     /**
-     * @var string
+     * @var \Location
      *
-     * @ORM\Column(name="client_address", type="string", length=45, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client_address", referencedColumnName="id", nullable=false)
+     * })
      */
     private $clientAddress;
-
 
     /**
      * @var string

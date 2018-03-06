@@ -56,7 +56,7 @@ class Location {
      *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
      * })
      */
-     private $createdBy;
+    private $createdBy;
 
     /**
      * Get id
@@ -105,5 +105,11 @@ class Location {
 
 	public function setCreatedBy($createdBy){
 		$this->createdBy = $createdBy;
-	}
+    }
+
+    public function __toString() {
+        return $this->ilha . ' - ' .
+        $this->concelho . ' - ' . 
+        $this->localidade;
+    }
 }

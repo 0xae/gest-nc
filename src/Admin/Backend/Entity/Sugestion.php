@@ -47,11 +47,14 @@ class Sugestion {
     private $date;
 
     /**
-     * @var
+     * @var \Location
      *
-     * @ORM\Column(name="address", type="string", length=45, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Location")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="address", referencedColumnName="id", nullable=true)
+     * })
      */
-    private $address;
+     private $address;
 
     /**
      * @var string
