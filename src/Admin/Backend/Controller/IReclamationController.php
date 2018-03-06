@@ -130,6 +130,7 @@ class IReclamationController extends Controller {
         $entity->setActionDate(new \DateTime);
         $entity->setDecisionDate(new \DateTime);
         $entity->setAnalysisDate(new \DateTime);    
+        $entity->setAnnexReference(md5(uniqid()));
 
         $form = $this->createForm(new IReclamationType(), $entity, array(
             'action' => $this->generateUrl('administration_IReclamation_create'),
@@ -195,9 +196,9 @@ class IReclamationController extends Controller {
         ));
     }
 
-    private function uploadForm($irecl) {
+    private function uploadForm($model) {
         $entity = new Upload();
-        $entity->setReference($irecl->getAnnexReference());
+        $entity->setReference($model->getAnnexReference());
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),
                 'method' => 'POST',
