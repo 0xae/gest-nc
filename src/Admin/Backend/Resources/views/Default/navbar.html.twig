@@ -85,16 +85,39 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="">
-                                    {# <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">
-                                        Alterar palavra-passe
-                                    </a> #}
-                                    <a href="{{ path('fos_user_change_password') }}">Alterar palavra-passe</a>
-                                </div>
-                            </li>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                {% if app.user.photoDir %}
+                                                    <img class="media-object" 
+                                                        src="{{ asset('uploads/generic/' ~ app.user.photoDir) }}"
+                                                        width="50"
+                                                        height="50"
+                                                        style="border-radius:200px"
+                                                        alt="Foto"
+                                                    />
+                                                {% endif %}
+                                            </a>
+                                        </div>
 
-                            <li class="user-footer">
-                                <div class="">
-                                    <a href="{{ path('administration_user_edit', {'id' : app.user.id}) }}">Minha conta</a>
+                                        <div class="media-body" style="color: gray">
+                                            <h4 class="media-heading">
+                                                <strong>{{app.user.username}}</strong>
+                                            </h4>
+                                            {{app.user.email}}
+                                        </div>
+                                    </div>
+
+                                    <br/>
+
+                                    <div style="color: gray">
+                                        <span class="fa fa-lock"></span>
+                                        <a href="{{ path('fos_user_change_password') }}">Alterar palavra-passe</a>
+                                        <br/>
+                                        <br/>
+                                        <span class="fa fa-user"></span>
+                                        <a href="{{ path('administration_user_edit', {'id' : app.user.id}) }}">Minha conta</a>
+                                    </div>
                                 </div>
                             </li>
 
