@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Admin\Backend\Entity\Model;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -19,8 +20,8 @@ class SugestionType extends AbstractType {
         $builder
             ->add('type', 'choice', array(
                     'choices'  => array(
-                        'reclamacao' => 'Reclamação externa',
-                        'sugestao' => 'Sugestão'
+                        Model::RECLAMATION_EXTERN => 'Reclamação externa',
+                        Model::SUGESTION => 'Sugestão'
                     ),
             ))
             ->add('name')

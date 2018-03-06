@@ -4,6 +4,7 @@ namespace Admin\Backend\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Admin\Backend\Entity\Model;
 
 class DefaultController extends Controller {
 	public function indexAction() {
@@ -46,6 +47,18 @@ class DefaultController extends Controller {
 		}
 
 		return new JsonResponse($db);
+	}
+
+	public function countersAction() {
+		$ary = [
+			Model::DENOUNCE => $this->count(Model::DENOUNCE, 'complaint'),
+			Model::COMPLAINT => $this->count(Model::COMPLAINT, 'complaint'),
+			Model::RECLAMATION_EXTERN => $this->count(Model::RECLAMATION_EXTERN, 'sugestion'),
+			Model::SUGESTION => $this->count(Model::SUGESTION, 'sugestion'),
+			Model::RECLAMATION_INTERNAL => $this->countIRECL()
+		];
+
+		return new JsonResponse($ary);
 	}
 
 	private function groupByDepartment($year) {
@@ -188,13 +201,37 @@ class DefaultController extends Controller {
 		return $db;
 	}
 
-	private function getCounters() {		
+	private function count($type, $model) {
+		$q = '
+			select 
+				count(1) as count,
+				date_format(created_at, "%Y-%m") as period
+			from ' . $model . '
+			where year(created_at) = year(current_date)
+				  and month(created_at) = month(current_date) 
+			and type = :type';
+
+		return $this->fetchAll($q, [
+			'type' => $type
+		]);
+	}
+
+	private function countIRECL() {
+		$q = '
+			select 
+				count(1) as count,
+				date_format(created_at, "%Y-%m") as period
+			from reclamation_internal
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) '
+			;
+		return $this->fetchAll($q, []);
 	}
 
 	private function fetchAll($sql, $params) {
         $em = $this->getDoctrine()->getManager();
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
-		return $stmt->fetchAll();		
+		return $stmt->fetchAll();
 	}
 }

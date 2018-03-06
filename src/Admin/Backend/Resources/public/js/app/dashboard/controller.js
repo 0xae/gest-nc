@@ -115,15 +115,6 @@ angular.module("app")
         });
     }
 
-    // $scope.loadPerDay = function () {
-    // }
-
-    // $scope.loadPerMonth = function () {
-    // }
-
-    // $scope.loadPerDepartment = function () {
-    // }
-
     renderPerMonth(2018);
     renderDepartments(2018);
 

@@ -1,8 +1,8 @@
 <div class="col-md-3">
     <div class="small-box bg-green">
         <div class="inner">
-            <h3>0</h3>
-            <p>Fevereiro</p>
+            <h3>{{counters['queixa'][0]['count']}}</h3>
+            <p> </p>
         </div>
         <div class="icon">
             <i class="fa fa-check"></i>
@@ -12,11 +12,27 @@
         </a>
     </div>
 </div>
+
+<div class="col-md-3">
+    <div class="small-box bg-green">
+        <div class="inner">
+            <h3>{{counters['denuncia'][0]['count']}}</h3>
+            <p> </p>
+        </div>
+        <div class="icon">
+            <i class="fa fa-check"></i>
+        </div>
+        <a href="#" class="small-box-footer">
+            Denuncias
+        </a>
+    </div>
+</div>
+
 <div class="col-md-3">
     <div class="small-box bg-aqua">
         <div class="inner">
-            <h3>0</h3>
-            <p>Fevereiro</p>
+            <h3>{{counters['reclamacao_interna'][0]['count']}}</h3>
+            <p> </p>
         </div>
         <div class="icon">
             <i class="fa fa-thumbs-up"></i>
@@ -26,11 +42,12 @@
         </a>
     </div>
 </div>
+
 <div class="col-md-3">
     <div class="small-box bg-red">
         <div class="inner">
-            <h3>0</h3>
-            <p>Fevereiro</p>
+            <h3>{{counters['reclamacao'][0]['count']}}</h3>
+            <p> </p>
         </div>
         <div class="icon">
             <i class="fa fa-thumbs-down"></i>
@@ -40,17 +57,18 @@
         </a>
     </div>
 </div>
+
 <div class="col-md-3">
     <div class="small-box bg-yellow">
         <div class="inner">
-            <h3>0</h3>
-            <p>Fevereiro</p>
+            <h3>{{counters['sugestao'][0]['count']}}</h3>
+            <p> </p>
         </div>
         <div class="icon">
             <i class="fa fa-clock-o"></i>
         </div>
         <a href="#" class="small-box-footer">
-            Reclamações pendentes
+            Sugestao
         </a>
     </div>
 </div>

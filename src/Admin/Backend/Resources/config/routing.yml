@@ -107,6 +107,10 @@ dashboard_stats:
     path:     /dashboard/stats/{type}
     defaults: { _controller: BackendBundle:Default:stats }
 
+dashboard_counters:
+    path:     /dashboard/counters
+    defaults: { _controller: BackendBundle:Default:counters }
+
 sga_dashboard:
     path:     /administration/dashboard
     defaults: { _controller: BackendBundle:Default:index }
