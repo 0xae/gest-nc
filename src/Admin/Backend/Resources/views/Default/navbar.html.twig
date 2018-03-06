@@ -64,9 +64,20 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:14px;">
-                            {% image '@BackendBundle/Resources/public/img/avatar.png' %}
-                            <img src="{{ asset_url }}" class="user-image" alt="User Image">
-                            {% endimage %}
+                            {% if app.user.photoDir %}
+                                <img class="user-image" 
+                                    src="{{ asset('uploads/generic/' ~ app.user.photoDir) }}"
+                                    width="50"
+                                    height="50"
+                                    style="border-radius:200px"
+                                    alt="Foto"
+                                />
+                            {% else %}
+                                {% image '@BackendBundle/Resources/public/img/avatar.png' %}
+                                 <img src="{{ asset_url }}" class="" alt="User Image">
+                                {% endimage %}
+                            {% endif %}
+
                             <strong>{{ app.user.username }}/{{ app.user.entity.name }}</strong>
                         </a>
 
