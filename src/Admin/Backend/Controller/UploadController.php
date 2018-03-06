@@ -67,10 +67,21 @@ class UploadController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect(
-                $this->generateUrl('administration_Upload_show', 
-                array('id' => $entity->getId()))
-            );
+            $path = 'administration_Upload_show';
+            $pathArgs = array('id' => $entity->getId());
+
+            if ($entity->getContext()) {
+                $context = json_decode($entity->getContext());
+                if (isset($context['path'])) {
+                    $path = $context['path'];
+                }
+
+                if (isset($context['path_args'])) {
+                    $pathArgs = $context['path_args'];
+                }
+            }
+
+            return $this->redirect($this->generateUrl($path, $pathArgs));
         }
 
         return $this->render('BackendBundle:Upload:new.html.twig', array(
