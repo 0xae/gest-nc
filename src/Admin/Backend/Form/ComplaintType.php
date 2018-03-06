@@ -47,7 +47,7 @@ class ComplaintType extends AbstractType {
                     return $er->createQueryBuilder('u')
                       ->orderBy('u.name', 'ASC');
                 },
-                'choice_label' => 'name'                
+                'choice_label' => 'name'
             ))
             ->add('createdAt')
             ->add('submit', 'submit', array(

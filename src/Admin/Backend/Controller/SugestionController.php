@@ -395,7 +395,6 @@ class SugestionController extends Controller {
     * Creates a form to edit a Sugestion entity.
     *
     * @param Sugestion         $entity->setAnnexReference(md5(uniqid()));
-        $entity->setFactDate(new \DateTime);$entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */

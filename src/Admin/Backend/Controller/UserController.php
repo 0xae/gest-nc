@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormError;
 
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
+use Admin\Backend\Entity\Upload;
+use Admin\Backend\Form\UploadType;
 
 /**
  * User controller.
@@ -147,11 +149,21 @@ class UserController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $photo = false;
+
+        $fotos = $em->getRepository('BackendBundle:Upload')
+                    ->findBy(['reference' => 'user_'.$entity->getId()]);
+        
+        foreach ($fotos as $f) {
+            $photo = $f->getFilename();
+        }
 
         return $this->render('BackendBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form'  => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'photo_form' => $this->uploadForm($entity),
+            'user_photo' => $photo
         ));
     }
 
@@ -225,10 +237,17 @@ class UserController extends Controller {
             'action' => $this->generateUrl('administration_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
+    }
+
+    private function uploadForm($model) {
+        $entity = new Upload();
+        $entity->setReference('user_' . $model->getId());
+        $entity->setDescription('Foto de ' . $model->getName());
+        return $this->createForm(new UploadType(), $entity, array(
+                'action' => $this->generateUrl('administration_Upload_create'),
+                'method' => 'POST',
+            ))->createView();
     }
 
     /**

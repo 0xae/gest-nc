@@ -80,6 +80,13 @@
                                     <a href="{{ path('fos_user_change_password') }}">Alterar palavra-passe</a>
                                 </div>
                             </li>
+
+                            <li class="user-footer">
+                                <div class="">
+                                    <a href="{{ path('administration_user_edit', {'id' : app.user.id}) }}">Minha conta</a>
+                                </div>
+                            </li>
+
                             <li class="user-footer">
                                 <div class="">
                                     <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Terminar sess&atilde;o</a>
