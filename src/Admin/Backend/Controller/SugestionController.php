@@ -250,6 +250,15 @@ class SugestionController extends Controller {
     private function uploadForm($model) {
         $entity = new Upload();
         $entity->setReference($model->getAnnexReference());
+
+        $entity->setContext(json_encode([
+            "path" => 'administration_Sugestion_edit',
+            "path_args" => array(
+                'id' => $model->getId(),
+                'upload_added' => true
+            )
+        ]));
+
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),
                 'method' => 'POST',
@@ -417,6 +426,7 @@ class SugestionController extends Controller {
     private function createCreateForm(Sugestion $entity) {
         $entity->setAnnexReference(md5(uniqid()));
         $entity->setDate(new \DateTime());
+
         $form = $this->createForm(new SugestionType(), $entity, array(
             'action' => $this->generateUrl('administration_Sugestion_create'),
             'method' => 'POST',

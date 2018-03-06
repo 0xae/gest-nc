@@ -111,7 +111,10 @@ class IReclamationController extends Controller {
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('administration_IReclamation_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_IReclamation_edit', 
+                        array('id' => $entity->getId(),
+                              'is_new' => true))
+                    );
         }
 
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(
@@ -199,6 +202,15 @@ class IReclamationController extends Controller {
     private function uploadForm($model) {
         $entity = new Upload();
         $entity->setReference($model->getAnnexReference());
+
+        $entity->setContext(json_encode([
+            "path" => 'administration_IReclamation_edit',
+            "path_args" => array(
+                'id' => $model->getId(),
+                'upload_added' => true
+            )
+        ]));
+
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),
                 'method' => 'POST',

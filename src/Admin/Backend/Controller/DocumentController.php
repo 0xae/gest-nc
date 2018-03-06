@@ -40,7 +40,8 @@ class DocumentController extends Controller {
             $entity->setCreatedBy($this->getUser());            
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('administration_Document_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_Document_edit', 
+                array('id' => $entity->getId(), 'is_new' => true)));
         }
 
         return $this->render('BackendBundle:Document:new.html.twig', array(

@@ -6,20 +6,18 @@ angular.module("app")
     
     $scope.categoryConf = {};
 
-    if (isNew) {
-        $.notify("Objecto guardado com sucesso", "success");
-    }
+    // if (isNew) {
+    //     $.notify("Objecto guardado com sucesso", "success");
+    // }
 
-    if (uploadedAdded) {
-        $.notify(
-            "Anexo adicionado", 
-            "success"
-        );
+    // if (uploadedAdded) {
+    //     $.notify(
+    //         "Anexo adicionado", 
+    //         "success"
+    //     );
 
-        $('#editTab a[href="#tab2"]').tab('show');          
-    }
-
-
+    //     $('#editTab a[href="#tab2"]').tab('show');          
+    // }
     $scope.setCategory = function (conf) {
         $scope.categoryConf = JSON.parse(conf);
         console.info("get ", $scope.categoryConf);        

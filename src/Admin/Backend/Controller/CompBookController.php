@@ -55,7 +55,7 @@ class CompBookController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_CompBook_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('administration_CompBook_edit', array('id' => $entity->getId(), 'is_new' => true)));
         }
 
         return $this->render('BackendBundle:CompBook:new.html.twig', array(
