@@ -23,21 +23,21 @@ class Location {
     /**
      * @var string
      *
-     * @ORM\Column(name="ilha", type="string", length=45, nullable=true)
+     * @ORM\Column(name="ilha", type="string", length=45, nullable=false)
      */
     private $ilha;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="concelho", type="string", length=45, nullable=true)
+     * @ORM\Column(name="concelho", type="string", length=45, nullable=false)
      */
     private $concelho;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="localidade", type="string", length=45, nullable=true)
+     * @ORM\Column(name="localidade", type="string", length=45, nullable=false)
      */
     private $localidade;
 
@@ -53,7 +53,7 @@ class Location {
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=false)
      * })
      */
      private $createdBy;
