@@ -161,9 +161,14 @@ class ComplaintController extends Controller {
     }
 
     public function showJsonAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
         $entity = $this->getDoctrine()
                     ->getRepository('BackendBundle:Complaint')                
                     ->find($id);
+
+        $files = $em->getRepository('BackendBundle:Upload')
+                    ->findBy(['reference' => $entity->getAnnexReference()]);
 
         $cb = $entity->getCreatedBy();
         $obj = [
@@ -180,6 +185,7 @@ class ComplaintController extends Controller {
             "objCode" => $entity->getObjCode(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
+            "files" => []
         ];
 
         if ($entity->getParCode()) {
@@ -190,6 +196,16 @@ class ComplaintController extends Controller {
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();
             $obj["parDescription"] = $entity->getParDescription();
+        }
+        
+        foreach ($files as $f) {
+            $obj["files"][] = [
+                "id" => $f->getId(),
+                "description" => $f->getDescription(),
+                "createdAt" => $f->getCreatedAt()->format("Y-m-d"),
+                "createdBy" => $f->getCreatedBy()->getName(),
+                "path" => $f->getFilename()
+            ];
         }
 
         return new JsonResponse($obj);
