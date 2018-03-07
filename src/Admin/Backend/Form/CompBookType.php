@@ -20,7 +20,8 @@ class CompBookType extends AbstractType {
             ->add('clientNacionality')
             ->add('clientPhone')
             ->add('clientPassport')
-            ->add('clientBi')            
+            ->add('clientBi')
+            // ->add('annexReference')
             ->add('clientEmail', 'email')
             ->add('complaint', 'textarea', array(
                 'attr' => array('rows' => 6)
@@ -36,7 +37,7 @@ class CompBookType extends AbstractType {
             ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

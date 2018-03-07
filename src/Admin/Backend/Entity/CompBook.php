@@ -121,6 +121,27 @@ class CompBook {
      */
     private $createdBy;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
+     */
+    private $annexReference;
+    
+    public function setAnnexReference($ref) {
+        $this->annexReference = $ref;
+        return $this;
+    }
+
+    /**
+     * Get factAnnex
+     *
+     * @return string
+     */
+    public function getAnnexReference() {
+        return $this->annexReference;
+    }
+
     public function getComplaintDate(){
 		return $this->complaintDate;
     }

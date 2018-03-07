@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -7,10 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\CompBook;
 use Admin\Backend\Form\CompBookType;
+use Admin\Backend\Entity\Upload;
+use Admin\Backend\Form\UploadType;
 
 /**
  * CompBook controller.
- *
  */
 class CompBookController extends Controller {
     /**
@@ -65,27 +65,10 @@ class CompBookController extends Controller {
     }
 
     /**
-     * Creates a form to create a CompBook entity.
-     *
-     * @param CompBook $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(CompBook $entity) {
-        $entity->setComplaintDate(new \DateTime);
-        $form = $this->createForm(new CompBookType(), $entity, array(
-            'action' => $this->generateUrl('administration_CompBook_create'),
-            'method' => 'POST',
-        ));
-        return $form;
-    }
-
-    /**
      * Displays a form to create a new CompBook entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new CompBook();
         $form   = $this->createCreateForm($entity);
 
@@ -127,14 +110,34 @@ class CompBookController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+
+        $files = $em->getRepository('BackendBundle:Upload')
+                    ->findBy(['reference' => $entity->getAnnexReference()]);
 
         return $this->render('BackendBundle:CompBook:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'upload_form' => $this->uploadForm($entity),
+            'files' => $files
         ));
     }
+
+    /**
+     * Creates a form to create a CompBook entity.
+     *
+     * @param CompBook $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(CompBook $entity) {
+        $entity->setComplaintDate(new \DateTime);
+        $entity->setAnnexReference(md5(uniqid()));
+        $form = $this->createForm(new CompBookType(), $entity, array(
+            'action' => $this->generateUrl('administration_CompBook_create'),
+            'method' => 'POST',
+        ));
+        return $form;
+    }    
 
     /**
     * Creates a form to edit a CompBook entity.
@@ -216,5 +219,23 @@ class CompBookController extends Controller {
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    private function uploadForm($model) {
+        $entity = new Upload();
+        $entity->setReference($model->getAnnexReference());
+
+        $entity->setContext(json_encode([
+            "path" => 'administration_CompBook_edit',
+            "path_args" => array(
+                'id' => $model->getId(),
+                'upload_added' => true
+            )
+        ]));
+
+        return $this->createForm(new UploadType(), $entity, array(
+                'action' => $this->generateUrl('administration_Upload_create'),
+                'method' => 'POST',
+            ))->createView();
     }
 }
