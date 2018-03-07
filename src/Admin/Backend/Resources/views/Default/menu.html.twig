@@ -104,12 +104,6 @@
                     <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_favoravel'})  }}">
                     <i class="fa fa-circle-o text-gray"></i> <span>Nao favoravel</span></a>
                 </li>
-{#
-                <li>
-                    <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_conformidade'})  }}">
-                    <i class="fa fa-circle-o text-gray"></i>N&atilde;o Conformidades</a>
-                </li> 
-#}
             </ul>
         </li>
 
@@ -261,6 +255,14 @@
                     </a>
                 </li>
             </ul>             #}
+        </li>
+
+        {#  Estatistica #}
+        <li class="header" style="padding:0px;">
+            <a href="{{ path('administration_Correction') }}" class="bg-green">
+                <i class="fa fa-cog"></i>
+                <span>NÃO CONFORMIDADES</span>
+            </a>
         </li>
       </ul>
     </section>

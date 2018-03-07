@@ -36,7 +36,7 @@ class Correction {
      * })
      * 
      */
-     private $irecl;
+    private $irecl;
 
     /**
      * @var string

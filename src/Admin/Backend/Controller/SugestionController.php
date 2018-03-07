@@ -209,8 +209,10 @@ class SugestionController extends Controller {
         $entity->setParDate(new \DateTime());
 
         // sends it back to acomp
-        $entity->setState(Stage::RESPONDIDO);
-        $em->persist($entity);       
+        // $entity->setState(Stage::RESPONDIDO);
+        $entity->setState(Stage::ACOMPANHAMENTO);
+        
+        $em->persist($entity);
         $em->flush();
 
         return new JsonResponse([
