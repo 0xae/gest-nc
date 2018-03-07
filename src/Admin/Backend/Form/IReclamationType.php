@@ -36,15 +36,18 @@ class IReclamationType extends AbstractType {
                 'attr' => array('rows' => 6)
             ))
             ->add('analysisDetail', 'textarea', array(
-                'attr' => array('rows' => 6)
+                'attr' => array('rows' => 6),
+                'required' => false
             ))
             ->add('analysisDate')
             ->add('decisionDetail', 'textarea', array(
-                'attr' => array('rows' => 6)
+                'attr' => array('rows' => 6),
+                'required' => false                
             ))
             ->add('decisionDate')
             ->add('actionDetail', 'textarea', array(
-                'attr' => array('rows' => 6)
+                'attr' => array('rows' => 6),
+                'required' => false                
             ))
             ->add('actionDate')
             // ->add('createdAt')
