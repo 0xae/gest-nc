@@ -10,7 +10,7 @@
                 <div class="box-tools">
                     <a href="{{path('administration_Document_new')}}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-plus"></span>
-                        Registar documento
+                        Criar documento
                     </a>
                 </div>
             </div>
@@ -30,12 +30,12 @@
                     </thead>
                     <tbody>
                         {% for entity in entities %}
-                            <tr>                                                           
+                            <tr>
                                 <td>
                                     <a href="{{ path('administration_Document_show', { 'id': entity.id }) }}">
                                     #{{ entity.id }}
                                     </a>
-                                </td>                   
+                                </td>
                                 <td>{{ entity.name }}</td>     
                                 <td>{{ entity.description }}</td>
                                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>    

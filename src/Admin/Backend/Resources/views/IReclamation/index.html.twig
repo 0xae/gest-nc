@@ -1,7 +1,6 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content -%}
-
     <div class="row" ng-controller="IReclController">
         <div class="col-xs-12">
             <div class="box">
@@ -47,14 +46,15 @@
                                             <span class="text-warning fa fa-edit"></span>
                                         </a>
 
-                                        <a href="#" ng-click="viewIRecl({{entity.id}}, '{{entity.type}}')">
-                                            <span class="text-warning fa fa-eye"></span>
-                                        </a>
 
                                         <a href="{{ path('administration_IReclamation_receipt', { 'id': entity.id }) }}"
                                             title="Recibo do utente"
                                             target="_blank">
-                                            <span class="text-warning fa fa-copy"></span>
+                                            <span class="label label-primary">Recibo de registro</span>
+                                        </a>
+
+                                        <a href="#" ng-click="viewIRecl({{entity.id}}, '{{entity.type}}')">
+                                            <span class="text-warning fa fa-eye"></span>
                                         </a>
                                     </td>
                                 </tr>
@@ -68,5 +68,4 @@
             <!-- /.box -->
         </div>
     </div>
-
 {% endblock %}
