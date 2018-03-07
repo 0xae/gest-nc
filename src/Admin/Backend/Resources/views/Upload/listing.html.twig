@@ -13,6 +13,7 @@
             {% for entity in files %}
                 <tr id="upload_{{entity.id}}">
                     <td>
+                        {{ entity.annexType }}
                     </td>
                     <td>
                         <a href="{{ asset('uploads/generic/' ~ entity.filename) }}" target="_blank">
