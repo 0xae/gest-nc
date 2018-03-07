@@ -138,4 +138,8 @@ class Document {
     public function getDescription() {
         return $this->description;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

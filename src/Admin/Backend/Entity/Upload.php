@@ -56,6 +56,16 @@ class Upload {
     private $createdAt;
 
     /**
+     * @var \Document
+     *
+     * @ORM\ManyToOne(targetEntity="Document")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="document_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $annexType;
+
+    /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -64,8 +74,7 @@ class Upload {
      * })
      */
     private $createdBy;
-
-    private $file;    
+    private $file;
 
     /**
      * Get id
@@ -130,5 +139,25 @@ class Upload {
 
     public function setCreatedBy($createdBy){
         $this->createdBy = $createdBy;
+    }
+
+    /**
+     * Set annexType
+     *
+     * @param string $annexType
+     * @return Complaint
+     */
+    public function setAnnexType($annexType) {
+        $this->annexType = $annexType;
+        return $this;
+    }
+
+    /**
+     * Get annexType
+     *
+     * @return string 
+     */
+    public function getAnnexType() {
+        return $this->annexType;
     }
 }
