@@ -1,7 +1,6 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content -%}
-
     <div class="row" ng-controller="IReclController">
         <div class="col-xs-12">
             <div class="box">
@@ -45,10 +44,10 @@
                                             </button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                                 <li>
-                                                    <a href="#" ng-click="favorable()">Favor&aacute;vel</a>                                        
+                                                    <a href="#" ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">Favor&aacute;vel</a>                                        
                                                 </li>
                                                 <li>
-                                                    <a href="#" ng-click="notFavorable()">N&atilde;o Favor&aacute;vel</a>
+                                                    <a href="#" ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">N&atilde;o Favor&aacute;vel</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -77,5 +76,4 @@
             <!-- /.box -->
         </div>
     </div>
-
 {% endblock %}
