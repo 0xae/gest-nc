@@ -19,6 +19,11 @@ administration_IReclamation_byState:
     path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:IReclamation:byState" }
 
+administration_IReclamation_updateState:
+    path:     /update_state/{id}
+    defaults: { _controller: "BackendBundle:IReclamation:updateState" }
+    methods:  [POST]
+
 administration_IReclamation_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:IReclamation:edit" }

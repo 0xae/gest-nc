@@ -69,6 +69,7 @@ class IReclamationController extends Controller {
         $em = $this->getDoctrine()->getManager();        
         $tpl = 'listing';
         $label = $state;
+
         if ($state == Stage::ACOMPANHAMENTO) {
             $label = 'Acompanhamento';
             $tpl = 'acomp';            
@@ -87,7 +88,7 @@ class IReclamationController extends Controller {
         }
 
         $ary = $em->getRepository('BackendBundle:IReclamation')
-            ->findBy(['state' => $state]);
+                  ->findBy(['state' => $state]);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,
@@ -95,6 +96,56 @@ class IReclamationController extends Controller {
             'state' => $state,
             'RESPONDIDO' => Stage::RESPONDIDO
         ));
+    }
+
+    public function updateStateAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        $state = $object['state'];
+        if ($state == Stage::TRATAMENTO) {
+            $entity->setState(Stage::TRATAMENTO);
+        } else if ($state == Stage::REJEITADO) { 
+            $entity->setState(Stage::REJEITADO);
+            $entity->setRejectionReason($object['rejectionReason']);
+        } else if ($state == Stage::SEM_RESPOSTA) { 
+            $entity->setState(Stage::SEM_RESPOSTA);
+        } else if ($state == Stage::NO_FAVORABLE) { 
+            $entity->setState(Stage::NO_FAVORABLE);
+        } else if ($state == Stage::NO_COMP) {
+            $entity->setState(Stage::NO_COMP);
+        } else {
+            // throw new Exception
+            throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
+        }
+
+        $em->persist($entity);
+        $em->flush();
+
+        return new JsonResponse($object);
+    }
+
+    public function respondAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Essa Reclamacao nao foi encontrada.');
+        }
+
+        $entity->setState(Stage::RESPONDIDO);
+        $entity->setClientResponse($object['clientResponse']);
+        $em->persist($entity);       
+        $em->flush();
+        return new JsonResponse($object);
     }
 
     /**

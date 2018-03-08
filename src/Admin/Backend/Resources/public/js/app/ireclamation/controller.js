@@ -1,5 +1,6 @@
 angular.module("app")
 .controller("IReclController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
+    var RESPOND_MODAL="#sugestionRespondModal";
     function getRecl(id) {
         return $http.get('/arfa/web/app_dev.php/administration/IReclamation/' + id +'/json')
         .then(function (resp){
@@ -21,7 +22,8 @@ angular.module("app")
 
     $scope.favorable = function (id, label) {
         getRecl(id).then(function (data){
-            console.info(data);
+            $scope.mObject = data;
+            $(RESPOND_MODAL).modal();    
         });
     }
 
@@ -29,5 +31,22 @@ angular.module("app")
         if (!confirm("Confirmar " + label + " como nao favoravel ?")){
             return;
         }
+        var req = {
+            id: id,
+            state: Admin.stage.NO_RESPONSE
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/IReclamation/update_state/'+id, req)
+        .then(function (data){
+            $.notify(label+" arquivado com sucesso.", "success");
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
+        });
+    }
+
+    $scope.submitResponse = function () {
+        console.info("send response");
     }
 }]);

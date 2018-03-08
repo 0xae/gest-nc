@@ -25,7 +25,7 @@
                         </thead>
                         <tbody>
                             {% for entity in entities %}
-                                <tr>
+                                <tr id="row-{{entity.id}}">
                                     <td>
                                         <a href="{{ path('administration_IReclamation_show', { 'id': entity.id }) }}">
                                             {{ entity.objCode }}
@@ -42,12 +42,19 @@
                                                 Despachar
                                                 <span class="caret"></span>
                                             </button>
+
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                                 <li>
-                                                    <a href="#" ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">Favor&aacute;vel</a>                                        
+                                                    <a href="#" 
+                                                       ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">
+                                                       Favor&aacute;vel
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">N&atilde;o Favor&aacute;vel</a>
+                                                    <a href="#" 
+                                                       ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">
+                                                       N&atilde;o Favor&aacute;vel
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -70,6 +77,7 @@
                         </tbody>
                     </table>
                     {{ include('BackendBundle:IReclamation:modals/viewIRECL.html.twig') }}
+                    {{ include('BackendBundle:IReclamation:modals/respond.html.twig') }}
                 </div>
                 <!-- /.box-body -->
             </div>
