@@ -135,14 +135,19 @@ class IReclamationController extends Controller {
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+
+        $entity = $em->getRepository('BackendBundle:IReclamation')
+                     ->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Essa Reclamacao nao foi encontrada.');
         }
 
         $entity->setState(Stage::RESPONDIDO);
-        $entity->setClientResponse($object['clientResponse']);
+        $entity->setResponseContent($object['response']);
+        $entity->setResponseDate(new \DateTime);
+        $entity->setResponseAuthor($this->getUser());
+
         $em->persist($entity);       
         $em->flush();
         return new JsonResponse($object);

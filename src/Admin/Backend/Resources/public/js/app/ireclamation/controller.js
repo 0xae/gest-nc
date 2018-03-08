@@ -27,6 +27,31 @@ angular.module("app")
         });
     }
 
+    $scope.submitResponse = function () {
+        var id = $scope.mObject.id;
+        var req = {
+            id: id,
+            response: $scope.responseForm.response
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/IReclamation/respond/'+id, req)
+        .then(function (data){
+            $scope.responseForm.response='';
+            $.notify("Respondido com sucesso!", "success");
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            // $("#xop__"+id).remove();
+            // $("#xstat_"+id).text($scope.modalTitle);
+            // $("#xstat_"+id).removeClass('hidden');
+            $scope.responseForm = false;
+            setTimeout(function(){
+                $(RESPOND_MODAL).modal('hide');                
+            }, 500);
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
     $scope.notFavorable = function (id, label) {
         if (!confirm("Confirmar " + label + " como nao favoravel ?")){
             return;
@@ -45,8 +70,5 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
-
-    $scope.submitResponse = function () {
-        console.info("send response");
-    }
 }]);
+

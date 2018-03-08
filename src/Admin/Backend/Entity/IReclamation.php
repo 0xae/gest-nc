@@ -166,6 +166,53 @@ class IReclamation {
      */
     private $createdBy;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="response_content", type="string", length=250, nullable=true)
+     */
+    private $responseContent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="response_date", type="datetime", nullable=true)
+     */
+    private $responseDate;
+
+    /**
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="response_author", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $responseAuthor;   
+
+
+    public function getResponseContent(){
+		return $this->responseContent;
+	}
+
+	public function setResponseContent($responseContent){
+		$this->responseContent = $responseContent;
+	}
+
+	public function getResponseDate(){
+		return $this->responseDate;
+	}
+
+	public function setResponseDate($responseDate){
+		$this->responseDate = $responseDate;
+	}
+
+	public function getResponseAuthor(){
+		return $this->responseAuthor;
+	}
+
+	public function setResponseAuthor($responseAuthor){
+		$this->responseAuthor = $responseAuthor;
+	}
+
     public function getRespDate(){
         $date = clone $this->createdAt;
         $date->add(new \DateInterval("P15D"));
