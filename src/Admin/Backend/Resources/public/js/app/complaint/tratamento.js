@@ -57,7 +57,10 @@ angular.module("app")
     }
 
     $scope.respondSubmit = function() {
-        if (!confirm('Confirmar envio de parecer?')) return;
+        if (!confirm('Confirmar envio de parecer?')){ 
+            return;
+        }
+
         var response = $scope.responseForm;
         var id = $scope.mObject.id;
         var type = $scope.mObject.type;

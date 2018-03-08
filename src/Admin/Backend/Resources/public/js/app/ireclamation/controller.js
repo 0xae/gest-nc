@@ -1,6 +1,7 @@
 angular.module("app")
 .controller("IReclController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
     var RESPOND_MODAL="#sugestionRespondModal";
+
     function getRecl(id) {
         return $http.get('/arfa/web/app_dev.php/administration/IReclamation/' + id +'/json')
         .then(function (resp){
