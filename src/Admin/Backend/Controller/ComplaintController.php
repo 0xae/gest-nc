@@ -243,7 +243,6 @@ class ComplaintController extends Controller {
             $entity->setCreatedBy($userId);
             $entity->setState(Stage::ACOMPANHAMENTO);
 
-
             $em->persist($entity);
             $em->flush();
 

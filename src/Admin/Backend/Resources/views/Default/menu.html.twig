@@ -189,8 +189,14 @@
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
-                        <i class="fa fa-circle-o text-gray"></i> <span>Arquivo</span>
+                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'respondido'})  }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de resposta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('administration_IReclamation_byState', {'state' : 'sem_resposta'})  }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span>
                     </a>
                 </li>
 

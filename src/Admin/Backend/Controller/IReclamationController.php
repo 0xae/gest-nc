@@ -14,8 +14,7 @@ use Admin\Backend\Form\UploadType;
 use Admin\Backend\Form\IReclamationType;
 
 /**
- * IReclamation controller.
- *
+ * IReclamation controller
  */
 class IReclamationController extends Controller {
     /**
@@ -72,10 +71,11 @@ class IReclamationController extends Controller {
         $label = $state;
         if ($state == Stage::ACOMPANHAMENTO) {
             $label = 'Acompanhamento';
+            $tpl = 'acomp';            
         } else if ($state == Stage::TRATAMENTO) { 
             $label = 'Tratamento';
         } else if ($state == Stage::SEM_RESPOSTA) {
-            $label = 'Ssem resposta';
+            $label = 'Sem resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $label = 'Respondidas';
         } else if ($state == Stage::NO_COMP) {
@@ -89,9 +89,11 @@ class IReclamationController extends Controller {
         $ary = $em->getRepository('BackendBundle:IReclamation')
             ->findBy(['state' => $state]);
 
-        return $this->render('BackendBundle:IReclamation:listing.html.twig', array(
+        return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,
-            'label' => $label
+            'label' => $label,
+            'state' => $state,
+            'RESPONDIDO' => Stage::RESPONDIDO
         ));
     }
 
@@ -108,13 +110,14 @@ class IReclamationController extends Controller {
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
             $entity->setCreatedAt(new \DateTime);
+            $entity->setState(Stage::ACOMPANHAMENTO);
 
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('administration_IReclamation_edit', 
-                        array('id' => $entity->getId(),
-                              'is_new' => true))
-                    );
+                array('id' => $entity->getId(),
+                    'is_new' => true))
+            );
         }
 
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(

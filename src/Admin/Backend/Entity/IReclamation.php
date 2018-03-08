@@ -183,14 +183,17 @@ class IReclamation {
         return $this->typeData;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Category
-     */
     public function setTypeData($val) {
         $this->typeData = $val;
+        return $this;
+    }
+
+    public function getState() {
+        return $this->state;
+    }
+
+    public function setState($val) {
+        $this->state = $val;
         return $this;
     }
 
@@ -221,8 +224,7 @@ class IReclamation {
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -232,10 +234,8 @@ class IReclamation {
      * @param \DateTime $createdAt
      * @return Category
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -244,8 +244,7 @@ class IReclamation {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
