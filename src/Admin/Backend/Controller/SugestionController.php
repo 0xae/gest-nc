@@ -180,8 +180,10 @@ class SugestionController extends Controller {
             $obj["rejectionReason"] = $entity->getRejectionReason();
             $obj["clientResponse"] = $entity->getClientResponse();
             $obj["responseAuthor"] = $entity->getResponseAuthor()->getName();
-            $obj["responseAuthorEnt"] = $entity->getResponseAuthor()->getEntity()->getName();            
-            $obj["responseDate"] = $entity->getResponseDate()->format("Y-m-d");       
+            $obj["responseAuthorEnt"] = $entity->getResponseAuthor()->getEntity()->getName();         
+            if ($entity->getResponseDate() != null) {
+                $obj["responseDate"] = $entity->getResponseDate()->format("Y-m-d");
+            }   
         }
 
         if ($entity->getParCode()) {         
