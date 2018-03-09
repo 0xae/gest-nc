@@ -183,26 +183,6 @@ class IReclamationController extends Controller {
     }
 
     /**
-     * Creates a form to create a IReclamation entity.
-     * @param IReclamation $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(IReclamation $entity) {
-        $entity->setFactDate(new \DateTime);
-        $entity->setActionDate(new \DateTime);
-        $entity->setDecisionDate(new \DateTime);
-        $entity->setAnalysisDate(new \DateTime);    
-        $entity->setAnnexReference(md5(uniqid()));
-
-        $form = $this->createForm(new IReclamationType(), $entity, array(
-            'action' => $this->generateUrl('administration_IReclamation_create'),
-            'method' => 'POST',
-        ));
-
-        return $form;
-    }
-
-    /**
      * Displays a form to create a new IReclamation entity.
      */
     public function newAction() {
@@ -258,39 +238,6 @@ class IReclamationController extends Controller {
         ));
     }
 
-    private function uploadForm($model) {
-        $entity = new Upload();
-        $entity->setReference($model->getAnnexReference());
-
-        $entity->setContext(json_encode([
-            "path" => 'administration_IReclamation_edit',
-            "path_args" => array(
-                'id' => $model->getId(),
-                'upload_added' => true
-            )
-        ]));
-
-        return $this->createForm(new UploadType(), $entity, array(
-                'action' => $this->generateUrl('administration_Upload_create'),
-                'method' => 'POST',
-            ))->createView();
-    }
-
-    /**
-    * Creates a form to edit a IReclamation entity.
-    *
-    * @param IReclamation $entity The entity
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(IReclamation $entity) {
-        $form = $this->createForm(new IReclamationType(), $entity, array(
-            'action' => $this->generateUrl('administration_IReclamation_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        return $form;
-    }
-
     /**
      * Edits an existing IReclamation entity.
      *
@@ -340,12 +287,6 @@ class IReclamationController extends Controller {
         return $this->redirect($this->generateUrl('administration_IReclamation'));
     }
 
-    /**
-     * Creates a form to delete a IReclamation entity by id.
-     *
-     * @param mixed $id The entity id
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_IReclamation_delete', array('id' => $id)))
@@ -353,5 +294,47 @@ class IReclamationController extends Controller {
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    private function uploadForm($model) {
+        $entity = new Upload();
+        $entity->setReference($model->getAnnexReference());
+
+        $entity->setContext(json_encode([
+            "path" => 'administration_IReclamation_edit',
+            "path_args" => array(
+                'id' => $model->getId(),
+                'upload_added' => true
+            )
+        ]));
+
+        return $this->createForm(new UploadType(), $entity, array(
+                'action' => $this->generateUrl('administration_Upload_create'),
+                'method' => 'POST',
+            ))->createView();
+    }
+
+    private function createEditForm(IReclamation $entity) {
+        $form = $this->createForm(new IReclamationType(), $entity, array(
+            'action' => $this->generateUrl('administration_IReclamation_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        return $form;
+    }
+
+    private function createCreateForm(IReclamation $entity) {
+        $entity->setFactDate(new \DateTime);
+        $entity->setActionDate(new \DateTime);
+        $entity->setDecisionDate(new \DateTime);
+        $entity->setAnalysisDate(new \DateTime);    
+        $entity->setAnnexReference(md5(uniqid()));
+
+        $form = $this->createForm(new IReclamationType(), $entity, array(
+            'action' => $this->generateUrl('administration_IReclamation_create'),
+            'method' => 'POST',
+        ));
+
+        return $form;
     }
 }
