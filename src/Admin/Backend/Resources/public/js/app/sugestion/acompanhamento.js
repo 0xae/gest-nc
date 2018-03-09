@@ -1,8 +1,18 @@
 angular.module("app")
 .controller("SugestionAcompController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
-    console.info("for real");
-
     var stage=Admin.stage;
+    var RESPOND_MODAL='#sugestionRespondModal';
+
+    function getSugestion(id) {
+        return $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
+        .then(function (resp){
+            var data = resp.data;
+            return data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
     $scope.acceptObj = function(obj) {
         if (!confirm("Confirmar " + obj.code + " como favoravel?")){ 
             return;
@@ -87,6 +97,35 @@ angular.module("app")
         .then(function (data){
             $.notify("Marcado como sem resposta!", "success");
             $("#row-"+req.id+"-dispatch").remove();            
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.respond = function (id) {
+        getSugestion(id).then(function (data){
+            $scope.mObject = data;
+            $(RESPOND_MODAL).modal();    
+        });
+    }
+
+    $scope.submitResponse = function () {
+        var id = $scope.mObject.id;
+        var req = {
+            id: id,
+            response: $scope.responseForm.response
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/Sugestion/respond/'+id, req)
+        .then(function (data){
+            $scope.responseForm.response='';
+            $.notify("Respondido com sucesso!", "success");
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $scope.responseForm = false;
+            setTimeout(function(){
+                $(RESPOND_MODAL).modal('hide');                
+            }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
