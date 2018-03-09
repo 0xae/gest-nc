@@ -12,8 +12,10 @@
         <div class="col-md-3">
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>0</h3>
-                    <p>Fevereiro</p>
+                    <h3>
+                        {{total[0]['count']}}
+                    </h3>
+                    <p>Mar&ccedil;o</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-check"></i>
@@ -27,7 +29,9 @@
         <div class="col-md-3">
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>
+                        {{counters['respondido'][0]['count']}}
+                    </h3>
                     <p>Fevereiro</p>
                 </div>
                 <div class="icon">
@@ -42,14 +46,16 @@
         <div class="col-md-3">
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>
+                        {{counters['sem_resposta'][0]['count']}}
+                    </h3>
                     <p>Fevereiro</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-thumbs-down"></i>
                 </div>
                 <a href="#" class="small-box-footer">
-                    N&atilde;o respondidas
+                    Sem resposta
                 </a>
             </div>
         </div>
@@ -57,8 +63,10 @@
         <div class="col-md-3">
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>0</h3>
-                    <p>Fevereiro</p>
+                    <h3>
+                        {{counters['acompanhamento'][0]['count']}}
+                    </h3>
+                    <p>Mar&ccedil;o</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-clock-o"></i>

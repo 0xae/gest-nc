@@ -198,7 +198,6 @@ class SugestionController extends Controller {
     public function updateParAction($id) {
         $content = $this->get("request")->getContent();
         $data = json_decode($content, true);
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 
@@ -215,9 +214,7 @@ class SugestionController extends Controller {
         $entity->setParDate(new \DateTime());
 
         // sends it back to acomp
-        // $entity->setState(Stage::RESPONDIDO);
         $entity->setState(Stage::ACOMPANHAMENTO);
-        
         $em->persist($entity);
         $em->flush();
 

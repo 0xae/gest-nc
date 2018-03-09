@@ -5,6 +5,7 @@ namespace Admin\Backend\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Admin\Backend\Entity\Model;
+use Admin\Backend\Entity\Stage;
 
 class DefaultController extends Controller {
 	public function indexAction() {
@@ -30,8 +31,57 @@ class DefaultController extends Controller {
 			$em->flush();
 		}
 
-		return $this->render('BackendBundle:Home:dashboard.html.twig', array());
+		$counters = $this->getCounters();
+		// var_dump($counters);
+		// die;
+		$month = "Marco";
+
+		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
+			"counters" => $counters,
+			"month" => $month,
+			"total" => $this->total()
+		));
 	}
+
+	private function getCounters() {
+		return [
+			Stage::ACOMPANHAMENTO => $this->_count(Stage::ACOMPANHAMENTO),
+			Stage::RESPONDIDO => $this->_count(Stage::RESPONDIDO),
+			Stage::SEM_RESPOSTA => $this->_count(Stage::SEM_RESPOSTA),
+		];		
+	}
+
+
+	private function total() {
+		$q = '
+			select 
+				count(1) as count
+			from sugestion
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+			and type = \'reclamacao\'
+		';
+
+		return $this->fetchAll($q, []);
+	}
+
+	private function _count($state) {
+		$date = new \DateTime;
+		$q = '
+			select 
+				count(1) as count,
+				date_format(created_at, "%Y-%m") as period
+			from sugestion
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+			and type = \'reclamacao\'
+				and state = :state
+		';
+
+		return $this->fetchAll($q, [
+			'state' => $state
+		]);
+	}	
 
 	public function statsAction($type) {
 		$year = $_GET['year'];
@@ -233,5 +283,23 @@ class DefaultController extends Controller {
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
 		return $stmt->fetchAll();
+	}
+
+	private function countExternalRecl($state) {
+		$date = new \DateTime;
+		$registadas = '
+			select 
+				count(1) as count,
+				date_format(created_at, "%Y-%m") as period
+			from sugestion
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+			and type = \'reclamacao\'
+				and state = :state
+			';
+
+		return $this->fetchAll($q, [
+			'state' => $state
+		]);
 	}
 }
