@@ -25,6 +25,11 @@ angular.module("app")
         $('#rejectModal').modal();
     }
 
+    $scope.selectObj = function(obj) {
+        $scope.mObject = obj;
+        $('#rejectModal').modal();
+    }
+
     $scope.markAsNoCompetence = function(label, id) {
         var obj = {id: id};
         if (!confirm("Confirmar "+label+" como sem competencia?")){ 
@@ -62,6 +67,25 @@ angular.module("app")
             $("#row-" + req.id).addClass('danger');
             $('#rejectModal').modal('hide');
             $("#row-"+req.id+"-not-favor").show();            
+            $("#row-"+req.id+"-dispatch").remove();            
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.noResponse = function (id) { 
+        if (!confirm("Confirmar Queixa/Denunca como sem resposta?")) {
+            return;
+        }
+
+        var req = {
+            id: id, 
+            state: stage.NO_RESPONSE
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/Sugestion/update_state/'+req.id, req)
+        .then(function (data){
+            $.notify("Marcado como sem resposta!", "success");
             $("#row-"+req.id+"-dispatch").remove();            
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            

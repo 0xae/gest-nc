@@ -51,57 +51,82 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    <span id="row-{{entity.id}}-ok" 
-                                        style="display:none" 
-                                        class="label label-success">
-                                        Favoravel
-                                    </span>
+                                    {% if entity.parCode %}
+                                        <a href="#" ng-click="viewSugestion({{entity.id}})"
+                                            title="Visualizar sugestao">
+                                            <span class="label label-success" style="display:inline">
+                                                Parecer ({{entity.parCode}})
+                                            </span>
+                                        </a>
 
-                                    <span id="row-{{entity.id}}-not-for-me" 
-                                        style="display:none" 
-                                        class="label label-warning">
-                                        Sem competencia
-                                    </span>
+                                        <div class="dropdown" id="row-{{entity.id}}-dispatch" style="display: inline">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Responder
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                                <li>
+                                                    <a href="#" ng-click="">Responder</a>                                        
+                                                </li>
 
-                                    <span id="row-{{entity.id}}-not-favor" 
-                                        style="display:none" 
-                                        class="label label-danger">
-                                        Não Favorável
-                                    </span>
+                                                <li>
+                                                    <a href="#" ng-click="noResponse({{entity.id}})">Sem resposta</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        <span id="row-{{entity.id}}-ok" 
+                                            style="display:none" 
+                                            class="label label-success">
+                                            Favoravel
+                                        </span>
 
-                                    <div id="row-{{entity.id}}-dispatch" class="dropdown" style="display: inline">
-                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Despachar
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
-                                            <li>
-                                                <a href="#" ng-click="acceptObj({
-                                                    id:{{entity.id}}, 
-                                                    code:'{{entity.objCode}}',
-                                                    name:'{{entity.name}}',
-                                                    email:'{{entity.email}}',
-                                                    phone:'{{entity.phone}}',
-                                                })">Favor&aacute;vel</a>
-                                            </li>
+                                        <span id="row-{{entity.id}}-not-for-me" 
+                                            style="display:none" 
+                                            class="label label-warning">
+                                            Sem competencia
+                                        </span>
 
-                                            <li>
-                                                <a href="#" ng-click="rejectObj({
-                                                    id:{{entity.id}}, 
-                                                    code:'{{entity.objCode}}',
-                                                    name:'{{entity.name}}',
-                                                    email:'{{entity.email}}',
-                                                    phone:'{{entity.phone}}',
-                                                    })">N&atilde;o Favor&aacute;vel</a>
-                                            </li>
+                                        <span id="row-{{entity.id}}-not-favor" 
+                                            style="display:none" 
+                                            class="label label-danger">
+                                            Não Favorável
+                                        </span>
 
-                                            <li>
-                                                <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}', {{entity.id}})">
-                                                    Sem compet&ecirc;ncia
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <div id="row-{{entity.id}}-dispatch" class="dropdown" style="display: inline">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Despachar
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                                <li>
+                                                    <a href="#" ng-click="acceptObj({
+                                                        id:{{entity.id}}, 
+                                                        code:'{{entity.objCode}}',
+                                                        name:'{{entity.name}}',
+                                                        email:'{{entity.email}}',
+                                                        phone:'{{entity.phone}}',
+                                                    })">Favor&aacute;vel</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#" ng-click="rejectObj({
+                                                        id:{{entity.id}}, 
+                                                        code:'{{entity.objCode}}',
+                                                        name:'{{entity.name}}',
+                                                        email:'{{entity.email}}',
+                                                        phone:'{{entity.phone}}',
+                                                        })">N&atilde;o Favor&aacute;vel</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}', {{entity.id}})">
+                                                        Sem compet&ecirc;ncia
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
                                 </td>
 
                                 <td>

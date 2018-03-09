@@ -32,9 +32,7 @@ class DefaultController extends Controller {
 		}
 
 		$counters = $this->getCounters();
-		// var_dump($counters);
-		// die;
-		$month = "Marco";
+		$month = "Março";
 
 		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
 			"counters" => $counters,

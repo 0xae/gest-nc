@@ -5,7 +5,6 @@ angular.module("app")
 
     setTimeout(function(){
         renderGraph1();
-        renderGraph2();
         renderGraph3();
     }, 1500);
 
@@ -364,51 +363,6 @@ angular.module("app")
                 };
             })
         });
-
-        // Build the chart
-        Highcharts.chart('graph2', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'DENÚNCIAS, QUEIXAS E RECLAMAÇÕES'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        },
-                        connectorColor: 'silver'
-                    }
-                }
-            },
-            series: [{
-                name: 'Brands',
-                data: [
-                    { 
-                        name: 'DENÚNCIAS', y: 50.00,
-                        sliced: true,
-                        selected: true
-                    },
-                    {
-                        name: 'QUEIXAS',
-                        y: 30.00,
-                    },
-                    { name: 'RECLAMAÇÕES', y: 20 },
-                ]
-            }]
-        });        
     }
 
     function renderGraph3() {
@@ -472,6 +426,6 @@ angular.module("app")
                 name: 'D4',
                 data: [31, 42, 42]
             }]
-        });        
+        });
     }
 }]);

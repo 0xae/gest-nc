@@ -19,8 +19,29 @@ class StatsController extends Controller {
      * Lists all Category entities.
      */
     public function indexAction() {
+		$counters = $this->getCounters();
+
+		$total = (int) $counters[Model::DENOUNCE][0]["count"] +
+				(int) $counters[Model::COMPLAINT][0]["count"] +
+				(int) $counters[Model::RECLAMATION_EXTERN][0]["count"] +
+				(int) $counters[Model::SUGESTION][0]["count"] +
+				(int) $counters[Model::RECLAMATION_INTERNAL][0]["count"];
+		
+		if ($total==0) {
+			$total=1;
+		}
+
+		$pie = [
+			Model::DENOUNCE => (int) $counters[Model::DENOUNCE][0]["count"] / $total,
+			Model::COMPLAINT => (int) $counters[Model::COMPLAINT][0]["count"] / $total,
+			Model::RECLAMATION_EXTERN => (int) $counters[Model::RECLAMATION_EXTERN][0]["count"] / $total,
+			Model::SUGESTION => (int) $counters[Model::SUGESTION][0]["count"] / $total,
+			Model::RECLAMATION_INTERNAL => (int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] / $total			
+		];
+		
         return $this->render('BackendBundle:Stats:index.html.twig', array(
-            'counters' => $this->getCounters()
+			'counters' => $counters,
+			'pie' => $pie
         ));
     }
 
@@ -30,7 +51,7 @@ class StatsController extends Controller {
 			Model::COMPLAINT => $this->count(Model::COMPLAINT, 'complaint'),
 			Model::RECLAMATION_EXTERN => $this->count(Model::RECLAMATION_EXTERN, 'sugestion'),
 			Model::SUGESTION => $this->count(Model::SUGESTION, 'sugestion'),
-			Model::RECLAMATION_INTERNAL => $this->countIRECL()
+			Model::RECLAMATION_INTERNAL => $this->countIRECL(),
 		];
 
 		return $ary;
