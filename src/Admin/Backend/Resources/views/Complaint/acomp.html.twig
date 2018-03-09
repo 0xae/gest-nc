@@ -66,11 +66,10 @@
                                             </button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                                 <li>
-                                                    <a href="#" ng-click="acceptObj({id:{{entity.id}}})">Responder</a>                                        
+                                                    <a href="#" ng-click="respond({{entity.id}})">Responder</a>
                                                 </li>
-
                                                 <li>
-                                                    <a href="#" ng-click="acceptObj({id:{{entity.id}}})">Sem resposta</a>
+                                                    <a href="#" ng-click="noResponse({{entity.id}})">Sem resposta</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -123,6 +122,8 @@
                 </table>
 
                 {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
+                {{ include('BackendBundle:Complaint:modals/respond.html.twig') }}
+
                 <div class="modal fade" id="rejectModal">
                     <div class="modal-dialog">
                         <div class="modal-content">

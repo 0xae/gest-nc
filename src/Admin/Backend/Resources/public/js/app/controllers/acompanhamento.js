@@ -7,16 +7,18 @@ angular.module("app")
     var FAVORAVEL='favoravel';
     var NO_FAVORAVEL='nao_favoravel';
     var NO_COMP='sem_competencia';
-    
+    var RESPOND_MODAL='#complaintRespondModal';    
     var type = 'Complaint';
     var label = 'Queixa/Denuncia';
-    $scope.setType = function (v) {
-        console.log("changing type to: ", v);
-        type = v;
-    }
 
-    $scope.setLabel = function (l) {
-        label = l;
+    function getComplaint(id) {
+        return $http.get('/arfa/web/app_dev.php/administration/Complaint/' + id+"/json")
+        .then(function (resp){
+            var data = resp.data;
+            return data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });        
     }
 
     function label(type) {
@@ -25,6 +27,15 @@ angular.module("app")
         } else {
             return "Sugestao/Reclamacao";            
         }
+    }
+
+    $scope.setType = function (v) {
+        console.log("changing type to: ", v);
+        type = v;
+    }
+
+    $scope.setLabel = function (l) {
+        label = l;
     }
 
     $scope.viewObject = function(id) {
@@ -121,6 +132,54 @@ angular.module("app")
             $scope.modalTitle = "Visualizando " + label;
             console.info("fetched ", data);
             $('#viewComplaintModal').modal();
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.noResponse = function(id) {
+        if (!confirm("Confirmar sem resposta?")) {
+            return;
+        }
+
+        var req = {
+            id: id,
+            state: SEM_RESPOSTA
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/Complaint/update_state/'+id, req)
+        .then(function (data){
+            $.notify("Arquivado com sucesso.", "success");
+            $("#row-" + obj.id).addClass('success');
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    $scope.respond = function (id) {
+        getComplaint(id).then(function (data){
+            $scope.mObject = data;
+            $(RESPOND_MODAL).modal();    
+        });
+    }
+
+    $scope.submitResponse = function () {
+        var id = $scope.mObject.id;
+        var req = {
+            id: id,
+            response: $scope.responseForm.response
+        };
+
+        $http.post('/arfa/web/app_dev.php/administration/Complaint/respond/'+id, req)
+        .then(function (data){
+            $scope.responseForm.response='';
+            $.notify("Respondido com sucesso!", "success");
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $scope.responseForm = false;
+            setTimeout(function(){
+                $(RESPOND_MODAL).modal('hide');                
+            }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });

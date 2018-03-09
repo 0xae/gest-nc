@@ -72,7 +72,8 @@ class SugestionController extends Controller {
     }
 
     public function respondAction($id) {
-        $content = $this->get("request")->getContent();
+        $content = $this->get("request")
+                        ->getContent();
         $object = json_decode($content, true);
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);

@@ -157,7 +157,7 @@ class ComplaintController extends Controller {
         $entity->setParDate(new \DateTime());
 
         // sends it back to acomp
-        $entity->setState(Stage::ACOMPANHAMENTO);        
+        $entity->setState(Stage::ACOMPANHAMENTO);   
         $em->persist($entity);       
         $em->flush();
 
@@ -228,9 +228,10 @@ class ComplaintController extends Controller {
         }
 
         $entity->setState(Stage::RESPONDIDO);
-        $entity->setClientResponse($object['clientResponse']);
-        $em->persist($entity);       
+        $entity->setClientResponse($object['response']);
+        $em->persist($entity);
         $em->flush();
+
         return new JsonResponse($object);
     }
 
