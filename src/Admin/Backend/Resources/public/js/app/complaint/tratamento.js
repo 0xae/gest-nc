@@ -7,6 +7,14 @@ angular.module("app")
     var SEM_RESPOSTA='sem_resposta';
     var type='Complaint';
 
+    function label(type) {
+        if (type == "Complaint") {
+            return "Queixa/Denuncia";
+        } else {
+            return "Sugestao/Reclamacao";            
+        }
+    }    
+
     $scope.viewObject = function(id) {
         console.info("")
         $scope.entity = undefined;
@@ -24,14 +32,6 @@ angular.module("app")
     $scope.setType = function (v) {
         console.log("changing type to: ", v);
         type = v;
-    }
-
-    function label(type) {
-        if (type == "Complaint") {
-            return "Queixa/Denuncia";
-        } else {
-            return "Sugestao/Reclamacao";            
-        }
     }
 
     $scope.noResponseObj = function(obj) {
