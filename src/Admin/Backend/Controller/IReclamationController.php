@@ -32,14 +32,20 @@ class IReclamationController extends Controller {
     public function receiptAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+        $type = @$_GET['type'];
+        $tpl = 'receipt';
 
         if (!$entity) {
             throw $this->createNotFoundException('Objecto nao encontrado!');
+        } 
+
+        if ($type=='response') {
+            $tpl = 'response';
         }
 
-        return $this->render('BackendBundle:IReclamation:docs/receipt.html.twig', array(
+        return $this->render('BackendBundle:IReclamation:docs/'.$tpl.'.html.twig', array(
             'entity' => $entity
-        ));        
+        ));
     }
 
     public function showJsonAction($id) {
@@ -88,13 +94,18 @@ class IReclamationController extends Controller {
         }
 
         $ary = $em->getRepository('BackendBundle:IReclamation')
-                  ->findBy(['state' => $state]);
+                  ->findBy([
+                      'state' => $state
+                   ]);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,
             'label' => $label,
             'state' => $state,
-            'RESPONDIDO' => Stage::RESPONDIDO
+            'ACOMPANHAMENTO' => Stage::ACOMPANHAMENTO,
+            'TRATAMENTO' => Stage::TRATAMENTO,
+            'RESPONDIDO' => Stage::RESPONDIDO,
+            'SEM_RESPOSTA' => Stage::SEM_RESPOSTA,
         ));
     }
 

@@ -1,5 +1,103 @@
 {% extends 'BackendBundle:Default:docs.html.twig' %}
 
 {% block content -%}
+    {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
+        <img src="{{ asset_url }}" 
+             class="user-image" 
+             width="180" 
+             alt="User Image!" 
+        />
+    {% endimage %}
 
+    <center>
+        <h3 class="box-title" style="font-weight:bold">
+            Recibo de resposta
+        </h3>
+
+        <h3>
+            {% if entity.type == 'queixa' %}
+                Queixa
+            {% else %} Den&uacute;ncia
+            {% endif %}
+            <a href="#">#{{ entity.objCode }}</a>
+        </h3>
+    </center>
+
+    <table class="table table-hover table-striped" style="margin-bottom:70px">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% if entity.type == 'queixa' %}
+                        Queixa
+                    {% else %}
+                        Den&uacute;ncia
+                    {% endif %}
+                </td>
+                <td>#{{ entity.objCode }}</td>
+            </tr>
+
+            <tr>
+                <td>Data</td>
+                <td>
+                    {{ entity.createdAt|date('Y-m-d') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Utente</td>
+                <td>
+                    {{ entity.name }} <br/>
+                    {{ entity.phone }} <br/>
+                    {{ entity.email }} <br/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Operador Economico</td>
+                <td>
+                    {{ entity.opName }}<br/>
+                    {{ entity.opPhone }}<br/>
+                    {{ entity.opAddress }}<br/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Data de resposta</td>
+                <td>  </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Resposta</h4>
+    <div class="well">
+        {{entity.clientResponse}}
+    </div>
+
+    {% if entity.parAuthor %}
+        <div style="margin-top:70px;">
+            <p style="font-size:12px;color:gray">
+                <span class="fa fa-user"></span>
+                Criada por {{entity.parAuthor.name}}/{{entity.parAuthor.entity.name}}
+            </p>
+        </div>
+    {% endif %}
+
+    <button id="printMe" class="btn btn-primary hidden-print">
+        Imprimir
+    </button>
+{% endblock %}
+
+
+{% block jsCode -%}
+    <script>
+        $("#printMe").click(function () {
+            window.print();
+        })
+    </script>
 {% endblock %}

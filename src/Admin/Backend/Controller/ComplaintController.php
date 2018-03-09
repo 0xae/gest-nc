@@ -45,12 +45,18 @@ class ComplaintController extends Controller {
     public function receiptAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+        $type = @$_GET['type'];
+        $tpl = 'receipt';
 
         if (!$entity) {
             throw $this->createNotFoundException('Objecto nao encontrado!');
         }
 
-        return $this->render('BackendBundle:Complaint:docs/receipt.html.twig', array(
+        if ($type=='response') {
+            $tpl = 'response';
+        }
+
+        return $this->render('BackendBundle:Complaint:docs/'.$tpl.'.html.twig', array(
             'entity' => $entity
         ));
     }

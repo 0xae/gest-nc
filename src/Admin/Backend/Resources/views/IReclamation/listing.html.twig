@@ -50,7 +50,9 @@
                                         </a>
 
                                         {% if state == RESPONDIDO %}
-                                            <a href="{{ path('administration_IReclamation_receipt', { 'id': entity.id }) }}"
+                                            <a href="{{ path('administration_IReclamation_receipt', {
+                                                    'id': entity.id,
+                                                    'type' : 'response'}) }}"
                                                 title="Recibo do utente"
                                                 target="_blank">
                                                 {# <span class="text-warning fa fa-copy"></span> #}

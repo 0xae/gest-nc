@@ -93,12 +93,18 @@ class SugestionController extends Controller {
     public function receiptAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+        $type = @$_GET['type'];
+        $tpl = 'receipt';
 
         if (!$entity) {
             throw $this->createNotFoundException('Objecto nao encontrado!');
         }
 
-        return $this->render('BackendBundle:Sugestion:docs/receipt.html.twig', array(
+        if ($type == 'response') {
+            $tpl = 'response';
+        }
+
+        return $this->render('BackendBundle:Sugestion:docs/'.$tpl.'.html.twig', array(
             'entity' => $entity
         ));
     }
@@ -403,22 +409,6 @@ class SugestionController extends Controller {
     }
 
     /**
-    * Creates a form to edit a Sugestion entity.
-    *
-    * @param Sugestion         $entity->setAnnexReference(md5(uniqid()));
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Sugestion $entity) {
-        $form = $this->createForm(new SugestionType(), $entity, array(
-            'action' => $this->generateUrl('administration_Sugestion_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        return $form;
-    }
-
-    /**
      * Creates a form to create a Sugestion entity.
      *
      * @param Sugestion $entity The entity
@@ -449,7 +439,22 @@ class SugestionController extends Controller {
             ->setAction($this->generateUrl('administration_Sugestion_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
+    }
+
+    /**
+    * Creates a form to edit a Sugestion entity.
+    *
+    * @param Sugestion         $entity->setAnnexReference(md5(uniqid()));
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Sugestion $entity) {
+        $form = $this->createForm(new SugestionType(), $entity, array(
+            'action' => $this->generateUrl('administration_Sugestion_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        return $form;
     }
 }
