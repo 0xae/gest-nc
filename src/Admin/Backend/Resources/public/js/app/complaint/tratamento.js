@@ -1,6 +1,7 @@
 angular.module("app")
 .controller("CompTratamentoController", [
-'$http', '$scope', 'UploadService', function ($http, $scope, UploadService) {
+'$http', '$scope', 'UploadService', 'ComplaintService', 
+function ($http, $scope, UploadService, ComplaintService) {
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
@@ -9,26 +10,21 @@ angular.module("app")
     var VIEW_MODAL='#viewComplaintModal';
     var type='Complaint';
 
-    function label(type) {
-        if (type == "Complaint") {
-            return "Queixa/Denuncia";
-        } else {
-            return "Sugestao/Reclamacao";            
-        }
-    }
+    $scope.viewComplaint = function(id) {
+        $scope.entity = undefined;
+        ComplaintService.get(id)
+        .then(function (data){
+            $scope.entity = data;
+            $scope.modalTitle = "Visualizando Queixa/Denuncia";
 
-    // $scope.viewObject = function(id) {
-    //     $scope.entity = undefined;
-    //     $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
-    //     .then(function (resp){
-    //         var data = resp.data;
-    //         $scope.entity = data;
-    //         $scope.modalTitle = "Visualizando " + label(type);
-    //         $(VIEW_MODAL).modal();
-    //     }, function (error) {
-    //         $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-    //     });
-    // }
+            $(VIEW_MODAL).modal();
+
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                $scope.files = resp.files;
+            });
+        });
+    }
 
     $scope.setType = function (v) {
         console.log("changing type to: ", v);
@@ -38,7 +34,7 @@ angular.module("app")
     $scope.noResponseObj = function(obj) {
         if (!confirm("Confirmar " + obj.code + " sem resposta?")) return;
         var req = {id: obj.id, state: SEM_RESPOSTA};
-        $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+obj.id, req)
+        $http.post('/arfa/web/app_dev.php/administration/Complaint/update_state/'+obj.id, req)
         .then(function (data){
             $.notify(obj.code+" arquivado com sucesso.", "success");            
             $("#row-" + obj.id).addClass('success');
@@ -87,21 +83,6 @@ angular.module("app")
             setTimeout(function(){
                 $('#respondModal').modal('hide');                
             }, 500);
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
-    }
-
-    $scope.viewSugestion = function (id, type) {
-        var labelX = 'Reclamacao';
-        if (type == 'sugestao') labelX = 'Sugestao';
-        $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
-            $scope.entity = data;
-            $scope.modalTitle = "Visualizando " + labelX;
-            $('#viewSugestionModal').modal();
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });

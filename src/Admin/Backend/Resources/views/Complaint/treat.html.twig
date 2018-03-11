@@ -2,7 +2,7 @@
 
 {% block content -%}
 
-<div class="row" ng-controller="TratamentoController">
+<div class="row" ng-controller="CompTratamentoController">
     <div class="col-xs-12">
         {# 
             <button class="btn btn-default" type="button">Registar reclamacao externa/sugestao</button>
@@ -64,7 +64,7 @@
                                     <span id="xstat_{{entity.id}}" class="hidden badge badge-success"></span>
                                 </td>
                                 <td>
-                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                    <a href="#" ng-click="viewComplaint({{entity.id}})">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
 

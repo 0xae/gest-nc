@@ -6,6 +6,7 @@ angular.module("app")
             return resp.data;
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            return error;
         }); 
     }
 
@@ -15,11 +16,23 @@ angular.module("app")
             return data;
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            return error;
+        });
+    }
+
+    function respond(id, req) {
+        return $http.post('/arfa/web/app_dev.php/administration/Complaint/respond/'+id, req)
+        .then(function (resp){
+            return resp.data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            return error;
         });
     }
 
     return {
         get: getById,
-        updateState: updateState
+        updateState: updateState,
+        respond: respond
     };
 }]);

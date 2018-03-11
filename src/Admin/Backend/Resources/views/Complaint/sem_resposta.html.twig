@@ -2,7 +2,7 @@
 
 {% block content -%}
 
-    <div class="row" ng-controller="AcompanhamentoController">
+    <div class="row" ng-controller="CompAcompController">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
@@ -48,7 +48,7 @@
                                     <td>{{ entity.address }}</td>
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td>
-                                        <a href="#" ng-click="viewObject({{entity.id}})">
+                                        <a href="#" ng-click="viewComplaint({{entity.id}})">
                                             <span class="text-warning fa fa-eye"></span>
                                         </a>
                                     </td>

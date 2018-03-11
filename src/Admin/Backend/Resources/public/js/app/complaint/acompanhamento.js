@@ -1,20 +1,20 @@
 angular.module("app")
 .controller("CompAcompController", [
-'$http', 'ComplaintService', '$scope', 'UploadService',
-function ($http, ComplaintService, $scope, UploadService) {
+'$http', 'ComplaintService', '$scope', 'UploadService', 'Admin',
+function ($http, ComplaintService, $scope, UploadService, Admin) {
+    var RESPOND_MODAL='#complaintRespondModal';    
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
     var PENDENTE='pendente';
     var FAVORAVEL='favoravel';
     var NO_FAVORAVEL='nao_favoravel';
-    var NO_COMP='sem_competencia';    
+    var NO_COMP='sem_competencia';
+
     var type='Complaint';
     var label='Queixa/Denuncia';
-    var RESPOND_MODAL='#complaintRespondModal';
 
     $scope.setType = function (v) {
-        console.log("changing type to: ", v);
         type = v;
     }
 
@@ -28,16 +28,6 @@ function ($http, ComplaintService, $scope, UploadService) {
         } else {
             return "Sugestao/Reclamacao";            
         }
-    }
-
-    function getComplaint(id) {
-        $http.get('/arfa/web/app_dev.php/administration/Complaint/' + id+"/json")
-        .then(function (resp){
-            var data = resp.data;
-            return data;
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });        
     }
 
     $scope.acceptObj = function(obj) {
@@ -88,7 +78,7 @@ function ($http, ComplaintService, $scope, UploadService) {
         };
 
         $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+req.id, req)
-        .then(function (data){
+        .then(function (data) {
             $.notify($scope.mObject.code+" marcado como nao favoravel!", "warning");
             $scope.mObject.response = '';
             $("#row-" + req.id).remove();
@@ -109,14 +99,11 @@ function ($http, ComplaintService, $scope, UploadService) {
 
             UploadService.byReference(data.annexReference)
             .then(function (resp){
-                console.info("resp is ", resp);
                 $scope.files = resp.files;
-            }, function (err) {
-                return data;
             });
         });
     }
-    
+
     $scope.noResponse = function(id) {
         if (!confirm("Confirmar sem resposta?")) {
             return;
@@ -124,18 +111,19 @@ function ($http, ComplaintService, $scope, UploadService) {
 
         var req = {
             id: id,
-            state: SEM_RESPOSTA
+            state: Admin.stage.NO_RESPONSE
         };
 
         ComplaintService.updateState(id, req)
         .then(function (data){
             $.notify("Arquivado com sucesso.", "success");
-            $("#row-" + obj.id).addClass('success');
+            $("#row-" + id).addClass('success');
         });
     }
 
     $scope.respond = function (id) {
-        getComplaint(id).then(function (data){
+        ComplaintService.get(id)
+        .then(function (data){
             $scope.mObject = data;
             $(RESPOND_MODAL).modal();    
         });
@@ -148,7 +136,7 @@ function ($http, ComplaintService, $scope, UploadService) {
             response: $scope.responseForm.response
         };
 
-        $http.post('/arfa/web/app_dev.php/administration/Complaint/respond/'+id, req)
+        ComplaintService.respond(id, req)
         .then(function (data){
             $scope.responseForm.response='';
             $.notify("Respondido com sucesso!", "success");
@@ -158,8 +146,6 @@ function ($http, ComplaintService, $scope, UploadService) {
             setTimeout(function(){
                 $(RESPOND_MODAL).modal('hide');                
             }, 500);
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 }]);
