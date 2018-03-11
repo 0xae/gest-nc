@@ -1,5 +1,5 @@
 angular.module("app")
-.controller("SugestionTreatController", ['$http', '$scope', 'Admin', function ($http, $scope, Admin) {
+.controller("SugestionTreatController", ['$http', 'SugestionService', '$scope', 'Admin', function ($http, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
     var PAR_MODAL='#sugestionParecerModal';
@@ -66,15 +66,12 @@ angular.module("app")
         var labelX = 'Reclamacao';
         if (type == 'sugestao') labelX = 'Sugestao';
         $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
+        SugestionService.get(id)
+        .then(function (data) {
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + labelX;
-            $('#viewSugestionModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
+            $('#viewSugestionModal').modal();            
+        })
     }
 
     $scope.openParModal = function (obj) {

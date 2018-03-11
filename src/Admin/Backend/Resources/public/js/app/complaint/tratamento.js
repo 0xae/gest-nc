@@ -1,10 +1,11 @@
 angular.module("app")
-.controller("TratamentoController", ['$http', '$scope', function ($http, $scope) {
+.controller("CompTratamentoController", ['$http', '$scope', function ($http, $scope) {
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
     var PENDENTE='pendente';
     var SEM_RESPOSTA='sem_resposta';
+    var VIEW_MODAL='#viewComplaintModal';
     var type='Complaint';
 
     function label(type) {
@@ -13,17 +14,16 @@ angular.module("app")
         } else {
             return "Sugestao/Reclamacao";            
         }
-    }    
+    }
 
     $scope.viewObject = function(id) {
-        console.info("")
         $scope.entity = undefined;
         $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
         .then(function (resp){
             var data = resp.data;
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + label(type);
-            $('#viewComplaintModal').modal();
+            $(VIEW_MODAL).modal();
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });

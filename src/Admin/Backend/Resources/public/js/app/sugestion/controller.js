@@ -1,5 +1,21 @@
 angular.module("app")
-.controller("SugestionViewController", ['$http', '$scope', function ($http, $scope) {
+.factory("SugestionService", ['$http', function ($http){
+    function getById(id) {
+        return $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
+        .then(function (resp){
+            var data = resp.data;
+            return data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    return { 
+        get: getById
+    };
+}])
+
+.controller("SugestionViewController", ['SugestionService', '$scope', function (SugestionService, $scope) {
     var url = new URL(location.href);
     var isNew=url.searchParams.get('is_new');
 
@@ -8,12 +24,12 @@ angular.module("app")
     }
 }])
 
-.controller("SugestionController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
+.controller("SugestionController", ['SugestionService', '$scope','Admin', 
+function (SugestionService, $scope, Admin) {
     $scope.viewSugestion = function (id, label) {
         $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
+        SugestionService.get(id)
+        .then(function (data){
             $scope.entity = data;
             if (data.type == 'reclamacao') { // reclamacao
                 $scope.modalTitle = "Visualizando Reclamação";
@@ -21,8 +37,6 @@ angular.module("app")
                 $scope.modalTitle = "Visualizando Sugestão";                
             }
             $('#viewSugestionModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 

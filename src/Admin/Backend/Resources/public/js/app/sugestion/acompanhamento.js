@@ -103,7 +103,8 @@ angular.module("app")
     }
 
     $scope.respond = function (id) {
-        getSugestion(id).then(function (data){
+        getSugestion(id)
+        .then(function (data){
             $scope.mObject = data;
             $(RESPOND_MODAL).modal();    
         });
