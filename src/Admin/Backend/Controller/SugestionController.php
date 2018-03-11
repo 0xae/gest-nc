@@ -48,7 +48,7 @@ class SugestionController extends Controller {
         $label = $state;
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
-        } else if ($state == Stage::TRATAMENTO) { 
+        } else if ($state == Stage::TRATAMENTO) {
             $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
             $tpl = 'sem_resposta';

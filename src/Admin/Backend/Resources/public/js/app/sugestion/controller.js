@@ -8,19 +8,28 @@ angular.module("app")
     }
 }])
 
-.controller("SugestionController", ['SugestionService', '$scope','Admin', 
-function (SugestionService, $scope, Admin) {
+.controller("SugestionController", [
+'SugestionService', 'UploadService', '$scope','Admin', 
+function (SugestionService, UploadService, $scope, Admin) {
     $scope.viewSugestion = function (id, label) {
         $scope.entity = undefined;
         SugestionService.get(id)
-        .then(function (data){
+        .then(function (data) {
             $scope.entity = data;
             if (data.type == 'reclamacao') { // reclamacao
                 $scope.modalTitle = "Visualizando Reclamação";
             } else { // sugestao
                 $scope.modalTitle = "Visualizando Sugestão";                
             }
+
             $('#viewSugestionModal').modal();
+
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                $scope.files = resp.files;
+            }, function (err) {
+                return data;
+            });
         });
     }
 
