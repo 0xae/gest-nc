@@ -33,7 +33,7 @@
                         <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Parecer</a>
                     </li>
                     <li role="presentation">
-                        <a href="#annex" aria-controls="profile" role="tab" data-toggle="tab">Anexo</a>
+                        <a href="#annex" aria-controls="profile" role="tab" data-toggle="tab">Anexos</a>
                     </li>
                 </ul>
 
@@ -106,9 +106,8 @@
                             rows="5"></textarea>
                     </div>
 
-                    <div role="tabpanel" class="tab-pane active" id="annex">
-                        {# <h1>Anexos</h1> #}
-                        {{ include('BackendBundle:Upload:listing-ng.html.twig', {}) }}
+                    <div role="tabpanel" class="tab-pane" id="annex">
+                        {{ include('BackendBundle:Upload:listing-ng.html.twig') }}
                     </div>
                 </div>
             </div>

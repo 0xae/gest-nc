@@ -2,7 +2,7 @@
 
 {% block content -%}
 
-<div class="row" ng-controller="AcompanhamentoController">
+<div class="row" ng-controller="CompAcompController">
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
@@ -110,11 +110,6 @@
                                         title="Visualizar">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
-{#  
-                                    <a href="{{ path('administration_Complaint_edit', { 'id': entity.id }) }}"
-                                        title="Editar">
-                                        <span class="text-warning fa fa-edit"></span>
-                                    </a> #}
                                 </td>
                             </tr>
                         {% endfor %} 
@@ -123,48 +118,7 @@
 
                 {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
                 {{ include('BackendBundle:Complaint:modals/respond.html.twig') }}
-
-                <div class="modal fade" id="rejectModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header bg-red">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Rejeitar Queixa/Denuncia</h4>
-                        </div>
-                        <form ng-submit="rejectSubmit()" name="rejectForm">
-                            <div class="modal-body">
-                                <h4>
-                                    <a href="#">{{ '{{complaint.code}}' }}</a>
-                                </h4>
-                                <div class="form-group">
-                                    <label>Nome do utente</label>
-                                    <input class="form-control" disabled="disabled" value="{{ '{{mObject.name}}' }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Telefone</label>
-                                    <input class="form-control" disabled="disabled" value="{{ '{{mObject.phone}}' }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input class="form-control" disabled="disabled" value="{{ '{{mObject.email}}' }}" />
-                                </div>
-
-                                <label><span style="color:orangered">*</span> Motivo da rejeita </label>
-                                <textarea ng-model="rejectForm.response" 
-                                    required
-                                    class="form-control"
-                                    rows="7"
-                                    placeholder="..."></textarea>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-success">Enviar formul&aacute;rio</button>
-                            </div>
-                        </form>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                {{ include('BackendBundle:Complaint:modals/reject.html.twig') }}
             </div>
             <!-- /.box-body -->
         </div>

@@ -60,6 +60,7 @@ class IReclamationController extends Controller {
             "name" => $entity->getName(),
             "objCode" => $entity->getObjCode(),
             "direction" => $entity->getDirection(),
+            "annexReference" => $entity->getAnnexReference(),
             "type" => $entity->getType(),
             "typeData" => $entity->gettypeData(),
             "factDate" => $entity->getfactDate()->format("Y-m-d"),

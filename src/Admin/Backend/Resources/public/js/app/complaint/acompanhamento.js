@@ -1,5 +1,7 @@
 angular.module("app")
-.controller("CompAcompController", ['$http', 'ComplaintService', '$scope', function ($http, $scope) {
+.controller("CompAcompController", [
+'$http', 'ComplaintService', '$scope', 'UploadService',
+function ($http, ComplaintService, $scope, UploadService) {
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
@@ -96,28 +98,22 @@ angular.module("app")
         });
     }
 
-    $scope.viewSugestion = function (id) {
-        $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
-            $scope.entity = data;
-            $scope.modalTitle = "Visualizando " + label;
-            $('#viewSugestionModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
-    }
-
     $scope.viewComplaint = function (id) {
         $scope.entity = undefined;
         ComplaintService.get(id)
-        .then(function (resp){
-            var data = resp.data;
+        .then(function (data){
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + label;
-            console.info("fetched ", data);
+
             $('#viewComplaintModal').modal();
+
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                console.info("resp is ", resp);
+                $scope.files = resp.files;
+            }, function (err) {
+                return data;
+            });
         });
     }
     

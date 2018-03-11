@@ -16,6 +16,7 @@ function (SugestionService, UploadService, $scope, Admin) {
         SugestionService.get(id)
         .then(function (data) {
             $scope.entity = data;
+
             if (data.type == 'reclamacao') { // reclamacao
                 $scope.modalTitle = "Visualizando Reclamação";
             } else { // sugestao

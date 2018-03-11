@@ -189,9 +189,9 @@ class ComplaintController extends Controller {
             "email" => $entity->getEmail(),
             "type" => $entity->getType(),
             "objCode" => $entity->getObjCode(),
+            "annexReference" => $entity->getAnnexReference(),            
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
-            "files" => []
         ];
 
         if ($entity->getParCode()) {

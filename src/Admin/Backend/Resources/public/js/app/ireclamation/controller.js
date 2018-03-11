@@ -1,5 +1,6 @@
 angular.module("app")
-.controller("IReclController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
+.controller("IReclController", ['$http', '$scope', 'UploadService', 'Admin', 
+function ($http, $scope, UploadService, Admin) {
     var RESPOND_MODAL="#sugestionRespondModal";
 
     function getRecl(id) {
@@ -17,7 +18,15 @@ angular.module("app")
         getRecl(id).then(function (data){
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + labelX;
+
             $('#viewIRECLModal').modal();
+
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                $scope.files = resp.files;
+            }, function (err) {
+                return data;
+            });
         });
     }
 

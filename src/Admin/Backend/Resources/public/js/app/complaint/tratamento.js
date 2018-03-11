@@ -1,5 +1,6 @@
 angular.module("app")
-.controller("CompTratamentoController", ['$http', '$scope', function ($http, $scope) {
+.controller("CompTratamentoController", [
+'$http', '$scope', 'UploadService', function ($http, $scope, UploadService) {
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
@@ -16,18 +17,18 @@ angular.module("app")
         }
     }
 
-    $scope.viewObject = function(id) {
-        $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
-        .then(function (resp){
-            var data = resp.data;
-            $scope.entity = data;
-            $scope.modalTitle = "Visualizando " + label(type);
-            $(VIEW_MODAL).modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
-    }
+    // $scope.viewObject = function(id) {
+    //     $scope.entity = undefined;
+    //     $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
+    //     .then(function (resp){
+    //         var data = resp.data;
+    //         $scope.entity = data;
+    //         $scope.modalTitle = "Visualizando " + label(type);
+    //         $(VIEW_MODAL).modal();
+    //     }, function (error) {
+    //         $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+    //     });
+    // }
 
     $scope.setType = function (v) {
         console.log("changing type to: ", v);
