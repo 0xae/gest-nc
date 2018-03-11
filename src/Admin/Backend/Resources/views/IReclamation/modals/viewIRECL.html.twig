@@ -30,6 +30,10 @@
                             <span>Reclama&ccedil;&atilde;o Interna</span>
                         </a>
                     </li>
+
+                    <li role="presentation">
+                        <a href="#anexos" aria-controls="anexos" role="tab" data-toggle="tab">Anexos</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -91,6 +95,10 @@
                                 class="form-control"
                                 rows="3" placeholder="..."></textarea>
                         </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="anexos">
+                        {{ include('BackendBundle:Upload:listing-ng.html.twig', {}) }}
                     </div>
                 </div>
             </div>
