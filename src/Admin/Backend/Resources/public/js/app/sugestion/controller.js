@@ -1,20 +1,4 @@
 angular.module("app")
-.factory("SugestionService", ['$http', function ($http){
-    function getById(id) {
-        return $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
-            return data;
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
-    }
-
-    return { 
-        get: getById
-    };
-}])
-
 .controller("SugestionViewController", ['SugestionService', '$scope', function (SugestionService, $scope) {
     var url = new URL(location.href);
     var isNew=url.searchParams.get('is_new');

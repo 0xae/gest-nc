@@ -1,5 +1,5 @@
 angular.module("app")
-.controller("CompAcompController", ['$http', '$scope', function ($http, $scope) {
+.controller("CompAcompController", ['$http', 'ComplaintService', '$scope', function ($http, $scope) {
     var ACEITADO='aceitado';
     var REJEITADO='rejeitado';
     var TRATAMENTO='tratamento';
@@ -36,20 +36,6 @@ angular.module("app")
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });        
-    }
-
-    $scope.viewObject = function(id) {
-        $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/'+type+ '/' + id+"/json")
-        .then(function (resp){
-            var data = resp.data;
-            $scope.entity = data;
-            $scope.modalTitle = "Visualizando " + label;
-            console.info("fetched ", data);
-            $('#viewComplaintModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-        });
     }
 
     $scope.acceptObj = function(obj) {
@@ -125,19 +111,15 @@ angular.module("app")
 
     $scope.viewComplaint = function (id) {
         $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Complaint/'+id+'/json')
+        ComplaintService.get(id)
         .then(function (resp){
             var data = resp.data;
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + label;
             console.info("fetched ", data);
             $('#viewComplaintModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
-
-    console.info("noResponse");
     
     $scope.noResponse = function(id) {
         if (!confirm("Confirmar sem resposta?")) {
@@ -149,12 +131,10 @@ angular.module("app")
             state: SEM_RESPOSTA
         };
 
-        $http.post('/arfa/web/app_dev.php/administration/Complaint/update_state/'+id, req)
+        ComplaintService.updateState(id, req)
         .then(function (data){
             $.notify("Arquivado com sucesso.", "success");
             $("#row-" + obj.id).addClass('success');
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 

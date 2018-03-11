@@ -16,12 +16,10 @@ angular.module("app")
             state: stage.NO_RESPONSE
         };
 
-        $http.post('/arfa/web/app_dev.php/administration/Sugestion/update_state/'+obj.id, req)
+        SugestionService.updateState(obj.id, req)
         .then(function (data){
             $.notify(obj.code+" arquivado com sucesso.", "success");            
             $("#row-" + obj.id).addClass('success');
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -44,8 +42,8 @@ angular.module("app")
             clientResponse: form.response
         };
 
-        $http.post('/arfa/web/app_dev.php/administration/Sugestion/respond/' + id, req)
-        .then(function (data){
+        SugestionService.respond(id, req)
+        .then(function (data) {
             $scope.responseForm.response='';
             $.notify(" atribuido com sucesso!", "success");
             $("#row-" + id).addClass('success');
@@ -57,8 +55,6 @@ angular.module("app")
             setTimeout(function() {
                 $(RESPOND_MODAL).modal('hide');                
             }, 500);
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -88,7 +84,7 @@ angular.module("app")
 
     $scope.updatePar = function() {
         if (!confirm('Confirmar envio de parecer?')) {
-             return;
+            return;
         }
 
         var response = $scope.responseForm;
@@ -102,9 +98,6 @@ angular.module("app")
             parDescription: response.description,
             type: type
         };
-
-        console.info(response);
-        console.info(req);
 
         $http.post('/arfa/web/app_dev.php/administration/Sugestion/'+id+'/update_par', req)
         .then(function (data){
