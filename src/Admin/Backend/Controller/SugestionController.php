@@ -188,7 +188,7 @@ class SugestionController extends Controller {
             }   
         }
 
-        if ($entity->getParCode()) {         
+        if ($entity->getParCode()) {
             $obj["parCode"] = $entity->getParCode();
             $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();

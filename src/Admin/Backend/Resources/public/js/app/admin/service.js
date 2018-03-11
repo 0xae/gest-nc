@@ -31,8 +31,12 @@ angular.module("app")
     function uploadFile() {        
     }
 
+    function getByReference(ref) {        
+    }
+
     return {
-        upload: uploadFile
+        upload: uploadFile,
+        byReference: getByReference
     };
 }]);
 ;

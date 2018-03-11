@@ -96,6 +96,9 @@ class UploadController extends Controller {
         ));
     }
 
+    public function findAction($ref) {        
+    }
+
     /**
      * @return string
      */
