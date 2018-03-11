@@ -1,5 +1,7 @@
 angular.module("app")
-.controller("SugestionTreatController", ['$http', 'SugestionService', '$scope', 'Admin', function ($http, $scope, Admin) {
+.controller("SugestionTreatController", [
+'$http', 'SugestionService', 'UploadService', '$scope', 'Admin', 
+function ($http, SugestionService, UploadService, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
     var PAR_MODAL='#sugestionParecerModal';
@@ -66,7 +68,16 @@ angular.module("app")
         .then(function (data) {
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + labelX;
-            $('#viewSugestionModal').modal();            
+
+            $('#viewSugestionModal').modal();
+            
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                $scope.files = resp.files;
+                console.info("upload: ", resp);
+            }, function (err) {
+                return data;
+            });
         })
     }
 

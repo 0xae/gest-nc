@@ -1,5 +1,6 @@
 angular.module("app")
-.controller("SugestionAcompController", ['$http', '$scope','Admin', function ($http, $scope, Admin) {
+.controller("SugestionAcompController", ['$http', 'SugestionService', 'UploadService', '$scope','Admin', 
+function ($http, SugestionService, UploadService, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
 
@@ -103,7 +104,7 @@ angular.module("app")
     }
 
     $scope.respond = function (id) {
-        getSugestion(id)
+        SugestionService.get(id)
         .then(function (data){
             $scope.mObject = data;
             $(RESPOND_MODAL).modal();    
@@ -134,18 +135,27 @@ angular.module("app")
 
     $scope.viewSugestion = function (id, label) {
         $scope.entity = undefined;
-        $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
-        .then(function (resp){
-            var data = resp.data;
+        $scope.files = undefined;
+
+        SugestionService.get(id)
+        .then(function (data){
             $scope.entity = data;
             if (data.type == 'reclamacao') { // reclamacao
                 $scope.modalTitle = "Visualizando Reclamação";
             } else { // sugestao
                 $scope.modalTitle = "Visualizando Sugestão";                
             }
+
             $('#viewSugestionModal').modal();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+
+            UploadService.byReference(data.annexReference)
+            .then(function (resp){
+                $scope.files = resp.files;
+                console.info("upload: ", resp);
+            }, function (err) {
+                return data;
+            });
         });
+
     }
 }]);

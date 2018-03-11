@@ -1,5 +1,6 @@
 angular.module("app")
-.factory("SugestionService", ['$http', function ($http){
+.factory("SugestionService", ['$http', 'UploadService', 
+function ($http, UploadService){
     function getById(id) {
         return $http.get('/arfa/web/app_dev.php/administration/Sugestion/' + id +'/json')
         .then(function (resp){

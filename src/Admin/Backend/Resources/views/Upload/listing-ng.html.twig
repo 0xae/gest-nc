@@ -4,7 +4,6 @@
             <tr>                                    
                 <th></th>
                 <th>Anexo</th>
-                <th>Adicionado por</th>
                 <th>Adicionado em</th>
                 <th></th>
             </tr>
@@ -15,15 +14,17 @@
                     {{ '{{ f.annexType }}' }}
                 </td>
                 <td>
-                    <a href="{{ asset('uploads/generic/') }} {{'{{f.filename}}'}}" target="_blank">
+                    <a href="{{ asset('uploads/generic/') }}{{'{{f.filename}}'}}" target="_blank">
                         {{ '{{ f.description }}' }}
                     </a>
                 </td>
                 <td>
-                    {# {{entity.createdBy.name}}/{{entity.createdBy.entity.name}} #}
-                </td>
-                <td>
-                    {# {{entity.createdAt|date('Y-m-d')}} #}
+                    <center>
+                        <small>
+                        {{ '{{f.createdAt}}' }}<br/>
+                        por {{ '{{f.createdBy}}' }}
+                        </small>
+                    </center>
                 </td>
                 <td>
                     <a href="#" ng-click="remove(f.id)">

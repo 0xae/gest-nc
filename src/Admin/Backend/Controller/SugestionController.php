@@ -168,6 +168,7 @@ class SugestionController extends Controller {
             "email" => $entity->getEmail(),
             "phone" => $entity->getPhone(),
             "type" => $entity->getType(),
+            "annexReference" => $entity->getAnnexReference(),
             "description" => $entity->getDescription(),
             "objCode" => $entity->getObjCode(),
             "createdAt" => $cb->getCreatedAt()->format("Y-m-d"),
@@ -270,9 +271,9 @@ class SugestionController extends Controller {
         ]));
 
         return $this->createForm(new UploadType(), $entity, array(
-                'action' => $this->generateUrl('administration_Upload_create'),
-                'method' => 'POST',
-            ))->createView();
+            'action' => $this->generateUrl('administration_Upload_create'),
+            'method' => 'POST',
+        ))->createView();
     }
 
     /**

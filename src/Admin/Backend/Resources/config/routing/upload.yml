@@ -7,7 +7,7 @@ administration_Upload_show:
     defaults: { _controller: "BackendBundle:Upload:show" }
 
 administration_Upload_find:
-    path:     /{ref}/json
+    path:     /find/{ref}
     defaults: { _controller: "BackendBundle:Upload:find" }
 
 administration_Upload_new:

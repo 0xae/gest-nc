@@ -96,7 +96,28 @@ class UploadController extends Controller {
         ));
     }
 
-    public function findAction($ref) {        
+    public function findAction($ref) { 
+        $em = $this->getDoctrine()->getManager();        
+        $files = $em->getRepository('BackendBundle:Upload')
+                    ->findBy(['reference' => $ref]);
+        $ary = [];
+
+        foreach ($files as $f) {
+            $cb = $f->getCreatedBy();
+            $ary[] = [
+                "id" => $f->getId(),
+                "filename" => $f->getFilename(),
+                "description" => $f->getDescription(),
+                "annexType" => $f->getAnnexType()->getName(),
+                "createdAt" => $f->getCreatedAt()->format("Y-m-d"),
+                "createdBy" => $cb->getName() . "/" . $cb->getEntity()->getName()
+            ];
+        }
+
+        return new JsonResponse([
+            "ref" => $ref,
+            "files" => $ary
+        ]);
     }
 
     /**

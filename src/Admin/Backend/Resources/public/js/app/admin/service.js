@@ -31,7 +31,13 @@ angular.module("app")
     function uploadFile() {        
     }
 
-    function getByReference(ref) {        
+    function getByReference(ref) {
+        return $http.post('/arfa/web/app_dev.php/administration/Upload/find/'+ref)
+        .then(function (resp){
+            return resp.data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
     }
 
     return {
