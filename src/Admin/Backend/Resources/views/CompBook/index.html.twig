@@ -23,13 +23,11 @@
                         <thead>
                             <tr>                                       
                                 <th>ID#</th>
-                                <th>Cliente</th>
-                                <th>Telefone do utente</th>
-                                <th>Email do utente</th>
+                                <th>Utente</th>
+                                <th>Contacto do utente</th>
                                 <th>Fornecedor</th>
-                                <th>Data da reclama&ccedil;&atilde;o</th>
+                                <th>Data</th>
                                 <th>Data prevista (10 dias)</th>
-                                <th>Criado em</th>
                                 <th>Criado por</th>
                                 <th></th>
                             </tr>
@@ -43,12 +41,11 @@
                                         </a>
                                     </td>
                                     <td>{{ entity.clientName }}</td>
-                                    <td>{{ entity.clientPhone }}</td>
-                                    <td>{{ entity.clientEmail }}</td>
+                                    <td>{{ entity.clientPhone }}/
+                                    {{ entity.clientEmail }}</td>
                                     <td>{{ entity.supplierName }}</td>
-                                    <td>{{ entity.complaintDate|date('Y-m-d H:i:s') }}</td>      
-                                    <td>{{ entity.respDate|date('Y-m-d H:i:s') }}</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td> 
+                                    <td>{{ entity.createdAt|date('Y-m-d') }}</td>      
+                                    <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td><a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
                                         <span class="badge badge-primary">
