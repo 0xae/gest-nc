@@ -46,6 +46,7 @@ class SugestionController extends Controller {
         $em = $this->getDoctrine()->getManager();        
         $tpl = 'listing';
         $label = $state;
+
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) {
@@ -62,8 +63,9 @@ class SugestionController extends Controller {
             $label = 'Não Conformidades';
         }
 
-        $ary = $em->getRepository('BackendBundle:Sugestion')
-                  ->findBy(['state' => $state]);
+        $ary = $this->container
+            ->get('sga.admin.filter')
+            ->ByState($em, 'Sugestion', $state);
 
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
             'objects' => $ary,

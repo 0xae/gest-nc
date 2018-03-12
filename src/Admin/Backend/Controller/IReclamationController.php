@@ -94,10 +94,9 @@ class IReclamationController extends Controller {
             $label = 'Não Conformidades';
         }
 
-        $ary = $em->getRepository('BackendBundle:IReclamation')
-                  ->findBy([
-                      'state' => $state
-                   ]);
+        $ary = $this->container
+                    ->get('sga.admin.filter')
+                    ->ByState($em, 'IReclamation', $state);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,

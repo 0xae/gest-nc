@@ -263,7 +263,7 @@ class Sugestion {
 	}
 
     public function getRespDate(){
-        $date = clone $this->date;
+        $date = clone $this->createdAt;
         $date->add(new \DateInterval("P15D"));
         return $date;
 	}

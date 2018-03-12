@@ -75,29 +75,30 @@ class ComplaintController extends Controller {
     }
 
     public function byStateAction($state) {
-        $em = $this->getDoctrine()->getManager();        
+        $em = $this->getDoctrine()->getManager();
         $tpl = 'listing';
-        $label = $state;        
+        $label = $state;
 
         if ($state == Stage::ACOMPANHAMENTO) {
             $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) {
             $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
-            $label = 'Sem resposta';            
+            $label = 'Sem resposta';
             $tpl = 'sem_resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
-            $label = 'Sem competencia';            
+            $label = 'Sem competencia';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'Não favoravel';
         } else if ($state == Stage::NO_CONFOR) {
             $label = 'Não Conformidades';
-        }        
+        }
 
-        $ary = $em->getRepository('BackendBundle:Complaint')
-                  ->findBy(['state' => $state]);
+        $ary = $this->container
+            ->get('sga.admin.filter')
+            ->ByState($em, 'Complaint', $state);
 
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
             'objects' => $ary,
@@ -248,6 +249,7 @@ class ComplaintController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
+            $entity->setCreatedAt(new \DateTime);
             $entity->setState(Stage::ACOMPANHAMENTO);
 
             $em->persist($entity);
