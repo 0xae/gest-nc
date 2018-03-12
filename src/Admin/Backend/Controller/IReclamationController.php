@@ -79,7 +79,7 @@ class IReclamationController extends Controller {
 
         if ($state == Stage::ACOMPANHAMENTO) {
             $label = 'Acompanhamento';
-            $tpl = 'acomp';            
+            $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) { 
             $label = 'Tratamento';
         } else if ($state == Stage::SEM_RESPOSTA) {
@@ -95,8 +95,8 @@ class IReclamationController extends Controller {
         }
 
         $ary = $this->container
-                    ->get('sga.admin.filter')
-                    ->ByState($em, 'IReclamation', $state);
+                ->get('sga.admin.filter')
+                ->ByState($em, 'IReclamation', $state);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,
@@ -105,7 +105,7 @@ class IReclamationController extends Controller {
             'ACOMPANHAMENTO' => Stage::ACOMPANHAMENTO,
             'TRATAMENTO' => Stage::TRATAMENTO,
             'RESPONDIDO' => Stage::RESPONDIDO,
-            'SEM_RESPOSTA' => Stage::SEM_RESPOSTA,
+            'SEM_RESPOSTA' => Stage::SEM_RESPOSTA
         ));
     }
 

@@ -21,6 +21,7 @@
                             <th>Tipo</th>
                             <th>Responsável</th>
                             <th>Data</th>
+                            <th>Data prevista de resposta (15 dias)</th>
                             <th>Utente</th>
                             <th>Contato do utente</th>
                             <th></th>
@@ -47,6 +48,9 @@
                                 </td>
                                 <td>
                                     {{ entity.createdAt|date('Y-m-d') }}
+                                </td>
+                                <td>
+                                    {{ entity.respDate|date('Y-m-d') }}
                                 </td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
