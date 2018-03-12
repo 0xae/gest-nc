@@ -31,7 +31,8 @@ ul.pagination {
                             <th>Estado</th>
                             <th>Utente</th>
                             <th>Contacto</th>
-                            <th>Data de cria&ccedil;&atilde;o</th>
+                            <th>Data</th>
+                            <th>Data prevista de resposta</th>
                             <th>Criado por</th>
                             <th></th>
                         </tr>
@@ -54,7 +55,8 @@ ul.pagination {
                             <td>{{ entity.state }}</td>
                             <td>{{ entity.name }}</td>
                             <td>{{ entity.phone }} / {{ entity.email }}</td>
-                            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d') }}{% endif %}</td>     
+                            <td>{{ entity.createdAt|date('Y-m-d') }}</td>     
+                            <td>{{ entity.respDate|date('Y-m-d') }}</td>     
                             <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                             <td>
                                 <a href="{{ path('administration_Sugestion_receipt', { 'id': entity.id }) }}"

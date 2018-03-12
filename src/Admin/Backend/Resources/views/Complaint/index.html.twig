@@ -29,8 +29,9 @@ ul.pagination {
                     <thead>
                         <tr>
                             <th>C&oacute;digo#</th>
-                            <th>Tipo</th>
+                            {# <th>Tipo</th> #}
                             <th>Data</th>
+                            <th>Data prevista de resposta</th>
                             <th>Nome do utente</th>
                             <th>Telefone/email</th>
                             <th>Operador Económico</th>
@@ -42,14 +43,14 @@ ul.pagination {
                         {% for entity in entities %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('administration_Complaint_show', { 'id': entity.id }) }}">
+                                    <a href="{{ path('administration_Complaint_edit', {'id': entity.id}) }}">
                                         {{ entity.objCode }}
-                                    </a>                                    
-                                    <a href="#" class="label label-default">
-                                        {{ entity.state }}
-                                    </a>
+                                    </a>                                   
+                                    {# <a href="#" class="label label-default">
+                                            {{ entity.state }}
+                                    </a> #}
                                 </td>
-                                <td>
+                                {# <td>
                                     {% if entity.type == 'queixa' %}
                                         Queixa
                                     {% elseif entity.type == 'denuncia'  %}
@@ -57,8 +58,9 @@ ul.pagination {
                                     {% else %}
                                         {{entity.type}}
                                     {% endif %}
-                                </td>
+                                </td> #}
                                 <td>{{ entity.createdAt|date('Y-m-d') }}</td>
+                                <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone }}</td>
                                 <td>{{ entity.opName }}</td>
