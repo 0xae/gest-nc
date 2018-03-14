@@ -210,19 +210,23 @@ class IReclamationController extends Controller {
      * Finds and displays a IReclamation entity.
      */
     public function showAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+        return $this->redirect(
+            $this->generateUrl('administration_IReclamation_edit', 
+            array('id' => $id))            
+        );
+        // $em = $this->getDoctrine()->getManager();
+        // $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find IReclamation entity.');
-        }
+        // if (!$entity) {
+        //     throw $this->createNotFoundException('Unable to find IReclamation entity.');
+        // }
 
-        $deleteForm = $this->createDeleteForm($id);
+        // $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:IReclamation:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        // return $this->render('BackendBundle:IReclamation:show.html.twig', array(
+        //     'entity'      => $entity,
+        //     'delete_form' => $deleteForm->createView(),
+        // ));
     }
 
     /**

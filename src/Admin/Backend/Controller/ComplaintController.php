@@ -287,23 +287,25 @@ class ComplaintController extends Controller {
      *
      */
     public function showAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
+        return $this->redirect(
+            $this->generateUrl('administration_Complaint_edit', 
+            array('id' => $id))
+        );
+        // $em = $this->getDoctrine()->getManager();
+        // $entity = $em->getRepository('BackendBundle:Complaint')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Complaint entity.');
-        }
-
+        // if (!$entity) {
+        //     throw $this->createNotFoundException('Unable to find Complaint entity.');
+        // }
         // $annex = $entity->getFactAnnex();        
         // $path = false;
         // if ($annex) {
         //     $path = $this->getParameter('complaints_directory') . '/' . $annex;
         //     $entity->setFactAnnex(new File($path));
-        // }
-        
-        return $this->render('BackendBundle:Complaint:show.html.twig', array(
-            'entity' => $entity
-        ));
+        // }        
+        // return $this->render('BackendBundle:Complaint:show.html.twig', array(
+        //     'entity' => $entity
+        // ));
     }
 
     /**

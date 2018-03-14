@@ -55,7 +55,7 @@ class CorrectionController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Correction_show', 
+            return $this->redirect($this->generateUrl('administration_Correction_edit', 
                     array('id' => $entity->getId(),
                           'is_new' => true))
                 );
@@ -105,20 +105,24 @@ class CorrectionController extends Controller {
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        return $this->redirect(
+            $this->generateUrl('administration_Correction_edit', 
+            array('id' => $id))
+        );
+        // $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BackendBundle:Correction')->find($id);
+        // $entity = $em->getRepository('BackendBundle:Correction')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Correction entity.');
-        }
+        // if (!$entity) {
+        //     throw $this->createNotFoundException('Unable to find Correction entity.');
+        // }
 
-        $deleteForm = $this->createDeleteForm($id);
+        // $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:Correction:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        // return $this->render('BackendBundle:Correction:show.html.twig', array(
+        //     'entity'      => $entity,
+        //     'delete_form' => $deleteForm->createView(),
+        // ));
     }
 
     /**

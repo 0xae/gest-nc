@@ -83,18 +83,22 @@ class CompBookController extends Controller {
      *
      */
     public function showAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
+        return $this->redirect(
+            $this->generateUrl('administration_CompBook_edit', 
+            array('id' => $id))
+        );        
+        // $em = $this->getDoctrine()->getManager();
+        // $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find CompBook entity.');
-        }
+        // if (!$entity) {
+        //     throw $this->createNotFoundException('Unable to find CompBook entity.');
+        // }
 
-        $deleteForm = $this->createDeleteForm($id);
-        return $this->render('BackendBundle:CompBook:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        // $deleteForm = $this->createDeleteForm($id);
+        // return $this->render('BackendBundle:CompBook:show.html.twig', array(
+        //     'entity'      => $entity,
+        //     'delete_form' => $deleteForm->createView(),
+        // ));
     }
 
     /**

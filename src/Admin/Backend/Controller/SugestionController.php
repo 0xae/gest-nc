@@ -299,22 +299,27 @@ class SugestionController extends Controller {
      *
      */
     public function showAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
+        return $this->redirect(
+            $this->generateUrl('administration_Sugestion_edit', 
+            array('id' => $id))
+        );
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Sugestion entity.');
-        }
+        // $em = $this->getDoctrine()->getManager();
+        // $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 
-        if ($entity->getAnnex()) {
-            $entity->setAnnex(
-                new File($this->getParameter('sugestions_directory').'/'.$entity->getAnnex())
-            );
-        }
+        // if (!$entity) {
+        //     throw $this->createNotFoundException('Unable to find Sugestion entity.');
+        // }
 
-        return $this->render('BackendBundle:Sugestion:show.html.twig', array(
-            'entity' => $entity
-        ));
+        // if ($entity->getAnnex()) {
+        //     $entity->setAnnex(
+        //         new File($this->getParameter('sugestions_directory').'/'.$entity->getAnnex())
+        //     );
+        // }
+
+        // return $this->render('BackendBundle:Sugestion:show.html.twig', array(
+        //     'entity' => $entity
+        // ));
     }
 
     /**
