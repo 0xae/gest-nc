@@ -90,5 +90,4 @@ class StatsController extends Controller {
 		$stmt->execute($params);
 		return $stmt->fetchAll();
 	}
-
 }

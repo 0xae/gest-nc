@@ -157,7 +157,10 @@ class DocumentController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('administration_Document_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_Document_edit', 
+                array('id' => $id,
+                    'is_updated' => true))
+            );
         }
 
         return $this->render('BackendBundle:Document:edit.html.twig', array(

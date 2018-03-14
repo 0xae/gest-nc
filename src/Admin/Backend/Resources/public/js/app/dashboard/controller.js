@@ -43,7 +43,7 @@ angular.module("app")
 
             var render = Object.keys(series).map(function (k){ return series[k]; });
             renderBar(
-                'Queixas/Denúncias/Sugestões/Reclamações por Direções', 
+                'Ocorrência por direções', 
                 'Ocorrencias',
                 '',
                 'by_department',
@@ -104,7 +104,7 @@ angular.module("app")
                 'Dezembro'
             ];
     
-            renderBar('Queixas/Denúncias/Sugestões por Mês',
+            renderBar('Ocorrência por mês',
                 'Ocorrencias',
                 '',
                 'by_month',

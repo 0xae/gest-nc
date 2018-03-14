@@ -8,10 +8,16 @@ $("#business-privacy-descr").trumbowyg({
 
 var url = new URL(location.href);
 var isNew=url.searchParams.get('is_new');
+var isUpdated=url.searchParams.get('is_updated');
 var uploadedAdded=url.searchParams.get('upload_added');
+
 
 if (isNew) {
     $.notify("Objecto guardado com sucesso", "success");
+}
+
+if (isUpdated) {
+    $.notify("Objecto actualizado com sucesso", "success");    
 }
 
 if (uploadedAdded) {

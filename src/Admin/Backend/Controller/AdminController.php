@@ -127,12 +127,10 @@ class AdminController extends Controller {
         $routeCollection = $this->get('router')
                                 ->getRouteCollection();
         
-        foreach ($routeCollection->all() as $routeName => $route) {
-            if ($routeName[0] == '_' || strstr($routeName, 'webcommand') ||
-                    strstr($routeName, 'commandrunner')){
-                continue;
+        foreach ($routeCollection->all() as $routeName => $route) {            
+            if (strstr($routeName, 'administration_')){
+                $ary[] = $routeName;
             }
-            $ary[] = $routeName;
         }
 
         return $ary;

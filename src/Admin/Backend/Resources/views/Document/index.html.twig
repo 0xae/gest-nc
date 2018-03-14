@@ -6,11 +6,11 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Documentos</h3>
+                <h3 class="box-title">Anexos</h3>
                 <div class="box-tools">
                     <a href="{{path('administration_Document_new')}}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-plus"></span>
-                        Criar documento
+                        Criar anexo
                     </a>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         {% for entity in entities %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('administration_Document_show', { 'id': entity.id }) }}">
+                                    <a href="{{ path('administration_Document_edit', { 'id': entity.id }) }}">
                                     #{{ entity.id }}
                                     </a>
                                 </td>
