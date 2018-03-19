@@ -5,8 +5,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\CompBook;
-use Admin\Backend\Form\CompBookType;
 use Admin\Backend\Entity\Upload;
+use Admin\Backend\Entity\Stage;
+use Admin\Backend\Form\CompBookType;
 use Admin\Backend\Form\UploadType;
 
 /**
@@ -38,6 +39,56 @@ class CompBookController extends Controller {
         ));
     }
 
+    public function byStateAction($state) {
+        $em = $this->getDoctrine()->getManager();    
+
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 10;
+
+        $tpl = 'listing';
+        $label = $state;
+
+        if ($state == Stage::ACOMPANHAMENTO) {
+            $label = 'em acompanhamento';
+        }
+
+        $ary = $this->container
+            ->get('sga.admin.filter')
+            ->ByState($em, 'CompBook', $state);
+
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
+
+        // $entities = $q->getResult();   
+        return $this->render('BackendBundle:CompBook:' . $tpl . '.html.twig', array(
+            'objects' => $ary,
+            'label' => $label,
+            'state' => $state            
+        ));
+    }
+
+    public function receiptAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
+        $type = @$_GET['type'];
+        $tpl = 'receipt';
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Objecto nao encontrado!');
+        }
+
+        if ($type=='response') {
+            $tpl = 'response';
+        } else if ($type == Stage::NO_COMP) {
+            $tpl = 'no_competence';
+        }
+
+        return $this->render('BackendBundle:CompBook:docs/'.$tpl.'.html.twig', array(
+            'entity' => $entity
+        ));
+    }
+
     /**
      * Creates a new CompBook entity.
      *
@@ -50,6 +101,7 @@ class CompBookController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
+            $entity->setState(Stage::ACOMPANHAMENTO);
             $entity->setCreatedBy($userId);
             $entity->setCreatedAt(new \DateTime);
             $em->persist($entity);

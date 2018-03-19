@@ -28,3 +28,11 @@ administration_CompBook_delete:
     path:     /{id}/delete
     defaults: { _controller: "BackendBundle:CompBook:delete" }
     methods:  [POST, DELETE]
+
+administration_CompBook_byState:
+    path:     /by_state/{state}
+    defaults: { _controller: "BackendBundle:CompBook:byState" }
+
+administration_CompBook_receipt:
+    path:     /receipt/{id}
+    defaults: { _controller: "BackendBundle:CompBook:receipt" }

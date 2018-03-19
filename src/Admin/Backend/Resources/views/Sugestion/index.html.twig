@@ -28,7 +28,6 @@ ul.pagination {
                     <thead>
                         <tr>                                        
                             <th>ID#</th>
-                            <th>Estado</th>
                             <th>Utente</th>
                             <th>Contacto</th>
                             <th>Data</th>
@@ -41,18 +40,10 @@ ul.pagination {
                         {% for entity in entities %}
                             <tr>                                                                                  
                             <td>                
-                                {% if entity.type == 'reclamacao' %}
-                                    Reclamação
-                                {% elseif entity.type == 'sugestao' %}
-                                    Sugestão
-                                {% else %}
-                                    {{entity.type}}
-                                {% endif %}        
                                 <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
-                                {{ entity.objCode }}
+                                    {{ entity.objCode }}
                                 </a>
                             </td>                                                                                    
-                            <td>{{ entity.state }}</td>
                             <td>{{ entity.name }}</td>
                             <td>{{ entity.phone }} / {{ entity.email }}</td>
                             <td>{{ entity.createdAt|date('Y-m-d') }}</td>     

@@ -42,6 +42,12 @@ class CompBook {
     private $supplierAddress;
 
     /**
+     *
+     * @ORM\Column(name="state", type="string", length=250, nullable=true)
+     */
+    private $state;
+
+    /**
      * @ORM\Column(name="client_address", type="string", length=250, nullable=true)
      */
     private $clientAddress;
@@ -122,6 +128,18 @@ class CompBook {
     public function setAnnexReference($ref) {
         $this->annexReference = $ref;
         return $this;
+    }
+
+    public function getState() {
+        return $this->state;
+    }
+
+    public function setState($val){
+		return $this->state = $val;
+    }    
+
+    public function getObjCode() {
+        return str_pad($this->id, 3, '0', STR_PAD_LEFT);
     }
 
     /**
