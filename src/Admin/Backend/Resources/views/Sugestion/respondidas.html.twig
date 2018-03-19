@@ -22,7 +22,6 @@
                                 <th>Data</th>
                                 <th>Criado por</th>
                                 <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +42,6 @@
                                     <td><span class="badge bg-green badge-success">Respondida</span></td>
                                     <td>{{ entity.name }}</td>
                                     <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                                    <td>{{ entity.address }}</td>
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                     <td>
                                         <a href="#" ng-click="viewSugestion({{entity.id}})">

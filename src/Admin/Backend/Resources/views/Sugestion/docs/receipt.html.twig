@@ -12,17 +12,6 @@
     <center>
         <h3 class="box-title" style="font-weight:bold">
             Recibo de Ocorrência
-            {# {% if entity.type == 'reclamacao' %}
-                Reclamação Externa
-            {% else %}
-                Sugestão
-            {% endif %} #}
-        </h3>
-
-        <h3>
-            <a href="#">
-                #{{ entity.objCode }}            
-            </a>
         </h3>
     </center>
 
@@ -35,6 +24,7 @@
         </thead>
         <tbody>
             <tr>
+                <td>Tipo</td>
                 <td>
                     {% if entity.type == 'reclamacao' %}
                         Reclamação Externa
@@ -42,7 +32,21 @@
                         Sugestão
                     {% endif %}
                 </td>
+            </tr>
+
+            <tr>
+                <td>Numero do Registo</td>
                 <td>#{{ entity.objCode }}</td>
+            </tr>
+
+
+            <tr>
+                <td>Dados do Utente</td>
+                <td>
+                    {{ entity.name }}<br/>
+                    {{ entity.phone }}<br/>
+                    {{ entity.email }}<br/>
+                </td>
             </tr>
 
             <tr>
@@ -51,21 +55,12 @@
                     {{ entity.date|date('Y-m-d') }}
                 </td>
             </tr>
-
-            <tr>
-                <td>Utente</td>
-                <td>
-                    {{ entity.name }}<br/>
-                    {{ entity.phone }}<br/>
-                    {{ entity.email }}<br/>
-                </td>
-            </tr>
         </tbody>
     </table>
 
-    <h4>Descrição sumária</h4>
+    <h4>Mensagem da Recepcao</h4>
     <div class="well">
-        {{entity.description}}
+        <textarea class="form-control" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
