@@ -55,14 +55,7 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
-                                    {% if entity.parCode %}
-                                        <a href="#" ng-click="viewSugestion({{entity.id}})"
-                                            title="Visualizar sugestao">
-                                            <span class="label label-success" style="display:inline">
-                                                Parecer ({{entity.parCode}})
-                                            </span>
-                                        </a>
-
+                                    {% if entity.parAuthor %}
                                         <div class="dropdown" id="row-{{entity.id}}-dispatch" style="display: inline">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Responder
@@ -79,6 +72,15 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        <a href="#" ng-click="viewSugestion({{entity.id}})"
+                                            title="Visualizar sugestao">
+                                            <span class="label label-success" style="display:inline">
+                                                Parecer 
+                                                {% if entity.parType == 'par_sec' %}
+                                                    Cient&iacute;fico
+                                                {% else %} T&eacute;cnico {% endif %}
+                                            </span>
+                                        </a>
                                     {% else %}
                                         <span id="row-{{entity.id}}-ok" 
                                             style="display:none" 

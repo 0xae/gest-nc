@@ -187,27 +187,26 @@ class ComplaintController extends Controller {
             "factDetail" => $entity->getFactDetail(),
             "factDate" => $entity->getFactDate(),
             "opPhone" => $entity->getOpPhone(),
-            "opEmail" => $entity->getOpEmail(),        
-            "opName" => $entity->getOpName(),                    
+            "opEmail" => $entity->getOpEmail(),
+            "opName" => $entity->getOpName(),
             "phone" => $entity->getPhone(),
             "email" => $entity->getEmail(),
             "type" => $entity->getType(),
             "objCode" => $entity->getObjCode(),
-            "annexReference" => $entity->getAnnexReference(),            
+            "annexReference" => $entity->getAnnexReference(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
         ];
 
-        if ($entity->getParCode()) {
+        if ($entity->getParAuthor()) {
             $obj["parCode"] = $entity->getParCode();
-            if ($entity->getParDate())
-                $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
+            $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();
             $obj["parDescription"] = $entity->getParDescription();
         }
-        
+
         foreach ($files as $f) {
             $obj["files"][] = [
                 "id" => $f->getId(),

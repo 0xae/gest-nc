@@ -19,25 +19,23 @@
 
             <div class="form-group">
                 <label>C&oacute;digo PTC</label>
-                <input class="form-control" required ng-model="responseForm.parecerCode" />
+                <input class="form-control" ng-model="responseForm.parecerCode" />
             </div>
 
             <div class="form-group">
                 <label>Assunto</label>
-                <input class="form-control" required ng-model="responseForm.parecerSubject" />
+                <input class="form-control" ng-model="responseForm.parecerSubject" />
             </div>
 
             <div class="form-group">
                 <label>Destinat&aacute;rios</label>
                 <textarea ng-model="responseForm.destination" 
-                    required
                     class="form-control"
                     rows="2" placeholder="..."></textarea>
             </div>
 
-            <label>Texto do parecer (<span style="color:orangered">*</span>)</label>
+            <label>Texto do parecer</label>
             <textarea ng-model="responseForm.description" 
-                required
                 class="form-control"
                 rows="5" placeholder="..."></textarea>
         </div>

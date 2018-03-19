@@ -196,7 +196,7 @@ class SugestionController extends Controller {
             }   
         }
 
-        if ($entity->getParCode()) {
+        if ($entity->getParAuthor()) {
             $obj["parCode"] = $entity->getParCode();
             $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
@@ -218,10 +218,10 @@ class SugestionController extends Controller {
             throw $this->createNotFoundException('Essa Sugestao/Reclamacao nao foi encontrada.');
         }
 
-        $entity->setParCode($data['parCode']);
-        $entity->setParSubject($data['parSubject']);
-        $entity->setParDest($data['parDestination']);
-        $entity->setParDescription($data['parDescription']);
+        $entity->setParCode(@$data['parCode']);
+        $entity->setParSubject(@$data['parSubject']);
+        $entity->setParDest(@$data['parDestination']);
+        $entity->setParDescription(@$data['parDescription']);
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
         $entity->setParDate(new \DateTime());
