@@ -20,6 +20,7 @@
                 <p style="font-size:12px;color:gray">
                     <span class="fa fa-user"></span>
                     Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
+                    <br/> <span class="fa fa-calendar"></span> em {{entity.createdAt|date('Y-m-d')}}
                 </p>
                 <p>
                     <a href="{{ path('administration_Complaint') }}">                        

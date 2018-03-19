@@ -152,4 +152,8 @@ class AppEntity {
     {
         return $this->createdBy;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

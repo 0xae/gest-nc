@@ -49,10 +49,7 @@ class Sugestion {
     /**
      * @var \Location
      *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="address", referencedColumnName="id", nullable=true)
-     * })
+     * @ORM\Column(name="address", type="string", length=250, nullable=true)
      */
      private $address;
 
@@ -122,6 +119,16 @@ class Sugestion {
      * })
      */
     private $stage;
+
+    /**
+     * @var \Admin\Backend\Entity\AppEntity
+     *
+     * @ORM\ManyToOne(targetEntity="Admin\Backend\Entity\AppEntity")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="entity", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $entity;
 
     /**
      * @var \Stage
@@ -206,6 +213,28 @@ class Sugestion {
      * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
      */
     private $annexReference;
+
+        /**
+     * Set entity
+     *
+     * @param \Admin\Backend\Entity\AppEntity $entity
+     * @return User
+     */
+    public function setEntity(\Admin\Backend\Entity\AppEntity $entity = null)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return \Admin\Backend\Entity\AppEntity 
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
 
     public function isNoCompetence() {
         return $this->state == Stage::NO_COMP;

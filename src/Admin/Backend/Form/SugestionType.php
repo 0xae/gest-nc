@@ -29,6 +29,7 @@ class SugestionType extends AbstractType {
             ))
             ->add('address')
             ->add('phone')
+            ->add('entity')            
             ->add('email', 'email', array(
                 'required'=>false
             ))
