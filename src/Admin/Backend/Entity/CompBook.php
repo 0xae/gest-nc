@@ -28,7 +28,7 @@ class CompBook {
     private $clientName;
 
 
-        /**
+    /**
      * @var string
      *
      * @ORM\Column(name="supplier_name", type="string", length=45, nullable=false)
@@ -36,22 +36,13 @@ class CompBook {
     private $supplierName;
     
     /**
-     * @var \Location
      *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="supplier_address", referencedColumnName="id", nullable=false)
-     * })
+     * @ORM\Column(name="supplier_address", type="string", length=250, nullable=true)
      */
     private $supplierAddress;
 
     /**
-     * @var \Location
-     *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client_address", referencedColumnName="id", nullable=false)
-     * })
+     * @ORM\Column(name="client_address", type="string", length=250, nullable=true)
      */
     private $clientAddress;
 
@@ -100,7 +91,7 @@ class CompBook {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="complaint_date", type="datetime", nullable=false)
+     * @ORM\Column(name="complaint_date", type="date", nullable=false)
      */
     private $complaintDate;
 
