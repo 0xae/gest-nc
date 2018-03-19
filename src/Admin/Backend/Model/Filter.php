@@ -17,7 +17,7 @@ class Filter {
         $builder = $em->createQueryBuilder();
         return $builder->select('x')
             ->from($klass, 'x')
-            ->orderBy('x.createdAt', 'desc')
+            ->orderBy('x.id', 'asc')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->getQuery();

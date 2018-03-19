@@ -54,12 +54,17 @@
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.phone ~ '/' }} {{entity.email}}</td>
                                 <td>
+                                    {% if entity.noCompetence %}
+                                        <a href="{{ path('administration_Sugestion_receipt', {'id': entity.id, 'type': state}) }}"
+                                            title="Recibo do utente"
+                                            target="_blank">
+                                            <span class="label label-primary">Recibo de resposta</span>
+                                        </a>
+                                    {% endif %}
+
                                     <a href="#" ng-click="viewSugestion({{entity.id}})">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
-                                    {# <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
-                                        <span class="text-warning fa fa-edit"></span>
-                                    </a> #}
                                 </td>
                             </tr>
                         {% endfor %}

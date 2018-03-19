@@ -70,7 +70,8 @@ class SugestionController extends Controller {
 
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
             'objects' => $ary,
-            'label' => $label
+            'label' => $label,
+            'state' => $state            
         ));
     }
 
@@ -106,10 +107,13 @@ class SugestionController extends Controller {
 
         if ($type == 'response') {
             $tpl = 'response';
+        } else if ($type == Stage::NO_COMP) {
+            $tpl = 'no_competence';
         }
 
         return $this->render('BackendBundle:Sugestion:docs/'.$tpl.'.html.twig', array(
-            'entity' => $entity
+            'entity' => $entity,
+            'state' => $type
         ));
     }
 

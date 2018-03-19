@@ -2,17 +2,6 @@
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
     {# Identificação do utente #}
     <div class="row">
-        {# <div class="hidden">
-            {{ form_widget(form.stage) }}
-        </div> #}
-        {# <div class="col-md-12">
-            {% for message in app.session.flashBag.get('complaint') %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div> #}
-
         <div class="col-md-6">
             <div style="color: gray;margin-bottom: 20px;">
                 <span class="fa fa-user"></span>
@@ -56,7 +45,7 @@
                 {{ form_widget(form.type) }}
             </div>
 
-            <div class="form-group">
+            <div class="form-group hidden">
                 <label>Data de criação</label>
                 {{ form_widget(form.createdAt, {
                     'read_only' : true

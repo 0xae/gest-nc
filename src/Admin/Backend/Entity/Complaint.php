@@ -257,6 +257,10 @@ class Complaint {
      */
     private $annexReference;
 
+    public function isNoCompetence() {
+        return $this->state == Stage::NO_COMP;        
+    }
+
     public function setAnnexReference($ref) {
         $this->annexReference = $ref;
         return $this;

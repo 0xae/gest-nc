@@ -54,6 +54,8 @@ class ComplaintController extends Controller {
 
         if ($type=='response') {
             $tpl = 'response';
+        } else if ($type == Stage::NO_COMP) {
+            $tpl = 'no_competence';
         }
 
         return $this->render('BackendBundle:Complaint:docs/'.$tpl.'.html.twig', array(
@@ -89,7 +91,7 @@ class ComplaintController extends Controller {
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
-            $label = 'da competência de terceiros';            
+            $label = 'da competência de terceiros';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'Não favoravel';
         } else if ($state == Stage::NO_CONFOR) {
@@ -102,7 +104,8 @@ class ComplaintController extends Controller {
 
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
             'objects' => $ary,
-            'type' => $label
+            'type' => $label,
+            'state' => $state
         ));
     }
 

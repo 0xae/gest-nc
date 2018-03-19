@@ -12,18 +12,7 @@
 
     <center>
         <h3 class="box-title" style="font-weight:bold">
-            Recibo de Ocorrência
-            {# {% if entity.type == 'queixa' %}
-                Queixa
-            {% else %}
-                Den&uacute;ncia
-            {% endif %} #}
-        </h3>
-
-        <h3>
-            <a href="#">
-                #{{ entity.objCode }}            
-            </a>
+            Envio de Ocorrência a Terceiros
         </h3>
     </center>
 
@@ -38,10 +27,10 @@
             <tr>
                 <td>Tipo</td>
                 <td>
-                    {% if entity.type == 'queixa' %}
-                        Queixa
+                    {% if entity.type == 'reclamacao' %}
+                        Reclamação Externa
                     {% else %}
-                        Den&uacute;ncia
+                        Sugestão
                     {% endif %}
                 </td>
             </tr>
@@ -63,18 +52,9 @@
             </tr>
 
             <tr>
-                <td>Dados do Operador Economico</td>
-                <td>
-                    {{ entity.opName }}<br/>
-                    {{ entity.opPhone }}<br/>
-                    {{ entity.opAddress }}<br/>
-                </td>
-            </tr>
-
-            <tr>
                 <td>Data da Ocorrência</td>
                 <td>
-                    {{ entity.factDate|date('Y-m-d') }}
+                    {{ entity.date|date('Y-m-d') }}
                 </td>
             </tr>
         </tbody>
@@ -89,6 +69,7 @@
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
             Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
+            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
         </p>
     </div>
 

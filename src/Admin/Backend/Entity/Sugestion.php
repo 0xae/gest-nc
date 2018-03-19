@@ -207,6 +207,10 @@ class Sugestion {
      */
     private $annexReference;
 
+    public function isNoCompetence() {
+        return $this->state == Stage::NO_COMP;
+    }
+
     /**
      * Set factAnnex
      *
