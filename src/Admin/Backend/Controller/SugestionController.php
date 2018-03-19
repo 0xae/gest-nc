@@ -303,7 +303,6 @@ class SugestionController extends Controller {
             $this->generateUrl('administration_Sugestion_edit', 
             array('id' => $id))
         );
-
         // $em = $this->getDoctrine()->getManager();
         // $entity = $em->getRepository('BackendBundle:Sugestion')->find($id);
 

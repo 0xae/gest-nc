@@ -36,12 +36,8 @@ class Complaint {
     private $address;
 
     /**
-     * @var \Location
      *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="locality", referencedColumnName="id", nullable=true)
-     * })
+     * @ORM\Column(name="client_locality", type="string", length=250, nullable=true)
      */
     private $locality;
 
@@ -90,10 +86,7 @@ class Complaint {
     /**
      * @var \Location
      *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="op_locality", referencedColumnName="id", nullable=true)
-     * })
+     * @ORM\Column(name="op_locality", type="string", length=250, nullable=true)
      */
     private $opLocality;
 
@@ -134,12 +127,8 @@ class Complaint {
     private $factDetail; 
 
     /**
-     * @var \Location
      *
-     * @ORM\ManyToOne(targetEntity="Location")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fact_locality", referencedColumnName="id", nullable=true)
-     * })
+     * @ORM\Column(name="fact_locality", type="string", length=250, nullable=true)
      */
      private $factLocality; 
 

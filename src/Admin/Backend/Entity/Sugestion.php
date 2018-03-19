@@ -73,7 +73,7 @@ class Sugestion {
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=250, nullable=false)
+     * @ORM\Column(name="description", type="string", length=250, nullable=true)
      */
     private $description;
 

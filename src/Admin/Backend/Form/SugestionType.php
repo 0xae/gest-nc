@@ -24,32 +24,22 @@ class SugestionType extends AbstractType {
                         Model::SUGESTION => 'Sugestão'
                     ),
             ))
-            ->add('name')
+            ->add('name', 'text', array(
+                'required' => true
+            ))
             ->add('address')
             ->add('phone')
-            ->add('email', 'email')
+            ->add('email', 'email', array(
+                'required'=>false
+            ))
             ->add('description', 'textarea', array(
                 'attr' => array(
                     'class' => 'my-textarea text-editor',
                     'rows' => 6,
-                    'placeholder' => 'Insira o ocorrido...'
+                    'value' => '...'
                 )
             ))
             ->add('date')
-            // ->add('annexReference')
-            // ->add('annex')
-            // ->add('createdBy', 'entity', array(
-            //     'class' => 'BackendBundle:User',
-            //     'query_builder' => function (EntityRepository $er) use ($options) {
-            //         $qb=$er->createQueryBuilder('u');
-            //         if ($options['data'] && $options['data']->getCreatedBy()) {
-            //             $qb->where('u.id = ' . $options['data']->getCreatedBy()->getId());
-            //         }
-    
-            //         return $qb->orderBy('u.name', 'ASC');                
-            //     },
-            //     'choice_label' => 'name',
-            // ))
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

@@ -16,7 +16,8 @@ angular.module("app")
     $scope.onSubmitForm = function() {
         console.info($scope.categoryConf);
         console.info("set ", $scope.categoryConf);
-
         $("#admin_backend_complaint_complaintCategory").val(JSON.stringify($scope.categoryConf));
+
+        return false;
     }
 }]);

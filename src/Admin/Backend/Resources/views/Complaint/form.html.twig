@@ -64,15 +64,15 @@
             </div>
 
             <div class="form-group" ng-init="setCategory('{{entity.complaintCategory}}')">
-                <input type="checkbox" ng-model="categoryConf.cat_sf.active" />
+                <input type="checkbox" ng-model="categoryConf.cat_sf.active" ng-disabled="categoryConf.cat_sa.active" />
                 <label>Setor Farmacêutico</label>
                 <div>
                     <ul class="unstyled">
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op1" /> Biocidas</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op2" /> Medicamentos de Uso Humano</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op3" /> Produtos Cosméticos</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op4" /> Produtos Químico-farmacêuticos</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op5" /> Outros</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op1" ng-disabled="categoryConf.cat_sa.active" /> Biocidas</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op2" ng-disabled="categoryConf.cat_sa.active" /> Medicamentos de Uso Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op3" ng-disabled="categoryConf.cat_sa.active" /> Produtos Cosméticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op4" ng-disabled="categoryConf.cat_sa.active" /> Produtos Químico-farmacêuticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op5" ng-disabled="categoryConf.cat_sa.active" /> Outros</li>
                     </ul>
                 </div>
                 {{ form_widget(form.complaintCategory, {'attr': {
@@ -81,14 +81,14 @@
             </div>
 
             <div class="form-group">
-                <input type="checkbox" ng-model="categoryConf.cat_sa.active" />
+                <input type="checkbox" ng-model="categoryConf.cat_sa.active" ng-disabled="categoryConf.cat_sf.active" />
                 <label>Setor Alimentar</label>
                 <div>
                     <ul class="unstyled">
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op1" /> Alimentos destinados ao Consumo Humano</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op2" /> Suplementos e Aditivos Alimentares</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op3" /> Alimentos com propriedades Funcionais</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op4" /> Outros</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op1" ng-disabled="categoryConf.cat_sf.active" /> Alimentos destinados ao Consumo Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op2" ng-disabled="categoryConf.cat_sf.active" /> Suplementos e Aditivos Alimentares</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op3" ng-disabled="categoryConf.cat_sf.active" /> Alimentos com propriedades Funcionais</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op4" ng-disabled="categoryConf.cat_sf.active" /> Outros</li>
                     </ul>
                 </div>
             </div>
@@ -186,8 +186,8 @@
             </div>
 
             <div class="form-group">
-                <label>Tipo do anexo</label>
-                {{ form_widget(form.annexType) }}
+                {# <label>Tipo do anexo</label> #}
+                {# {{ form_widget(form.annexType) }} #}
             </div>
         </div>
 

@@ -19,7 +19,9 @@ class ComplaintType extends AbstractType {
             ->add('address')
             ->add('locality')
             ->add('phone')
-            ->add('email', 'email')
+            ->add('email', 'email',[
+                'required' => false
+            ])
             ->add('type', 'choice', array(
                 'choices'  => array(
                     'queixa' => 'Queixa',
@@ -41,14 +43,15 @@ class ComplaintType extends AbstractType {
                 'label' => ' ',
                 'required' => false
             ))
-            ->add('annexType', 'entity', array(
-                'class' => 'BackendBundle:Document',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                      ->orderBy('u.name', 'ASC');
-                },
-                'choice_label' => 'name'
-            ))
+            // ->add('annexType', 'entity', array(
+            //     ''
+            //     'class' => 'BackendBundle:Document',
+            //     'query_builder' => function (EntityRepository $er) {
+            //         return $er->createQueryBuilder('u')
+            //           ->orderBy('u.name', 'ASC');
+            //     },
+            //     'choice_label' => 'name'
+            // ))
             ->add('createdAt')
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',

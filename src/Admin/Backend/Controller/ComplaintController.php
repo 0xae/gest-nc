@@ -425,6 +425,7 @@ class ComplaintController extends Controller {
 
         $entity->setAnnexReference(md5(uniqid()));
         $entity->setFactDate(new \DateTime);
+        $entity->setComplaintCategory('{"asd": 123}');
         $form = $this->createForm(new ComplaintType(), $entity, array(
             'action' => $this->generateUrl('administration_Complaint_create'),
             'method' => 'POST',
