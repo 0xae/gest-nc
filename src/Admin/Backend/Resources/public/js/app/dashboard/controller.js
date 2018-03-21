@@ -4,8 +4,8 @@ angular.module("app")
     console.info("--- init dash controller ---");
 
     setTimeout(function(){
-        renderGraph1();
-        renderGraph3();
+        // renderGraph3();
+        // renderDepartments(2018);
     }, 1500);
 
     function renderDepartments(year) {

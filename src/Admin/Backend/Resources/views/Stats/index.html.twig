@@ -1,8 +1,7 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content %}
-
-    <div ng-controller="DashboardController">
+    <div ng-controller="StatisticsController">
         {# counters #}
         <div class="row">
             {{ include('BackendBundle:Stats:counters.html.twig') }}
@@ -18,7 +17,6 @@
                 </div>
             </div>
 
-            {# Pie Chart #}
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-body no-padding">
@@ -27,10 +25,36 @@
                 </div>
             </div>
 
-            <div class="col-md-12 hidden">
+            <div class="col-md-12">
                 <div class="box">
                     <div class="box-body no-padding">
-                        <div id="graph1"></div>
+                        <div id="graph3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body no-padding">
+                        <div id="graph4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body no-padding">
+                        <div id="graph5"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="">
+                    </div>
+                    <div class="box-body no-padding">
+                        <div id="by_department"></div>
                     </div>
                 </div>
             </div>
@@ -43,6 +67,45 @@
 {% block jsCode %}
 <script>
     $(document).ready(function (){
+        function renderBar(xtitle, ytitle, subtitle, container, keys, series) {
+            Highcharts.chart(container, {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: xtitle
+                },
+                subtitle: {
+                    text: subtitle
+                },
+                xAxis: {
+                    categories: keys,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ytitle
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.0f} '+ytitle+'</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.3,
+                        borderWidth: 0
+                    }
+                },
+                series: series
+            });        
+        }
+
         // Build the chart
         Highcharts.chart('pieChart', {
             chart: {
@@ -52,7 +115,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Deuncias, Queixas, Reclamacoes e Sugestoes'
+                text: 'Quantidade de ocorrência por tipo'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -96,9 +159,9 @@
                     },
                 ]
             }]
-        });
-        
-        Highcharts.chart('responseTime', {
+        });        
+
+        /* Highcharts.chart('responseTime', {
             chart: {
                 type: 'column'
             },
@@ -111,7 +174,7 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Total fruit consumption'
+                    text: ''
                 },
                 stackLabels: {
                     enabled: true,
@@ -158,7 +221,7 @@
                 name: 'D4',
                 data: [31, 42, 42]
             }]
-        });   
+        }); */
     });
 </script>
 {% endblock %}

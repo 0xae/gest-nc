@@ -5,6 +5,7 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
     var stage=Admin.stage;
     var RESPOND_MODAL='#sugestionRespondModal';
     var PAR_MODAL='#sugestionParecerModal';
+    var ANNEX_PAR_MODAL='#sugestionAnnexParecerModal';
     
     $scope.NO_RESPONSE = Admin.stage.NO_RESPONSE;
     $scope.RESPONDED = Admin.stage.RESPONDED;
@@ -81,7 +82,11 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
         })
     }
 
-    $scope.openParModal = function (obj) {
+    $scope.openAnnexParModal = function (obj) {
+        $scope.openParModal(obj, ANNEX_PAR_MODAL);
+    }
+
+    $scope.openParModal = function (obj, modal) {
         $scope.mObject = obj;
         var title = "Parecer Cientifico";
 
@@ -90,7 +95,10 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
         }
 
         $scope.modalTitle = 'Atribuir ' + title;
-        $(PAR_MODAL).modal();                
+        if (modal)
+            $(modal).modal();
+        else
+            $(PAR_MODAL).modal();                
     }
 
     $scope.updatePar = function() {

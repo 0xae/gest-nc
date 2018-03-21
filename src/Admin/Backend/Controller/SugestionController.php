@@ -383,7 +383,7 @@ class SugestionController extends Controller {
             );
 
             $annex = $fileName;
-        } 
+        }
 
         $entity->setAnnex($annex);
 
