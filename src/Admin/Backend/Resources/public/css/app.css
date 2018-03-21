@@ -5,3 +5,35 @@
 .help-block {
     color: orangered;
 }
+
+div.wizard-tab {
+    margin-bottom: 10px;
+}
+
+div.wizard-tab .nav-tabs {
+    margin-bottom: 10px;
+}
+
+div.wizard-tab .nav-tabs li a {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+div.wizard-tab .nav-tabs>li.active>a, 
+div.wizard-tab .nav-tabs>li.active>a:focus, 
+div.wizard-tab .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: default;
+    background-color: #3c8dbc;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    border-radius: 4px;
+}
+
+div.wizard-tab .nav-tabs {
+    border-bottom: 0px;
+}
+
+div.wizard-tab .tab-content {
+    border: 1px solid #ddd;
+}
