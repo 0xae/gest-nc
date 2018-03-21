@@ -29,14 +29,14 @@
             </tr>
 
             <tr>
-                <td>Data</td>
+                <td>Data da ocorrencia</td>
                 <td>
-                    {{ entity.createdAt|date('Y-m-d') }}
+                    {{ entity.complaintDate|date('Y-m-d') }}
                 </td>
             </tr>
 
             <tr>
-                <td>Utente</td>
+                <td>Dados do Utente</td>
                 <td>
                     {{ entity.clientName }} <br/>
                     {{ entity.clientPhone }} <br/>
@@ -45,7 +45,7 @@
             </tr>
 
             <tr>
-                <td>Operador Economico</td>
+                <td>Dados do Fornecedor</td>
                 <td>
                     {{ entity.supplierName }}<br/>
                     {{ entity.supplierAddress }}<br/>
@@ -54,7 +54,7 @@
 
             <tr>
                 <td>Data de resposta</td>
-                <td> </td>
+                <td> {{ entity.createdAt|date('Y-m-d') }} </td>
             </tr>
         </tbody>
     </table>

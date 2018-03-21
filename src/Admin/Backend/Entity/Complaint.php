@@ -184,6 +184,13 @@ class Complaint {
     private $createdAt;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="response_date", type="date", nullable=true)
+     */
+    private $responseDate;
+
+    /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -256,6 +263,15 @@ class Complaint {
      * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
      */
     private $annexReference;
+
+    public function setResponseDate($value) {        
+        $this->responseDate = $value;
+        return $this;
+    }
+
+    public function getResponseDate() {
+        return $this->responseDate;
+    }
 
     public function isNoCompetence() {
         return $this->state == Stage::NO_COMP;        

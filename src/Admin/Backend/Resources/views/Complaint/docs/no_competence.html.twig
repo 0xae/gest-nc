@@ -25,17 +25,6 @@
         </thead>
         <tbody>
             <tr>
-                <td>Tipo</td>
-                <td>
-                    {% if entity.type == 'queixa' %}
-                        Queixa
-                    {% else %}
-                        Den&uacute;ncia
-                    {% endif %}
-                </td>
-            </tr>
-
-            <tr>
                 <td>Numero do Registo</td>
                 <td>
                     #{{ entity.objCode }}
@@ -43,25 +32,7 @@
             </tr>
 
             <tr>
-                <td>Dados do Utente</td>
-                <td>
-                    {{ entity.name }}<br/>
-                    {{ entity.phone }}<br/>
-                    {{ entity.email }}<br/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Dados do Operador Economico</td>
-                <td>
-                    {{ entity.opName }}<br/>
-                    {{ entity.opPhone }}<br/>
-                    {{ entity.opAddress }}<br/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Data da Ocorrência</td>
+                <td>Data da resposta</td>
                 <td>
                     {{ entity.factDate|date('Y-m-d') }}
                 </td>

@@ -49,7 +49,7 @@
                                     <span id="row-{{entity.id}}-no-comp" 
                                         style="display:none" 
                                         class="label label-warning">
-                                        Sem competencia
+                                        Competencia de terceiros
                                     </span>
 
                                     {% if entity.parCode %}
@@ -100,8 +100,10 @@
                                                         phone:'{{entity.phone}}',
                                                         })">N&atilde;o Favor&aacute;vel</a>
                                                 </li>
-                                                <li >
-                                                    <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}',{{entity.id}})">Sem compet&ecirc;ncia</a>
+                                                <li>
+                                                    <a href="#" ng-click="markAsNoCompetence('{{entity.objCode}}',{{entity.id}})">
+                                                        Competencia de terceiros
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>

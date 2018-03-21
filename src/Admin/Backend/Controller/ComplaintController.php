@@ -231,7 +231,9 @@ class ComplaintController extends Controller {
         }
 
         $entity->setState(Stage::RESPONDIDO);
+        $entity->setResponseDate(new \DateTime);
         $entity->setClientResponse($object['response']);
+
         $em->persist($entity);
         $em->flush();
 

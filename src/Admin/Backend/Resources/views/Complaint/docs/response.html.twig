@@ -13,14 +13,6 @@
         <h3 class="box-title" style="font-weight:bold">
             Recibo de resposta
         </h3>
-
-        <h3>
-            {% if entity.type == 'queixa' %}
-                Queixa
-            {% else %} Den&uacute;ncia
-            {% endif %}
-            <a href="#">#{{ entity.objCode }}</a>
-        </h3>
     </center>
 
     <table class="table table-hover table-striped" style="margin-bottom:70px">
@@ -33,24 +25,31 @@
         <tbody>
             <tr>
                 <td>
-                    {% if entity.type == 'queixa' %}
-                        Queixa
-                    {% else %}
-                        Den&uacute;ncia
-                    {% endif %}
+                    Tipo
                 </td>
+                <td>
+                 {% if entity.type == 'queixa' %}
+                    Queixa
+                {% else %} 
+                    Den&uacute;ncia
+                {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Numero do registo</td>
                 <td>#{{ entity.objCode }}</td>
             </tr>
 
             <tr>
-                <td>Data</td>
+                <td>Data da ocorrencia</td>
                 <td>
                     {{ entity.createdAt|date('Y-m-d') }}
                 </td>
             </tr>
 
             <tr>
-                <td>Utente</td>
+                <td>Dados do Utente</td>
                 <td>
                     {{ entity.name }} <br/>
                     {{ entity.phone }} <br/>
@@ -59,17 +58,12 @@
             </tr>
 
             <tr>
-                <td>Operador Economico</td>
+                <td>Dados do Operador Economico</td>
                 <td>
                     {{ entity.opName }}<br/>
                     {{ entity.opPhone }}<br/>
                     {{ entity.opAddress }}<br/>
                 </td>
-            </tr>
-
-            <tr>
-                <td>Data de resposta</td>
-                <td>  </td>
             </tr>
         </tbody>
     </table>

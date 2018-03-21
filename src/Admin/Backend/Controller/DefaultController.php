@@ -37,7 +37,8 @@ class DefaultController extends Controller {
 		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
 			"counters" => $counters,
 			"month" => $month,
-			"total" => $this->total()
+			"total" => $this->total(),
+			"globalCounters" => $this->getGlobalCounts() 
 		));
 	}
 
@@ -92,6 +93,9 @@ class DefaultController extends Controller {
 		else if ($type == 'by_day') {
 			$month = $_GET['month'];
 			$db = $this->groupByDay($year, $month);
+		}
+		else if ($type == 'by_incump') {
+			$db = $this->getIncumprimentoByDepartment($year);
 		}
 
 		return new JsonResponse($db);
@@ -249,7 +253,51 @@ class DefaultController extends Controller {
 		return $db;
 	}
 
-	private function count($type, $model) {
+	public function getGlobalCounts() {
+		$all = [
+			(int) $this->count(Model::DENOUNCE, 'complaint')[0]['count'],
+			(int) $this->count(Model::COMPLAINT, 'complaint')[0]['count'],
+			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion')[0]['count'],
+			(int) $this->count(Model::SUGESTION, 'sugestion')[0]['count'],
+			(int) $this->countIRECL(),
+		];
+
+		$params=['state'=>Stage::RESPONDIDO];
+		$answered = [
+			(int) $this->count(Model::DENOUNCE, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
+			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
+			(int) $this->countIRECL($params),				
+		];
+
+		$params=['state'=>Stage::SEM_RESPOSTA];
+		$noAnswered = [
+			(int) $this->count(Model::DENOUNCE, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
+			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
+			(int) $this->countIRECL($params),				
+		];
+		
+		$params=['state'=>Stage::ACOMPANHAMENTO];
+		$acomp = [
+			(int) $this->count(Model::DENOUNCE, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
+			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
+			(int) $this->countIRECL($params),				
+		];
+
+		return [
+			"total" => array_sum($all),
+			"answered" => array_sum($answered),
+			"noAnswered" => array_sum($noAnswered),
+			"acomp" => array_sum($acomp)
+		];
+	}	
+
+	private function count($type, $model, $opts=[]) {
 		$q = '
 			select 
 				count(1) as count,
@@ -259,12 +307,19 @@ class DefaultController extends Controller {
 				  and month(created_at) = month(current_date) 
 			and type = :type';
 
-		return $this->fetchAll($q, [
+		$params = [
 			'type' => $type
-		]);
+		];
+
+		if (@$opts['state']) {
+			$q .= ' and state=:state ';
+			$params['state']=$opts['state'];
+		}
+
+		return $this->fetchAll($q, $params);
 	}
 
-	private function countIRECL() {
+	private function countIRECL($opts=[]) {
 		$q = '
 			select 
 				count(1) as count,
@@ -273,7 +328,15 @@ class DefaultController extends Controller {
 			where year(created_at) = year(current_date)
 				and month(created_at) = month(current_date) '
 			;
-		return $this->fetchAll($q, []);
+
+		$params = [];
+			
+		if (@$opts['state']) {
+			$q .= ' and state=:state ';
+			$params['state']=$opts['state'];
+		}
+
+		return $this->fetchAll($q, $params);
 	}
 
 	private function fetchAll($sql, $params) {
@@ -299,5 +362,53 @@ class DefaultController extends Controller {
 		return $this->fetchAll($q, [
 			'state' => $state
 		]);
+	}
+
+	private function getIncumprimentoByDepartment($year) {
+		$complaints = '
+			select COUNT(c.type) as count,
+				c.type,
+				a.codigo as code
+			from complaint c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				  and state=:state
+			group by c.type,a.codigo
+		';
+
+		$sugestions = '
+			select COUNT(c.type) as count,
+				c.type,
+				a.codigo as code
+			from sugestion c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				and state=:state
+			group by c.type,a.codigo
+		';
+
+		$params = [
+			'year' => $year,
+			'state' => Stage::NO_CONFOR
+		];
+
+		$ary = $this->fetchAll($complaints, $params);
+		$ary = array_merge($ary, $this->fetchAll($sugestions, $params));
+
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['code'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		return ['rows' => $table];
 	}
 }

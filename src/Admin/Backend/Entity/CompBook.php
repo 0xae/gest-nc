@@ -142,6 +142,7 @@ class CompBook {
         return str_pad($this->id, 3, '0', STR_PAD_LEFT);
     }
 
+    
     /**
      * Get factAnnex
      *
@@ -156,7 +157,7 @@ class CompBook {
     }
     
     public function getRespDate(){
-        $date = clone $this->complaintDate;
+        $date = clone $this->createdAt;
         $date->add(new \DateInterval("P10D"));
         return $date;
 	}

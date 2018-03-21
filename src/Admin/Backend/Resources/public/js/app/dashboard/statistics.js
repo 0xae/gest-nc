@@ -76,12 +76,37 @@ angular.module("app")
         });        
     }
 
+    function __transform(types, keys, rows) {
+        var series = {};
+
+        keys.forEach(function (d){
+            series[d] = {
+                name: d,
+                data: []
+            };
+        });
+
+        keys.forEach(function (k){
+            var depTypes =_.sortBy(rows[k], function (d) { return d.type; });
+            types.forEach(function (t){
+                var found=_.find(depTypes, function (dt) { return dt.type==t});
+                if (found) {
+                    series[k].data.push(parseInt(found.count));
+                } else {
+                    series[k].data.push(0);
+                }
+            });
+        });
+
+        return Object.keys(series).map(function (k){ 
+            return series[k]; 
+        });        
+    }
+
     function renderByDepartments(year) {
         fetchData('by_department', {year: year})
         .then(function (data) {
-            var deps = data.rows;
-            var keys = Object.keys(deps);
-            var series = {};
+            var rows = data.rows;
             var types=["denuncia", "queixa", "reclamacao", "sugestao"];
             var categories =[
                 "Denúncias",
@@ -90,26 +115,7 @@ angular.module("app")
                 "Sugestões",
             ];
 
-            keys.forEach(function (d){
-                series[d] = {
-                    name: d,
-                    data: []
-                };
-            });
-
-            keys.forEach(function (k){
-                var depTypes =_.sortBy(deps[k], function (d) { return d.type; });
-                types.forEach(function (t){
-                    var found=_.find(depTypes, function (dt) { return dt.type==t});
-                    if (found) {
-                        series[k].data.push(parseInt(found.count));
-                    } else {
-                        series[k].data.push(0);
-                    }
-                });
-            });
-
-            var render = Object.keys(series).map(function (k){ return series[k]; });
+            var render = __transform(types, Object.keys(rows), rows);
             renderBar(
                 'Ocorrência por direções', 
                 'Ocorrencias',
@@ -154,52 +160,33 @@ angular.module("app")
         );    
     }
 
-    function renderImcumprimentoPerDirection() {  
-        var render = [
-            {
-                name: "Dep 1",
-                data: [1]
-            },
-            {
-                name: "Dep 2",
-                data: [2]
-            }
-        ];
+    function renderImcumprimentoPerDirection() { 
+        fetchData('by_incump', {year: 2018})
+        .then(function (data) {
+            var rows = data.rows;
+            var types=["denuncia", "queixa", "reclamacao", "sugestao"];
+            var categories =[
+                "Denúncias",
+                "Queixas",
+                "Reclamações",
+                "Sugestões",
+            ];
 
-        renderBar('Incumprimento de Tratamento das ocorrências por Direção',
-            'Ocorrencias',
-            '',
-            'graph4',
-            ["Ocorrencias"],
-            render
-        ); 
-    }
-
-    function renderThirdPartyOccurences() {
-        var render = [
-            {
-                name: "Dep 1",
-                data: [1]
-            },
-            {
-                name: "Dep 2",
-                data: [2]
-            }
-        ];
-
-        renderBar('Números de ocorrências por competência de terceiros',
-            'Ocorrencias',
-            '',
-            'graph5',
-            ["Ocorrencias"],
-            render
-        ); 
+            var render = __transform(types, Object.keys(rows), rows);
+            console.info(render);
+            renderBar('Incumprimento de Tratamento das ocorrências por Direção',
+                'Ocorrencias',
+                '',
+                'graph4',
+                categories,
+                render
+            ); 
+        });
     }
 
     setTimeout(function(){
         renderByDepartments(2018);
         renderResponsePerDirection();
         renderImcumprimentoPerDirection();
-        renderThirdPartyOccurences();
     }, 500);
 }]);
