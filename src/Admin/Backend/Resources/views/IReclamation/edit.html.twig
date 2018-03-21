@@ -1,70 +1,72 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Editar Reclamação Interna</h3>
 
-                    <p style="font-size:12px;color:gray">
-                        <span class="fa fa-user"></span>
-                        Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-                        <br/> <span class="fa fa-calendar"></span> em {{entity.createdAt|date('Y-m-d')}}
-                    </p>
+<div class="row" ng-controller="IReclViewController">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Editar Reclamação Interna</h3>
 
-                    <p>
-                        <a href="{{ path('administration_IReclamation') }}">
-                            <span class="glyphicon glyphicon-back"></span>Voltar
-                        </a>
-                    </p>
-                </div>
-                <!-- /.box-header -->
+                <p style="font-size:12px;color:gray">
+                    <span class="fa fa-user"></span>
+                    Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
+                    <br/> <span class="fa fa-calendar"></span> em {{entity.createdAt|date('Y-m-d')}}
+                </p>
 
-                <div class="box-body">
-                    <div role="tabpanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist" id="editTab">
-                            <li role="presentation" class="active">
-                                <a href="#tab1" aria-controls="home" role="tab" data-toggle="tab">Dados</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab2" aria-controls="profile" role="tab" data-toggle="tab">
-                                    <span class="fa fa-file"></span> 
-                                    Anexos
-                                    <span class="badge">{{files|length}}</span>
-                                </a>
-                            </li>
-                        </ul>
+                <p>
+                    <a href="{{ path('administration_IReclamation') }}">
+                        <span class="glyphicon glyphicon-back"></span>Voltar
+                    </a>
+                </p>
+            </div>
+            <!-- /.box-header -->
 
-                        <!-- Tab panes -->
-                        <div class="tab-content" style="padding: 20px">
-                            <div role="tabpanel" class="tab-pane active" id="tab1">
-                                {{ include('BackendBundle:IReclamation:form.html.twig', {
-                                        'form' : edit_form
-                                    })
-                                }}
-                            </div>
+            <div class="box-body">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" id="editTab">
+                        <li role="presentation" class="active">
+                            <a href="#tab1" aria-controls="home" role="tab" data-toggle="tab">Dados</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab2" aria-controls="profile" role="tab" data-toggle="tab">
+                                <span class="fa fa-file"></span> 
+                                Anexos
+                                <span class="badge">{{files|length}}</span>
+                            </a>
+                        </li>
+                    </ul>
 
-                            <div role="tabpanel" class="tab-pane" id="tab2">
-                                {{ include('BackendBundle:Upload:listing.html.twig', {
-                                        'files' : files
-                                    })
-                                }}
-
-                                {{ include('BackendBundle:Upload:form.html.twig', {
-                                        'form' : upload_form
-                                    })
-                                }}
-                            </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content" style="padding: 20px">
+                        <div role="tabpanel" class="tab-pane active" id="tab1">
+                            {{ include('BackendBundle:IReclamation:form.html.twig', {
+                                    'form' : edit_form
+                                })
+                            }}
                         </div>
 
+                        <div role="tabpanel" class="tab-pane" id="tab2">
+                            {{ include('BackendBundle:Upload:listing.html.twig', {
+                                    'files' : files
+                                })
+                            }}
+
+                            {{ include('BackendBundle:Upload:form.html.twig', {
+                                    'form' : upload_form
+                                })
+                            }}
+                        </div>
                     </div>
+
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
+            <!-- /.box-body -->
         </div>
+        <!-- /.box -->
     </div>
+</div>
+
 {% endblock %}
 

@@ -21,6 +21,7 @@
                                 <th>Criado por</th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,38 +37,59 @@
                                     <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
                                     <td>{{ entity.respDate|date('Y-m-d') }}</td> 
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                    <td>
-                                        <div class="dropdown" style="display: inline" id="row-{{entity.id}}-dispatch">
-                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Despachar
-                                                <span class="caret"></span>
-                                            </button>
 
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
-                                                <li>
-                                                    <a href="#" 
-                                                       ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">
-                                                       Favor&aacute;vel
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" 
-                                                       ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">
-                                                       N&atilde;o Favor&aacute;vel
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    <td>
+                                        <a id="ir-analysis-{{entity.id}}" class="hidden" 
+                                           href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}">
+                                            <span class="label label-warning">Em Análise</span>
+                                        </a>
+
+                                        <a id="ir-analysis-{{entity.id}}-resp" class="hidden" 
+                                           href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}">
+                                            <span class="label label-success">Respondido</span>
+                                        </a>
+
+                                        {% if entity.step == 5 %}
+                                            <button id="row-{{entity.id}}-dispatch" type="button" 
+                                                    ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">
+                                                Responder
+                                            </button>
+                                        {% elseif entity.step == 1 %}
+                                            <div class="dropdown" style="display: inline" id="row-{{entity.id}}-dispatch">
+                                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Despachar
+                                                    <span class="caret"></span>
+                                                </button>
+
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
+                                                    <li>
+                                                        <a href="#" 
+                                                        ng-click="changeStep({{entity.id}}, '2', 'Confirmar como favoravel?')">
+                                                        Favor&aacute;vel
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" 
+                                                            ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">
+                                                            N&atilde;o Favor&aacute;vel
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+
                                     </td>
                                     <td>
-                                        {# <a href="{{ path('administration_Correction_edit', { 'id': 1 }) }}">
-                                            <span class="label label-success">Nao conformidade</span>
-                                        </a> #}
-
-                                        {# <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}">
-                                            <span class="text-warning fa fa-edit"></span>
-                                        </a> #}
-
+                                        <a id="ir-analysis-{{entity.id}}-state"
+                                         href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}">
+                                            {% if entity.step == 5 %}
+                                            <span class="label label-warning">Em espera                                            </span>
+                                            {% elseif entity.step > 1 %}
+                                            <span class="label label-success">Em {{entity.labelStep}}                                            </span>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
                                         <a href="#" ng-click="viewIRecl({{entity.id}}, '{{entity.type}}')">
                                             <span class="text-warning fa fa-eye"></span>
                                         </a>

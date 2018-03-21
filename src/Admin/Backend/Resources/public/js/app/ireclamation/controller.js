@@ -1,6 +1,25 @@
 angular.module("app")
-.controller("IReclController", ['$http', '$scope', 'UploadService', 'Admin', 
-function ($http, $scope, UploadService, Admin) {
+.factory('IReclService', ['$http', function ($http) {
+    function changeStep(id, step) {
+        var req={
+            nextStep: step,
+            id: id
+        };
+
+        return $http.post('/arfa/web/app_dev.php/administration/IReclamation/change_step/' + id, req)
+        .then(function (resp){
+            return resp.data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+        });
+    }
+
+    return {
+        changeStep: changeStep
+    };
+}])
+.controller("IReclController", ['$http', '$scope', 'UploadService', 'Admin', 'IReclService',
+function ($http, $scope, UploadService, Admin, IReclService) {
     var RESPOND_MODAL="#sugestionRespondModal";
 
     function getRecl(id) {
@@ -50,9 +69,8 @@ function ($http, $scope, UploadService, Admin) {
             $.notify("Respondido com sucesso!", "success");
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
-            // $("#xop__"+id).remove();
-            // $("#xstat_"+id).text($scope.modalTitle);
-            // $("#xstat_"+id).removeClass('hidden');
+            $("#ir-analysis-"+id+"-state").remove();
+            $("#ir-analysis-"+id+"-resp").attr("style", "display:inherit !important");
             $scope.responseForm = false;
             setTimeout(function(){
                 $(RESPOND_MODAL).modal('hide');                
@@ -79,6 +97,37 @@ function ($http, $scope, UploadService, Admin) {
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
+    }
+
+    $scope.changeStep = function (id, nextStep, label) {
+        if (!confirm(label)) {
+            return;
+        }
+
+        IReclService.changeStep(id, nextStep)
+        .then(function (data){
+            $.notify("Objecto actualizado com sucesso.", "success");
+            console.info(data);
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+        });
+    }
+}])
+
+.controller("IReclViewController", [
+'$http', '$scope', 'UploadService', 'Admin', 'IReclService',
+function ($http, $scope, UploadService, Admin, IReclService) {
+    $scope.advanceTo = function(labelConfirmation, id, nextStep) {
+        if (!confirm(labelConfirmation)) {
+            return;
+        }
+
+        $("#admin_backend_ireclamation_step").val(nextStep);
+        
+        setTimeout(function(){
+            $("#admin_backend_ireclamation_submit").click();
+        }, 1000);
     }
 }]);
 

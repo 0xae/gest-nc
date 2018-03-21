@@ -30,9 +30,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    Reclamação Interna
-                </td>
+                <td>Reclamação Interna</td>
                 <td>#{{ entity.objCode }}</td>
             </tr>
 
@@ -52,9 +50,7 @@
 
             <tr>
                 <td>Dirreção</td>
-                <td>
-                    {{ entity.direction }}<br/>
-                </td>
+                <td> {{ entity.direction }} </td>
             </tr>
         </tbody>
     </table>
@@ -72,7 +68,7 @@
     </div>
 
     <button id="printMe" class="btn btn-primary hidden-print">
-        Imprimir
+        <span class="fa fa-print"></span> Imprimir
     </button>
 {% endblock %}
 

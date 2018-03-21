@@ -11,6 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class IReclamation {
+    const START=1;    
+    const ANALYSIS=2;
+    const DECISION=3;
+    const ACTION=4;
+    const CONCLUDED=5;
+    
     /**
      * @var integer
      *
@@ -132,6 +138,13 @@ class IReclamation {
     private $actionDetail;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="step", type="string", length=250, nullable=true)
+     */
+    private $step;
+
+    /**
      * @var \Profile
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -188,6 +201,25 @@ class IReclamation {
      */
     private $responseAuthor;   
 
+    public function getLabelStep() {
+        $label = "";
+        if ($this->step == 2) {
+            $label="Análise";
+        } else if ($this->step == 3) {
+            $label="Decisão";            
+        } else if ($this->step == 4) {
+            $label="Ação";            
+        }
+        return $label;        
+    }
+
+	public function setStep($val){
+		$this->step = $val;
+	}
+
+	public function getStep(){
+		return $this->step;
+	}
 
     public function getResponseContent(){
 		return $this->responseContent;

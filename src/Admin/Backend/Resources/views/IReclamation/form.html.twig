@@ -5,35 +5,54 @@
 <div role="tabpanel" class="wizard-tab">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
+        <li role="presentation" {% if entity.step == 1 or entity.step == 5  %} class="active" {% endif %}>
             <a href="#frm_tab1" aria-controls="home" role="tab" data-toggle="tab">
                 <span>Registro</span>
             </a>
         </li>
 
-        <li role="presentation">
-            <a href="#frm_tab2" aria-controls="home" role="tab" data-toggle="tab">
-                <span>Análise da Reclamação</span>
-            </a>
+        <li role="presentation" {% if entity.step == 2 %} class="active" {% endif %}>
+            {% if entity.step >= 2 %}
+                <a href="#frm_tab2" aria-controls="home" 
+                   role="tab" data-toggle="tab">
+                    <span>Análise da Reclamação</span>
+                </a>
+            {% else %}
+                <a href="javascript:void(0)" class="disabled">
+                    <span>Análise da Reclamação</span>
+                </a>
+            {% endif %}
         </li>
 
-        <li role="presentation">
-            <a href="#frm_tab3" aria-controls="home" role="tab" data-toggle="tab">
-                <span>Decisão a ser tomada</span>
-            </a>
+        <li role="presentation" {% if entity.step == 3 %} class="active" {% endif %}>
+            {% if entity.step >= 3 %}
+                <a href="#frm_tab3" aria-controls="home" 
+                   role="tab" data-toggle="tab">
+                    <span>Decisão a ser tomada</span>
+                </a>
+            {% else %}
+                <a href="javascript:void(0)" class="disabled">
+                    <span>Decisão a ser tomada</span>
+                </a>
+            {% endif %}
         </li>
 
-        <li role="presentation">
-            <a href="#frm_tab4" aria-controls="home" role="tab" data-toggle="tab">
-                <span>Ação a ser tomada</span>
-            </a>
+        <li role="presentation" {% if entity.step == 4 %} class="active" {% endif %}>
+            {% if entity.step >= 4 %}
+                <a href="#frm_tab4" aria-controls="home" role="tab" data-toggle="tab">
+                    <span>Ação a ser tomada</span>
+                </a>
+            {% else %}
+                <a href="javascript:void(0)" class="disabled">
+                    <span>Ação a ser tomada</span>
+                </a>
+            {% endif %}
         </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content"  style="padding:10px;">
-        <div role="tabpanel" class="tab-pane active" id="frm_tab1">
-            {# <h1>Tab 1</h1> #}
+        <div role="tabpanel" class="tab-pane {% if entity.step == 1 or entity.step == 5 %} active {% endif %}" id="frm_tab1">
             <div class="row">
                 <div class="col-md-12">
                     <h3>Reclamação Interna</h3>
@@ -93,15 +112,27 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="frm_tab2">
+        <div role="tabpanel" class="tab-pane {% if entity.step == 2 %} active {% endif %}" id="frm_tab2">
             <h3>Análise da Reclamação</h3>
             <div class="row">
                 <div class="col-md-12">
                     <div style="color: gray;margin-bottom: 20px;">
                         <span class="fa fa-archive"></span>
                         Análise da Reclamação
+                        {% if entity.step == 2 %}
+                        <div class="pull-right">
+                            <a href="#">
+                            <span class="label label-primary"
+                                  ng-click="advanceTo('Deseja avançar para decisão a ser tomada?', {{entity.id}}, 3)">
+                                Avan&ccedil;ar 
+                                <span class="fa fa-chevron-right"></span>
+                            </span>
+                            </a>
+                        </div>
+                        {% endif %}
                         <hr/>
                     </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -112,9 +143,12 @@
 
                     <div class="form-group">
                         <label>Descri&ccedil;&atilde;o</label>
-                        {{ form_widget(form.analysisDetail) }}
+                        {{ form_widget(form.analysisDetail, {
+                            'attr': {
+                                'required' : entity.step == 'step#2'
+                            }
+                        }) }}
                     </div>
-
                 </div>
 
                 <div class="col-md-6">
@@ -126,13 +160,22 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="frm_tab3">
+        <div role="tabpanel" class="tab-pane {% if entity.step == 3 %} active {% endif %}" id="frm_tab3">
             <h3>Decisão a ser tomada</h3>
             <div class="row">
                 <div class="col-md-12">
                     <div style="color: gray;margin-bottom: 20px;">
                         <span class="fa fa-archive"></span>
                         Decisão a ser tomada
+                        {% if entity.step == 3 %}
+                            <a href="#" class="pull-right">
+                                <span class="label label-primary"
+                                        ng-click="advanceTo('Deseja avançar para ação a ser tomada?', {{entity.id}}, 4)">
+                                    Avan&ccedil;ar 
+                                    <span class="fa fa-chevron-right"></span>
+                                </span>
+                            </a>
+                        {% endif %}
                         <hr/>
                     </div>
                 </div>
@@ -158,13 +201,30 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="frm_tab4">       
+        <div role="tabpanel" class="tab-pane {% if entity.step == 4 %} active {% endif %}" id="frm_tab4">       
             <div class="row">
                 <div class="col-md-12">
-                <h3>Ação a ser tomada</h3>
+                    <h3>Ação a ser tomada</h3>
                     <div style="color: gray;margin-bottom: 20px;">
                         <span class="fa fa-archive"></span>
                         Ação a ser tomada
+
+                        {% if entity.step == 4 %}
+                            <a href="#" class="pull-right">
+                                <span class="label label-success"
+                                    ng-click="advanceTo('Deseja concluir esta reclamação interna ?', {{entity.id}}, 5)">
+                                    Concluir
+                                    <span class="fa fa-chevron-right"></span>
+                                </span>
+                            </a>
+                        {% elseif entity.step == 5 %}
+                            <a href="#" class="pull-right">
+                                <span class="label label-success">
+                                    Concluida
+                                    <span class="fa fa-check"></span>
+                                </span>
+                            </a>
+                        {% endif %}
                         <hr/>
                     </div>
                 </div>

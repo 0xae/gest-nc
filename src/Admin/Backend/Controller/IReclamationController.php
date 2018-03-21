@@ -142,6 +142,36 @@ class IReclamationController extends Controller {
         return new JsonResponse($object);
     }
 
+    public function changeStepAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BackendBundle:IReclamation')
+                     ->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Essa Reclamacao nao foi encontrada.');
+        }
+
+        $object['id'] = $id;
+        $step = $object['nextStep'];
+        $entity->setStep($step);
+
+        // ???: maybe we should move him away from acomps ?
+        if ($step == IReclamation::ANALYSIS) {
+            // $entity->setState(Stage::ACOMPANHAMENTO);
+        }
+
+        if ($step == IReclamation::CONCLUDED) {
+            $entity->setState(Stage::ACOMPANHAMENTO);
+        }
+
+        $em->persist($entity);       
+        $em->flush();
+        return new JsonResponse($object);
+    }
+
     public function respondAction($id) {
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
@@ -178,6 +208,7 @@ class IReclamationController extends Controller {
             $entity->setCreatedBy($userId);
             $entity->setCreatedAt(new \DateTime);
             $entity->setState(Stage::ACOMPANHAMENTO);
+            // $entity->setStep('step#1');
 
             $em->persist($entity);
             $em->flush();
@@ -341,6 +372,7 @@ class IReclamationController extends Controller {
 
     private function createCreateForm(IReclamation $entity) {
         $entity->setFactDate(new \DateTime);
+        $entity->setStep(IReclamation::START);        
         $entity->setActionDate(new \DateTime);
         $entity->setDecisionDate(new \DateTime);
         $entity->setAnalysisDate(new \DateTime);    

@@ -19,6 +19,16 @@ div.wizard-tab .nav-tabs li a {
     font-weight: bold;
 }
 
+div.wizard-tab .nav-tabs li a.disabled {    
+    color: gray;
+    cursor: pointer;
+}
+
+div.wizard-tab .nav-tabs li a.disabled :hover {    
+    color: gray;
+    cursor: pointer;
+}
+
 div.wizard-tab .nav-tabs>li.active>a, 
 div.wizard-tab .nav-tabs>li.active>a:focus, 
 div.wizard-tab .nav-tabs>li.active>a:hover {

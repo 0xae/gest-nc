@@ -8,9 +8,9 @@ $("#business-privacy-descr").trumbowyg({
 
 var url = new URL(location.href);
 var isNew=url.searchParams.get('is_new');
-var isUpdated=url.searchParams.get('is_updated');
+var tab=url.searchParams.get('tab');
+var isUpdated=url.searchParams.get('is_updated') || url.searchParams.get('is_update');
 var uploadedAdded=url.searchParams.get('upload_added');
-
 
 if (isNew) {
     $.notify("Objecto guardado com sucesso", "success");
@@ -29,3 +29,6 @@ if (uploadedAdded) {
     $('#editTab a[href="#tab2"]').tab('show');          
 }
 
+if (tab) {
+    $('a[href="#'+tab+'"]').tab('show');    
+}
