@@ -6,6 +6,11 @@
     color: orangered;
 }
 
+.bg-999 {
+    background-color: #999999;
+    color: #fff !important;
+}
+
 div.wizard-tab {
     margin-bottom: 10px;
 }
