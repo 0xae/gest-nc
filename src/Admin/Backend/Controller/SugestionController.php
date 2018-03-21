@@ -390,12 +390,15 @@ class SugestionController extends Controller {
         if ($editForm->isValid()) {
             $entity->setCreatedBy($userId);
             $em->flush();
-            return $this->redirect($this->generateUrl('administration_Sugestion_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_Sugestion_edit', 
+                array('id' => $id,
+                      'is_update' => true))
+            );
         }
 
         return $this->render('BackendBundle:Sugestion:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form'  => $editForm->createView()    
+            'edit_form' => $editForm->createView()    
         ));
     }
 

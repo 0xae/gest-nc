@@ -270,7 +270,8 @@ class IReclamationController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('administration_IReclamation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('administration_IReclamation_edit', 
+                    array('id' => $id, 'is_update' => true)));
         }
 
         return $this->render('BackendBundle:IReclamation:edit.html.twig', array(
