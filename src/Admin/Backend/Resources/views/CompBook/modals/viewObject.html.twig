@@ -5,7 +5,6 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Livro de reclamação</h4>
         </div>
-        <form ng-submit="respondSubmit()" name="responseForm">
             <div class="modal-body">
                 <h3 class="box-title" style="font-weight:bold;margin-top:0px;">
                     <span>Livro de reclamação</span>
@@ -84,7 +83,8 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="acomp">
-                            <h1>Acomp</h1>
+                            {# <h1>Acomp</h1> #}
+                            {{ include('BackendBundle:CompBook:modals/updateAcomp.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,6 @@
                     Fechar
                 </button>
             </div>
-        </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

@@ -120,6 +120,12 @@ class CompBookController extends Controller {
             "createByEnt" => $cb->getEntity()->getName(),
             "createdAt" => $entity->getCreatedAt()
                                   ->format("Y-m-d"),
+
+            "sendDate" => $entity->getSendDate()
+                ->format("Y-m-d"),
+
+            "sendTo" => $entity->getSendTo(),                
+
             "files" => []
         ];
 
@@ -138,6 +144,8 @@ class CompBookController extends Controller {
     }
 
     public function updateAcompAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
         $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
@@ -146,13 +154,13 @@ class CompBookController extends Controller {
             throw $this->createNotFoundException('Livro de reclamacao nao encontrado.');
         }
 
-        if ($object['date']) {
-            $entity->setSendDate(new \DateTime($object['date']));
+        if ($object['sendDate']) {
+            $entity->setSendDate(new \DateTime($object['sendDate']));
         } else {
             $entity->setSendDate(new \DateTime);
         }
 
-        $entity->setSendTo($object['send_to']);
+        $entity->setSendTo($object['sendTo']);
         $em->persist($entity);
         $em->flush();
 

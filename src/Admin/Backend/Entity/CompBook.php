@@ -100,7 +100,7 @@ class CompBook {
      * @ORM\Column(name="send_date", type="date", nullable=true)
      */
     private $sendDate;
-                    
+   
     /**
      * @var string
      *

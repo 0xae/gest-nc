@@ -23,7 +23,7 @@
                             <th>Utente</th>
                             <th>Fornecedor</th>
                             <th>Autoridade enviado</th>
-                            <th>Data de recep&ccedil;&atilde;o</th>
+                            <th>Data de envio</th>
                             <th>Data de ocorrencia</th>
                             <th>Data prevista (10 dias)</th>
                             <th>Criado por</th>
@@ -40,8 +40,12 @@
                                 </td>
                                 <td>{{ entity.clientName }}</td>
                                 <td>{{ entity.supplierName }}</td>
-                                <td>ARFA</td>
-                                <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
+                                <td id="td-{{entity.id}}-sendTo">
+                                    {{entity.sendTo}}
+                                </td>
+                                <td id="td-{{entity.id}}-sendDate">
+                                    {{ entity.sendDate|date('Y-m-d') }}
+                                </td> 
                                 <td>{{ entity.complaintDate|date('Y-m-d') }}</td>      
                                 <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>

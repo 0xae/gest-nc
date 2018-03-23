@@ -5,13 +5,28 @@ angular.module("app")
         return $http.get('/arfa/web/app_dev.php/administration/CompBook/' + id +"/json")
         .then(function (resp){
             return resp.data;
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
-            return error;
-        }); 
+        }, HandleError);
     }    
 
+    function HandleError(error) {
+        var msg="A operacao nao pode ser efectuada.Tente novamente!";
+        if (error && error.toString()) {
+            msg = error.toString;
+        }
+
+        $.notify(msg, "danger");
+        return error;
+    }
+
+    function updateComp(id, req) {
+        return $http.post('/arfa/web/app_dev.php/administration/CompBook/' + id +"/update_comp", req)
+        .then(function (resp){
+            return resp.data;
+        }, HandleError); 
+    }
+
     return {
-        get: getById
+        get: getById,
+        updateComp: updateComp
     }
 }]);
