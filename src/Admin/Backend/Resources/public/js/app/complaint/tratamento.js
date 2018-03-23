@@ -43,14 +43,24 @@ function ($http, $scope, UploadService, ComplaintService) {
         });
     }
 
-    $scope.respondObj = function (obj, title) {
+    function openModal(obj, title, ModalRef) {
         $scope.mObject = obj;
+        $scope.modalTitle = title;
+        $(ModalRef).modal();
+    }
+
+    $scope.respondObj = function (obj) {
+        var title='';
         if (obj.type == 'par_tec') {
-            $scope.modalTitle = 'Parecer Tecnico';
-        } else {
-            $scope.modalTitle = 'Parecer Cientifico';            
+            title = 'Parecer Tecnico';
+        } else if(obj.type == 'par_cent') {
+            title = 'Parecer Cientifico';            
         }
-        $('#respondModal').modal();
+        openModal(obj, title, '#respondModal');
+    }
+
+    $scope.annexParecer = function (obj, title) {
+        openModal(obj, '', '#updateParAnnex');        
     }
 
     $scope.respondSubmit = function() {

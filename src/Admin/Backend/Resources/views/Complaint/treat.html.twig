@@ -55,7 +55,7 @@
                                                 </a>
                                             </li>
                                             <li >
-                                                <a href="#" ng-click="respondObj({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_cent' })">
+                                                <a href="#" ng-click="annexParecer({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_annex' })">
                                                     Anexo
                                                 </a>
                                             </li>
@@ -79,6 +79,7 @@
 
                 {{ include('BackendBundle:Complaint:modals/updatePar.html.twig') }}
                 {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
+                {{ include('BackendBundle:Complaint:modals/updateParAnnex.html.twig') }}
             </div>
             <!-- /.box-body -->
         </div>
