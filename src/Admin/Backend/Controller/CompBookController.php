@@ -2,6 +2,7 @@
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\CompBook;
@@ -9,6 +10,7 @@ use Admin\Backend\Entity\Upload;
 use Admin\Backend\Entity\Stage;
 use Admin\Backend\Form\CompBookType;
 use Admin\Backend\Form\UploadType;
+
 
 /**
  * CompBook controller.
@@ -89,9 +91,76 @@ class CompBookController extends Controller {
         ));
     }
 
+    public function showJsonAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $this->getDoctrine()
+            ->getRepository('BackendBundle:CompBook')
+            ->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Livro de reclamacao nao encontrado!');
+        }
+
+        $files = $em->getRepository('BackendBundle:Upload')
+                    ->findBy(['reference' => $entity->getAnnexReference()]);
+
+        $cb = $entity->getCreatedBy();
+        $obj = [
+            "id" => $entity->getId(),
+            "clientName" => $entity->getClientName(),
+            "clientPhone" => $entity->getClientPhone(),
+            "clientEmail" => $entity->getClientEmail(),
+            "supplierName" => $entity->getSupplierName(),
+            "supplierAddress" => $entity->getSupplierAddress(),
+            "complaintDate" => $entity->getComplaintDate()
+                                      ->format("Y-m-d"),
+            "complaint" => $entity->getComplaint(),
+            "annexReference" => $entity->getAnnexReference(),
+            "createByName" => $cb->getName(),
+            "createByEnt" => $cb->getEntity()->getName(),
+            "createdAt" => $entity->getCreatedAt()
+                                  ->format("Y-m-d"),
+            "files" => []
+        ];
+
+        foreach ($files as $f) {
+            $obj["files"][] = [
+                "id" => $f->getId(),
+                "description" => $f->getDescription(),
+                "createdAt" => $f->getCreatedAt()->format("Y-m-d"),
+                "createdBy" => $f->getCreatedBy()->getName(),
+                "path" => $f->getFilename(),
+                "filename" => $f->getFilename()
+            ];
+        }        
+
+        return new JsonResponse($obj);
+    }
+
+    public function updateAcompAction($id) {
+        $content = $this->get("request")->getContent();
+        $object = json_decode($content, true);
+        $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Livro de reclamacao nao encontrado.');
+        }
+
+        if ($object['date']) {
+            $entity->setSendDate(new \DateTime($object['date']));
+        } else {
+            $entity->setSendDate(new \DateTime);
+        }
+
+        $entity->setSendTo($object['send_to']);
+        $em->persist($entity);
+        $em->flush();
+
+        return new JsonResponse($object);
+    }
+
     /**
      * Creates a new CompBook entity.
-     *
      */
     public function createAction(Request $request) {
         $entity = new CompBook();

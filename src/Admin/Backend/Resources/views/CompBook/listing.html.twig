@@ -2,71 +2,77 @@
 
 {% block content -%}
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Livro de reclama&ccedil;&atilde;o  {{label}}</h3>
-                </div>
-                <!-- /.box-header -->
-
-                <div class="box-body table-responsive no-padding">
-                    {# 
-                        data da Recepcao da reclamação, 
-                        data do envio da reclamação, 
-                        autoridade enviado 
-                    #}
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>                                       
-                                <th>ID#</th>
-                                <th>Utente</th>
-                                <th>Fornecedor</th>
-                                <th>Autoridade enviado</th>
-                                <th>Data de recep&ccedil;&atilde;o</th>
-                                <th>Data de ocorrencia</th>
-                                <th>Data prevista (10 dias)</th>
-                                <th>Criado por</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entity in objects %}
-                                <tr>
-                                    <td>
-                                        <a href="{{ path('administration_CompBook_edit', {'id': entity.id}) }}">
-                                        #{{ entity.id }}
-                                        </a>
-                                    </td>
-                                    <td>{{ entity.clientName }}</td>
-                                    <td>{{ entity.supplierName }}</td>
-                                    <td>ARFA</td>
-                                    <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
-                                    <td>{{ entity.complaintDate|date('Y-m-d') }}</td>      
-                                    <td>{{ entity.respDate|date('Y-m-d') }}</td>
-                                    <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-                                    <td>
-                                        <a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
-                                            <span class="badge badge-primary">EDITAR</span>
-                                        </a>
-                                    </td>   
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.box-body -->
+<div class="row" ng-controller="CompBookController">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Livro de reclama&ccedil;&atilde;o  {{label}}</h3>
             </div>
+            <!-- /.box-header -->
 
-            {% if objects %}
-                {# {{ pagerfanta(paginate, 'twitter_bootstrap3', {
-                    'next_message': 'Proximo',
-                    'prev_message': 'Anterior'
-                    }) 
-                }} #}
-            {% endif %}
-            <!-- /.box -->
+            <div class="box-body table-responsive no-padding">
+                {# 
+                    data da Recepcao da reclamação, 
+                    data do envio da reclamação, 
+                    autoridade enviado 
+                #}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>                                       
+                            <th>ID#</th>
+                            <th>Utente</th>
+                            <th>Fornecedor</th>
+                            <th>Autoridade enviado</th>
+                            <th>Data de recep&ccedil;&atilde;o</th>
+                            <th>Data de ocorrencia</th>
+                            <th>Data prevista (10 dias)</th>
+                            <th>Criado por</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in objects %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('administration_CompBook_edit', {'id': entity.id}) }}">
+                                    #{{ entity.id }}
+                                    </a>
+                                </td>
+                                <td>{{ entity.clientName }}</td>
+                                <td>{{ entity.supplierName }}</td>
+                                <td>ARFA</td>
+                                <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
+                                <td>{{ entity.complaintDate|date('Y-m-d') }}</td>      
+                                <td>{{ entity.respDate|date('Y-m-d') }}</td>
+                                <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
+                                <td>
+                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                        <span class="text-warning fa fa-eye"></span>
+                                    </a>
+
+                                    <a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
+                                        <span class="text-warning fa fa-edit"></span>
+                                    </a>
+                                </td>   
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
         </div>
+
+        {% if objects %}
+            {# {{ pagerfanta(paginate, 'twitter_bootstrap3', {
+                'next_message': 'Proximo',
+                'prev_message': 'Anterior'
+                }) 
+            }} #}
+        {% endif %}
+        <!-- /.box -->
     </div>
+
+    {{ include('BackendBundle:CompBook:modals/viewObject.html.twig') }}
+</div>
 
 {% endblock %}

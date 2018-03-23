@@ -174,8 +174,12 @@ class ComplaintController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $this->getDoctrine()
-                    ->getRepository('BackendBundle:Complaint')                
-                    ->find($id);
+                       ->getRepository('BackendBundle:Complaint')
+                       ->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Essa Queixa/Reclamacao nao foi encontrada.');
+        }
 
         $files = $em->getRepository('BackendBundle:Upload')
                     ->findBy(['reference' => $entity->getAnnexReference()]);

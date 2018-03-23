@@ -95,6 +95,20 @@ class CompBook {
     private $complaint;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="send_date", type="date", nullable=true)
+     */
+    private $sendDate;
+                    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="send_to", type="string", length=250, nullable=true)
+     */
+    private $sendTo;    
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="complaint_date", type="date", nullable=false)
@@ -124,6 +138,19 @@ class CompBook {
      * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
      */
     private $annexReference;
+
+    public function setSendDate($value) {
+        $this->sendDate = $value;        
+    }
+    public function getSendDate() {
+        return $this->sendDate;      
+    }
+    public function setSendTo($value) {
+        $this->sendTo = $value;
+    }
+    public function getSendTo() {
+        return $this->sendTo;
+    }
     
     public function setAnnexReference($ref) {
         $this->annexReference = $ref;
