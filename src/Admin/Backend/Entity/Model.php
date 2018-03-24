@@ -10,4 +10,5 @@ class Model {
     const SUGESTION = 'sugestao';
     const COMPLAINT = 'queixa';
     const DENOUNCE = 'denuncia';
+    const COMP_BOOK= 'comp_book';
 }

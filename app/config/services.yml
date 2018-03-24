@@ -11,3 +11,7 @@ services:
   sga.admin.filter:
       class: Admin\Backend\Model\Filter
       arguments: [@service_container]
+
+  sga.admin.stats:
+      class: Admin\Backend\Model\StatsService
+      arguments: [@service_container]

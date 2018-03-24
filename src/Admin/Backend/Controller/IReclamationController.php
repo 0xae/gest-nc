@@ -95,8 +95,8 @@ class IReclamationController extends Controller {
         }
 
         $ary = $this->container
-                ->get('sga.admin.filter')
-                ->ByState($em, 'IReclamation', $state);
+            ->get('sga.admin.filter')
+            ->ByState($em, 'IReclamation', $state);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
             'entities' => $ary,

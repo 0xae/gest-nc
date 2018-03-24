@@ -94,9 +94,21 @@ class DefaultController extends Controller {
 			group by c.type,a.codigo
 		';
 
-		$ary = $this->fetchAll($complaints, ['year' => $year]);
+		$internalRecl = '
+			select COUNT(1) as count,
+				"reclamacao_interna" as type,
+				a.codigo as code
+			from reclamation_internal c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+			group by a.codigo,type
+		';
+
+		$ary1 = $this->fetchAll($complaints, ['year' => $year]);
 		$ary2 = $this->fetchAll($sugestions, ['year' => $year]);
-		$ary = array_merge($ary, $ary2);
+		$ary3 = $this->fetchAll($internalRecl, ['year' => $year]);
+		
+		$ary = array_merge($ary1, $ary2, $ary3);
 
 		$table = [];
 		foreach($ary as $val) {
@@ -348,13 +360,27 @@ class DefaultController extends Controller {
 			group by c.type,a.codigo
 		';
 
+		$internalRecl = '
+			select COUNT(1) as count,
+				"reclamacao_interna" as type,
+				a.codigo as code
+			from reclamation_internal c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				and state=:state
+			group by type,a.codigo
+		';
+
 		$params = [
 			'year' => $year,
 			'state' => Stage::NO_CONFOR
 		];
 
-		$ary = $this->fetchAll($complaints, $params);
-		$ary = array_merge($ary, $this->fetchAll($sugestions, $params));
+		$ary1 = $this->fetchAll($complaints, $params);
+		$ary2 = $this->fetchAll($sugestions, $params);
+		$ary3 = $this->fetchAll($internalRecl, $params);
+
+		$ary = array_merge($ary1, $ary2, $ary3);
 
 		$table = [];
 		foreach($ary as $val) {

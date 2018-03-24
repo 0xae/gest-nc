@@ -169,6 +169,9 @@ angular.module("app")
         })
         .map(function (k) { 
             return k[0];
+        })
+        .filter(function (v) { 
+            return v;
         });
     }
 
@@ -254,6 +257,7 @@ angular.module("app")
         fetchData('by_incump', {year: 2018})
         .then(function (data) {
             var rows = data.rows;
+            var categories=Object.keys(rows);
             // var render = __transform(types, Object.keys(rows), rows);
             var series = [{
                 name: 'Denúncias',
@@ -265,7 +269,7 @@ angular.module("app")
                 color: '#c82061'
             }, {
                 name: 'Reclamaçao Interna',
-                data: produceArray(rows, 'reclamation_internal'),
+                data: produceArray(rows, 'reclamacao_interna'),
                 color: '#6eb63e'
             },{
                 name: 'Reclamaçao Externa',
@@ -275,24 +279,18 @@ angular.module("app")
                 name: 'Sugestões',
                 data: produceArray(rows, 'sugestao'),
                 color: '#1155cc'
-            }, {
-                name: 'Livro de reclamações',
-                data: produceArray(rows, 'comp_book'),
-                color: '#f39c12'
             }];
 
             renderStack(
                 "graph4", 
                 'Incumprimento de Tratamento das ocorrências por Direção',
-                Object.keys(rows), 
+                categories, 
                 series
             );
         });
     }
 
-    setTimeout(function(){
-        renderByDepartments(2018);
-        renderResponsePerDirection();
-        renderImcumprimentoPerDirection();
-    }, 500);
+    renderByDepartments(2018);
+    renderResponsePerDirection();
+    renderImcumprimentoPerDirection();
 }]);

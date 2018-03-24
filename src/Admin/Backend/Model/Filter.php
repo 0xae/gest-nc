@@ -36,7 +36,8 @@ class Filter {
 
             if ($today > $responseDate && (
                 $obj->getState() == Stage::ACOMPANHAMENTO ||
-                $obj->getState() == Stage::TRATAMENTO)) {
+                $obj->getState() == Stage::TRATAMENTO)) 
+            {
                 $obj->setState(Stage::NO_CONFOR);
                 $i++;
             }
@@ -53,6 +54,7 @@ class Filter {
 
         $em->flush();
         $em->clear();
+
         return $ary;
     }
 }
