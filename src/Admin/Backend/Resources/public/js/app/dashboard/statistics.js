@@ -76,6 +76,60 @@ angular.module("app")
         });        
     }
 
+    function renderStack(container, title, categories, series) {
+        Highcharts.chart(container, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: title
+            },
+            xAxis: {
+                // categories: ['DENÚNCIAS', 'QUEIXAS', 'RECLAMAÇÕES']
+                categories: categories
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>'
+                // pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+            },
+            series: series
+        });        
+    }    
+
     function __transform(types, keys, rows) {
         var series = {};
 
@@ -103,26 +157,57 @@ angular.module("app")
         });        
     }
 
+    function produceArray(rows, type) {
+        var categories = Object.keys(rows);
+        return categories.map(function (c){
+            return (rows[c].filter(function (t) {
+                return t.type == type;
+            })
+            .map(function (t) {
+                return parseInt(t.count);
+            }));
+        })
+        .map(function (k) { 
+            return k[0];
+        });
+    }
+
     function renderByDepartments(year) {
         fetchData('by_department', {year: year})
         .then(function (data) {
             var rows = data.rows;
-            var types=["denuncia", "queixa", "reclamacao", "sugestao"];
-            var categories =[
-                "Denúncias",
-                "Queixas",
-                "Reclamações",
-                "Sugestões",
-            ];
+            var categories = Object.keys(rows);
+            var series = [{
+                name: 'Denúncias',
+                data: produceArray(rows, 'denuncia'),
+                color: '#681133'
+            }, {
+                name: 'Queixas',
+                data: produceArray(rows, 'queixa'),
+                color: '#c82061'
+            }, {
+                name: 'Reclamaçao Interna',
+                data: produceArray(rows, 'reclamacao_interna'),
+                color: '#6eb63e'
+            },{
+                name: 'Reclamaçao Externa',
+                data: produceArray(rows, 'reclamacao'),
+                color: '#4e802c'
+            }, {
+                name: 'Sugestões',
+                data: produceArray(rows, 'sugestao'),
+                color: '#1155cc'
+            }, {
+                name: 'Livro de reclamações',
+                data: produceArray(rows, 'comp_book'),
+                color: '#f39c12'
+            }];
 
-            var render = __transform(types, Object.keys(rows), rows);
-            renderBar(
-                'Ocorrência por direções', 
-                'Ocorrencias',
-                '',
-                'by_department',
-                categories,
-                render
+            renderStack(
+                "by_department", 
+                'Ocorrência por direções',
+                categories, 
+                series
             );
         });
     }
@@ -131,23 +216,28 @@ angular.module("app")
         var render = [
             {
                 name: "Denúncias",
-                data: [1]
+                data: [1],
+                color: "#c82061"
             },
             {
                 name: "Queixas",
-                data: [2]
+                data: [2],
+                color: "#681133"
             },
             {
                 name: "Reclamações externas",
-                data: [3]
+                data: [3],
+                color: "#4e802c"
             },
             {
                 name: "Reclamações internas",
-                data: [3]
+                data: [3],
+                color: "#6eb63e"
             },
             {
                 name: "Sugestões",
-                data: [3]
+                data: [3],
+                color: "#1155cc"
             },
         ];
 
@@ -164,23 +254,39 @@ angular.module("app")
         fetchData('by_incump', {year: 2018})
         .then(function (data) {
             var rows = data.rows;
-            var types=["denuncia", "queixa", "reclamacao", "sugestao"];
-            var categories =[
-                "Denúncias",
-                "Queixas",
-                "Reclamações",
-                "Sugestões",
-            ];
+            // var render = __transform(types, Object.keys(rows), rows);
+            var series = [{
+                name: 'Denúncias',
+                data: produceArray(rows, 'denuncia'),
+                color: '#681133'
+            }, {
+                name: 'Queixas',
+                data: produceArray(rows, 'queixa'),
+                color: '#c82061'
+            }, {
+                name: 'Reclamaçao Interna',
+                data: produceArray(rows, 'reclamation_internal'),
+                color: '#6eb63e'
+            },{
+                name: 'Reclamaçao Externa',
+                data: produceArray(rows, 'reclamacao'),
+                color: '#4e802c'
+            }, {
+                name: 'Sugestões',
+                data: produceArray(rows, 'sugestao'),
+                color: '#1155cc'
+            }, {
+                name: 'Livro de reclamações',
+                data: produceArray(rows, 'comp_book'),
+                color: '#f39c12'
+            }];
 
-            var render = __transform(types, Object.keys(rows), rows);
-            console.info(render);
-            renderBar('Incumprimento de Tratamento das ocorrências por Direção',
-                'Ocorrencias',
-                '',
-                'graph4',
-                categories,
-                render
-            ); 
+            renderStack(
+                "graph4", 
+                'Incumprimento de Tratamento das ocorrências por Direção',
+                Object.keys(rows), 
+                series
+            );
         });
     }
 

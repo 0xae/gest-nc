@@ -151,11 +151,16 @@ class ComplaintController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Essa Queixa/Reclamacao nao foi encontrada.');
         }
+        
+        if (@$data['parCode']) 
+            $entity->setParCode($data['parCode']);
+        if (@$data['parSubject'])
+            $entity->setParSubject($data['parSubject']);
+        if (@$data['parDestination'])
+            $entity->setParDest($data['parDestination']);
+        if (@$data['parDescription'])
+            $entity->setParDescription($data['parDescription']);
 
-        $entity->setParCode($data['parCode']);
-        $entity->setParSubject($data['parSubject']);
-        $entity->setParDest($data['parDestination']);
-        $entity->setParDescription($data['parDescription']);
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
         $entity->setParDate(new \DateTime());
@@ -209,6 +214,7 @@ class ComplaintController extends Controller {
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();
             $obj["parDescription"] = $entity->getParDescription();
+            $obj["parType"] = $entity->getParType();            
         }
 
         foreach ($files as $f) {
@@ -240,7 +246,6 @@ class ComplaintController extends Controller {
 
         $em->persist($entity);
         $em->flush();
-
         return new JsonResponse($object);
     }
 

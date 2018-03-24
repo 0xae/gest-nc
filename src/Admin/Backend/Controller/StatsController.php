@@ -16,9 +16,6 @@ use Admin\Backend\Entity\Model;
  * Statistics controller.
  */
 class StatsController extends Controller {
-    /**
-     * Lists all Category entities.
-     */
     public function indexAction() {
 		$counters = $this->getCounters();
 

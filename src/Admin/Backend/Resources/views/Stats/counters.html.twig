@@ -1,5 +1,5 @@
 <div class="col-md-2">
-    <div class="small-box bg-green">
+    <div class="small-box bg-complaint">
         <div class="inner">
             <h3>{{counters['queixa'][0]['count']}}</h3>
             <p> </p>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="col-md-2">
-    <div class="small-box bg-green">
+    <div class="small-box bg-denounce">
         <div class="inner">
             <h3>{{counters['denuncia'][0]['count']}}</h3>
             <p> </p>
@@ -29,7 +29,7 @@
 </div>
 
 <div class="col-md-2">
-    <div class="small-box bg-aqua">
+    <div class="small-box bg-intern-recl">
         <div class="inner">
             <h3>{{counters['reclamacao_interna'][0]['count']}}</h3>
             <p> </p>
@@ -44,7 +44,7 @@
 </div>
 
 <div class="col-md-2">
-    <div class="small-box bg-red">
+    <div class="small-box bg-extern-recl">
         <div class="inner">
             <h3>{{counters['reclamacao'][0]['count']}}</h3>
             <p> </p>
@@ -58,8 +58,8 @@
     </div>
 </div>
 
-<div class="col-md-3">
-    <div class="small-box bg-yellow">
+<div class="col-md-2">
+    <div class="small-box bg-sugestion">
         <div class="inner">
             <h3>{{counters['sugestao'][0]['count']}}</h3>
             <p> </p>
@@ -69,6 +69,21 @@
         </div>
         <a href="#" class="small-box-footer">
             Sugestao
+        </a>
+    </div>
+</div>
+
+<div class="col-md-2">
+    <div class="small-box bg-comp-book">
+        <div class="inner">
+            <h3>0</h3>
+            <p> </p>
+        </div>
+        <div class="icon">
+            {# <i class="fa fa-clock-o"></i> #}
+        </div>
+        <a href="#" class="small-box-footer">
+            Livro de reclamações
         </a>
     </div>
 </div>

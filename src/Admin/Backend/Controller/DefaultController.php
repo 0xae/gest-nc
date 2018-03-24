@@ -42,46 +42,6 @@ class DefaultController extends Controller {
 		));
 	}
 
-	private function getCounters() {
-		return [
-			Stage::ACOMPANHAMENTO => $this->_count(Stage::ACOMPANHAMENTO),
-			Stage::RESPONDIDO => $this->_count(Stage::RESPONDIDO),
-			Stage::SEM_RESPOSTA => $this->_count(Stage::SEM_RESPOSTA),
-		];		
-	}
-
-
-	private function total() {
-		$q = '
-			select 
-				count(1) as count
-			from sugestion
-			where year(created_at) = year(current_date)
-				and month(created_at) = month(current_date) 
-			and type = \'reclamacao\'
-		';
-
-		return $this->fetchAll($q, []);
-	}
-
-	private function _count($state) {
-		$date = new \DateTime;
-		$q = '
-			select 
-				count(1) as count,
-				date_format(created_at, "%Y-%m") as period
-			from sugestion
-			where year(created_at) = year(current_date)
-				and month(created_at) = month(current_date) 
-			and type = \'reclamacao\'
-				and state = :state
-		';
-
-		return $this->fetchAll($q, [
-			'state' => $state
-		]);
-	}	
-
 	public function statsAction($type) {
 		$year = $_GET['year'];
 		if ($type == 'by_department'){
@@ -135,7 +95,8 @@ class DefaultController extends Controller {
 		';
 
 		$ary = $this->fetchAll($complaints, ['year' => $year]);
-		$ary = array_merge($ary, $this->fetchAll($sugestions, ['year' => $year]));
+		$ary2 = $this->fetchAll($sugestions, ['year' => $year]);
+		$ary = array_merge($ary, $ary2);
 
 		$table = [];
 		foreach($ary as $val) {
@@ -410,5 +371,44 @@ class DefaultController extends Controller {
 		}
 
 		return ['rows' => $table];
+	}
+
+	private function getCounters() {
+		return [
+			Stage::ACOMPANHAMENTO => $this->_count(Stage::ACOMPANHAMENTO),
+			Stage::RESPONDIDO => $this->_count(Stage::RESPONDIDO),
+			Stage::SEM_RESPOSTA => $this->_count(Stage::SEM_RESPOSTA),
+		];
+	}
+
+	private function total() {
+		$q = '
+			select 
+				count(1) as count
+			from sugestion
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+			and type = \'reclamacao\'
+		';
+
+		return $this->fetchAll($q, []);
+	}
+
+	private function _count($state) {
+		$date = new \DateTime;
+		$q = '
+			select 
+				count(1) as count,
+				date_format(created_at, "%Y-%m") as period
+			from sugestion
+			where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+			and type = \'reclamacao\'
+				and state = :state
+		';
+
+		return $this->fetchAll($q, [
+			'state' => $state
+		]);
 	}
 }

@@ -51,9 +51,18 @@
                 </div>
             </div>
 
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="">
+                    </div>
+                    <div class="box-body no-padding">
+                        <div id="responseTime"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
 {% endblock %}
 
 
@@ -128,27 +137,32 @@
                 }
             },
             series: [{
-                name: 'Brands',
+                name: 'Percentagem',
                 data: [
                     { 
                         name: 'Denuncias', 
                         y: {{pie['denuncia']}},
+                        color: '#c82061'
                     },
                     {
                         name: 'Queixas',
                         y: {{pie['queixa']}},
+                        color: '#681133'
                     },
                     {
                         name: 'Sugestao',
                         y: {{pie['sugestao']}},
+                        color: '#1155cc'
                     },
                     { 
                         name: 'Reclamacao Externas', 
                         y: {{pie['reclamacao']}},
+                        color: '#4e802c',
                     },
                     { 
                         name: 'Reclamacao Internas', 
                         y: {{pie['reclamacao_interna']}},
+                        color: '#6eb63e'
                     },
                 ]
             }]
@@ -158,19 +172,23 @@
             var render = [
                 {
                     name: "Denúncias",
-                    data: [{{thirdy_party['denuncia']}}]
+                    data: [{{thirdy_party['denuncia']}}],
+                    color: '#c82061'
                 },
                 {
                     name: "Queixas",
-                    data: [{{thirdy_party['queixa']}}]
+                    data: [{{thirdy_party['queixa']}}],
+                    color: '#681133'
                 },
                 {
                     name: "Reclamações externas",
-                    data: [{{thirdy_party['reclamacao']}}]
+                    data: [{{thirdy_party['reclamacao']}}],
+                    color: '#4e802c'
                 },
                 {
                     name: "Sugestões",
-                    data: [{{thirdy_party['sugestao']}}]
+                    data: [{{thirdy_party['sugestao']}}],
+                    color: '#1155cc'
                 },
             ];
 
@@ -184,67 +202,6 @@
         }
 
         renderThirdPartyOccurences();
-        /* Highcharts.chart('responseTime', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Tempo de resposta por direcao'
-            },
-            xAxis: {
-                categories: ['DENÚNCIAS', 'QUEIXAS', 'RECLAMAÇÕES']
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ''
-                },
-                stackLabels: {
-                    enabled: true,
-                    style: {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                    }
-                }
-            },
-            legend: {
-                align: 'right',
-                x: -30,
-                verticalAlign: 'top',
-                y: 25,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
-            tooltip: {
-                headerFormat: '<b>{point.x}</b><br/>',
-                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'normal',
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                    }
-                }
-            },
-            series: [{
-                name: 'D1',
-                data: [11, 10, 12]
-            }, {
-                name: 'D2',
-                data: [21, 21, 31]
-            }, {
-                name: 'D3',
-                data: [31, 42, 42]
-            }, {
-                name: 'D4',
-                data: [31, 42, 42]
-            }]
-        }); */
     });
 </script>
 {% endblock %}

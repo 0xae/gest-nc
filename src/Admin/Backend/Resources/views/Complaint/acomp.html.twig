@@ -52,15 +52,15 @@
                                         Competencia de terceiros
                                     </span>
 
-                                    {% if entity.parCode %}
+                                    {% if entity.parAuthor %}
                                         <a href="{{ path('administration_Complaint_parecer', {'id': entity.id}) }}" target="_blank">
                                             <span class="label label-success" style="display:inline">
-                                                Parecer ({{entity.parCode}})
+                                                Parecer {{entity.parCode}}
                                             </span>
                                         </a>
                                     {% endif %}
 
-                                    {% if entity.parCode %}
+                                    {% if entity.parAuthor %}
                                         <div class="dropdown" style="display: inline">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Responder
