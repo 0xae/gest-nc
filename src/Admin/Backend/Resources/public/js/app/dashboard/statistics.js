@@ -173,6 +173,7 @@ angular.module("app")
         .filter(function (v) { 
             return v;
         });
+        // .map(function (v) { return v?v:0});
     }
 
     function renderByDepartments(year) {

@@ -164,6 +164,11 @@
                         y: {{pie['reclamacao_interna']}},
                         color: '#6eb63e'
                     },
+                    { 
+                        name: 'Livro de reclamações', 
+                        y: {{pie['comp_book']}},
+                        color: '#f39c12'
+                    },
                 ]
             }]
         });
@@ -189,7 +194,7 @@
                     name: "Sugestões",
                     data: [{{thirdy_party['sugestao']}}],
                     color: '#1155cc'
-                },
+                }
             ];
 
             renderBar('Números de ocorrências por competência de terceiros',
