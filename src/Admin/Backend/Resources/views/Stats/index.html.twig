@@ -60,7 +60,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 {% endblock %}
@@ -106,6 +105,37 @@
                 },
                 series: series
             });        
+        }
+
+        function renderThirdPartyOccurences() {
+            var render = [{
+                    name: "Denúncias",
+                    data: [{{thirdy_party['denuncia']}}],
+                    color: '#c82061'
+                },
+                {
+                    name: "Queixas",
+                    data: [{{thirdy_party['queixa']}}],
+                    color: '#681133'
+                },
+                {
+                    name: "Reclamações externas",
+                    data: [{{thirdy_party['reclamacao']}}],
+                    color: '#4e802c'
+                },
+                {
+                    name: "Sugestões",
+                    data: [{{thirdy_party['sugestao']}}],
+                    color: '#1155cc'
+                }];
+
+            renderBar('Números de ocorrências por competência de terceiros',
+                'Ocorrencias',
+                '',
+                'graph5',
+                ["Ocorrencias"],
+                render
+            ); 
         }
 
         // Build the chart
@@ -172,37 +202,6 @@
                 ]
             }]
         });
-
-        function renderThirdPartyOccurences() {
-            var render = [{
-                    name: "Denúncias",
-                    data: [{{thirdy_party['denuncia']}}],
-                    color: '#c82061'
-                },
-                {
-                    name: "Queixas",
-                    data: [{{thirdy_party['queixa']}}],
-                    color: '#681133'
-                },
-                {
-                    name: "Reclamações externas",
-                    data: [{{thirdy_party['reclamacao']}}],
-                    color: '#4e802c'
-                },
-                {
-                    name: "Sugestões",
-                    data: [{{thirdy_party['sugestao']}}],
-                    color: '#1155cc'
-                }];
-
-            renderBar('Números de ocorrências por competência de terceiros',
-                'Ocorrencias',
-                '',
-                'graph5',
-                ["Ocorrencias"],
-                render
-            ); 
-        }
 
         renderThirdPartyOccurences();
     });

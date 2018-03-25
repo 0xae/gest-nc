@@ -53,41 +53,61 @@ angular.module("app")
         });
     }
 
+    function produceYearArray(rows, type){
+        var ary = [];
+        var keys=Object.keys(rows).sort();
+        keys.forEach(function (k) {
+            var found = false;
+            rows[k].forEach(function (v){
+                if (v.type == type) {
+                    found=true;
+                    ary.push(parseInt(v.count));
+                    return;
+                }
+            });
+            if (!found)
+                ary.push(0);
+        });
+        return ary;        
+    }
+
     function renderPerMonth(year) {
         fetchData('by_month', {year: year})
         .then(function (data) {
             var objects = data.rows;
             var keys = _.sortBy(Object.keys(objects))
-            var series = {
-                queixa: {
+            var series = [
+                {
                     name: "Queixa",
-                    data: []
+                    data: produceYearArray(objects, 'queixa'),
+                    color: '#681133'
                 },
-                denuncia:{
+                {
                     name: "Denúncias",
-                    data: []
+                    data: produceYearArray(objects, 'denuncia'),
+                    color: '#c82061'
                 },
-                sugestao:{
+                {
                     name: "Sugestao",
-                    data: []
+                    data: produceYearArray(objects, 'sugestao'),
+                    color: '#1155cc'
                 },
-                reclamacao:{
-                    name: "Reclamacao",
-                    data: []
+                {
+                    name: "Reclamacao Externa",
+                    data: produceYearArray(objects, 'reclamacao'),
+                    color: '#4e802c'
                 },
-            }
-    
-            keys.forEach(function (key){
-                var entry = objects[key];
-                entry.forEach(function (obj){
-                    if (!series[obj.type]) {          
-                        series[obj.type] = {name: obj.type, data: []};
-                    }
-                    series[obj.type].data.push(parseInt(obj.count));
-                });
-            });
-    
-            var render = Object.keys(series).map(function (k){ return series[k]; });
+                {
+                    name: "Reclamacao Interna",
+                    data: produceYearArray(objects, 'reclamacao_interna'),
+                    color: '#6eb63e'
+                },
+                {
+                    name: "Livro de reclamacao",
+                    data: produceYearArray(objects, 'comp_book'),
+                    color: '#f39c12'
+                },
+            ]
 
             var months = [
                 'Janeiro',
@@ -103,13 +123,13 @@ angular.module("app")
                 'Novembro',
                 'Dezembro'
             ];
-    
+
             renderBar('Ocorrência por mês',
                 'Ocorrencias',
                 '',
                 'by_month',
                 months,
-                render
+                series
             );    
         });
     }
