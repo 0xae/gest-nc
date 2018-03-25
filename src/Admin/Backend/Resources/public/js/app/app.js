@@ -21,11 +21,7 @@ if (isUpdated) {
 }
 
 if (uploadedAdded) {
-    $.notify(
-        "Anexo adicionado", 
-        "success"
-    );
-
+    $.notify("Anexo adicionado",  "success");
     $('#editTab a[href="#tab2"]').tab('show');          
 }
 

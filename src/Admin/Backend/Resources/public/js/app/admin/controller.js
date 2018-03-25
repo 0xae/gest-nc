@@ -4,6 +4,14 @@ angular.module("app")
     var tab=url.searchParams.get('tab');
     $scope.permissions = [];
 
+    function fetchPermissions (profileId) { 
+        return $http.get('/arfa/web/app_dev.php/administration/permissions_of/' + profileId)
+        .then(function (_resp) {
+            var resp=_resp.data;
+            return resp;
+        });
+    }
+
     if (tab) { 
         $('#adminTab a[href="#'+tab+'"]').tab('show');  
     }
@@ -34,14 +42,6 @@ angular.module("app")
         });
     }
 
-    function fetchPermissions (profileId) { 
-        return $http.get('/arfa/web/app_dev.php/administration/permissions_of/' + profileId)
-        .then(function (_resp) {
-            var resp=_resp.data;
-            return resp;
-        });
-    }
-
     $scope.removePermission = function (id, index) {
         if (!confirm("Deseja mesmo remover essa permissao?")) {
             return;
@@ -57,7 +57,7 @@ angular.module("app")
     }
 }])
 
-.controller('UploadController', ['$http', '$scope', function ($http, $scope){
+.controller('UploadController', ['$http', '$scope', function ($http, $scope) {
     $scope.remove = function (id, index) {        
         if (!confirm("Tem a certeza que pretende eliminar este anexo?")){
             return;
@@ -75,5 +75,4 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
         });
     }
-}])
-;
+}]);

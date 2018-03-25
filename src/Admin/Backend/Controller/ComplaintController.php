@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,9 +16,6 @@ use Admin\Backend\Form\UploadType;
  * Complaint controller.
  */
 class ComplaintController extends Controller {
-    /**
-     * Lists all Complaint entities.
-     */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];

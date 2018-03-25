@@ -25,14 +25,14 @@ class Profile {
      *
      * @ORM\Column(name="name", type="string", length=45, nullable=false)
      */
-    private $name;
+    private $name;    
 
     /**
-     * @var string (read|write)
+     * @var string
      *
-     * @ORM\Column(name="permission", type="string", length=45, nullable=false)
+     * @ORM\Column(name="description", type="string", length=250, nullable=true)
      */
-    private $permission;
+    private $description;
 
     /**
      * @var \DateTime
@@ -42,9 +42,13 @@ class Profile {
     private $createdAt;
 
     /**
-     * @var integer
+     * @var \User
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     * })
+     * 
      */
     private $createdBy;
 
@@ -110,7 +114,6 @@ class Profile {
 
     /**
      * Get createdBy
-     *
      * @return integer 
      */
     public function getCreatedBy() {
@@ -119,24 +122,19 @@ class Profile {
 
     /**
      * Set permission
-     *
      * @param string $permission
      * @return Profile
      */
-    public function setPermission($permission)
-    {
-        $this->permission = $permission;
-
+    public function setDescription($val) {
+        $this->description = $val;
         return $this;
     }
 
     /**
      * Get permission
-     *
      * @return string 
      */
-    public function getPermission()
-    {
-        return $this->permission;
+    public function getDescription() {
+        return $this->description;
     }
 }

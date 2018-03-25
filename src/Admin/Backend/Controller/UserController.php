@@ -62,7 +62,7 @@ class UserController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $entity->setEnabled(true);
             $user = $this->getUser();
-            $entity->setCreatedBy($user->getId());
+            $entity->setCreatedBy($user);
             $em->persist($entity);
             $em->flush();
 
@@ -71,7 +71,10 @@ class UserController extends Controller {
                 ->updateUser($entity);
 
             // return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
-            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_user')));            
+            return $this->redirect($this->generateUrl('backend_administration_main', array(
+                'tab' => 'list_user',
+                'is_new' => true
+            )));            
         }
 
         return $this->render('BackendBundle:User:new.html.twig', array(

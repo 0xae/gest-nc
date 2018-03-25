@@ -56,11 +56,15 @@ class User extends BaseUser {
     private $createdAt;
 
     /**
-     * @var integer
+     * @var \User
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     * })
+     * 
      */
-    private $createdBy;
+     private $createdBy;
 
     /**
      * @var \Admin\Backend\Entity\Profile

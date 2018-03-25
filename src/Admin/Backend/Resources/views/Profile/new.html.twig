@@ -12,6 +12,11 @@
 
             <div class="box-body no-padding">
                 {{ form(form) }}
+                {{ include('BackendBundle:Profile:form.html.twig', {
+                    'form' : form, 
+                    'edit': false
+                    }) 
+                }}
             </div>
             <!-- /.box-body -->
         </div>

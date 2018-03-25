@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -14,20 +13,13 @@ class ProfileType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name')
-            // ->add('permission')
-            ->add('permission', 'choice', array(
-                'choices'  => array(
-                    'read' => 'Leitura',
-                    'write' => 'Escrita'
-                ),
-            ))
+            ->add('description')
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(
                     'class' => 'btn btn-success'
                 )
             ));
-        ;
     }
 
     /**

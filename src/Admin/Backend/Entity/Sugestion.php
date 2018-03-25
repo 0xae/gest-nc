@@ -150,7 +150,7 @@ class Sugestion {
     private $clientResponse;
 
     /**
-     * @var integer
+     * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({

@@ -42,7 +42,7 @@ class ProfileController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setCreatedAt(new \DateTime);
-            $userId = $this->getUser()->getId();
+            $userId = $this->getUser();
             $entity->setCreatedBy($userId);
 
             $em->persist($entity);
@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         return $this->render('BackendBundle:Profile:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -71,8 +71,6 @@ class ProfileController extends Controller
             'action' => $this->generateUrl('administration_Profile_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -96,10 +94,8 @@ class ProfileController extends Controller
      * Finds and displays a Profile entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Profile')->find($id);
 
         if (!$entity) {
@@ -118,10 +114,8 @@ class ProfileController extends Controller
      * Displays a form to edit an existing Profile entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Profile')->find($id);
 
         if (!$entity) {
@@ -145,25 +139,20 @@ class ProfileController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Profile $entity)
-    {
+    private function createEditForm(Profile $entity) {
         $form = $this->createForm(new ProfileType(), $entity, array(
             'action' => $this->generateUrl('administration_Profile_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Profile entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:Profile')->find($id);
 
         if (!$entity) {
@@ -176,22 +165,21 @@ class ProfileController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('administration_Profile_edit', array('id' => $id)));
         }
 
         return $this->render('BackendBundle:Profile:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Profile entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -217,8 +205,7 @@ class ProfileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('administration_Profile_delete', array('id' => $id)))
             ->setMethod('DELETE')

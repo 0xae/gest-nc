@@ -112,7 +112,6 @@ class StatsController extends Controller {
 			Model::SUGESTION => $this->count('sugestion', ['type' => Model::SUGESTION]),
 			Model::COMP_BOOK => $this->count('comp_book'),	
 		];
-
 		return $ary;
 	}
 

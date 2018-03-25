@@ -24,8 +24,13 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
-        $userList = $em->getRepository('BackendBundle:User')->findAll();
-        $profileList = $em->getRepository('BackendBundle:Profile')->findAll();
+
+        $userList = $em->getRepository('BackendBundle:User')
+            ->findAll();
+
+        $profileList = $em->getRepository('BackendBundle:Profile')
+            ->findAll();
+
         $assocProfile = $this->createAssocProfileForm();
         $permissions = $this->getPermissions();
 
@@ -37,6 +42,22 @@ class AdminController extends Controller {
             'assoc_profile_form' => $assocProfile->createView(),
             'permissions' => $permissions
         ));
+    }
+
+    private function paginate($em, $class) {
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];        
+        $perPage = 10;
+        
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, $class, $perPage, 
+                        ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+            
+        return [$q, $fanta];
     }
 
    /**
