@@ -1,5 +1,6 @@
 angular.module("app")
-.controller("StatisticsController", ['$http', '$scope', function ($http, $scope) {
+.controller("StatisticsController", ['$http', '$scope', 
+function ($http, $scope) {
     console.info("--- init stats controller ---");
     var categories = [
         "Denúncias",
@@ -159,21 +160,14 @@ angular.module("app")
 
     function produceArray(rows, type) {
         var categories = Object.keys(rows);
-        return categories.map(function (c){
-            return (rows[c].filter(function (t) {
+        return categories.map(function (c) {
+            return rows[c].filter(function (t) {
                 return t.type == type;
             })
             .map(function (t) {
                 return parseInt(t.count);
-            }));
-        })
-        .map(function (k) { 
-            return k[0];
-        })
-        .filter(function (v) { 
-            return v;
+            });
         });
-        // .map(function (v) { return v?v:0});
     }
 
     function renderByDepartments(year) {
@@ -185,26 +179,26 @@ angular.module("app")
                 name: 'Denúncias',
                 data: produceArray(rows, 'denuncia'),
                 color: '#681133'
-            }, {
-                name: 'Queixas',
-                data: produceArray(rows, 'queixa'),
-                color: '#c82061'
-            }, {
-                name: 'Reclamaçao Interna',
-                data: produceArray(rows, 'reclamacao_interna'),
-                color: '#6eb63e'
-            },{
-                name: 'Reclamaçao Externa',
-                data: produceArray(rows, 'reclamacao'),
-                color: '#4e802c'
-            }, {
-                name: 'Sugestões',
-                data: produceArray(rows, 'sugestao'),
-                color: '#1155cc'
-            }, {
-                name: 'Livro de reclamações',
-                data: produceArray(rows, 'comp_book'),
-                color: '#f39c12'
+                },{
+                    name: 'Queixas',
+                    data: produceArray(rows, 'queixa'),
+                    color: '#c82061'
+                },{
+                    name: 'Reclamaçao Interna',
+                    data: produceArray(rows, 'reclamacao_interna'),
+                    color: '#6eb63e'
+                },{
+                    name: 'Reclamaçao Externa',
+                    data: produceArray(rows, 'reclamacao'),
+                    color: '#4e802c'
+                },{
+                    name: 'Sugestões',
+                    data: produceArray(rows, 'sugestao'),
+                    color: '#1155cc'
+                },{
+                    name: 'Livro de reclamações',
+                    data: produceArray(rows, 'comp_book'),
+                    color: '#f39c12'
             }];
 
             renderStack(
@@ -257,9 +251,8 @@ angular.module("app")
     function renderImcumprimentoPerDirection() { 
         fetchData('by_incump', {year: 2018})
         .then(function (data) {
-            var rows = data.rows;
+            var rows=data.rows;
             var categories=Object.keys(rows);
-            // var render = __transform(types, Object.keys(rows), rows);
             var series = [{
                 name: 'Denúncias',
                 data: produceArray(rows, 'denuncia'),
@@ -270,9 +263,9 @@ angular.module("app")
                 color: '#c82061'
             }, {
                 name: 'Reclamaçao Interna',
-                data: produceArray(rows, 'reclamacao_interna'),
+                data: [0, 1],
                 color: '#6eb63e'
-            },{
+            }, {
                 name: 'Reclamaçao Externa',
                 data: produceArray(rows, 'reclamacao'),
                 color: '#4e802c'
