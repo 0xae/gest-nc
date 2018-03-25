@@ -44,6 +44,40 @@ class StatsController extends Controller {
         ));
 	}
 
+	public function ajaxAction($type) {
+		$year = date('Y');
+		$month = date('m');
+		$data = [];
+
+		if (@$_GET['year']) {
+			$year = $_GET['year'];
+		}
+
+		if (@$_GET['month']) {
+			$month = $_GET['month'];
+		}
+
+		if ($type == 'avgResponseTime') {
+			$data = $this->getAvgResponseTime();
+		}
+
+		return new JsonResponse($data);
+	}
+
+	public function getAvgResponseTime() {
+		$em = $this->getDoctrine()->getManager();		
+		$service = $this->container->get('sga.admin.stats');
+
+		return [
+			Model::DENOUNCE => $service->responseAvg($em, 'complaint', ['type' => Model::DENOUNCE]),
+			Model::COMPLAINT => $service->responseAvg($em, 'complaint', ['type' => Model::COMPLAINT]),
+			Model::RECLAMATION_INTERNAL => $service->responseAvg($em, 'reclamation_internal'),
+			Model::RECLAMATION_EXTERN => $service->responseAvg($em, 'sugestion', ['type' => Model::RECLAMATION_EXTERN]),
+			Model::SUGESTION => $service->responseAvg($em, 'sugestion', ['type' => Model::SUGESTION]),
+			// Model::COMP_BOOK => $this->count('comp_book'),	
+		];
+	}
+
 	public function getThirdPartyCounts() {
 		$ary = [
 			Model::DENOUNCE => 

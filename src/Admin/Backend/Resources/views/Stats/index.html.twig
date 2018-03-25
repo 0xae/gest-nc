@@ -12,7 +12,17 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-body no-padding">
-                        <div id="pieChart"></div>
+                        <div id="responseAvg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="">
+                    </div>
+                    <div class="box-body no-padding">
+                        <div id="by_department"></div>
                     </div>
                 </div>
             </div>
@@ -20,7 +30,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-body no-padding">
-                        <div id="graph3"></div>
+                        <div id="pieChart"></div>
                     </div>
                 </div>
             </div>
@@ -37,16 +47,6 @@
                 <div class="box">
                     <div class="box-body no-padding">
                         <div id="graph5"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="box">
-                    <div class="">
-                    </div>
-                    <div class="box-body no-padding">
-                        <div id="by_department"></div>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Quantidade de ocorrência por tipo'
+                text: 'Total da ocorrência'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -174,8 +174,7 @@
         });
 
         function renderThirdPartyOccurences() {
-            var render = [
-                {
+            var render = [{
                     name: "Denúncias",
                     data: [{{thirdy_party['denuncia']}}],
                     color: '#c82061'
@@ -190,17 +189,11 @@
                     data: [{{thirdy_party['reclamacao']}}],
                     color: '#4e802c'
                 },
-                { 
-                    name: 'Reclamacao Internas', 
-                    y: {{thirdy_party['reclamacao_interna']}},
-                    color: '#6eb63e'
-                },
                 {
                     name: "Sugestões",
                     data: [{{thirdy_party['sugestao']}}],
                     color: '#1155cc'
-                }
-            ];
+                }];
 
             renderBar('Números de ocorrências por competência de terceiros',
                 'Ocorrencias',

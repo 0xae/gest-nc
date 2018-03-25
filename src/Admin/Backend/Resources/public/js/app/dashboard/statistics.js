@@ -203,49 +203,53 @@ function ($http, $scope) {
 
             renderStack(
                 "by_department", 
-                'Ocorrência por direções',
+                'Total de ocorrência por direção',
                 categories, 
                 series
             );
         });
     }
 
-    function renderResponsePerDirection() {
-        var render = [
-            {
-                name: "Denúncias",
-                data: [1],
-                color: "#c82061"
-            },
-            {
-                name: "Queixas",
-                data: [2],
-                color: "#681133"
-            },
-            {
-                name: "Reclamações externas",
-                data: [3],
-                color: "#4e802c"
-            },
-            {
-                name: "Reclamações internas",
-                data: [3],
-                color: "#6eb63e"
-            },
-            {
-                name: "Sugestões",
-                data: [3],
-                color: "#1155cc"
-            },
-        ];
+    function renderResponseTimeAvg() {
+        fetchData('ajax/avgResponseTime', {})
+        .then(function (data){
+            var render = [
+                {
+                    name: "Denúncias",
+                    data: [parseInt(data['denuncia'][0].count)],
+                    color: "#c82061"
+                },
+                {
+                    name: "Queixas",
+                    data: [parseInt(data['queixa'][0].count)],
+                    color: "#681133"
+                },
+                {
+                    name: "Reclamações externas",
+                    data: [parseInt(data['reclamacao'][0].count)],
+                    color: "#4e802c"
+                },
+                {
+                    name: "Reclamações internas",
+                    data: [parseInt(data['reclamacao_interna'][0].count)],
+                    color: "#6eb63e"
+                },
+                {
+                    name: "Sugestões",
+                    data: [parseInt(data['sugestao'][0].count)],
+                    color: "#1155cc"
+                },
+            ];
 
-        renderBar('Tempo médio de resposta',
-            'Ocorrencias',
-            '',
-            'graph3',
-            ["Ocorrencias"],
-            render
-        );    
+            renderBar('Tempo médio de resposta por direção',
+                'Dias',
+                '',
+                'responseAvg',
+                ["Dias"],
+                render
+            );
+        });
+
     }
 
     function renderImcumprimentoPerDirection() { 
@@ -285,6 +289,6 @@ function ($http, $scope) {
     }
 
     renderByDepartments(2018);
-    renderResponsePerDirection();
+    renderResponseTimeAvg();
     renderImcumprimentoPerDirection();
 }]);

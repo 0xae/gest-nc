@@ -106,8 +106,7 @@ class DefaultController extends Controller {
 
 		$ary1 = $this->fetchAll($complaints, ['year' => $year]);
 		$ary2 = $this->fetchAll($sugestions, ['year' => $year]);
-		$ary3 = $this->fetchAll($internalRecl, ['year' => $year]);
-		
+		$ary3 = $this->fetchAll($internalRecl, ['year' => $year]);		
 		$ary = array_merge($ary1, $ary2, $ary3);
 
 		$table = [];

@@ -107,6 +107,10 @@ dashboard_stats:
     path:     /dashboard/stats/{type}
     defaults: { _controller: BackendBundle:Default:stats }
 
+dashboard_stats_ajax:
+    path:     /dashboard/stats/ajax/{type}
+    defaults: { _controller: BackendBundle:Stats:ajax }
+
 dashboard_counters:
     path:     /dashboard/counters
     defaults: { _controller: BackendBundle:Default:counters }
