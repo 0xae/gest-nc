@@ -172,8 +172,10 @@ angular.module("app")
                     return;
                 }
             });
-            if (!found)
+
+            if (!found) {
                 ary.push(0);
+            }
         });
         return ary;
     }

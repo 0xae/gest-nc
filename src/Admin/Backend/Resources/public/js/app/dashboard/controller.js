@@ -78,7 +78,7 @@ function ($scope, Statistics) {
                     data: Statistics.produceYearArray(objects, 'comp_book'),
                     color: '#f39c12'
                 },
-            ]
+            ];
 
             var months = [
                 'Janeiro',
