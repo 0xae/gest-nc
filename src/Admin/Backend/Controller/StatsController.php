@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -56,15 +55,15 @@ class StatsController extends Controller {
 			Model::RECLAMATION_EXTERN => 
 				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::RECLAMATION_EXTERN])
 				[0]['count'],
-			Model::RECLAMATION_INTERNAL => 
-				(int) $this->count('reclamation_internal', ['state'=>Stage::NO_COMP])
-				[0]['count'],
 			Model::SUGESTION => 
 				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::SUGESTION])
 				[0]['count'],
-			Model::COMP_BOOK => 
-				 $this->count('comp_book', ['state' => Stage::NO_COMP])
-				 [0]['count'],
+			// Model::RECLAMATION_INTERNAL => 
+			// 	(int) $this->count('reclamation_internal', ['state'=>Stage::NO_COMP])
+			// 	[0]['count'],
+			// Model::COMP_BOOK => 
+			// 	 $this->count('comp_book', ['state' => Stage::NO_COMP])
+			// 	 [0]['count'],
 		];
 
 		return $ary;
