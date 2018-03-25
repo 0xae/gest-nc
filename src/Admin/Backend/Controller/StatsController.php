@@ -2,15 +2,14 @@
 
 namespace Admin\Backend\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Admin\Backend\Entity\Category;
 use Admin\Backend\Entity\Stage;
-use Admin\Backend\Form\CategoryType;
-
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Admin\Backend\Entity\Model;
+use Admin\Backend\Form\CategoryType;
 
 /**
  * Statistics controller.
@@ -18,7 +17,6 @@ use Admin\Backend\Entity\Model;
 class StatsController extends Controller {
     public function indexAction() {
 		$counters = $this->getCounters();
-
 		$total = (int) $counters[Model::DENOUNCE][0]["count"] +
 			(int) $counters[Model::COMPLAINT][0]["count"] +
 			(int) $counters[Model::RECLAMATION_EXTERN][0]["count"] +
@@ -47,7 +45,7 @@ class StatsController extends Controller {
         ));
 	}
 
-	public function getThirdPartyCounts() {		
+	public function getThirdPartyCounts() {
 		$ary = [
 			Model::DENOUNCE => 
 				(int) $this->count('complaint', ['state'=>Stage::NO_COMP, 'type'=>Model::DENOUNCE])
@@ -81,6 +79,7 @@ class StatsController extends Controller {
 			Model::SUGESTION => $this->count('sugestion', ['type' => Model::SUGESTION]),
 			Model::COMP_BOOK => $this->count('comp_book'),	
 		];
+
 		return $ary;
 	}
 
@@ -91,3 +90,4 @@ class StatsController extends Controller {
 			->count($em, $model, $opts);
 	}
 }
+
