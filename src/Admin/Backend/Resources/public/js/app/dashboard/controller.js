@@ -2,56 +2,111 @@
 angular.module("app")
 .controller("DashboardController", ['$http', '$scope', function ($http, $scope) {
     console.info("--- init dash controller ---");
-
-    setTimeout(function(){
-        // renderGraph3();
-        // renderDepartments(2018);
-    }, 1500);
-
     function renderDepartments(year) {
         fetchData('by_department', {year: year})
         .then(function (data) {
-            var deps = data.rows;
-            var keys = Object.keys(deps);
-            var series = {};
-            var types=["denuncia", "queixa", "reclamacao", "sugestao"];
-            var categories =[
-                "Denúncias",
-                "Queixas",
-                "Reclamações",
-                "Sugestões",
-            ];
+            var rows = data.rows;
+            var categories = Object.keys(rows);
+            var series = [{
+                name: 'Denúncias',
+                data: produceArray(rows, 'denuncia'),
+                color: '#681133'
+                },{
+                    name: 'Queixas',
+                    data: produceArray(rows, 'queixa'),
+                    color: '#c82061'
+                },{
+                    name: 'Reclamaçao Interna',
+                    data: produceArray(rows, 'reclamacao_interna'),
+                    color: '#6eb63e'
+                },{
+                    name: 'Reclamaçao Externa',
+                    data: produceArray(rows, 'reclamacao'),
+                    color: '#4e802c'
+                },{
+                    name: 'Sugestões',
+                    data: produceArray(rows, 'sugestao'),
+                    color: '#1155cc'
+                },{
+                    name: 'Livro de reclamações',
+                    data: produceArray(rows, 'comp_book'),
+                    color: '#f39c12'
+            }];
 
-            keys.forEach(function (d){
-                series[d] = {
-                    name: d,
-                    data: []
-                };
-            });
-
-            keys.forEach(function (k){
-                var depTypes =_.sortBy(deps[k], function (d) { return d.type; });
-                types.forEach(function (t){
-                    var found=_.find(depTypes, function (dt) { return dt.type==t});
-                    if (found) {
-                        series[k].data.push(parseInt(found.count));
-                    } else {
-                        series[k].data.push(0);
-                    }
-                });
-            });
-
-            var render = Object.keys(series).map(function (k){ return series[k]; });
-            renderBar(
-                'Ocorrência por direções', 
-                'Ocorrencias',
-                '',
-                'by_department',
-                categories,
-                render
+            renderStack(
+                "by_department", 
+                'Total de ocorrência por direção',
+                categories, 
+                series
             );
         });
     }
+
+    function renderStack(container, title, categories, series) {
+        Highcharts.chart(container, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: title
+            },
+            xAxis: {
+                // categories: ['DENÚNCIAS', 'QUEIXAS', 'RECLAMAÇÕES']
+                categories: categories
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>'
+                // pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+            },
+            series: series
+        });        
+    }    
+
+    function produceArray(rows, type) {
+        var categories = Object.keys(rows);
+        return categories.map(function (c) {
+            return rows[c].filter(function (t) {
+                return t.type == type;
+            })
+            .map(function (t) {
+                return parseInt(t.count);
+            });
+        });
+    }    
 
     function produceYearArray(rows, type){
         var ary = [];

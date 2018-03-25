@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,40 +73,14 @@ class DefaultController extends Controller {
 	}
 
 	private function groupByDepartment($year) {
-		$complaints = '
-			select COUNT(c.type) as count,
-				c.type,
-				a.codigo as code
-			from complaint c
-			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
-			group by c.type,a.codigo
-		';
+        $em = $this->getDoctrine()->getManager();
+		$service = $this->container->get('sga.admin.stats');
 
-		$sugestions = '
-			select COUNT(c.type) as count,
-				c.type,
-				a.codigo as code
-			from sugestion c
-			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
-			group by c.type,a.codigo
-		';
-
-		$internalRecl = '
-			select COUNT(1) as count,
-				"reclamacao_interna" as type,
-				a.codigo as code
-			from reclamation_internal c
-			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
-			group by a.codigo,type
-		';
-
-		$ary1 = $this->fetchAll($complaints, ['year' => $year]);
-		$ary2 = $this->fetchAll($sugestions, ['year' => $year]);
-		$ary3 = $this->fetchAll($internalRecl, ['year' => $year]);		
-		$ary = array_merge($ary1, $ary2, $ary3);
+		$ary1 = $service->groupByDepartment($em, 'complaint');
+		$ary2 = $service->groupByDepartment($em, 'sugestion');
+		$ary3 = $service->groupByDepartment($em, 'reclamation_internal', ['type'=>'reclamacao_interna']);
+		$ary4 = $service->groupByDepartment($em, 'comp_book', ['type'=>'comp_book']);
+		$ary = array_merge($ary1, $ary2, $ary3, $ary4);
 
 		$table = [];
 		foreach($ary as $val) {
@@ -171,27 +144,12 @@ class DefaultController extends Controller {
 
 	private function groupByMonth($year) {
         $em = $this->getDoctrine()->getManager();
-		$year = 2018;		
-		$complaints = '
-			select COUNT(type) as count,
-				   DATE_FORMAT(created_at, "%Y-%m") as period,
-				   type 
-			from complaint 
-			where year(created_at) = :year
-			group by DATE_FORMAT(created_at, "%Y-%m"),type ;
-		';
-
-		$sugestions = '
-			select COUNT(type) as count,
-				DATE_FORMAT(created_at, "%Y-%m") as period,
-				type 
-			from sugestion 
-			where year(created_at) = :year
-			group by DATE_FORMAT(created_at, "%Y-%m"),type ;
-		';	
-
-		$ary = $this->fetchAll($complaints, ['year' => $year]);
-		$ary = array_merge($ary, $this->fetchAll($sugestions, ['year' => $year]));
+		$service = $this->container->get('sga.admin.stats');
+		$ary1 = $service->groupByMonth($em, 'complaint');
+		$ary2 = $service->groupByMonth($em, 'sugestion');
+		$ary3 = $service->groupByMonth($em, 'comp_book', ['type'=>'comp_book']);
+		$ary4 = $service->groupByMonth($em, 'reclamation_internal', ['type'=>'reclamacao_interna']);
+		$ary = array_merge($ary1, $ary2, $ary3, $ary4);
 
 		$table = [];
 		foreach($ary as $val) {
@@ -207,17 +165,10 @@ class DefaultController extends Controller {
 			}
 		}
 
-		$obj = [
-			['type'=>'queixa', 'count'=>0],
-			['type'=>'denuncia', 'count'=>0],
-			['type'=>'sugestao', 'count'=>0],
-			['type'=>'reclamacao', 'count'=>0]
-		];
-
 		for ($i=1; $i<13; $i++) {
 			$key = "$year-" . str_pad($i, 2, '0', STR_PAD_LEFT);
 			if (!array_key_exists($key, $table)) {
-				$table[$key] = &$obj;
+				$table[$key] = [];
 			}
 		}
 

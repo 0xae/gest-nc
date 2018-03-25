@@ -58,7 +58,59 @@ class StatsService {
 		return $this->fetchAll($em, $q, $params);
 	}
 
+	public function groupByMonth($em, $model, $opts=[]) {
+		$year = date("Y");
+		$type = 'type';
+
+		if (@$opts['type']) {
+			$type= "'".$opts['type']."'";
+		}
+
+		if (@$opts['year']) {
+			$year=(int)@$opts['year'];
+		}
+
+		$sql = '
+			select COUNT(1) as count
+				,DATE_FORMAT(created_at, "%Y-%m") as period
+				,'.$type.' as type
+			from '. $model .' 
+			where year(created_at) = :year
+			group by DATE_FORMAT(created_at, "%Y-%m"), type
+		';
+
+		$params = ["year" => $year];
+		return $this->fetchAll($em, $sql, $params);
+	}
+
+	public function groupByDepartment($em, $model, $opts=[]) {
+		$year = date("Y");
+		$type = 'type';
+
+		if (@$opts['year']) {
+			$year=(int)@$opts['year'];
+		}
+		if (@$opts['type']) {
+			$type="'".@$opts['type']."'";
+		}
+
+		$sql = '
+			select COUNT(1) as count,
+				'. $type .' as type, 
+				a.codigo as code
+			from ' . $model . ' c
+			join app_entity a ON a.id = (
+				select entity from user where id=c.created_by
+			) where year(c.created_at) = :year
+			group by '.$type.', a.codigo
+		';
+
+		$params=["year" => $year];
+		return $this->fetchAll($em, $sql, $params);
+	}
+
 	private function fetchAll($em, $sql, $params) {
+		// TODO: research a way to get $em inside services
         // $em = $this->container->getDoctrine()->getManager();
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
