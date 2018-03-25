@@ -3,7 +3,11 @@
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-lg">
         {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
-            <img src="{{ asset_url }}" class="user-image" width="100" alt="User Image!" />
+            <img src="{{ asset_url }}" 
+                 class="user-image" 
+                 alt="User Image!" 
+                 width="100" 
+            />
         {% endimage %}
     </span>
 
@@ -107,7 +111,9 @@
                                             <h4 class="media-heading">
                                                 <strong>{{app.user.username}}</strong>
                                             </h4>
-                                            {{app.user.email}}
+                                            <span style="">{{app.user.email}}</span>
+                                            <br/>
+                                            <small>{{app.user.entity.description|upper}}</small>
                                         </div>
                                     </div>
 

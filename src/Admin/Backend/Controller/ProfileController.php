@@ -65,8 +65,7 @@ class ProfileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Profile $entity)
-    {
+    private function createCreateForm(Profile $entity) {
         $form = $this->createForm(new ProfileType(), $entity, array(
             'action' => $this->generateUrl('administration_Profile_create'),
             'method' => 'POST',
@@ -79,8 +78,7 @@ class ProfileController extends Controller
      * Displays a form to create a new Profile entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Profile();
         $form   = $this->createCreateForm($entity);
 
