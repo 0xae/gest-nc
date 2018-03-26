@@ -89,16 +89,17 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
     $scope.openParModal = function (obj, modal) {
         $scope.mObject = obj;
         var title = "Parecer Cientifico";
-
         if (obj.type == 'par_tec') {
             title = "Parecer Tecnico"
         }
 
         $scope.modalTitle = 'Atribuir ' + title;
-        if (modal)
+        if (modal) {
             $(modal).modal();
-        else
-            $(PAR_MODAL).modal();                
+            $("#admin_backend_upload_reference").val("123");
+        } else {
+            $(PAR_MODAL).modal();
+        }
     }
 
     $scope.updatePar = function() {

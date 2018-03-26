@@ -397,9 +397,16 @@ class Complaint {
             $ty = '/DN/';
         }
 
+        $entityId = 00;
+        if ($this->createdBy->getEntity()){
+            $entityId=$this->createdBy
+                           ->getEntity()
+                           ->getCode(); 
+        }
+
         $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
         return $id . 
-                $ty .  $this->createdBy->getEntity()->getCode() .
+                $ty .  $entityId .
                 '/' . $this->createdAt->format("Y");
     }
 

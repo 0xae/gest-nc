@@ -167,7 +167,6 @@ class AdminController extends Controller {
     private function getPermissions() {
         // $routeCollection = $this->get('router')
         //                         ->getRouteCollection();
-        
         // foreach ($routeCollection->all() as $routeName => $route) {            
         //     if (strstr($routeName, 'administration_')){
         //         $ary[] = $routeName;
@@ -182,38 +181,128 @@ class AdminController extends Controller {
                 "label" => "Administracao",
                 "code" => "ROLE_ADMIN",
             ],
+
+            // complaint
+            [
+                "label" => "Registro de Queixas/Reclamacao",
+                "code" => "ADMINISTRATION_COMPLAINT_NEW",
+            ],
             [
                 "label" => "Listagem de Queixas/Reclamacao",
                 "code" => "ADMINISTRATION_COMPLAINT",
             ],
             [
-                "label" => "Criar Queixas/Reclamacao",
-                "code" => "ADMINISTRATION_COMPLAINT_NEW",
+                "label" => "Acompanhamento de Queixas/Reclamacao",
+                "code" => "ADMINISTRATION_COMPLAINT_ACOMP",
             ],
+            [
+                "label" => "Tratamento de Queixas/Reclamacao",
+                "code" => "ADMINISTRATION_COMPLAINT_TREAT",
+            ],
+            [
+                "label" => "Queixas/Reclamacao respondidas",
+                "code" => "ADMINISTRATION_COMPLAINT_RESP",
+            ],
+            [
+                "label" => "Queixas/Reclamacao sem resposta",
+                "code" => "ADMINISTRATION_COMPLAINT_NORESP",
+            ],
+            [
+                "label" => "Queixas/Reclamacao nao favoravel",
+                "code" => "ADMINISTRATION_COMPLAINT_NF",
+            ],
+            [
+                "label" => "Queixas/Reclamacao sem competencia",
+                "code" => "ADMINISTRATION_COMPLAINT_SC",
+            ],
+            [
+                "label" => "Queixas/Reclamacao nao-conforme",
+                "code" => "ADMINISTRATION_COMPLAINT_NC",
+            ],
+
+            // sugestion
             [
                 "label" => "Listagem de Sugestao/Reclamacao Externa",
                 "code" => "ADMINISTRATION_SUGESTION",
             ],
             [
-                "label" => "Criar Sugestao/Reclamacao Externa",
+                "label" => "Registro de Sugestao/Reclamacao Externa",
                 "code" => "ADMINISTRATION_SUGESTION_NEW",
+            ],
+            [
+                "label" => "Acompanhamento de Sugestao/Reclamacao Externa",
+                "code" => "ADMINISTRATION_SUGESTION_ACOMP",
+            ],
+            [
+                "label" => "Tratamento de Sugestao/Reclamacao Externa",
+                "code" => "ADMINISTRATION_SUGESTION_TREAT",
+            ],
+            [
+                "label" => "Sugestao/Reclamacao respondida",
+                "code" => "ADMINISTRATION_SUGESTION_RESP",
+            ],
+            [
+                "label" => "Sugestao/Reclamacao sem resposta",
+                "code" => "ADMINISTRATION_SUGESTION_NORESP",
+            ],
+            [
+                "label" => "Sugestao/Reclamacao Externa nao favoravel",
+                "code" => "ADMINISTRATION_SUGESTION_NF",
+            ],
+            [
+                "label" => "Sugestao/Reclamacao sem competencia",
+                "code" => "ADMINISTRATION_SUGESTION_SC",
+            ],
+            [
+                "label" => "Sugestao/Reclamacao nao conforme",
+                "code" => "ADMINISTRATION_SUGESTION_NC",
+            ],
+
+            // Ireclamacion
+            [
+                "label" => "Registro de Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_NEW",
             ],
             [
                 "label" => "Listagem de Reclamacao Interna",
                 "code" => "ADMINISTRATION_IRECLAMATION",
             ],
             [
-                "label" => "Criar Reclamacao Interna",
-                "code" => "ADMINISTRATION_IRECLAMATION_NEW",
+                "label" => "Reclamacao Interna em acompanhamento",
+                "code" => "ADMINISTRATION_IRECLAMATION_ACOMP",
             ],
+            [
+                "label" => "Reclamacao Interna respondidas",
+                "code" => "ADMINISTRATION_IRECLAMATION_RESP",
+            ],
+            [
+                "label" => "Reclamacao Interna sem resposta",
+                "code" => "ADMINISTRATION_IRECLAMATION_NORESP",
+            ],
+            [
+                "label" => "Nao conformidades da Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_NC",
+            ],
+
+            // Livro de Reclamacao
             [
                 "label" => "Listagem de livro de reclamacao",
                 "code" => "ADMINISTRATION_COMPBOOK",
             ],
             [
+                "label" => "Acompanhamento de livro de reclamacao",
+                "code" => "ADMINISTRATION_COMPBOOK_ACOMP",
+            ],
+            [
+                "label" => "Nao conformidades do livro de reclamacao",
+                "code" => "ADMINISTRATION_COMPBOOK_NC",
+            ],
+            [
                 "label" => "Criar Livro de reclamacao",
                 "code" => "ADMINISTRATION_COMPBOOK_NEW",
             ],
+
+            // Nao conformidades
             [
                 "label" => "Listagem de NÃO CONFORMIDADES",
                 "code" => "ADMINISTRATION_CORRECTION",

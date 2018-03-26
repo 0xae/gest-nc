@@ -380,9 +380,15 @@ class Sugestion {
             $ty = '/SG/';
         }
 
+        $entityId = 00;
+        if ($this->createdBy->getEntity()){
+            $entityId=$this->createdBy
+                           ->getEntity()
+                           ->getCode(); 
+        }
+
         $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
-        return $id . $ty .  
-                $this->createdBy->getEntity()->getCode() .
+        return $id . $ty . $entityId .
                 '/' . $this->createdAt->format("Y");
     }
 

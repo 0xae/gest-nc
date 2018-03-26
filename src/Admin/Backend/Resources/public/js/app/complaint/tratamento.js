@@ -46,6 +46,7 @@ function ($http, $scope, UploadService, ComplaintService) {
     function openModal(obj, title, ModalRef) {
         $scope.mObject = obj;
         $scope.modalTitle = title;
+        $("#admin_backend_upload_reference").val("123");
         $(ModalRef).modal();
     }
 
@@ -60,7 +61,7 @@ function ($http, $scope, UploadService, ComplaintService) {
     }
 
     $scope.annexParecer = function (obj, title) {
-        openModal(obj, '', '#updateParAnnex');        
+        openModal(obj, '', '#updateParAnnex');     
     }
 
     $scope.respondSubmit = function() {

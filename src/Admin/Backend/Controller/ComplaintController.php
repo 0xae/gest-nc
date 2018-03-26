@@ -100,7 +100,8 @@ class ComplaintController extends Controller {
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
             'objects' => $ary,
             'type' => $label,
-            'state' => $state
+            'state' => $state,
+            'upload_form' => $this->uploadForm(new Complaint)
         ));
     }
 
@@ -444,15 +445,20 @@ class ComplaintController extends Controller {
 
     private function uploadForm($model) {
         $entity = new Upload();
-        $entity->setReference($model->getAnnexReference());
 
-        $entity->setContext(json_encode([
-            "path" => 'administration_Complaint_edit',
-            "path_args" => array(
-                'id' => $model->getId(),
-                'upload_added' => true
-            )
-        ]));
+        if ($model->getAnnexReference()) {
+            $entity->setReference($model->getAnnexReference());
+        }
+
+        if ($model->getId()) {
+            $entity->setContext(json_encode([
+                "path" => 'administration_Complaint_edit',
+                "path_args" => array(
+                    'id' => $model->getId(),
+                    'upload_added' => true
+                )
+            ]));
+        }
 
         return $this->createForm(new UploadType(), $entity, array(
                 'action' => $this->generateUrl('administration_Upload_create'),

@@ -11,9 +11,6 @@
             </a>
         </li>
 
-        {# {% if is_granted(expression('"" in user.getRoles()')) %}
-        {% endif %} #}
-
         {#  Administracao #}
         {% if is_granted('ROLE_ADMIN') %}
             <li class="header" style="padding:0px;">
@@ -70,7 +67,13 @@
         {% if is_granted('ROLE_ADMIN') or
               is_granted(expression('"ADMINISTRATION_COMPLAINT" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPLAINT_NEW" in user.getRoles()')) or
-              is_granted(expression('"ADMINISTRATION_COMPLAINT_BYSTATE" in user.getRoles()'))
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_ACOMP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_TREAT" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_RESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_NORESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_NF" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_SC" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT_NC" in user.getRoles()'))
         %}
             <li class="header tree-view" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-999">
@@ -94,35 +97,55 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPLAINT_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPLAINT_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'acompanhamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
                         </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_COMPLAINT_TREAT" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'tratamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Tratamento</span></a>
                         </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_COMPLAINT_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'respondido'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de respostas</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                          is_granted(expression('"ADMINISTRATION_COMPLAINT_NORESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_resposta'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                         </li>
-
-                        <li>
-                            <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_competencia'})  }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Competência de terceiros</span></a>
-                        </li>
-
+                    {% endif %}
+                    
+                    {% if is_granted('ROLE_ADMIN') or 
+                          is_granted(expression('"ADMINISTRATION_COMPLAINT_NF" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_favoravel'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Nao favoravel</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                          is_granted(expression('"ADMINISTRATION_COMPLAINT_SC" in user.getRoles()')) %}
+                        <li>
+                            <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_competencia'})  }}">
+                            <i class="fa fa-circle-o text-gray"></i> <span>Competência de terceiros</span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') or 
+                          is_granted(expression('"ADMINISTRATION_COMPLAINT_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'nao_conformidade'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> N&atilde;o Conformidades</a>
@@ -136,7 +159,13 @@
         {% if is_granted('ROLE_ADMIN') or
               is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) or
-              is_granted(expression('"ADMINISTRATION_SUGESTION_BYSTATE" in user.getRoles()'))
+              is_granted(expression('"ADMINISTRATION_SUGESTION_ACOMP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_TREAT" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_RESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_NORESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_NF" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_SC" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_SUGESTION_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
                 <a href="#" class="bg-999">
@@ -145,7 +174,8 @@
                 </a>
 
                 <ul class="treeview-menu" style="">
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_new') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
@@ -153,44 +183,64 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_TREAT" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'tratamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Tratamento</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'respondido'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de respostas</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_NORESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_resposta'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_NF" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'nao_favoravel'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Não favoraveis</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_SC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_competencia'})  }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Sem competencia</span></a>
+                            <i class="fa fa-circle-o text-gray"></i> <span>Competencia de terceiros</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or 
+                        is_granted(expression('"ADMINISTRATION_SUGESTION_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'nao_conformidade'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> N&atilde;o Conformidades</a>
@@ -204,7 +254,10 @@
         {% if is_granted('ROLE_ADMIN') or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NEW" in user.getRoles()')) or
-              is_granted(expression('"ADMINISTRATION_IRECLAMATION_BYSTATE" in user.getRoles()'))
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACOMP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_RESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_NORESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-999">
@@ -228,25 +281,31 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
                                 <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span>
                             </a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'respondido'})  }}">
                                 <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de resposta</span>
                             </a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NORESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'sem_resposta'})  }}">
                                 <i class="fa fa-circle-o text-gray"></i> <span>Arquivo sem resposta</span>
                             </a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'nao_conformidade'})  }}">
                                 <i class="fa fa-circle-o text-gray"></i> N&atilde;o Conformidades
@@ -261,7 +320,8 @@
         {% if is_granted('ROLE_ADMIN') or
               is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) or
-              is_granted(expression('"ADMINISTRATION_COMPBOOK_BYSTATE" in user.getRoles()'))
+              is_granted(expression('"ADMINISTRATION_COMPBOOK_ACOMP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-999" style="text-transform: uppercase"> {# lazy #}
@@ -285,12 +345,14 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
                         </li>
+                    {% endif %}
 
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'nao_conformidade'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>N&atilde;o Conformidades</span></a>

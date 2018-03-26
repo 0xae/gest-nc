@@ -34,7 +34,7 @@ security:
         # - { path: ^/login$, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }
         - { path: ^/administration, roles: ROLE_USER }
         - { path: ^/administration/dashboard, roles: ROLE_USER }
-        - { path: ^/administration/admin, roles: ROLE_ADMIN }
+        # - { path: ^/administration/admin, roles: ROLE_ADMIN }
 
 # access_control:
 #     - { path: ^/login, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }

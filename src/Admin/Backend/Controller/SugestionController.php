@@ -14,12 +14,11 @@ use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
 
 /**
- * Sugestion controller.
+ * Sugestion controller
  */
 class SugestionController extends Controller {
     /**
      * Lists all Sugestion entities.
-     *
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
@@ -71,7 +70,8 @@ class SugestionController extends Controller {
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
             'objects' => $ary,
             'label' => $label,
-            'state' => $state            
+            'state' => $state,
+            'upload_form' => $this->uploadForm(new Sugestion)            
         ));
     }
 
@@ -268,15 +268,20 @@ class SugestionController extends Controller {
 
     private function uploadForm($model) {
         $entity = new Upload();
-        $entity->setReference($model->getAnnexReference());
 
-        $entity->setContext(json_encode([
-            "path" => 'administration_Sugestion_edit',
-            "path_args" => array(
-                'id' => $model->getId(),
-                'upload_added' => true
-            )
-        ]));
+        if ($model->getAnnexReference()) {
+            $entity->setReference($model->getAnnexReference());
+        }
+
+        if ($model->getId()) {
+            $entity->setContext(json_encode([
+                "path" => 'administration_Sugestion_edit',
+                "path_args" => array(
+                    'id' => $model->getId(),
+                    'upload_added' => true
+                )
+            ]));
+        }
 
         return $this->createForm(new UploadType(), $entity, array(
             'action' => $this->generateUrl('administration_Upload_create'),
