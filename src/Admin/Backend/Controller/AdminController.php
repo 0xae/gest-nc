@@ -23,6 +23,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
+        
 
         $userList = $em->getRepository('BackendBundle:User')
             ->findAll();
@@ -87,12 +88,19 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();                
         $ent = $em->getRepository('BackendBundle:ProfilePermission')->find($id);
 
-        if (!$ent) {
-            throw $this->createNotFoundException("Perfil ($profileId) invalido!");
-        }
+        if ($ent) {
+            $users = $em->getRepository('BackendBundle:User')
+                        ->findBy(['profile' => $ent->getProfile()->getId()]);
 
-        $em->remove($ent);
-        $em->flush();
+            $permission = $ent->getPermission();
+
+            foreach ($users as $user) {
+                $user->removeRole($permission);
+            }
+
+            $em->remove($ent);
+            $em->flush();        
+        }
 
         return new JsonResponse([
             'msg' => 'Permissao removida'
@@ -130,9 +138,17 @@ class AdminController extends Controller {
             $ent->setCreatedBy($this->getUser());
             $ent->setCreatedAt(new \DateTime);
             $ent->setProfile($profile);
-            $em->persist($ent);
-            $em->flush();
+            
+            $users = $em->getRepository('BackendBundle:User')
+                        ->findBy(['profile' => $profileId]);
+            
+            foreach ($users as $user) {
+                $user->addRole($permission);
+            }
 
+            $em->persist($ent);
+            $em->flush();          
+            
             $resp = [
                 'id' => $ent->getId(),
                 'permission' => $ent->getPermission(),

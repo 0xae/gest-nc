@@ -70,6 +70,11 @@ class UserController extends Controller {
             $this->container->get('fos_user.user_manager')
                 ->updateUser($entity);
 
+            $newRoles = $this->getRoles($entity->getProfile()->getId());
+            foreach ($newRoles as $role) {
+                $entity->addRole($role);
+            }
+
             // return $this->redirect($this->generateUrl('administration_user_show', array('id' => $entity->getId())));
             return $this->redirect($this->generateUrl('backend_administration_main', array(
                 'tab' => 'list_user',
@@ -183,11 +188,25 @@ class UserController extends Controller {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        $_oldRules = $entity->getProfile()->getId();
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            if ($_oldRules != $entity->getProfile()->getId()) {
+                $oldRoles = $this->getRoles($_oldRules);
+                $newRoles = $this->getRoles($entity->getProfile()->getId());
+                
+                foreach ($oldRoles as $role) {
+                    $entity->removeRole($role);                    
+                }
+                
+                foreach ($newRoles as $role) {
+                    $entity->addRole($role);
+                }
+            }
+
             $entity->setUserName($oldUsername);
             if (!$entity->getCreatedBy()) {
                 $user = $this->getUser();
@@ -199,10 +218,24 @@ class UserController extends Controller {
         }
 
         return $this->render('BackendBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    private function getRoles($profileId) {
+        $em = $this->getDoctrine()->getManager();
+        $results = $em->getRepository('BackendBundle:ProfilePermission')
+            ->findBy(array(
+                'profile' => $profileId
+            ));
+
+        $ary = [];
+        foreach ($results as $val) {
+            $ary[]=$val->getPermission();
+        }
+        return $ary;
     }
 
     /**

@@ -53,6 +53,12 @@
                                 <span>Adicionar Foto</span>
                             </a>
                         </li>
+
+                        <li role="presentation">
+                            <a href="#tab3" aria-controls="home" role="tab" data-toggle="tab">
+                                <span>Permiss&otilde;es</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -63,6 +69,14 @@
 
                         <div role="tabpanel" class="tab-pane" id="tab2">
                             {{ include('BackendBundle:Upload:form.html.twig', {'form' : photo_form})}}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="tab3">
+                            <ul>
+                                {% for p in entity.roles %}
+                                    <li>{{p}}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>

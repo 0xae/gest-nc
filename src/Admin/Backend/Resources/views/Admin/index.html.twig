@@ -5,6 +5,12 @@
 <div class="row" ng-controller="AdminController">
     <div class="col-md-12">
         <div class="box">
+            {# {% if is_granted(expression(
+                '"ROLE_ADMIN" in user.getProfile().getRoles()'
+            )) %}
+                <a href="...">Delete</a>
+            {% endif %} #}
+
             <h3 class="box-title" style="margin-left:20px;margin-bottom:15px;margin-top:10px;">
                 <span class="fa fa-users" style="font-size:21px"></span>
                 Gest&atilde;o de acesso

@@ -81,6 +81,11 @@ class Profile {
         return $this->name;
     }
 
+    private $c=1;
+    public function getRoles() {
+        return $this->c++;
+    }    
+
     /**
      * Set createdAt
      *
