@@ -39,11 +39,14 @@
     <div class="form-group">
         <select class="form-control" ng-model="permissionAdd">
             {% for p in permissions %}
-                <option value="{{p}}">{{p}}</option>
+                <option id="perm-{{p['code']}}" 
+                        data-label="{{p['label']}}" 
+                        value="{{p['code']}}">{{p['label']}}</option>
             {% endfor %}
         </select>
 
-        <button class="btn btn-success" ng-click="addPermission(profileId, permissionAdd)"
+        <button class="btn btn-success" 
+                ng-click="addPermission(profileId, permissionAdd)"
                 ng-disabled="!profileId || !permissionAdd ">
             <span class="fa fa-plus"></span>
         </button>
@@ -54,7 +57,7 @@
     <label>Permiss&otilde;es associadas</label>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="p in permissions">
-            {{ '{{p.permission}}' }}
+            {{ '{{p.permissionLabel}}' }}
             <a href="#" class="text-danger pull-right" ng-click="removePermission(p.id, $index)">
                 <span class="fa fa-remove"></span>
             </a>

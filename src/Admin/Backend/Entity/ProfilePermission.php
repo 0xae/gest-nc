@@ -27,6 +27,13 @@ class ProfilePermission {
     private $permission;
 
     /**
+     * @var string 
+     *
+     * @ORM\Column(name="permission_label", type="string", length=45, nullable=true)
+     */    
+    private $permissionLabel;    
+
+    /**
      * @var \Profile
      *
      * @ORM\ManyToOne(targetEntity="Profile")
@@ -129,4 +136,13 @@ class ProfilePermission {
     public function getPermission() {
         return $this->permission;
     }
+
+    public function setPermissionLabel($value) {
+        $this->permissionLabel = $value;
+        return $this;
+    }
+
+    public function getPermissionLabel() {
+        return $this->permissionLabel;
+    }    
 }

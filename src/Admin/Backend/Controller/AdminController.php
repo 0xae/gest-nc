@@ -24,7 +24,6 @@ class AdminController extends Controller {
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
         
-
         $userList = $em->getRepository('BackendBundle:User')
             ->findAll();
 
@@ -77,7 +76,9 @@ class AdminController extends Controller {
             $ary[] = [
                 'id' => $val->getId(),
                 'profile' => $id,
-                'permission' => $val->getPermission()
+                'permission' => $val->getPermission(),
+                'permissionLabel' => $val->getPermissionLabel(),
+                'label'
             ];
         }
 
@@ -111,7 +112,8 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();        
         $permission = trim(strtolower($_GET['permission']));
         $profileId = $_GET['profile_id'];
-        
+        $permissionLabel = $_GET['permission_label'];
+
         $ent = $em->getRepository('BackendBundle:ProfilePermission')
             ->findBy(array(
                 'profile' => $profileId,
@@ -123,6 +125,7 @@ class AdminController extends Controller {
             $resp = [
                 'id' => $ent[0]->getId(),
                 'permission' => $ent[0]->getPermission(),
+                'permissionLabel' => $ent[0]->getPermissionLabel(),
                 'profile' => $ent[0]->getProfile()->getId(),
             ];
         } else {
@@ -137,6 +140,7 @@ class AdminController extends Controller {
             $ent->setPermission($permission);
             $ent->setCreatedBy($this->getUser());
             $ent->setCreatedAt(new \DateTime);
+            $ent->setPermissionLabel($permissionLabel);
             $ent->setProfile($profile);
             
             $users = $em->getRepository('BackendBundle:User')
@@ -152,6 +156,7 @@ class AdminController extends Controller {
             $resp = [
                 'id' => $ent->getId(),
                 'permission' => $ent->getPermission(),
+                'permissionLabel' => $ent->getPermissionLabel(),
                 'profile' => $ent->getProfile()->getId(),
             ];
         }
@@ -160,14 +165,64 @@ class AdminController extends Controller {
     }
 
     private function getPermissions() {
-        $routeCollection = $this->get('router')
-                                ->getRouteCollection();
+        // $routeCollection = $this->get('router')
+        //                         ->getRouteCollection();
         
-        foreach ($routeCollection->all() as $routeName => $route) {            
-            if (strstr($routeName, 'administration_')){
-                $ary[] = $routeName;
-            }
-        }
+        // foreach ($routeCollection->all() as $routeName => $route) {            
+        //     if (strstr($routeName, 'administration_')){
+        //         $ary[] = $routeName;
+        //     }
+        // }
+        $ary = [
+            [
+                "label" => "Estatisticas",
+                "code" => "BACKEND_ADMINISTRATION_STATS",
+            ],
+            [
+                "label" => "Administracao",
+                "code" => "ROLE_ADMIN",
+            ],
+            [
+                "label" => "Listagem de Queixas/Reclamacao",
+                "code" => "ADMINISTRATION_COMPLAINT",
+            ],
+            [
+                "label" => "Criar Queixas/Reclamacao",
+                "code" => "ADMINISTRATION_COMPLAINT_NEW",
+            ],
+            [
+                "label" => "Listagem de Sugestao/Reclamacao Externa",
+                "code" => "ADMINISTRATION_SUGESTION",
+            ],
+            [
+                "label" => "Criar Sugestao/Reclamacao Externa",
+                "code" => "ADMINISTRATION_SUGESTION_NEW",
+            ],
+            [
+                "label" => "Listagem de Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION",
+            ],
+            [
+                "label" => "Criar Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_NEW",
+            ],
+            [
+                "label" => "Listagem de livro de reclamacao",
+                "code" => "ADMINISTRATION_COMPBOOK",
+            ],
+            [
+                "label" => "Criar Livro de reclamacao",
+                "code" => "ADMINISTRATION_COMPBOOK_NEW",
+            ],
+            [
+                "label" => "Listagem de NÃO CONFORMIDADES",
+                "code" => "ADMINISTRATION_CORRECTION",
+            ],
+            [
+                "label" => "Criar NÃO CONFORMIDADES",
+                "code" => "ADMINISTRATION_CORRECTION_NEW",
+            ]            
+        ];
 
         return $ary;
     }

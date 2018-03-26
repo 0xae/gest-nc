@@ -25,20 +25,29 @@ angular.module("app")
     }
 
     $scope.addPermission = function (profileId, permissionId) {
+        var permissionLabel = $("#perm-" + permissionId).attr("data-label");
+
         console.info({
             profileId: profileId,
-            permissionId: permissionId
+            permissionId: permissionId,
+            permissionLabel: permissionLabel
         });
+
+        if (!permissionLabel) {
+            return;
+        }
 
         //arfa/web/app_dev.php/administration/add_permission?permission=teste+123&profile_id=1
         $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
                     'profile_id=' + profileId+
-                    '&permission=' + permissionId)
+                    '&permission=' + permissionId+
+                    '&permission_label=' + permissionLabel)
         .then(function (_resp) {
             var resp=_resp.data;
             $.notify("Permissao adicionado com sucesso", "success");
             $scope.permissions.push(resp);
             return resp;
+        }, function (error) {            
         });
     }
 

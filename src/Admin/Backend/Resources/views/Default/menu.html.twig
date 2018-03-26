@@ -67,7 +67,8 @@
         {% endif %}
 
         {# Queixas/Denuncias #}
-        {% if is_granted(expression('"ADMINISTRATION_COMPLAINT" in user.getRoles()')) or
+        {% if is_granted('ROLE_ADMIN') or
+              is_granted(expression('"ADMINISTRATION_COMPLAINT" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPLAINT_NEW" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPLAINT_BYSTATE" in user.getRoles()'))
         %}
@@ -78,7 +79,7 @@
                 </a>
 
                 <ul class="treeview-menu" style="">
-                    {% if is_granted(expression('"ADMINISTRATION_COMPLAINT_NEW" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPLAINT_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_new') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
@@ -86,14 +87,14 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_COMPLAINT" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPLAINT" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_COMPLAINT_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPLAINT_BYSTATE" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'acompanhamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
@@ -132,7 +133,8 @@
         {% endif %}
 
         {# Reclamacoes/sugestoes #}
-        {% if is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) or
+        {% if is_granted('ROLE_ADMIN') or
+              is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_SUGESTION_BYSTATE" in user.getRoles()'))
         %}
@@ -143,7 +145,7 @@
                 </a>
 
                 <ul class="treeview-menu" style="">
-                    {% if is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_new') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
@@ -151,14 +153,14 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_SUGESTION_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_SUGESTION_BYSTATE" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
@@ -199,7 +201,8 @@
         {% endif %}
 
         {# Reclamacao Interna #}
-        {% if is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) or
+        {% if is_granted('ROLE_ADMIN') or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NEW" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_BYSTATE" in user.getRoles()'))
         %}
@@ -210,7 +213,7 @@
                 </a>
 
                 <ul class="treeview-menu" style="">
-                    {% if is_granted(expression('"ADMINISTRATION_IRECLAMATION_NEW" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_new') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
@@ -218,14 +221,14 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_IRECLAMATION_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_BYSTATE" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
                                 <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span>
@@ -255,7 +258,8 @@
         {% endif %}
 
         {# Livro de reclamacao  #}
-        {% if is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) or
+        {% if is_granted('ROLE_ADMIN') or
+              is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_BYSTATE" in user.getRoles()'))
         %}
@@ -266,7 +270,7 @@
                 </a>
 
                 <ul class="treeview-menu" style="">
-                    {% if is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_new') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Registo</span>
@@ -274,14 +278,14 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook') }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted(expression('"ADMINISTRATION_COMPBOOK_BYSTATE" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_BYSTATE" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Acompanhamento</span></a>
@@ -297,43 +301,19 @@
         {% endif %}
 
         {#  Estatistica #}
-        {% if is_granted(expression('"BACKEND_ADMINISTRATION_STATS" in user.getRoles()')) %}
+        {% if is_granted('ROLE_ADMIN') or 
+              is_granted(expression('"BACKEND_ADMINISTRATION_STATS" in user.getRoles()')) %}
             <li class="header" style="padding:0px;">
                 <a href="{{ path('backend_administration_stats') }}" class="bg-999">
                     <i class="fa fa-cog"></i>
                     ESTAT&Iacute;STICA                
                 </a>
-
-                {# <ul class="treeview-menu" style="display: none;">
-                    <li>
-                        <a href="{{ path('backend_administration_stats') }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Relatorio mensal</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('backend_administration_stats') }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Relatorio di&aacute;rio</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('backend_administration_stats') }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Relatorio de tempo de resposta</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('backend_administration_stats') }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Relatorio de n&atilde;o conformidade</span>
-                        </a>
-                    </li>
-                </ul>             #}
             </li>
         {% endif %}
 
         {#  NÃO CONFORMIDADES #}
-        {% if is_granted(expression('"ADMINISTRATION_CORRECTION" in user.getRoles()')) %}
+        {% if is_granted('ROLE_ADMIN') or 
+              is_granted(expression('"ADMINISTRATION_CORRECTION" in user.getRoles()')) %}
             <li class="header" style="padding:0px;">
                 <a href="{{ path('administration_Correction') }}" class="bg-999">
                     <i class="fa fa-cog"></i>
