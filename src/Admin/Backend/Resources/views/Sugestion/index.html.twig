@@ -19,7 +19,7 @@ ul.pagination {
                         <span class="glyphicon glyphicon-plus"></span>
                         Criar Sugestão/Reclamação
                     </a> #}
-                    <a href="#" class="btn btn-default">
+                    <a href="#" class="btn btn-default app-print-page hidden-print">
                         <span class="fa fa-print"></span> Imprimir
                     </a>
                 </div>
@@ -43,9 +43,9 @@ ul.pagination {
                         {% for entity in entities %}
                             <tr>                                                                                  
                             <td>                
-                                <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}">
+                                {# <a href="{{ path('administration_Sugestion_show', { 'id': entity.id }) }}"> #}
                                     {{ entity.objCode }}
-                                </a>
+                                {# </a> #}
                             </td>                                                                                    
                             <td>{{ entity.name }}</td>
                             <td>{{ entity.phone }} / {{ entity.email }}</td>
@@ -55,15 +55,18 @@ ul.pagination {
                             <td>
                                 <a href="{{ path('administration_Sugestion_receipt', { 'id': entity.id }) }}"
                                     title="Recibo do utente"
+                                    class="hidden-print"
                                     target="_blank">
                                     <span class="label label-primary">Recibo de registro</span>
                                 </a>
 
-                                <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}">
+                                <a href="{{ path('administration_Sugestion_edit', { 'id': entity.id }) }}"
+                                    class="hidden-print">
                                     <span class="text-warning fa fa-edit"></span>
                                 </a>
 
-                                <a href="#" ng-click="viewSugestion({{entity.id}}, '{{entity.type}}')">
+                                <a href="#" ng-click="viewSugestion({{entity.id}}, '{{entity.type}}')"
+                                    class="hidden-print">
                                     <span class="text-warning fa fa-eye"></span>
                                 </a>
                             </td>

@@ -10,7 +10,7 @@
                     </h3>
 
                     <div class="box-tools">
-                        <a href="#" class="btn btn-default">
+                        <a href="#" class="btn btn-default app-print-page hidden-print">
                             <span class="fa fa-print"></span> Imprimir
                         </a>
                     </div>
@@ -34,9 +34,9 @@
                             {% for entity in entities %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}">
+                                        {# <a href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}"> #}
                                             {{ entity.objCode }}
-                                        </a>
+                                        {# </a> #}
                                     </td>                           
                                     <td>{{ entity.name }}</td> 
                                     <td>{{ entity.direction }}</td>
@@ -48,17 +48,20 @@
                                             <span class="label label-success">Nao conformidade</span>
                                         </a> #}
 
-                                        <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}">
+                                        <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}"
+                                            class="hidden-print">
                                             <span class="text-warning fa fa-edit"></span>
                                         </a>
 
                                         <a href="{{ path('administration_IReclamation_receipt', { 'id': entity.id }) }}"
+                                            class="hidden-print"
                                             title="Recibo do utente"
                                             target="_blank">
                                             <span class="label label-primary">Recibo de registro</span>
                                         </a>
 
-                                        <a href="#" ng-click="viewIRecl({{entity.id}}, '{{entity.type}}')">
+                                        <a href="#" ng-click="viewIRecl({{entity.id}}, '{{entity.type}}')"
+                                            class="hidden-print">
                                             <span class="text-warning fa fa-eye"></span>
                                         </a>
                                     </td>

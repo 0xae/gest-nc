@@ -12,8 +12,7 @@
                     {# <a href="{{ path('administration_CompBook_new') }}" class="btn btn-primary">
                         Registar reclama&ccedil;&atilde;o
                     </a> #}
-
-                    <a href="#" class="btn btn-default">
+                    <a href="#" class="btn btn-default app-print-page hidden-print">
                         <span class="fa fa-print"></span> Imprimir
                     </a>
                 </div>
@@ -37,9 +36,9 @@
                         {% for entity in entities %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('administration_CompBook_show', { 'id': entity.id }) }}">
+                                    {# <a href="{{ path('administration_CompBook_show', { 'id': entity.id }) }}"> #}
                                     #{{ entity.id }}
-                                    </a>
+                                    {# </a> #}
                                 </td>
                                 <td>{{ entity.clientName }}</td>
                                 <td>{{ entity.supplierName }}</td>
@@ -47,16 +46,19 @@
                                 <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
                                 <td>
-                                    <a href="#" ng-click="viewObject({{entity.id}})">
+                                    <a href="#" ng-click="viewObject({{entity.id}})"
+                                        class="hidden-print">
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
 
-                                    <a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
+                                    <a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}"
+                                        class="hidden-print">
                                         <span class="text-warning fa fa-edit"></span>
                                     </a>
 
                                     <a href="{{ path('administration_CompBook_receipt', {'id': entity.id, 'type': 'response'}) }}"
                                         title="Recibo do utente"
+                                        class="hidden-print"
                                         target="_blank">
                                         <span class="label label-primary">Recibo de resposta</span>
                                     </a>

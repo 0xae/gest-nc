@@ -28,3 +28,9 @@ if (uploadedAdded) {
 if (tab) {
     $('a[href="#'+tab+'"]').tab('show');    
 }
+
+$(".app-print-page").on("click", function () {
+    window.print();
+});
+
+$("ul.pagination").addClass("hidden-print");
