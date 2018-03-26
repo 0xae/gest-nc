@@ -3,8 +3,7 @@
         <tr>                                        
             <th>ID#</th>
             <th>Nome</th>
-            <th>Telefone</th>
-            <th>Morada</th>
+            <th>Perfil</th>
             <th>Departamento</th>
             <th>Criado em</th>
             <th>Criado por</th>                                
@@ -20,8 +19,11 @@
                     </a>
                 </td>                                                                 
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.phone }}</td>
-                <td>{{ entity.address }}</td>
+                <td>
+                    {% if entity.profile %}
+                        {{ entity.profile.name }}
+                    {% endif %}
+                </td>
                 <td>
                     {% if entity.entity %}
                         {{ entity.entity.name }}

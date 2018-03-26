@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -75,7 +74,7 @@ class AdminController extends Controller {
         $ary = [];
         foreach ($results as $val) {
             $ary[] = [
-                'id' => $val->getid(),
+                'id' => $val->getId(),
                 'profile' => $id,
                 'permission' => $val->getPermission()
             ];

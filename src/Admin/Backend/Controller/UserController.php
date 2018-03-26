@@ -191,7 +191,7 @@ class UserController extends Controller {
             $entity->setUserName($oldUsername);
             if (!$entity->getCreatedBy()) {
                 $user = $this->getUser();
-                $entity->setCreatedBy($user->getId());    
+                $entity->setCreatedBy($user);    
             }
 
             $em->flush();
