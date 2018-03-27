@@ -35,10 +35,9 @@
             </tr>
 
             <tr>
-                <td>Numero do Registo</td>
+                <td>Número do Registo</td>
                 <td>#{{ entity.objCode }}</td>
             </tr>
-
 
             <tr>
                 <td>Dados do Utente</td>
@@ -50,7 +49,7 @@
             </tr>
 
             <tr>
-                <td>Data da ocorrencia</td>
+                <td>Data da ocorrência</td>
                 <td>
                     {{ entity.date|date('Y-m-d') }}
                 </td>
@@ -58,16 +57,16 @@
         </tbody>
     </table>
 
-    <h4>Mensagem da Recepcao</h4>
-    <div class="well">
-        <textarea class="form-control" id="msg"></textarea>
+    <h4>Mensagem da Recepção</h4>
+    <div class="">
+        <textarea class="form-control" rows="5" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
             Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
+            <br/> <span class="fa fa-calendar"></span> em {{entity.createdAt|date('Y-m-d')}}
         </p>
     </div>
 

@@ -14,11 +14,6 @@
         <h3 class="box-title" style="font-weight:bold">
             Recibo de Ocorrência
         </h3>
-        {# <h3>
-            <a href="#">
-                #{{ entity.objCode }}            
-            </a>
-        </h3> #}
     </center>
 
     <table class="table table-hover table-striped" style="margin-bottom:70px">
@@ -35,8 +30,9 @@
                     Livro de reclamação
                 </td>
             </tr>
+
             <tr>
-                <td>Numero do Registo</td>
+                <td>Número do Registo</td>
                 <td>
                     #{{ entity.objCode }}
                 </td>
@@ -52,7 +48,7 @@
             </tr>
 
             <tr>
-                <td>Dados do Operador Economico</td>
+                <td>Dados do Operador Económico</td>
                 <td>
                     {{ entity.supplierName }}<br/>
                     {{ entity.supplierAddress }}<br/>
@@ -60,7 +56,7 @@
             </tr>
 
             <tr>
-                <td>Data da Ocorrência</td>
+                <td>Data da ocorrência</td>
                 <td>
                     {{ entity.complaintDate|date('Y-m-d') }}
                 </td>
@@ -68,9 +64,10 @@
         </tbody>
     </table>
 
-    <h4>Mensagem da Recepcao</h4>
-    <div class="well" id="msgContainer">
-        <textarea class="form-control" id="msg"></textarea>
+    <h4>Mensagem da Recepção</h4>
+    <div class="" id="msgContainer">
+        <textarea class="form-control" 
+            rows="5" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
@@ -82,7 +79,7 @@
     </div>
 
     <button id="printMe" class="btn btn-primary hidden-print">
-        Imprimir
+        <span class="fa fa-print"></span> Imprimir
     </button>
 </div>
 {% endblock %}

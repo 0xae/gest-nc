@@ -184,13 +184,6 @@ class Complaint {
     private $createdAt;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="response_date", type="date", nullable=true)
-     */
-    private $responseDate;
-
-    /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -245,7 +238,7 @@ class Complaint {
      * @ORM\Column(name="par_date", type="date", length=250, nullable=true)
      */
     private $parDate;
-    
+
     /**
      * @var integer
      *
@@ -258,6 +251,24 @@ class Complaint {
     private $parAuthor;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="response_date", type="date", nullable=true)
+     */
+    private $responseDate;    
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="response_author", referencedColumnName="id", nullable=true)
+     * })
+     * 
+     */
+    private $responseAuthor;    
+
+    /**
      * @var string
      *
      * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
@@ -268,6 +279,15 @@ class Complaint {
         $this->responseDate = $value;
         return $this;
     }
+
+    public function setResponseAuthor($value) {        
+        $this->responseAuthor = $value;
+        return $this;
+    }
+
+    public function getResponseAuthor() {
+        return $this->responseAuthor;
+    }    
 
     public function getResponseDate() {
         return $this->responseDate;

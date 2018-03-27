@@ -26,20 +26,13 @@
             <tr>
                 <td>Tipo</td>
                 <td>
-                    Livro de reclamacao
+                    Livro de reclamação
                 </td>
             </tr>
 
             <tr>
-                <td>Numero do Registo</td>
+                <td>Número do Registo</td>
                 <td>#{{ entity.objCode }}</td>
-            </tr>
-
-            <tr>
-                <td>Data da ocorrencia</td>
-                <td>
-                    {{ entity.complaintDate|date('Y-m-d') }}
-                </td>
             </tr>
 
             <tr>
@@ -60,27 +53,34 @@
             </tr>
 
             <tr>
+                <td>Data da ocorrência</td>
+                <td>
+                    {{ entity.complaintDate|date('Y-m-d') }}
+                </td>
+            </tr>            
+
+            <tr>
                 <td>Data de resposta</td>
-                <td> {{ entity.createdAt|date('Y-m-d') }} </td>
+                <td> {{ entity.responseDate|date('Y-m-d') }} </td>
             </tr>
         </tbody>
     </table>
 
     <h4>Resposta</h4>
-    <div class="well">
-        <textarea class="form-control" id="msg"></textarea>
+    <div class="">
+        <textarea class="form-control" rows="5" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
-            Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
+            Respondida por {{entity.responseAuthor.name}}/{{entity.responseAuthor.entity.name}}
+            <br/> <span class="fa fa-calendar"></span> em {{entity.responseDate|date('Y-m-d')}}
         </p>
     </div>
 
     <button id="printMe" class="btn btn-primary hidden-print">
-        Imprimir
+        <span class="fa fa-print"></span> Imprimir
     </button>
 {% endblock %}
 

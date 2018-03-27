@@ -29,7 +29,7 @@
             </tr>
 
             <tr>
-                <td>Numero de registro</td>
+                <td>Número de registro</td>
                 <td>{{entity.objCode}}</td>
             </tr>
 
@@ -41,30 +41,29 @@
             </tr>
 
             <tr>
-                <td>Data da ocorrencia</td>
+                <td>Direção</td>
+                <td> {{ entity.direction }} </td>
+            </tr>
+
+            <tr>
+                <td>Data da ocorrência</td>
                 <td>
                     {{ entity.factDate|date('Y-m-d') }}
                 </td>
             </tr>
-
-            <tr>
-                <td>Dirreção</td>
-                <td> {{ entity.direction }} </td>
-            </tr>
         </tbody>
     </table>
 
-    <h4>Mensagem da Recepcao</h4>
-    <div class="well">
-        <textarea class="form-control" id="msg"></textarea>
-        {# {{entity.factDetail}} #}
+    <h4>Mensagem da Recepção</h4>
+    <div class="">
+        <textarea class="form-control" rows="5" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
             Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
+            <br/> <span class="fa fa-calendar"></span> em {{entity.createdAt|date('Y-m-d')}}
         </p>
     </div>
 

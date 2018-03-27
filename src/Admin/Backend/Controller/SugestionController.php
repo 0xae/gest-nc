@@ -87,8 +87,8 @@ class SugestionController extends Controller {
         }
 
         $entity->setState(Stage::RESPONDIDO);
-        $entity->setResponseDate(new \DateTime);
         $entity->setClientResponse($object['response']);
+        $entity->setResponseDate(new \DateTime);
         $entity->setResponseAuthor($this->getUser());
         $em->persist($entity);
         $em->flush();

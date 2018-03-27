@@ -122,6 +122,7 @@ function ($http, ComplaintService, $scope, UploadService, Admin) {
     }
 
     $scope.respond = function (id) {
+        $scope.responseForm = undefined;
         ComplaintService.get(id)
         .then(function (data){
             $scope.mObject = data;
