@@ -281,19 +281,6 @@
                         </li>
                     {% endif %}
 
-                    <li>
-                        <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
-                        <i class="fa fa-circle-o text-gray"></i> <span> &gt; Análise</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
-                        <i class="fa fa-circle-o text-gray"></i> <span> &gt; Decisão</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
-                        <i class="fa fa-circle-o text-gray"></i> <span> &gt; Ação</span></a>
-                    </li>
-
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
@@ -301,6 +288,23 @@
                             </a>
                         </li>
                     {% endif %}
+
+                    <li>
+                        <a href="{{ path('administration_IReclamation_byState', {'state' : 'analysis'}) }}">
+                        <i class="fa fa-circle-o text-gray"></i> <span>&gt; Análise</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('administration_IReclamation_byState', {'state' : 'decision'}) }}">
+                            <i class="fa fa-circle-o text-gray"></i> <span>&gt; Decisão</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('administration_IReclamation_byState', {'state' : 'action'}) }}">
+                            <i class="fa fa-circle-o text-gray"></i> <span>&gt; Ação</span>
+                        </a>
+                    </li>
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_RESP" in user.getRoles()')) %}
                         <li>

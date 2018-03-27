@@ -160,7 +160,15 @@ class IReclamationController extends Controller {
 
         // ???: maybe we should move him away from acomps ?
         if ($step == IReclamation::ANALYSIS) {
-            // $entity->setState(Stage::ACOMPANHAMENTO);
+            $entity->setState(Stage::ANALYSIS);
+        }
+
+        if ($step == IReclamation::DECISION) {
+            $entity->setState(Stage::DECISION);
+        }
+
+        if ($step == IReclamation::ACTION) {
+            $entity->setState(Stage::ACTION);
         }
 
         if ($step == IReclamation::CONCLUDED) {

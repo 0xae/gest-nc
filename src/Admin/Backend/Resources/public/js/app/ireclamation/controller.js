@@ -52,7 +52,7 @@ function ($http, $scope, UploadService, Admin, IReclService) {
     $scope.favorable = function (id, label) {
         getRecl(id).then(function (data){
             $scope.mObject = data;
-            $(RESPOND_MODAL).modal();    
+            $(RESPOND_MODAL).modal();
         });
     }
 
