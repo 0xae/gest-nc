@@ -100,7 +100,7 @@ class CompBook {
      * @ORM\Column(name="send_date", type="date", nullable=true)
      */
     private $sendDate;
-   
+
     /**
      * @var string
      *
@@ -138,6 +138,41 @@ class CompBook {
      * @ORM\Column(name="annex_reference", type="string", length=250, nullable=true)
      */
     private $annexReference;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="response_author", referencedColumnName="id", nullable=true)
+     * })
+     * 
+     */
+    private $responseAuthor;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="response_date", type="date", length=45, nullable=true)
+     */
+    private $responseDate;
+
+    public function setResponseDate($value) {        
+        $this->responseDate = $value;
+        return $this;
+    }
+
+    public function getResponseDate() {
+        return $this->responseDate;
+    }
+
+    public function setResponseAuthor($value) {        
+        $this->responseAuthor = $value;
+        return $this;
+    }
+
+    public function getResponseAuthor() {
+        return $this->responseAuthor;
+    }
 
     public function setSendDate($value) {
         $this->sendDate = $value;        

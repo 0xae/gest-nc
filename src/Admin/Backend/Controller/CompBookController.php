@@ -104,6 +104,14 @@ class CompBookController extends Controller {
         $files = $em->getRepository('BackendBundle:Upload')
                     ->findBy(['reference' => $entity->getAnnexReference()]);
 
+        
+        $sendDate = '';
+        if ($entity->getSendDate()) {
+            $sendDate = $entity
+                ->getSendDate()
+                ->format("Y-m-d");
+        }
+
         $cb = $entity->getCreatedBy();
         $obj = [
             "id" => $entity->getId(),
@@ -121,13 +129,16 @@ class CompBookController extends Controller {
             "createdAt" => $entity->getCreatedAt()
                                   ->format("Y-m-d"),
 
-            "sendDate" => $entity->getSendDate()
-                ->format("Y-m-d"),
-
-            "sendTo" => $entity->getSendTo(),                
-
+            "sendDate" => $sendDate,
+            "sendTo" => $entity->getSendTo(),
             "files" => []
         ];
+
+        if ($entity->getResponseAuthor()) {
+            $obj['response_date']  = $entity->getResponseDate()->format("Y-m-d");
+            $obj['response_author'] = $entity->getResponseAuthor()->getName();
+            $obj['response_author_entity'] = $entity->getResponseAuthor()->getEntity()->getName();            
+        }
 
         foreach ($files as $f) {
             $obj["files"][] = [
@@ -145,7 +156,6 @@ class CompBookController extends Controller {
 
     public function updateAcompAction($id) {
         $em = $this->getDoctrine()->getManager();
-        
         $content = $this->get("request")->getContent();
         $object = json_decode($content, true);
         $entity = $em->getRepository('BackendBundle:CompBook')->find($id);
@@ -161,6 +171,11 @@ class CompBookController extends Controller {
         }
 
         $entity->setSendTo($object['sendTo']);
+        // response fields
+        $entity->setResponseDate(new \DateTime);
+        $entity->setResponseAuthor($this->getUser());
+        $entity->setState(Stage::RESPONDIDO);
+
         $em->persist($entity);
         $em->flush();
 

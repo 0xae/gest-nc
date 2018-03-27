@@ -23,7 +23,7 @@ angular.module("app")
     };
 
     $scope.sendAcomp = function() {
-        if (!confirm("Confirmar?")) {
+        if (!confirm("Confirmar resposta para o livro?")) {
             return;            
         }
 
@@ -31,7 +31,10 @@ angular.module("app")
         .then(function (done) {
             $("#td-"+$scope.entity.id+"-sendTo").text($scope.req.sendTo);
             $("#td-"+$scope.entity.id+"-sendDate").text($scope.req.sendDate);            
-            $.notify("Atualizado com sucesso.", "success");            
+            $.notify("Respondido com sucesso.", "success");
+
+            $(MODAL).modal('close');
+            $scope.entity = undefined;
         });
     }
 }]);

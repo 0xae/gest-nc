@@ -54,9 +54,14 @@
                                         <span class="text-warning fa fa-eye"></span>
                                     </a>
 
-                                    <a href="{{ path('administration_CompBook_edit', { 'id': entity.id }) }}">
-                                        <span class="text-warning fa fa-edit"></span>
-                                    </a>
+                                    {% if state == 'respondido' %}
+                                        <a href="{{ path('administration_CompBook_receipt', {'id': entity.id, 'type': 'response'}) }}"
+                                            title="Recibo do utente"
+                                            class="hidden-print"
+                                            target="_blank">
+                                            <span class="label label-primary">Recibo de resposta</span>
+                                        </a>
+                                    {% endif %}
                                 </td>   
                             </tr>
                         {% endfor %}
