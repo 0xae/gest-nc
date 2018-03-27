@@ -374,7 +374,7 @@
         {% endif %}
 
         {#  NÃO CONFORMIDADES #}
-        {% if is_granted('ROLE_ADMIN') or 
+        {# {% if is_granted('ROLE_ADMIN') or 
               is_granted(expression('"ADMINISTRATION_CORRECTION" in user.getRoles()')) %}
             <li class="header" style="padding:0px;">
                 <a href="{{ path('administration_Correction') }}" class="bg-999">
@@ -382,7 +382,7 @@
                     <span>NÃO CONFORMIDADES</span>
                 </a>
             </li>
-        {% endif %}
+        {% endif %} #}
       </ul>
     </section>
     <!-- /.sidebar -->
