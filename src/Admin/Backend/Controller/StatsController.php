@@ -122,4 +122,3 @@ class StatsController extends Controller {
 			->count($em, $model, $opts);
 	}
 }
-
