@@ -33,7 +33,10 @@
                         </li>
 
                         <li role="presentation">
-                            <a href="#acomp" aria-controls="home" role="tab" data-toggle="tab">Acompanhamento</a>
+                            <a href="#acomp" aria-controls="home" role="tab" data-toggle="tab">
+                                <span ng-if="!entity.response_author">Acompanhamento</span>
+                                <span ng-if="entity.response_author">Resposta</span>
+                            </a>
                         </li>
                     </ul>
 

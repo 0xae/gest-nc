@@ -5,7 +5,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Admin\Backend\Entity\Stage;
 
 class StatsService {
-    public function __construct(Container $container) {    
+    public function __construct(Container $container) {
         $this->container = $container;
     }
 
@@ -17,6 +17,7 @@ class StatsService {
 			where year(created_at) = year(current_date)
 				  and month(created_at) = month(current_date) 
         ';
+
 		$params = [];
 
 		if (@$opts['state']) {
@@ -34,7 +35,7 @@ class StatsService {
 
 	public function responseAvg($em, $model, $opts=[]) {
 		$avg = 'coalesce(avg(greatest(datediff(response_date, created_at),0)), 0)';
-
+		$params = [];		
 		$q = 'select
 				'. $avg .' as count,
 				date_format(created_at, "%Y-%m") as period
@@ -44,7 +45,6 @@ class StatsService {
 				and response_date is not null 
 		';
 
-		$params = [];
 		if (@$opts['state']) {
 			$q .= ' and state=:state ';
 			$params['state']=$opts['state'];
