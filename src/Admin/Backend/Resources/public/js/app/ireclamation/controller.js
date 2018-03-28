@@ -1,12 +1,12 @@
 angular.module("app")
 .factory('IReclService', ['$http', function ($http) {
-    function changeStep(id, step) {
-        var req={
-            nextStep: step,
-            id: id
+    function updateState(id, state) {
+        var req = {
+            id: id,
+            state: state
         };
 
-        return $http.post('/arfa/web/app_dev.php/administration/IReclamation/change_step/' + id, req)
+        return $http.post('/arfa/web/app_dev.php/administration/IReclamation/update_state/' + id, req)
         .then(function (resp){
             return resp.data;
         }, function (error) {
@@ -15,9 +15,10 @@ angular.module("app")
     }
 
     return {
-        changeStep: changeStep
+        updateState: updateState
     };
 }])
+
 .controller("IReclController", ['$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
     var RESPOND_MODAL="#sugestionRespondModal";
@@ -43,8 +44,6 @@ function ($http, $scope, UploadService, Admin, IReclService) {
             UploadService.byReference(data.annexReference)
             .then(function (resp){
                 $scope.files = resp.files;
-            }, function (err) {
-                return data;
             });
         });
     }
@@ -84,40 +83,36 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         if (!confirm("Confirmar " + label + " como nao favoravel ?")){
             return;
         }
-        var req = {
-            id: id,
-            state: Admin.stage.NO_RESPONSE
-        };
 
-        $http.post('/arfa/web/app_dev.php/administration/IReclamation/update_state/'+id, req)
+        IReclService.updateState(id, Admin.stage.NO_RESPONSE)
         .then(function (data){
             $.notify(label+" arquivado com sucesso.", "success");
+
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
-        }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
 
-    $scope.changeStep = function (id, nextStep, label) {
-        if (!confirm(label)) {
+    $scope.goToAnalysis = function (id) {
+        if (!confirm('Confirmar como favoravel?')) {
             return;
         }
 
-        IReclService.changeStep(id, nextStep)
+        IReclService.updateState(id, Admin.stage.ANALYSIS)
         .then(function (data){
             $.notify("Objecto actualizado com sucesso.", "success");
-            console.info(data);
+            
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");
         });
     }
 }])
+
 .controller("IReclViewController", [
 '$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
-    $scope.advanceTo = function(labelConfirmation, id, nextStep) {
+    $scope.finishIRecl = function(labelConfirmation, id, nextStep) {
         if (!confirm(labelConfirmation)) {
             return;
         }

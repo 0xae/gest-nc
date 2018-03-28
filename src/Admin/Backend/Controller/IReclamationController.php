@@ -131,8 +131,12 @@ class IReclamationController extends Controller {
             $entity->setState(Stage::NO_FAVORABLE);
         } else if ($state == Stage::NO_COMP) {
             $entity->setState(Stage::NO_COMP);
+        } else if ($state == Stage::ANALYSIS || 
+            $state == Stage::DECISION || 
+            $state == Stage::ACTION) 
+        {
+            $entity->setState($state);
         } else {
-            // throw new Exception
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
         }
 

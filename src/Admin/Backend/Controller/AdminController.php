@@ -23,7 +23,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
-        
+
         $userList = $em->getRepository('BackendBundle:User')
             ->findAll();
 
@@ -258,7 +258,7 @@ class AdminController extends Controller {
                 "code" => "ADMINISTRATION_SUGESTION_NC",
             ],
 
-            // Ireclamacion
+            // Ireclamation
             [
                 "label" => "Registro de Reclamacao Interna",
                 "code" => "ADMINISTRATION_IRECLAMATION_NEW",
@@ -282,6 +282,19 @@ class AdminController extends Controller {
             [
                 "label" => "Nao conformidades da Reclamacao Interna",
                 "code" => "ADMINISTRATION_IRECLAMATION_NC",
+            ],
+
+            [
+                "label" => "Analise da Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_ANALYSIS",
+            ],
+            [
+                "label" => "Decisao da Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_DECISION",
+            ],
+            [
+                "label" => "Accao da Reclamacao Interna",
+                "code" => "ADMINISTRATION_IRECLAMATION_ACTION",
             ],
 
             // Livro de Reclamacao

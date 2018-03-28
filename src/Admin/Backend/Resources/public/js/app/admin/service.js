@@ -19,7 +19,10 @@ angular.module("app")
         NO_FAVORAVEL : NO_FAVORAVEL,
         NO_COMP : NO_COMP,
         NO_RESPONSE:  NO_RESPONSE,
-        RESPONDED : RESPONDED
+        RESPONDED : RESPONDED,
+        ANALYSIS : 'analysis',
+        ACTION : 'action',
+        DECISION : 'decision',
     };
 
     return {

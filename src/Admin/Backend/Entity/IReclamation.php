@@ -11,12 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class IReclamation {
-    const START=1;    
+    const START=1;
     const ANALYSIS=2;
     const DECISION=3;
     const ACTION=4;
     const CONCLUDED=5;
-    
+
     /**
      * @var integer
      *
