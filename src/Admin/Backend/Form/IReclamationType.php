@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -11,8 +10,7 @@ class IReclamationType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name')
             ->add('direction')
@@ -58,7 +56,7 @@ class IReclamationType extends AbstractType {
             ->add('actionResp')
             ->add('typeData', 'textarea', array(
                 'attr' => array('rows' => 2)
-            ))            
+            ))
             ->add('submit', 'submit', array(
                 'label' => 'Guardar',
                 'attr' => array(
@@ -71,8 +69,7 @@ class IReclamationType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Admin\Backend\Entity\IReclamation'
         ));
@@ -81,8 +78,7 @@ class IReclamationType extends AbstractType {
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'admin_backend_ireclamation';
     }
 }

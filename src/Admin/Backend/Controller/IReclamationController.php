@@ -17,9 +17,6 @@ use Admin\Backend\Form\IReclamationType;
  * IReclamation controller
  */
 class IReclamationController extends Controller {
-    /**
-     * Lists all IReclamation entities.
-     */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('BackendBundle:IReclamation')->findAll();
