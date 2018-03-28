@@ -19,7 +19,6 @@
             <label>Descri&ccedil;&atilde;o</label>
             {{ form_widget(form.actionDetail) }}
         </div>
-
     </div>
 
     <div class="col-md-6">
@@ -32,7 +31,7 @@
 
 <button id="send-to-response" type="button" 
     class="btn btn-default"
-    ng-click="goToResponse({{entity.id}})">
+    ng-click="finishIRecl({{entity.id}})">
     Enviar para resposta
 </button>
 

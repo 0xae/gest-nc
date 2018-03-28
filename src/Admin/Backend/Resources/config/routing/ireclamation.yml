@@ -29,9 +29,9 @@ administration_IReclamation_respond:
     defaults: { _controller: "BackendBundle:IReclamation:respond" }
     methods:  [POST]
 
-administration_IReclamation_changeStep:
-    path:     /change_step/{id}
-    defaults: { _controller: "BackendBundle:IReclamation:changeStep" }
+administration_IReclamation_sendToResponse:
+    path:     /send_to_response/{id}
+    defaults: { _controller: "BackendBundle:IReclamation:sendToResponse" }
     methods:  [POST]    
 
 administration_IReclamation_edit:

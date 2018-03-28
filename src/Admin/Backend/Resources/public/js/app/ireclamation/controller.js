@@ -14,8 +14,18 @@ angular.module("app")
         });
     }
 
+    function sendToResponse(id) {
+        return $http.post('/arfa/web/app_dev.php/administration/IReclamation/send_to_response/' + id)
+        .then(function (resp){
+            return resp.data;
+        }, function (error) {
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
+        });
+    }
+
     return {
-        updateState: updateState
+        updateState: updateState,
+        sendToResponse: sendToResponse
     };
 }])
 
@@ -49,7 +59,7 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         });
     }
 
-    $scope.favorable = function (id, label) {
+    $scope.respondIRecl = function (id, label) {
         getRecl(id).then(function (data){
             $scope.mObject = data;
             $(RESPOND_MODAL).modal();
@@ -108,39 +118,12 @@ function ($http, $scope, UploadService, Admin, IReclService) {
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");
         });
     }
-
-    $scope.goToResponse = function (id) {
-        if (!confirm('Confirmar envio para resposta?')) {
-            return;
-        }
-
-        IReclService.updateState(id, Admin.stage.ANALYSIS)
-        .then(function (data){
-            $.notify("Objecto actualizado com sucesso.", "success");
-            
-            $("#row-" + id).addClass('success');
-            $("#row-" + id + "-dispatch").remove();
-            $("#ir-analysis-"+id).attr("style", "display:inherit !important");
-        });
-    }
 }])
 
 .controller("IReclViewController", [
 '$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
     $scope.state = Admin.stage;
-    
-    $scope.finishIRecl = function(labelConfirmation, id, nextStep) {
-        if (!confirm(labelConfirmation)) {
-            return;
-        }
-
-        $("#admin_backend_ireclamation_step").val(nextStep);
-
-        setTimeout(function(){
-            $("#admin_backend_ireclamation_submit").click();
-        }, 1000);
-    }
 
     $scope.sendTo = function (id, state, label) {
         if (!confirm('Confirmar envio para ' + label + ' ?')) {
@@ -157,15 +140,15 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         });
     }
 
-    $scope.goToResponse = function (id) {
+    $scope.finishIRecl = function (id) {
         if (!confirm('Confirmar envio para resposta?')) {
             return;
         }
 
-        IReclService.updateState(id, Admin.stage.ANALYSIS)
+        IReclService.sendToResponse(id)
         .then(function (data){
             $.notify("Objecto actualizado com sucesso.", "success");
-            
+
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");

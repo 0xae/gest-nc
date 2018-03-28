@@ -25,7 +25,8 @@ class Stage {
     const ANALYSIS='analysis';
     const ACTION='action';
     const DECISION='decision';
-    
+    const CONCLUDED='concluded';
+
     /**
      * @var integer
      *

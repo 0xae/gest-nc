@@ -31,13 +31,12 @@
                                         <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}">
                                             {{ entity.objCode }}
                                         </a>
-                                    </td>                           
+                                    </td>             
                                     <td>{{ entity.name }}</td> 
                                     <td>{{ entity.direction }}</td>
                                     <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
                                     <td>{{ entity.respDate|date('Y-m-d') }}</td> 
                                     <td>{{ entity.createdBy.name }}/{{ entity.createdBy.entity.name }}</td>
-
                                     <td>
                                         <a id="ir-analysis-{{entity.id}}" class="hidden" 
                                            href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}">
@@ -49,9 +48,9 @@
                                             <span class="label label-success">Respondido</span>
                                         </a>
 
-                                        {% if entity.state == "" %}
+                                        {% if entity.step == "concluded" %}
                                             <button id="row-{{entity.id}}-dispatch" type="button" 
-                                                    ng-click="favorable({{entity.id}}, '{{entity.objCode}}')">
+                                                    ng-click="respondIRecl({{entity.id}}, '{{entity.objCode}}')">
                                                 Resposta
                                             </button>
                                         {% else %}

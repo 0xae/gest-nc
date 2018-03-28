@@ -149,11 +149,8 @@ class IReclamationController extends Controller {
         return new JsonResponse($object);
     }
 
-    public function changeStepAction($id) {
-        $content = $this->get("request")->getContent();
-        $object = json_decode($content, true);
+    public function sendToResponseAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BackendBundle:IReclamation')
                      ->find($id);
 
@@ -161,29 +158,17 @@ class IReclamationController extends Controller {
             throw $this->createNotFoundException('Essa Reclamacao nao foi encontrada.');
         }
 
-        $object['id'] = $id;
-        $step = $object['nextStep'];
-        $entity->setStep($step);
-
-        if ($step == IReclamation::ANALYSIS) {
-            $entity->setState(Stage::ANALYSIS);
-        }
-
-        if ($step == IReclamation::DECISION) {
-            $entity->setState(Stage::DECISION);
-        }
-
-        if ($step == IReclamation::ACTION) {
-            $entity->setState(Stage::ACTION);
-        }
-
-        if ($step == IReclamation::CONCLUDED) {
-            $entity->setState(Stage::ACOMPANHAMENTO);
-        }
+        $entity->setStep(Stage::CONCLUDED);
+        $entity->setState(Stage::ACOMPANHAMENTO);
 
         $em->persist($entity);       
         $em->flush();
-        return new JsonResponse($object);
+
+        return new JsonResponse([
+            'id' => $id,
+            'step' => Stage::CONCLUDED,
+            'state' => Stage::ACOMPANHAMENTO
+        ]);
     }
 
     public function respondAction($id) {

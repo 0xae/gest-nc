@@ -23,6 +23,7 @@ angular.module("app")
         ANALYSIS : 'analysis',
         ACTION : 'action',
         DECISION : 'decision',
+        CONCLUDED : 'concluded',
     };
 
     return {
