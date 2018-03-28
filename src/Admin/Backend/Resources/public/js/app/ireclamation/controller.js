@@ -22,6 +22,7 @@ angular.module("app")
 .controller("IReclController", ['$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
     var RESPOND_MODAL="#sugestionRespondModal";
+    $scope.state = Admin.stage;
 
     function getRecl(id) {
         return $http.get('/arfa/web/app_dev.php/administration/IReclamation/' + id +'/json')
@@ -93,8 +94,23 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         });
     }
 
-    $scope.goToAnalysis = function (id) {
-        if (!confirm('Confirmar como favoravel?')) {
+    $scope.sendToAnalysis = function (id) {
+        if (!confirm('Confirmar envio para análise?')) {
+            return;
+        }
+
+        IReclService.updateState(id, Admin.stage.ANALYSIS)
+        .then(function (data){
+            $.notify("Objecto actualizado com sucesso.", "success");
+
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+        });
+    }
+
+    $scope.goToResponse = function (id) {
+        if (!confirm('Confirmar envio para resposta?')) {
             return;
         }
 
@@ -112,15 +128,47 @@ function ($http, $scope, UploadService, Admin, IReclService) {
 .controller("IReclViewController", [
 '$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
+    $scope.state = Admin.stage;
+    
     $scope.finishIRecl = function(labelConfirmation, id, nextStep) {
         if (!confirm(labelConfirmation)) {
             return;
         }
 
         $("#admin_backend_ireclamation_step").val(nextStep);
-        
+
         setTimeout(function(){
             $("#admin_backend_ireclamation_submit").click();
         }, 1000);
+    }
+
+    $scope.sendTo = function (id, state, label) {
+        if (!confirm('Confirmar envio para ' + label + ' ?')) {
+            return;
+        }
+
+        IReclService.updateState(id, state)
+        .then(function (data){
+            $.notify("Objecto actualizado com sucesso.", "success");
+
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+        });
+    }
+
+    $scope.goToResponse = function (id) {
+        if (!confirm('Confirmar envio para resposta?')) {
+            return;
+        }
+
+        IReclService.updateState(id, Admin.stage.ANALYSIS)
+        .then(function (data){
+            $.notify("Objecto actualizado com sucesso.", "success");
+            
+            $("#row-" + id).addClass('success');
+            $("#row-" + id + "-dispatch").remove();
+            $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+        });
     }
 }]);

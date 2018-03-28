@@ -89,6 +89,12 @@ class IReclamationController extends Controller {
             $label = 'Não favoraveis';
         } else if ($state == Stage::NO_CONFOR) {
             $label = 'Não Conformidades';
+        } else if ($state == Stage::ANALYSIS) {
+            $label = 'Análise da Reclamação';
+        } else if ($state == Stage::DECISION) {
+            $label = 'Decisão da Reclamação';
+        } else if ($state == Stage::ACTION) {
+            $label = 'Ação da Reclamação';
         }
 
         $ary = $this->container

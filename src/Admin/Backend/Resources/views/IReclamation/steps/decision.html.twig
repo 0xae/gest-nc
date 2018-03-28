@@ -5,13 +5,6 @@
         <div style="color: gray;margin-bottom: 20px;">
             <span class="fa fa-archive"></span>
             Decisão a ser tomada
-            <a href="#" class="pull-right">
-                <span class="label label-primary"
-                    ng-click="advanceTo('Deseja avançar para ação a ser tomada?', {{entity.id}}, 4)">
-                    Avan&ccedil;ar 
-                    <span class="fa fa-chevron-right"></span>
-                </span>
-            </a>
             <hr/>
         </div>
     </div>
@@ -35,5 +28,11 @@
         </div>
     </div>
 </div>
+
+<button id="send-to-action" type="button" 
+        class="btn btn-default"
+        ng-click="sendTo({{entity.id}}, state.ACTION, 'ação')">
+    Enviar para ação
+</button>
 
 {% endif %}

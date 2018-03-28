@@ -63,14 +63,12 @@
 
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                                     <li>
-                                                        <a href="#" 
-                                                        ng-click="goToAnalysis({{entity.id}})">
-                                                        Favor&aacute;vel
+                                                        <a href="#" ng-click="sendToAnalysis({{entity.id}})">
+                                                            Favor&aacute;vel
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" 
-                                                            ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">
+                                                        <a href="#" ng-click="notFavorable({{entity.id}}, '{{entity.objCode}}')">
                                                             N&atilde;o Favor&aacute;vel
                                                         </a>
                                                     </li>
@@ -80,10 +78,10 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}"
+                                        {# <a href="{{ path('administration_IReclamation_edit', {'id': entity.id}) }}"
                                            id="ir-analysis-{{entity.id}}-state">
                                             <span class="label label-warning">Em espera</span>
-                                        </a>
+                                        </a> #}
                                     </td>
 
                                     <td>

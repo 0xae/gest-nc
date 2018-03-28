@@ -5,15 +5,6 @@
         <div style="color: gray;margin-bottom: 20px;">
             <span class="fa fa-archive"></span>
             Análise da Reclamação
-            <div class="pull-right">
-                <a href="#">
-                <span class="label label-primary"
-                        ng-click="advanceTo('Deseja avançar para decisão a ser tomada?', {{entity.id}}, 3)">
-                    Avan&ccedil;ar 
-                    <span class="fa fa-chevron-right"></span>
-                </span>
-                </a>
-            </div>
             <hr/>
         </div>
     </div>
@@ -45,5 +36,11 @@
         </div>
     </div>
 </div>
+
+<button id="send-to-decision" type="button" 
+        class="btn btn-default"
+        ng-click="sendTo({{entity.id}}, state.DECISION, 'decisão')">
+    Enviar para decisão
+</button>
 
 {% endif %}
