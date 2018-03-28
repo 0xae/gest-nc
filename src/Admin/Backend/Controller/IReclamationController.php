@@ -158,7 +158,6 @@ class IReclamationController extends Controller {
         $step = $object['nextStep'];
         $entity->setStep($step);
 
-        // ???: maybe we should move him away from acomps ?
         if ($step == IReclamation::ANALYSIS) {
             $entity->setState(Stage::ANALYSIS);
         }

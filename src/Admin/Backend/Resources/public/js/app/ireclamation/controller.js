@@ -114,7 +114,6 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         });
     }
 }])
-
 .controller("IReclViewController", [
 '$http', '$scope', 'UploadService', 'Admin', 'IReclService',
 function ($http, $scope, UploadService, Admin, IReclService) {
@@ -130,4 +129,3 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         }, 1000);
     }
 }]);
-
