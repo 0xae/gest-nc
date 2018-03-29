@@ -108,7 +108,10 @@ class IReclamationController extends Controller {
             'ACOMPANHAMENTO' => Stage::ACOMPANHAMENTO,
             'TRATAMENTO' => Stage::TRATAMENTO,
             'RESPONDIDO' => Stage::RESPONDIDO,
-            'SEM_RESPOSTA' => Stage::SEM_RESPOSTA
+            'SEM_RESPOSTA' => Stage::SEM_RESPOSTA,
+            'ANALYSIS' => Stage::ANALYSIS,
+            'DECISION' => Stage::DECISION,
+            'ACTION' => Stage::ACTION,
         ));
     }
 

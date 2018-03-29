@@ -55,8 +55,12 @@
                                                     'type' : 'response'}) }}"
                                                 title="Recibo do utente"
                                                 target="_blank">
-                                                {# <span class="text-warning fa fa-copy"></span> #}
                                                 <span class="label label-primary">recibo de resposta</span>
+                                            </a>
+                                        {% elseif state in [ANALYSIS,DECISION,ACTION] %}
+                                            <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id, 'state': state }) }}"
+                                                class="hidden-print">
+                                                <span class="text-warning fa fa-edit"></span>
                                             </a>
                                         {% endif %}
                                     </td>
