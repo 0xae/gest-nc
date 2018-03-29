@@ -58,8 +58,23 @@
             }
             .response-area textarea {                
             }
-            .app-footer {
+            {# .app-footer {
                 background-color: #999999;
+            } #}
+
+            .sf-toolbar {
+                display: none !important;
+            }
+
+            .app-footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                padding: 10px;
             }
         </style>
     </head>
@@ -123,8 +138,8 @@
         {% endblock %}
 
         <div class="app-footer">
-            <div class="">
-                <p>POWERED BY ARFA - 2018</p>
+            <div class="pull-right">
+            <p>POWERED BY ARFA - 2018</p>
             </div>
         </div>
     </body>
