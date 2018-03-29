@@ -21,7 +21,9 @@ ul.pagination {
                         <strong>PDF</strong>
                     </a>
 
-                    <a href="#" class="btn btn-success app-print-excel hidden-print"
+                    <a href="{{ path('administration_Complaint_excel', {}) }}" 
+                        class="btn btn-success app-print-excel hidden-print"
+                        target="__blank"
                         title="Imprimir em excel">
                         <span class="fa-file-excel-o"></span> 
                         <strong>EXCEL</strong>

@@ -51,18 +51,17 @@ class CompBookController extends Controller {
         $label = $state;
 
         if ($state == Stage::ACOMPANHAMENTO) {
-            $label = 'em acompanhamento';
+            $label = 'Em acompanhamento';
+        } else if ($state == Stage::RESPONDIDO) {
+            $label = 'Arquivo de resposta';
+        } else if ($state == Stage::NO_CONFOR) {
+            $label = 'Não Conformidades';
         }
 
         $ary = $this->container
             ->get('sga.admin.filter')
             ->ByState($em, 'CompBook', $state);
 
-        // $fanta = $this->container
-        //     ->get('sga.admin.table.pagination')
-        //     ->fromQuery($q, $perPage, $pageIdx);
-
-        // $entities = $q->getResult();   
         return $this->render('BackendBundle:CompBook:' . $tpl . '.html.twig', array(
             'objects' => $ary,
             'label' => $label,

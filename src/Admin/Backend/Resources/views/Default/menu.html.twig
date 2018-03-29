@@ -25,7 +25,7 @@
                         <i class="fa fa-circle-o text-gray"></i>
                         <span>Gestao de acesso</span></a>
                     </li>
-                    <li>
+                    {# <li>
                         <a href="{{ path('administration_Module') }}">
                         <i class="fa fa-circle-o text-gray"></i>
                         <span>M&oacute;dulos</span></a>
@@ -35,7 +35,7 @@
                         <a href="{{ path('administration_Location') }}">
                         <i class="fa fa-circle-o text-gray"></i>
                         <span>Morada/Localidade</span></a>
-                    </li>
+                    </li> #}
                 </ul>
             </li>
 
@@ -256,6 +256,9 @@
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACOMP" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_RESP" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NORESP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_ANALYSIS" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_DECISION" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACTION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">

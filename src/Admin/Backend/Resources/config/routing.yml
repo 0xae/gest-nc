@@ -86,6 +86,10 @@ backend_administration_stats:
     path:  /administration/stats
     defaults:  { _controller: BackendBundle:Stats:index }
 
+backend_administration_excelData:
+    path:  /administration/excel_doc
+    defaults:  { _controller: BackendBundle:Default:excelData }
+
 backend_administration_add_permission:
     path:  /administration/add_permission
     defaults:  { _controller: BackendBundle:Admin:addPermission }
@@ -93,7 +97,6 @@ backend_administration_add_permission:
 backend_administration_remove_permission:
     path:  /administration/remove_permission/{id}
     defaults:  { _controller: BackendBundle:Admin:removePermission }
-
 
 backend_administration_permissions_of:
     path:  /administration/permissions_of/{id}

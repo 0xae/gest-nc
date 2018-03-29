@@ -3,6 +3,16 @@
 {% block title %}Log In{% endblock %}
 
 {% block body  %}
+
+<style>
+.app-footer {
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+</style>
+
 {% image '@BackendBundle/Resources/public/img/login_bg.jpg' %}
 <body class="hold-transition login-page" style="background:url({{ asset_url }})">
     {% block content %}
@@ -13,11 +23,12 @@
                     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
                     <div class="login-logo" style="margin-bottom: 30px">
                         <img src="{{ asset_url }}" class="user-image" width="120" alt="ARFA LOGO" style="float: left" />
-                        <a href="#" style="float: left;margin-top:20px;margin-left:10px;font-size:20px">
-                            <b>Gestão de Ocorrências Arfa</b>
-                        </a>
                     </div>
                     {% endimage %}
+
+                    <a href="#" style="float: left;margin-top:20px;margin-left:10px;font-size:20px">
+                        <b>Gestão de Ocorrências Arfa</b>
+                    </a>
 
                     <hr style="clear:both;margin-top:30px;margin-bottom:20px;" />
 

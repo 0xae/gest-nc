@@ -6,7 +6,7 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Queixas/Denuncias em acompanhamento</h3>
+                <h3 class="box-title">Em acompanhamento</h3>
             </div>
             <!-- /.box-header -->
 
@@ -63,12 +63,12 @@
                                     {% if entity.parAuthor %}
                                         <div class="dropdown" style="display: inline">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Responder
+                                                Resposta
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">
                                                 <li>
-                                                    <a href="#" ng-click="respond({{entity.id}})">Responder</a>
+                                                    <a href="#" ng-click="respond({{entity.id}})">Resposta</a>
                                                 </li>
                                                 <li>
                                                     <a href="#" ng-click="noResponse({{entity.id}})">Sem resposta</a>
@@ -78,7 +78,7 @@
                                     {% else %}
                                         <div class="dropdown" style="display: inline" id="row-{{entity.id}}-dispatch">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Despachar
+                                                Despacho
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="min-width: 120px;">

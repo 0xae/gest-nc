@@ -11,6 +11,7 @@ use Admin\Backend\Entity\Stage;
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\ComplaintType;
 use Admin\Backend\Form\UploadType;
+use Admin\Backend\Model\ExportDataExcel;
 
 /**
  * Complaint controller.
@@ -36,6 +37,43 @@ class ComplaintController extends Controller {
             'paginate' => $fanta
         ));
     }
+
+	public function excelDataAction() {
+		// $type = $_GET['page'];        
+        $em = $this->getDoctrine()->getManager();
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 10;
+
+        $exporter = new ExportDataExcel('browser', 'listagem.xls');
+		$exporter->initialize();
+        $exporter->addRow(array("ID", "Data", "Data prevista de resposta", "Nome do utente",
+                                "Telefone", "Operador Económico", "Criado por")); 
+
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, Complaint::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();            
+
+        foreach ($entities as $ent) {
+            $exporter->addRow(array($ent->getObjCode(), 
+                $ent->getCreatedAt()->format('Y-m-d'),
+                $ent->getRespDate()->format('Y-m-d'), 
+                $ent->getName(),
+                $ent->getPhone(),
+                $ent->getOpName(),
+                $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
+            ));
+        }
+
+		$exporter->finalize();
+		exit();
+	}        
 
     public function receiptAction($id) {
         $em = $this->getDoctrine()->getManager();

@@ -6,6 +6,10 @@ administration_Complaint_bystate:
     path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:Complaint:byState" }
 
+administration_Complaint_excel:
+    path:     /excel
+    defaults: { _controller: "BackendBundle:Complaint:excelData" }
+
 administration_Complaint_updateState:
     path:     /update_state/{id}
     defaults: { _controller: "BackendBundle:Complaint:updateState" }

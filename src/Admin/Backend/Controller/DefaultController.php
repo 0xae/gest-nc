@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Admin\Backend\Entity\Model;
 use Admin\Backend\Entity\Stage;
+use Admin\Backend\Model\ExportDataExcel;
 
 class DefaultController extends Controller {
 	public function indexAction() {
@@ -39,6 +40,18 @@ class DefaultController extends Controller {
 			"total" => $this->total(),
 			"globalCounters" => $this->getGlobalCounts() 
 		));
+	}
+
+	public function excelDataAction() {
+		// $type = $_GET['type'];
+
+		$exporter = new ExportDataExcel('browser', 'listagem.xls');
+		$exporter->initialize();
+		$exporter->addRow(array("This", "is", "a", "test")); 
+		$exporter->addRow(array(1, 2, 3, "123-456-7890"));
+		$exporter->finalize();
+
+		exit();
 	}
 
 	public function statsAction($type) {
