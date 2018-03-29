@@ -1,58 +1,34 @@
 <div class="col-md-5">
     <div class="form-group">
-        <label>Perfil</label>
-        <ul class="list-group">
+        <label>Selecionar perfil</label>
+        <select class="form-control" ng-model="profileAdd" required
+                ng-change="profileChanged(profileAdd)">
             {% for p in profiles %}
-                <li class="list-group-item">
-                    <a href="#" ng-click="ativateProfile({{p.id}}, '{{p.name}}')">
-                        <span>{{ p.name|capitalize }}</span>
-                    </a>
-                </li>
+                <option id="profile-{{p.id}}" 
+                        ng-click="ativateProfile({{p.id}}, '{{p.name}}')"
+                        value="{{p.id}}">{{ p.name|capitalize }}</option>
             {% endfor %}
-        </ul>
-
-        <nav>
-            <ul class="pagination">
-                <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-                </li>
-            </ul>
-        </nav>
+        </select>
     </div>
-</div>
 
-<div class="col-md-6">
-    <label>Associar permiss&atilde;o</label>
     <div class="form-group">
-        <select class="form-control" ng-model="permissionAdd">
+        <label>Selecionar permiss&atilde;o</label>
+        <select class="form-control" ng-model="permissionAdd" required>
             {% for p in permissions %}
                 <option id="perm-{{p['code']}}" 
                         data-label="{{p['label']}}" 
                         value="{{p['code']}}">{{p['label']}}</option>
             {% endfor %}
         </select>
-
-        <button class="btn btn-success" 
-                ng-click="addPermission(profileId, permissionAdd)"
-                ng-disabled="!profileId || !permissionAdd ">
-            <span class="fa fa-plus"></span>
-        </button>
     </div>
+
+    <button class="btn btn-success" 
+            ng-click="addPermission(profileId, permissionAdd)"
+            ng-disabled="!profileId || !permissionAdd ">
+        <span class="fa fa-plus"></span> Adicionar
+    </button>
 </div>
+
 
 <div class="col-md-6">
     <label>Permiss&otilde;es associadas</label>
@@ -64,8 +40,12 @@
             </a>
         </li>
 
-        <li class="list-group-item" ng-if="permissions.length == 0">
+        <li class="list-group-item" ng-if="permissions.length == 0 && !isLoading">
             Sem permiss&otilde;es associados.
+        </li>
+
+        <li class="list-group-item alert-warning" ng-if="isLoading">
+            Carregando...
         </li>
     </ul>
 </div>

@@ -16,11 +16,18 @@ angular.module("app")
         $('#adminTab a[href="#'+tab+'"]').tab('show');  
     }
 
-    $scope.ativateProfile = function (id, name) {
+    $scope.profileChanged = function(id) {
+        console.info(id);
         $scope.profileId = id;
+        $scope.permissions = [];
+        $scope.isLoading = true;
+
         fetchPermissions(id)
         .then(function (data){
             $scope.permissions = data;
+            $scope.isLoading = false;            
+        }, function () {
+            $scope.isLoading = true;            
         });
     }
 
@@ -37,7 +44,8 @@ angular.module("app")
             return;
         }
 
-        //arfa/web/app_dev.php/administration/add_permission?permission=teste+123&profile_id=1
+        $scope.isLoading = true;
+
         $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
                     'profile_id=' + profileId+
                     '&permission=' + permissionId+
@@ -46,8 +54,10 @@ angular.module("app")
             var resp=_resp.data;
             $.notify("Permissao adicionado com sucesso", "success");
             $scope.permissions.push(resp);
+            $scope.isLoading = false;
             return resp;
         }, function (error) {            
+            $scope.isLoading = false;            
         });
     }
 
