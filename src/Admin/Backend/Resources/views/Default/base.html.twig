@@ -23,7 +23,6 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
         <style>
             h3.app-title {
                 margin: 0px;
@@ -54,12 +53,13 @@
             .bg-extern-recl {
                 background-color: #4e802c;
             }
-
             .small-box .inner {
                 color: #fff;
             }
-
             .response-area textarea {                
+            }
+            .app-footer {
+                background-color: #999999;
             }
         </style>
     </head>
@@ -121,5 +121,11 @@
             <div class="wrapper">
             </div>
         {% endblock %}
+
+        <div class="app-footer">
+            <div class="">
+                <p>POWERED BY ARFA - 2018</p>
+            </div>
+        </div>
     </body>
 </html>
