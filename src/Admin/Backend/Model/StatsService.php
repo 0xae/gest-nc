@@ -34,15 +34,37 @@ class StatsService {
 	}
 
 	public function responseAvg($em, $model, $opts=[]) {
-		$avg = 'coalesce(avg(greatest(datediff(response_date, created_at),0)), 0)';
+		$days = 15;
+		$type = 'type';
 		$params = [];		
+
+		if (@$opts['days']) {
+			$days = (int)$opts['days'];
+		}
+
+		if (@$opts['type']) {
+			$type="'".@$opts['type']."'";
+		}
+
+		$column = 'date_add(c.created_at, INTERVAL '.$days.' DAY)';
+		$avg = 'avg(datediff('.$column.', c.created_at))';
+
 		$q = 'select
 				'. $avg .' as count,
-				date_format(created_at, "%Y-%m") as period
-			from ' . $model . '
-			where year(created_at) = year(current_date)
-				and month(created_at) = month(current_date) 
-				and response_date is not null 
+				'. $type .' as type,
+				a.codigo as code
+
+			from ' . $model . ' c
+
+			join app_entity a ON a.id = (
+				select entity from user where id=c.created_by
+			)
+
+			where year(c.created_at) = year(current_date)
+				and month(c.created_at) = month(current_date) 
+				and response_date is not null
+
+			group by '.$type.', a.codigo
 		';
 
 		if (@$opts['state']) {

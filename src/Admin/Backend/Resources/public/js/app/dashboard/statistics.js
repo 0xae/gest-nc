@@ -47,41 +47,48 @@ function ($scope, Statistics) {
     function renderResponseTimeAvg() {
         Statistics.fetchData('ajax/avgResponseTime', {})
         .then(function (data){
-            var render = [
-                {
-                    name: "Denúncias",
-                    data: [parseInt(data['denuncia'][0].count)],
-                    color: "#c82061"
-                },
-                {
-                    name: "Queixas",
-                    data: [parseInt(data['queixa'][0].count)],
-                    color: "#681133"
-                },
-                {
-                    name: "Reclamações externas",
-                    data: [parseInt(data['reclamacao'][0].count)],
-                    color: "#4e802c"
-                },
-                {
-                    name: "Reclamações internas",
-                    data: [parseInt(data['reclamacao_interna'][0].count)],
-                    color: "#6eb63e"
-                },
-                {
-                    name: "Sugestões",
-                    data: [parseInt(data['sugestao'][0].count)],
-                    color: "#1155cc"
-                },
-            ];
+            var rows=data.rows;
+            var categories=Object.keys(rows);
+            var series = [{
+                name: 'Denúncias',
+                data: Statistics.produceArray(rows, 'denuncia'),
+                color: '#681133'
+            }, {
+                name: 'Queixas',
+                data: Statistics.produceArray(rows, 'queixa'),
+                color: '#c82061'
+            }, {
+                name: 'Reclamaçao Interna',
+                data: Statistics.produceArray(rows, 'reclamacao_interna'),
+                color: '#6eb63e'
+            }, {
+                name: 'Reclamaçao Externa',
+                data: Statistics.produceArray(rows, 'reclamacao'),
+                color: '#4e802c'
+            }, {
+                name: 'Sugestões',
+                data: Statistics.produceArray(rows, 'sugestao'),
+                color: '#1155cc'
+            }, {
+                name: 'Livro de reclamações',
+                data: Statistics.produceArray(rows, 'comp_book'),
+                color: '#f39c12'
+            }];
 
-            Statistics.renderBar('Tempo médio de resposta por direção',
-                'Dias',
-                '',
-                'responseAvg',
-                ["Dias"],
-                render
-            );
+            Statistics.renderStack(
+                "responseAvg", 
+                "Tempo médio de resposta por direção",
+                categories, 
+                series
+            );            
+
+            // Statistics.renderBar('',
+            //     'Dias',
+            //     '',
+            //     'responseAvg',
+            //     ["Dias"],
+            //     render
+            // );
         });
 
     }

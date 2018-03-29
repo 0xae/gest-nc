@@ -34,12 +34,6 @@ angular.module("app")
     $scope.addPermission = function (profileId, permissionId) {
         var permissionLabel = $("#perm-" + permissionId).attr("data-label");
 
-        console.info({
-            profileId: profileId,
-            permissionId: permissionId,
-            permissionLabel: permissionLabel
-        });
-
         if (!permissionLabel) {
             return;
         }

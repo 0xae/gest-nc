@@ -68,14 +68,30 @@ class StatsController extends Controller {
 		$em = $this->getDoctrine()->getManager();		
 		$service = $this->container->get('sga.admin.stats');
 
-		return [
-			Model::DENOUNCE => $service->responseAvg($em, 'complaint', ['type' => Model::DENOUNCE]),
-			Model::COMPLAINT => $service->responseAvg($em, 'complaint', ['type' => Model::COMPLAINT]),
-			Model::RECLAMATION_INTERNAL => $service->responseAvg($em, 'reclamation_internal'),
-			Model::RECLAMATION_EXTERN => $service->responseAvg($em, 'sugestion', ['type' => Model::RECLAMATION_EXTERN]),
-			Model::SUGESTION => $service->responseAvg($em, 'sugestion', ['type' => Model::SUGESTION]),
-			// Model::COMP_BOOK => $this->count('comp_book'),	
-		];
+		$ary1 = $service->responseAvg($em, 'complaint', ['type' => Model::DENOUNCE, 'days'=>15]);
+		$ary2 = $service->responseAvg($em, 'complaint', ['type' => Model::COMPLAINT, 'days'=>15]);
+		$ary3 = $service->responseAvg($em, 'reclamation_internal', ['type'=>Model::RECLAMATION_INTERNAL, 'days'=>15]);
+		$ary4 = $service->responseAvg($em, 'sugestion', ['type' => Model::RECLAMATION_EXTERN, 'days'=>15]);
+		$ary5 = $service->responseAvg($em, 'sugestion', ['type' => Model::SUGESTION, 'days'=>15]);
+		$ary6 = $service->responseAvg($em, 'comp_book', ['type' => 'comp_book', 'days'=>10]);
+
+		$ary = array_merge($ary1, $ary2, $ary3, $ary4, $ary5, $ary6);
+		
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['code'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		return ["rows" => $table];
 	}
 
 	public function getThirdPartyCounts() {
