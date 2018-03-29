@@ -86,7 +86,7 @@ class ComplaintController extends Controller {
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
-            $label = 'da competência de terceiros';
+            $label = 'Competência de terceiros';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'Não favoravel';
         } else if ($state == Stage::NO_CONFOR) {

@@ -6,7 +6,7 @@
     <div class="col-xs-12" ng-init="setType('Sugestion')">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Tratamento de Sugestão/Reclamação</h3>
+                <h3 class="box-title">Em Tratamento</h3>
             </div>
             <!-- /.box-header -->
 
@@ -73,7 +73,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" ng-click="openAnnexParModal({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', type:'par_tec' })">
+                                                <a href="#" ng-click="openAnnexParModal({ id:{{entity.id}}, code:'{{entity.objCode}}', name:'{{entity.name}}', annexReference:'{{entity.annexReference}}', type:'par_annex' })">
                                                     Anexo
                                                 </a>
                                             </li>

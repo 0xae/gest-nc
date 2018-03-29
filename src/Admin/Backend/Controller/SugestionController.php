@@ -56,9 +56,9 @@ class SugestionController extends Controller {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
             // $label = 'Competência de Terceiros';
-            $label = 'da competência de terceiros';            
+            $label = 'Competência de terceiros';            
         } else if ($state == Stage::NO_FAVORABLE) {
-            $label = 'não favoraveis';
+            $label = 'Não favoraveis';
         } else if ($state == Stage::NO_CONFOR) {
             $label = 'Não Conformidades';
         }

@@ -84,6 +84,12 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
 
     $scope.openAnnexParModal = function (obj) {
         $scope.openParModal(obj, ANNEX_PAR_MODAL);
+        $("#admin_backend_upload_reference").val(obj.annexReference + "__upload");        
+        $("#admin_backend_upload_submit").hide();
+    }
+
+    $scope.sendAnnexParecer = function() {
+        console.info($("#admin_backend_upload_reference").val());
     }
 
     $scope.openParModal = function (obj, modal) {

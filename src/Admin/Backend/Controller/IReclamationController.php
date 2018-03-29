@@ -75,7 +75,7 @@ class IReclamationController extends Controller {
         $label = $state;
 
         if ($state == Stage::ACOMPANHAMENTO) {
-            $label = 'Reclamações internas em acompanhamento';
+            $label = 'Acompanhamento';
             $tpl = 'acomp';
         } else if ($state == Stage::TRATAMENTO) { 
             $label = 'Tratamento';
@@ -84,7 +84,7 @@ class IReclamationController extends Controller {
         } else if ($state == Stage::RESPONDIDO) {
             $label = 'Respondidas';
         } else if ($state == Stage::NO_COMP) {
-            $label = 'da competência de terceiros';
+            $label = 'Competência de terceiros';
         } else if ($state == Stage::NO_FAVORABLE) {
             $label = 'Não favoraveis';
         } else if ($state == Stage::NO_CONFOR) {
