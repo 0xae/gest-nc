@@ -23,6 +23,7 @@
                             <th>Utente</th>
                             <th>Fornecedor</th>
                             <th>Autoridade enviado</th>
+                            <th>Data de registro</th>
                             <th>Data de envio</th>
                             <th>Data de ocorrencia</th>
                             <th>Data prevista (10 dias)</th>
@@ -43,6 +44,9 @@
                                 <td id="td-{{entity.id}}-sendTo">
                                     {{entity.sendTo}}
                                 </td>
+                                <td>
+                                    {{ entity.createdAt|date('Y-m-d') }}
+                                </td> 
                                 <td id="td-{{entity.id}}-sendDate">
                                     {{ entity.sendDate|date('Y-m-d') }}
                                 </td> 

@@ -39,9 +39,11 @@ class ComplaintType extends AbstractType {
             ->add('factDetail', 'textarea', array(
                 'attr' => array('rows' => 6)
             ))
-            ->add('hasProduct', 'checkbox', array(
-                'label' => ' ',
-                'required' => false
+            ->add('hasProduct', 'choice', array(
+                'choices' => array(
+                    0 => 'Sim',
+                    1 => 'Não'
+                )
             ))
             // ->add('annexType', 'entity', array(
             //     ''

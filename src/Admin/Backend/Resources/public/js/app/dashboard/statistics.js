@@ -107,11 +107,11 @@ function ($scope, Statistics) {
                 data: Statistics.produceArray(rows, 'queixa'),
                 color: '#c82061'
             }, {
-                name: 'Reclamaçao Interna',
+                name: 'Reclamação Interna',
                 data: Statistics.produceArray(rows, 'reclamacao_interna'),
                 color: '#6eb63e'
             }, {
-                name: 'Reclamaçao Externa',
+                name: 'Reclamação Externa',
                 data: Statistics.produceArray(rows, 'reclamacao'),
                 color: '#4e802c'
             }, {

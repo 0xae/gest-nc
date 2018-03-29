@@ -11,14 +11,22 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+.login-page {
+}
+
+.login-box,
+.register-box {
+    width: 360px;
+    margin: 8% 31%;
+}
 </style>
 
-{% image '@BackendBundle/Resources/public/img/login_bg.jpg' %}
-<body class="hold-transition login-page" style="background:url({{ asset_url }})">
+{% image '@BackendBundle/Resources/public/img/FundoEcraARFA.jpg' %}
+<body class="hold-transition login-page" style="background: url(/arfa/web/app_dev.php/images/9e15475_FundoEcraARFA_1.jpg) no-repeat;background-size: cover;background-clip: padding-box;">
     {% block content %}
         {% block fos_user_content %}
             <div class="login-box">
-
                 <div class="login-box-body" style="border-radius:5px;">
                     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
                     <div class="login-logo" style="margin-bottom: 30px">
