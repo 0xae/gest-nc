@@ -294,14 +294,14 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ANALYSIS" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'analysis'}) }}">
-                        <i class="fa fa-circle-o text-gray"></i> <span>&gt; Análise</span></a>
+                        <i class="fa fa-circle-o text-gray"></i> <span>Análise</span></a>
                     </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_DECISION" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'decision'}) }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>&gt; Decisão</span>
+                            <i class="fa fa-circle-o text-gray"></i> <span>Decisão</span>
                         </a>
                     </li>
                     {% endif %}
@@ -309,7 +309,7 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACTION" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'action'}) }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>&gt; Ação</span>
+                            <i class="fa fa-circle-o text-gray"></i> <span>Ação</span>
                         </a>
                     </li>
                     {% endif %}
