@@ -34,45 +34,48 @@ class ComplaintController extends Controller {
 
         return $this->render('BackendBundle:Complaint:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta
+            'paginate' => $fanta,
+            'pageIdx' => $pageIdx
         ));
     }
 
 	public function excelDataAction() {
-		// $type = $_GET['page'];        
         $em = $this->getDoctrine()->getManager();
-        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $pageIdx = $_GET['page'];
         $perPage = 10;
 
-        $exporter = new ExportDataExcel('browser', 'listagem.xls');
-		$exporter->initialize();
-        $exporter->addRow(array("ID", "Data", "Data prevista de resposta", "Nome do utente",
-                                "Telefone", "Operador Económico", "Criado por")); 
-
+        $header = array(
+            "ID", 
+            "Data", 
+            "Data prevista de resposta", 
+            "Nome do utente",
+            "Telefone", 
+            "Operador Económico", 
+            "Criado por"
+        );
 
         $q = $this->container
             ->get('sga.admin.filter')
             ->from($em, Complaint::class, $perPage, ($pageIdx-1)*$perPage);
 
-        $fanta = $this->container
-            ->get('sga.admin.table.pagination')
-            ->fromQuery($q, $perPage, $pageIdx);
-
-        $entities = $q->getResult();            
+        $entities = $q->getResult();
+        $rows = [];
 
         foreach ($entities as $ent) {
-            $exporter->addRow(array($ent->getObjCode(), 
+            $rows[] = [
+                $ent->getObjCode(), 
                 $ent->getCreatedAt()->format('Y-m-d'),
                 $ent->getRespDate()->format('Y-m-d'), 
                 $ent->getName(),
                 $ent->getPhone(),
                 $ent->getOpName(),
                 $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
-            ));
+            ];
         }
 
-		$exporter->finalize();
-		exit();
+        $this->container
+             ->get('sga.admin.exporter')
+             ->dumpExcel($header, $rows);
 	}        
 
     public function receiptAction($id) {

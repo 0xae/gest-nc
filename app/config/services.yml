@@ -15,3 +15,7 @@ services:
   sga.admin.stats:
       class: Admin\Backend\Model\StatsService
       arguments: [@service_container]
+
+  sga.admin.exporter:
+      class: Admin\Backend\Model\Exporter
+      arguments: [@service_container]

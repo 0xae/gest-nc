@@ -21,7 +21,7 @@ ul.pagination {
                         <strong>PDF</strong>
                     </a>
 
-                    <a href="{{ path('administration_Complaint_excel', {}) }}" 
+                    <a href="{{ path('administration_Complaint_excel', {'page': pageIdx}) }}" 
                         class="btn btn-success app-print-excel hidden-print"
                         target="__blank"
                         title="Imprimir em excel">
@@ -51,22 +51,8 @@ ul.pagination {
                         {% for entity in entities %}
                             <tr>
                                 <td>
-                                    {# <a href="{{ path('administration_Complaint_edit', {'id': entity.id}) }}"> #}
-                                        {{ entity.objCode }}
-                                    {# </a>                                    #}
-                                    {# <a href="#" class="label label-default">
-                                            {{ entity.state }}
-                                    </a> #}
+                                    {{ entity.objCode }}
                                 </td>
-                                {# <td>
-                                    {% if entity.type == 'queixa' %}
-                                        Queixa
-                                    {% elseif entity.type == 'denuncia'  %}
-                                        Denuncia
-                                    {% else %}
-                                        {{entity.type}}
-                                    {% endif %}
-                                </td> #}
                                 <td>{{ entity.createdAt|date('Y-m-d') }}</td>
                                 <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.name }}</td>
