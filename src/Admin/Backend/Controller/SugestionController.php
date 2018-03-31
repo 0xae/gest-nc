@@ -12,6 +12,7 @@ use Admin\Backend\Entity\Stage;
 use Admin\Backend\Form\SugestionType;
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
+use Admin\Backend\Model\Settings;
 
 /**
  * Sugestion controller
@@ -23,7 +24,7 @@ class SugestionController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
-        $perPage = 10;
+        $perPage = Settings::PER_PAGE;
 
         $q = $this->container
             ->get('sga.admin.filter')
@@ -45,7 +46,7 @@ class SugestionController extends Controller {
 	public function excelDataAction() {
         $em = $this->getDoctrine()->getManager();
         $pageIdx = $_GET['page'];
-        $perPage = 10;
+        $perPage = Settings::PER_PAGE;
 
         $header = array(
             "Código #",
@@ -68,8 +69,8 @@ class SugestionController extends Controller {
                 $ent->getObjCode(),
                 $ent->getName(),
                 $ent->getPhone() . '/' . $ent->getEmail(),
-                $ent->getCreatedAt()->format('Y-m-d'),
-                $ent->getRespDate()->format('Y-m-d'),
+                $ent->getCreatedAt()->format(Settings::DATE_FMT),
+                $ent->getRespDate()->format(Settings::DATE_FMT),
                 $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
             ];
         }
@@ -217,7 +218,7 @@ class SugestionController extends Controller {
             "annexReference" => $entity->getAnnexReference(),
             "description" => $entity->getDescription(),
             "objCode" => $entity->getObjCode(),
-            "createdAt" => $cb->getCreatedAt()->format("Y-m-d"),
+            "createdAt" => $cb->getCreatedAt()->format(Settings::DATE_FMT),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
         ];
@@ -231,13 +232,13 @@ class SugestionController extends Controller {
                                                ->getEntity()
                                                ->getName();      
             if ($entity->getResponseDate() != null) {
-                $obj["responseDate"] = $entity->getResponseDate()->format("Y-m-d");
+                $obj["responseDate"] = $entity->getResponseDate()->format(Settings::DATE_FMT);
             }   
         }
 
         if ($entity->getParAuthor()) {
             $obj["parCode"] = $entity->getParCode();
-            $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
+            $obj["parDate"] = $entity->getParDate()->format(Settings::DATE_FMT);
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();

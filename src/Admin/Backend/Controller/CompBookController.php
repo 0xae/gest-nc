@@ -32,7 +32,7 @@ class CompBookController extends Controller {
             ->get('sga.admin.table.pagination')
             ->fromQuery($q, $perPage, $pageIdx);
 
-        $entities = $q->getResult();         
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:CompBook:index.html.twig', array(
             'entities' => $entities,
@@ -45,7 +45,6 @@ class CompBookController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $perPage = Settings::PER_PAGE;
         $pageIdx = $_GET['page'];
-
         $header = array(
             "Código #",
             "Utente",

@@ -64,8 +64,8 @@ class ComplaintController extends Controller {
         foreach ($entities as $ent) {
             $rows[] = [
                 $ent->getObjCode(),
-                $ent->getCreatedAt()->format('Y-m-d'),
-                $ent->getRespDate()->format('Y-m-d'),
+                $ent->getCreatedAt()->format(Settings::DATE_FMT),
+                $ent->getRespDate()->format(Settings::DATE_FMT),
                 $ent->getName(),
                 $ent->getPhone(),
                 $ent->getOpName(),
@@ -246,7 +246,7 @@ class ComplaintController extends Controller {
 
         if ($entity->getParAuthor()) {
             $obj["parCode"] = $entity->getParCode();
-            $obj["parDate"] = $entity->getParDate()->format("Y-m-d");
+            $obj["parDate"] = $entity->getParDate()->format(Settings::DATE_FMT);
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
             $obj["parSubject"] = $entity->getParSubject();
             $obj["parDest"] = $entity->getParDest();
@@ -258,7 +258,7 @@ class ComplaintController extends Controller {
             $obj["files"][] = [
                 "id" => $f->getId(),
                 "description" => $f->getDescription(),
-                "createdAt" => $f->getCreatedAt()->format("Y-m-d"),
+                "createdAt" => $f->getCreatedAt()->format(Settings::DATE_FMT),
                 "createdBy" => $f->getCreatedBy()->getName(),
                 "path" => $f->getFilename()
             ];
