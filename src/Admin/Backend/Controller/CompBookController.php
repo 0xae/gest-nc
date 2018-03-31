@@ -10,7 +10,7 @@ use Admin\Backend\Entity\Upload;
 use Admin\Backend\Entity\Stage;
 use Admin\Backend\Form\CompBookType;
 use Admin\Backend\Form\UploadType;
-
+use Admin\Backend\Model\Settings;
 
 /**
  * CompBook controller.
@@ -18,12 +18,11 @@ use Admin\Backend\Form\UploadType;
 class CompBookController extends Controller {
     /**
      * Lists all CompBook entities.
-     *
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
-        $perPage = 10;
+        $perPage = Settings::PER_PAGE;
 
         $q = $this->container
             ->get('sga.admin.filter')
@@ -37,8 +36,46 @@ class CompBookController extends Controller {
 
         return $this->render('BackendBundle:CompBook:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta
+            'paginate' => $fanta,
+            'pageIdx' => $pageIdx
         ));
+    }
+
+	public function excelDataAction() {
+        $em = $this->getDoctrine()->getManager();
+        $perPage = Settings::PER_PAGE;
+        $pageIdx = $_GET['page'];
+
+        $header = array(
+            "Código #",
+            "Utente",
+            "Fornecedor",
+            "Data de recepção",
+            "Data de prevista (10 dias)",
+            "Criado por"
+        );
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, CompBook::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $entities = $q->getResult();
+        $rows = [];
+
+        foreach ($entities as $ent) {
+            $rows[] = [
+                $ent->getObjCode(),
+                $ent->getClientName(),
+                $ent->getSupplierName(),
+                $ent->getCreatedAt()->format(Settings::DATE_FMT),
+                $ent->getRespDate()->format(Settings::DATE_FMT),
+                $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
+            ];
+        }
+
+        $this->container
+             ->get('sga.admin.exporter')
+             ->dumpExcel($header, $rows);
     }
 
     public function byStateAction($state) {
@@ -108,7 +145,7 @@ class CompBookController extends Controller {
         if ($entity->getSendDate()) {
             $sendDate = $entity
                 ->getSendDate()
-                ->format("Y-m-d");
+                ->format(Settings::DATE_FMT);
         }
 
         $cb = $entity->getCreatedBy();
@@ -119,22 +156,19 @@ class CompBookController extends Controller {
             "clientEmail" => $entity->getClientEmail(),
             "supplierName" => $entity->getSupplierName(),
             "supplierAddress" => $entity->getSupplierAddress(),
-            "complaintDate" => $entity->getComplaintDate()
-                                      ->format("Y-m-d"),
+            "complaintDate" => $entity->getComplaintDate()->format(Settings::DATE_FMT),
             "complaint" => $entity->getComplaint(),
             "annexReference" => $entity->getAnnexReference(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
-            "createdAt" => $entity->getCreatedAt()
-                                  ->format("Y-m-d"),
-
+            "createdAt" => $entity->getCreatedAt()->format(Settings::DATE_FMT),
             "sendDate" => $sendDate,
             "sendTo" => $entity->getSendTo(),
             "files" => []
         ];
 
         if ($entity->getResponseAuthor()) {
-            $obj['response_date']  = $entity->getResponseDate()->format("Y-m-d");
+            $obj['response_date']  = $entity->getResponseDate()->format(Settings::DATE_FMT);
             $obj['response_author'] = $entity->getResponseAuthor()->getName();
             $obj['response_author_entity'] = $entity->getResponseAuthor()->getEntity()->getName();            
         }
@@ -143,7 +177,7 @@ class CompBookController extends Controller {
             $obj["files"][] = [
                 "id" => $f->getId(),
                 "description" => $f->getDescription(),
-                "createdAt" => $f->getCreatedAt()->format("Y-m-d"),
+                "createdAt" => $f->getCreatedAt()->format(Settings::DATE_FMT),
                 "createdBy" => $f->getCreatedBy()->getName(),
                 "path" => $f->getFilename(),
                 "filename" => $f->getFilename()
@@ -209,7 +243,6 @@ class CompBookController extends Controller {
 
     /**
      * Displays a form to create a new CompBook entity.
-     *
      */
     public function newAction() {
         $entity = new CompBook();
@@ -223,7 +256,6 @@ class CompBookController extends Controller {
 
     /**
      * Finds and displays a CompBook entity.
-     *
      */
     public function showAction($id) {
         return $this->redirect(
@@ -246,7 +278,6 @@ class CompBookController extends Controller {
 
     /**
      * Displays a form to edit an existing CompBook entity.
-     *
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -273,7 +304,6 @@ class CompBookController extends Controller {
      * Creates a form to create a CompBook entity.
      *
      * @param CompBook $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(CompBook $entity) {
@@ -290,7 +320,6 @@ class CompBookController extends Controller {
     * Creates a form to edit a CompBook entity.
     *
     * @param CompBook $entity The entity
-    *
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(CompBook $entity) {
@@ -304,7 +333,6 @@ class CompBookController extends Controller {
 
     /**
      * Edits an existing CompBook entity.
-     *
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -331,7 +359,6 @@ class CompBookController extends Controller {
 
     /**
      * Deletes a CompBook entity.
-     *
      */
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
@@ -356,7 +383,6 @@ class CompBookController extends Controller {
      * Creates a form to delete a CompBook entity by id.
      *
      * @param mixed $id The entity id
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {

@@ -3,7 +3,7 @@ administration_IReclamation:
     defaults: { _controller: "BackendBundle:IReclamation:index" }
 
 administration_IReclamation_excel:
-    path:     /
+    path:     /excel
     defaults: { _controller: "BackendBundle:IReclamation:excelData" }
 
 

@@ -44,9 +44,7 @@
                     <tbody>
                         {% for entity in entities %}
                             <tr>
-                                <td>
-                                    {{ entity.objCode }}
-                                </td>
+                                <td>{{ entity.objCode }}</td>
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.direction }}</td>
                                 <td>{{ entity.createdAt|date('Y-m-d') }}</td>

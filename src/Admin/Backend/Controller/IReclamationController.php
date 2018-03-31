@@ -1,5 +1,4 @@
 <?php
-
 namespace Admin\Backend\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +12,7 @@ use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
 use Admin\Backend\Form\IReclamationType;
 use Admin\Backend\Model\ExportDataExcel;
+use Admin\Backend\Model\Settings;
 
 /**
  * IReclamation controller
@@ -20,9 +20,8 @@ use Admin\Backend\Model\ExportDataExcel;
 class IReclamationController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
-        $perPage = 2;
+        $perPage = Settings::PER_PAGE;
 
         $q = $this->container
             ->get('sga.admin.filter')
@@ -43,9 +42,8 @@ class IReclamationController extends Controller {
 
 	public function excelDataAction() {
         $em = $this->getDoctrine()->getManager();
+        $perPage = Settings::PER_PAGE;
         $pageIdx = $_GET['page'];
-        $perPage = 10;
-
         $header = array(
             "Código #",
             "Nome",
@@ -66,10 +64,9 @@ class IReclamationController extends Controller {
             $rows[] = [
                 $ent->getObjCode(),
                 $ent->getName(),
-                $ent->getPhone(),
-                $ent->getOpName(),
-                $ent->getCreatedAt()->format('Y-m-d'),
-                $ent->getRespDate()->format('Y-m-d'),
+                $ent->getDirection(),
+                $ent->getCreatedAt()->format(Settings::DATE_FMT),
+                $ent->getRespDate()->format(Settings::DATE_FMT),
                 $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
             ];
         }
@@ -113,7 +110,7 @@ class IReclamationController extends Controller {
             "annexReference" => $entity->getAnnexReference(),
             "type" => $entity->getType(),
             "typeData" => $entity->gettypeData(),
-            "factDate" => $entity->getfactDate()->format("Y-m-d"),
+            "factDate" => $entity->getfactDate()->format(Settings::DATE_FMT),
             "factDetail" => $entity->getFactDetail(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),

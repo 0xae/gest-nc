@@ -2,6 +2,10 @@ administration_CompBook:
     path:     /
     defaults: { _controller: "BackendBundle:CompBook:index" }
 
+administration_CompBook_excel:
+    path:     /excel
+    defaults: { _controller: "BackendBundle:CompBook:excelData" }
+
 administration_CompBook_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:CompBook:show" }
