@@ -2,6 +2,10 @@ administration_Sugestion:
     path:     /
     defaults: { _controller: "BackendBundle:Sugestion:index" }
 
+administration_Sugestion_excel:
+    path:     /excel
+    defaults: { _controller: "BackendBundle:Sugestion:excelData" }
+
 administration_Sugestion_byState:
     path:     /by_state/{state}
     defaults: { _controller: "BackendBundle:Sugestion:byState" }

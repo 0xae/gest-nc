@@ -12,6 +12,7 @@ use Admin\Backend\Entity\IReclamation;
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
 use Admin\Backend\Form\IReclamationType;
+use Admin\Backend\Model\ExportDataExcel;
 
 /**
  * IReclamation controller
@@ -19,11 +20,63 @@ use Admin\Backend\Form\IReclamationType;
 class IReclamationController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BackendBundle:IReclamation')->findAll();
+
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 2;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, IReclamation::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:IReclamation:index.html.twig', array(
             'entities' => $entities,
+            'paginate' => $fanta,
+            'pageIdx' => $pageIdx
         ));
+    }
+
+	public function excelDataAction() {
+        $em = $this->getDoctrine()->getManager();
+        $pageIdx = $_GET['page'];
+        $perPage = 10;
+
+        $header = array(
+            "Código #",
+            "Nome",
+            "Direção",
+            "Data de recepção",
+            "Data de resposta (15 dias)",
+            "Criado por"
+        );
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, IReclamation::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $entities = $q->getResult();
+        $rows = [];
+
+        foreach ($entities as $ent) {
+            $rows[] = [
+                $ent->getObjCode(),
+                $ent->getName(),
+                $ent->getPhone(),
+                $ent->getOpName(),
+                $ent->getCreatedAt()->format('Y-m-d'),
+                $ent->getRespDate()->format('Y-m-d'),
+                $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
+            ];
+        }
+
+        $this->container
+             ->get('sga.admin.exporter')
+             ->dumpExcel($header, $rows);
     }
 
     public function receiptAction($id) {
@@ -163,8 +216,7 @@ class IReclamationController extends Controller {
 
         $entity->setStep(Stage::CONCLUDED);
         $entity->setState(Stage::ACOMPANHAMENTO);
-
-        $em->persist($entity);       
+        $em->persist($entity);
         $em->flush();
 
         return new JsonResponse([

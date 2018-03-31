@@ -45,12 +45,12 @@ class ComplaintController extends Controller {
         $perPage = 10;
 
         $header = array(
-            "ID", 
-            "Data", 
-            "Data prevista de resposta", 
+            "Código #",
+            "Data de recepção",
+            "Data prevista de resposta",
             "Nome do utente",
-            "Telefone", 
-            "Operador Económico", 
+            "Telefone",
+            "Operador Económico",
             "Criado por"
         );
 
@@ -63,9 +63,9 @@ class ComplaintController extends Controller {
 
         foreach ($entities as $ent) {
             $rows[] = [
-                $ent->getObjCode(), 
+                $ent->getObjCode(),
                 $ent->getCreatedAt()->format('Y-m-d'),
-                $ent->getRespDate()->format('Y-m-d'), 
+                $ent->getRespDate()->format('Y-m-d'),
                 $ent->getName(),
                 $ent->getPhone(),
                 $ent->getOpName(),
@@ -76,7 +76,7 @@ class ComplaintController extends Controller {
         $this->container
              ->get('sga.admin.exporter')
              ->dumpExcel($header, $rows);
-	}        
+    }
 
     public function receiptAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -444,7 +444,6 @@ class ComplaintController extends Controller {
             'action' => $this->generateUrl('administration_Complaint_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         return $form;
     }
 

@@ -37,8 +37,46 @@ class SugestionController extends Controller {
 
         return $this->render('BackendBundle:Sugestion:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta
+            'paginate' => $fanta,
+            'pageIdx' => $pageIdx
         ));
+    }
+
+	public function excelDataAction() {
+        $em = $this->getDoctrine()->getManager();
+        $pageIdx = $_GET['page'];
+        $perPage = 10;
+
+        $header = array(
+            "Código #",
+            "Utente",
+            "Contacto",
+            "Data de recepção",
+            "Data prevista de resposta",
+            "Criado por"
+        );
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, Sugestion::class, $perPage, ($pageIdx-1)*$perPage);
+
+        $entities = $q->getResult();
+        $rows = [];
+
+        foreach ($entities as $ent) {
+            $rows[] = [
+                $ent->getObjCode(),
+                $ent->getName(),
+                $ent->getPhone() . '/' . $ent->getEmail(),
+                $ent->getCreatedAt()->format('Y-m-d'),
+                $ent->getRespDate()->format('Y-m-d'),
+                $ent->getCreatedBy()->getName() . '/' . $ent->getCreatedBy()->getEntity()->getName(),
+            ];
+        }
+
+        $this->container
+             ->get('sga.admin.exporter')
+             ->dumpExcel($header, $rows);
     }
 
     public function byStateAction($state) {

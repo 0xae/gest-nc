@@ -2,6 +2,11 @@ administration_IReclamation:
     path:     /
     defaults: { _controller: "BackendBundle:IReclamation:index" }
 
+administration_IReclamation_excel:
+    path:     /
+    defaults: { _controller: "BackendBundle:IReclamation:excelData" }
+
+
 administration_IReclamation_show:
     path:     /{id}/show
     defaults: { _controller: "BackendBundle:IReclamation:show" }

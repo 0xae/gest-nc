@@ -12,22 +12,16 @@ ul.pagination {
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Listagem de Sugestão/Reclamação</h3>
-
                 <div class="box-tools">
-                    {# <a class="btn btn-primary" 
-                    href="{{ path('administration_Sugestion_new') }}">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        Criar Sugestão/Reclamação
-                    </a> #}
                     <a href="#" class="btn btn-danger app-print-page hidden-print"
                         title="Imprimir em pdf">
-                        <span class="fa-file-pdf-o"></span> 
+                        <span class="fa-file-pdf-o"></span>
                         <strong>PDF</strong>
                     </a>
 
-                    <a href="#" class="btn btn-success app-print-excel hidden-print"
-                        title="Imprimir em excel">
-                        <span class="fa-file-excel-o"></span> 
+                    <a href="{{ path('administration_Sugestion_excel', { 'page': pageIdx }) }}" class="btn btn-success app-print-excel hidden-print"
+                       target="__blank" title="Imprimir em excel">
+                        <span class="fa-file-excel-o"></span>
                         <strong>EXCEL</strong>
                     </a>
                 </div>
@@ -38,10 +32,10 @@ ul.pagination {
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>                                        
-                            <th>ID#</th>
+                            <th>Código #</th>
                             <th>Utente</th>
                             <th>Contacto</th>
-                            <th>Data</th>
+                            <th>Data de recepção</th>
                             <th>Data prevista de resposta</th>
                             <th>Criado por</th>
                             <th></th>
