@@ -78,8 +78,7 @@ class CompBookController extends Controller {
     }
 
     public function byStateAction($state) {
-        $em = $this->getDoctrine()->getManager();    
-
+        $em = $this->getDoctrine()->getManager();
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
         $perPage = 10;
 
