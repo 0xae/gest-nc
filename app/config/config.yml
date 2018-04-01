@@ -11,7 +11,7 @@ parameters:
     models_directory: '%kernel.root_dir%/../web/uploads/generic'
 
 framework:
-    translator: { fallback: "pt" }
+    translator: { fallback: "%locale%" }
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
