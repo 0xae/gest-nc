@@ -17,11 +17,15 @@
 
         <div class="form-group">
             <label>Descri&ccedil;&atilde;o</label>
-            {{ form_widget(form.decisionDetail) }}
+            {{ form_widget(form.decisionDetail, {
+                'attr' : {
+                    'disabled' : entity.state != 'decision'
+                }
+            }) }}
         </div>        
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 hidden">
         <div class="form-group">
             <label>Responsavel</label>
             {{ form_widget(form.decisionResp) }}

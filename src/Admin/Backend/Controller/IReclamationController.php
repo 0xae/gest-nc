@@ -187,10 +187,7 @@ class IReclamationController extends Controller {
             $entity->setState(Stage::NO_FAVORABLE);
         } else if ($state == Stage::NO_COMP) {
             $entity->setState(Stage::NO_COMP);
-        } else if ($state == Stage::ANALYSIS || 
-            $state == Stage::DECISION || 
-            $state == Stage::ACTION) 
-        {
+        } else if ($state == Stage::ANALYSIS || $state == Stage::DECISION || $state == Stage::ACTION)  {
             $entity->setState($state);
         } else {
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
@@ -328,7 +325,7 @@ class IReclamationController extends Controller {
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
         $view = 'edit';
         if (@$_GET['view']) {
-            $view=$entity->getState();
+            $view=$_GET['view'];
         }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
