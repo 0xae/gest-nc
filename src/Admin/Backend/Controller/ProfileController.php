@@ -49,7 +49,7 @@ class ProfileController extends Controller
             $em->flush();
 
             // return $this->redirect($this->generateUrl('administration_Profile_show', array('id' => $entity->getId())));
-            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_profile')));            
+            return $this->redirect($this->generateUrl('backend_administration_main', array('tab' => 'list_profile')));
         }
 
         return $this->render('BackendBundle:Profile:new.html.twig', array(
@@ -94,6 +94,13 @@ class ProfileController extends Controller
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
+        if (!$id) {
+            return $this->redirect($this->generateUrl('backend_administration_main', array(
+                'tab' => 'list_user',
+                'flash_msg' => 'Password actualizado com sucesso!'))
+            );
+        }
+
         $entity = $em->getRepository('BackendBundle:Profile')->find($id);
 
         if (!$entity) {

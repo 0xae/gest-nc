@@ -11,6 +11,7 @@ var isNew=url.searchParams.get('is_new');
 var tab=url.searchParams.get('tab');
 var isUpdated=url.searchParams.get('is_updated') || url.searchParams.get('is_update');
 var uploadedAdded=url.searchParams.get('upload_added');
+var flashMsg=url.searchParams.get('flash_msg');
 
 if (isNew) {
     $.notify("Objecto guardado com sucesso", "success");
@@ -18,6 +19,10 @@ if (isNew) {
 
 if (isUpdated) {
     $.notify("Objecto actualizado com sucesso", "success");    
+}
+
+if (flashMsg) {
+    $.notify(flashMsg, "success");
 }
 
 if (uploadedAdded) {
