@@ -129,6 +129,70 @@ function ($scope, Statistics) {
         });
     }
 
+    function renderPerMonth(year) {
+        Statistics.fetchData('by_month', {year: year})
+        .then(function (data) {
+            var objects = data.rows;
+            var keys = _.sortBy(Object.keys(objects))
+            var series = [
+                {
+                    name: "Queixa",
+                    data: Statistics.produceYearArray(objects, 'queixa'),
+                    color: '#681133'
+                },
+                {
+                    name: "Denúncias",
+                    data: Statistics.produceYearArray(objects, 'denuncia'),
+                    color: '#c82061'
+                },
+                {
+                    name: "Sugestao",
+                    data: Statistics.produceYearArray(objects, 'sugestao'),
+                    color: '#1155cc'
+                },
+                {
+                    name: "Reclamacao Externa",
+                    data: Statistics.produceYearArray(objects, 'reclamacao'),
+                    color: '#4e802c'
+                },
+                {
+                    name: "Reclamacao Interna",
+                    data: Statistics.produceYearArray(objects, 'reclamacao_interna'),
+                    color: '#6eb63e'
+                },
+                {
+                    name: "Livro de reclamacao",
+                    data: Statistics.produceYearArray(objects, 'comp_book'),
+                    color: '#f39c12'
+                },
+            ];
+
+            var months = [
+                'Janeiro',
+                'Fevereiro',
+                'Marco',
+                'Abril',
+                'Maio',
+                'Junho',
+                'Julho',
+                'Agosto',
+                'Setembro',
+                'Outubro',
+                'Novembro',
+                'Dezembro'
+            ];
+
+            Statistics.renderBar('Ocorrência por mês',
+                'Ocorrencias',
+                '',
+                'by_month',
+                months,
+                series
+            );    
+        });
+    }
+
+    renderPerMonth(2018);
     renderByDepartments(2018);
     renderResponseTimeAvg();
     renderImcumprimentoPerDirection();
