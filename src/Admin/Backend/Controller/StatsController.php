@@ -23,7 +23,7 @@ class StatsController extends Controller {
 			(int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] + 
 			(int) $counters[Model::COMP_BOOK][0]["count"]	
 		;
-		
+
 		if ($total==0) {
 			$total=1;
 		}

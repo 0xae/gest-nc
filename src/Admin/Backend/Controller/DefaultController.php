@@ -14,19 +14,13 @@ class DefaultController extends Controller {
 		$month = $this->getCurrentMonth();
 		
 		$fotos = $em->getRepository('BackendBundle:Upload')
-					->findBy([
-						'reference' => 'user_'.$userId
-					]);
-
+					->findBy(['reference' => 'user_'.$userId]);
 		$photo = false;
 		foreach ($fotos as $f) {
 			$photo = $f->getFilename();
 		}
-
 		if ($photo) {
-			$user = $em->getRepository('BackendBundle:User')
-					   ->find($userId);
-					   
+			$user = $em->getRepository('BackendBundle:User')->find($userId);
 			$user->setPhotoDir($photo);
 			$em->persist($user);       
 			$em->flush();
@@ -34,7 +28,6 @@ class DefaultController extends Controller {
 
 		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
 			"month" => $month,
-			"total" => $this->total(),
 			"globalCounters" => $this->getGlobalCounts() 
 		));
 	}
@@ -345,45 +338,6 @@ class DefaultController extends Controller {
 		}
 
 		return ['rows' => $table];
-	}
-
-	private function getCounters() {
-		return [
-			Stage::ACOMPANHAMENTO => $this->_count(Stage::ACOMPANHAMENTO),
-			Stage::RESPONDIDO => $this->_count(Stage::RESPONDIDO),
-			Stage::SEM_RESPOSTA => $this->_count(Stage::SEM_RESPOSTA),
-		];
-	}
-
-	private function total() {
-		$q = '
-			select 
-				count(1) as count
-			from sugestion
-			where year(created_at) = year(current_date)
-				and month(created_at) = month(current_date) 
-			and type = \'reclamacao\'
-		';
-
-		return $this->fetchAll($q, []);
-	}
-
-	private function _count($state) {
-		$date = new \DateTime;
-		$q = '
-			select 
-				count(1) as count,
-				date_format(created_at, "%Y-%m") as period
-			from sugestion
-			where year(created_at) = year(current_date)
-				and month(created_at) = month(current_date) 
-			and type = \'reclamacao\'
-				and state = :state
-		';
-
-		return $this->fetchAll($q, [
-			'state' => $state
-		]);
 	}
 
 	private function getCurrentMonth() {
