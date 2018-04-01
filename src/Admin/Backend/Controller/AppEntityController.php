@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\AppEntity;
 use Admin\Backend\Form\AppEntityType;
+use Admin\Backend\Model\Settings;
 
 /**
  * AppEntity controller.
@@ -19,10 +20,25 @@ class AppEntityController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BackendBundle:AppEntity')->findAll();
+
+        $pageParam = 'page';
+        $pageIdx = !array_key_exists($pageParam, $_GET) ? 1 : $_GET[$pageParam];
+        $perPage = Settings::PER_PAGE;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, AppEntity::class, $perPage, 
+                        ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+        
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:AppEntity:index.html.twig', array(
             'entities' => $entities,
+            'fanta' => $fanta
         ));
     }
 
