@@ -11,7 +11,8 @@ class DefaultController extends Controller {
 	public function indexAction() {
 		$em = $this->getDoctrine()->getManager();
 		$userId = $this->getUser()->getId();
-
+		$month = $this->getCurrentMonth();
+		
 		$fotos = $em->getRepository('BackendBundle:Upload')
 					->findBy([
 						'reference' => 'user_'.$userId
@@ -31,27 +32,11 @@ class DefaultController extends Controller {
 			$em->flush();
 		}
 
-		$counters = $this->getCounters();
-		$month = "Março";
-
 		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
-			"counters" => $counters,
 			"month" => $month,
 			"total" => $this->total(),
 			"globalCounters" => $this->getGlobalCounts() 
 		));
-	}
-
-	public function excelDataAction() {
-		// $type = $_GET['type'];
-
-		$exporter = new ExportDataExcel('browser', 'listagem.xls');
-		$exporter->initialize();
-		$exporter->addRow(array("This", "is", "a", "test")); 
-		$exporter->addRow(array(1, 2, 3, "123-456-7890"));
-		$exporter->finalize();
-
-		exit();
 	}
 
 	public function statsAction($type) {
@@ -399,5 +384,34 @@ class DefaultController extends Controller {
 		return $this->fetchAll($q, [
 			'state' => $state
 		]);
+	}
+
+	private function getCurrentMonth() {
+		$currMonth = date('m');
+		if ($currMonth == '1') {
+			return 'Janeiro';
+		} else if ($currMonth == '2') {
+			return 'Fevereiro';
+		} else if ($currMonth == '3') {
+			return 'Março';
+		} else if ($currMonth == '4') {
+			return 'Abril';
+		} else if ($currMonth == '5') {
+			return 'Maio';
+		} else if ($currMonth == '6') {
+			return 'Junho';
+		} else if ($currMonth == '7') {
+			return 'Julho';
+		} else if ($currMonth == '8') {
+			return 'Agosto';
+		} else if ($currMonth == '9') {
+			return 'Setembro';
+		} else if ($currMonth == '10') {
+			return 'Outubro';
+		} else if ($currMonth == '11') {
+			return 'Novembro';
+		} else if ($currMonth == '12') {
+			return 'Dezembro';
+		}
 	}
 }
