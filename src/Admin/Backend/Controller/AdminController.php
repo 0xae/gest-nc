@@ -11,42 +11,47 @@ use Admin\Backend\Entity\Profile;
 use Admin\Backend\Form\ProfileType;
 use Admin\Backend\Entity\UserProfile;
 use Admin\Backend\Form\UserProfileType;
+use Admin\Backend\Model\Settings;
 use Admin\Backend\Entity\ProfilePermission;
 
 /**
  * Admin controller.
  */
 class AdminController extends Controller {
-    const PermissionMap = [];
-
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
 
-        $userList = $em->getRepository('BackendBundle:User')
-            ->findAll();
-
-        $profileList = $em->getRepository('BackendBundle:Profile')
-            ->findAll();
-
+        $users = $this->paginate($em, User::class, 'page_user');
+        $profiles = $this->paginate($em, Profile::class, 'page_profile');
+              
         $assocProfile = $this->createAssocProfileForm();
         $permissions = $this->getPermissions();
 
+        $currentTab='create_user';
+        if (@$_GET['tab']) {
+            $currentTab=$_GET['tab'];
+        }
+
         return $this->render('BackendBundle:Admin:index.html.twig', array(
-            'user_form' => $userForm->createView(),
-            'user_list' => $userList,
-            'profile_form' => $profileForm->createView(),
-            'profile_list' => $profileList,
+            'user_list' => $users[0]->getResult(),
+            'user_fanta' => $users[1],
+            'profile_list' => $profiles[0]->getResult(),
+            'profile_fanta' => $profiles[1],
+
+            'user_form' => $userForm->createView(),            
+            'profile_form' => $profileForm->createView(),            
             'assoc_profile_form' => $assocProfile->createView(),
-            'permissions' => $permissions
+            'permissions' => $permissions,
+            'current_tab' => $currentTab
         ));
     }
 
-    private function paginate($em, $class) {
-        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];        
-        $perPage = 10;
-        
+    private function paginate($em, $class, $pageParam) {
+        $pageIdx = !array_key_exists($pageParam, $_GET) ? 1 : $_GET[$pageParam];
+        $perPage = Settings::PER_PAGE;
+
         $q = $this->container
             ->get('sga.admin.filter')
             ->from($em, $class, $perPage, 
@@ -55,7 +60,7 @@ class AdminController extends Controller {
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
             ->fromQuery($q, $perPage, $pageIdx);
-            
+
         return [$q, $fanta];
     }
 
