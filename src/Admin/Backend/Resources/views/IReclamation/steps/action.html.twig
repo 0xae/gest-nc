@@ -29,10 +29,12 @@
     </div>
 </div>
 
-<button id="send-to-response" type="button" 
-    class="btn btn-default"
-    ng-click="finishIRecl({{entity.id}})">
-    Enviar para resposta
-</button>
+{% if entity.state == 'action' %}
+    <button id="send-to-response" type="button" 
+        class="btn btn-default"
+        ng-click="finishIRecl({{entity.id}})">
+        Enviar para resposta
+    </button>
+{% endif %}
 
 {% endif %}

@@ -29,10 +29,12 @@
     </div>
 </div>
 
-<button id="send-to-action" type="button" 
-        class="btn btn-default"
-        ng-click="sendTo({{entity.id}}, state.ACTION, 'ação')">
-    Enviar para ação
-</button>
+{% if entity.state == 'decision' %}
+    <button id="send-to-action" type="button" 
+            class="btn btn-default"
+            ng-click="sendTo({{entity.id}}, state.ACTION, 'ação')">
+        Enviar para ação
+    </button>
+{% endif %}
 
 {% endif %}

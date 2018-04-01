@@ -28,9 +28,7 @@
                             {% for entity in entities %}
                                 <tr id="row-{{entity.id}}">
                                     <td>
-                                        <a href="{{ path('administration_IReclamation_edit', { 'id': entity.id }) }}">
-                                            {{ entity.objCode }}
-                                        </a>
+                                        {{ entity.objCode }}
                                     </td>             
                                     <td>{{ entity.name }}</td> 
                                     <td>{{ entity.direction }}</td>

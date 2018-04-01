@@ -41,19 +41,18 @@ class Filter {
                 $i++;
             }
 
-            if (($i % $batchSize) === 0) {
+            if ($obj->getState() == $state) {
+                $ary[] = $obj;
+            }            
+
+            if ($i>0 && ($i % $batchSize) === 0) {
                 $em->flush();
                 $em->clear();
             }
-
-            if ($obj->getState() == $state) {
-                $ary[] = $obj;
-            }
         }
 
-        $em->flush();
-        $em->clear();
-
+        // $em->flush();
+        // $em->clear();
         return $ary;
     }
 }

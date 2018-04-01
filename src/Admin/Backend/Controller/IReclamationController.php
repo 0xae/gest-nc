@@ -1,8 +1,8 @@
 <?php
 namespace Admin\Backend\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -284,7 +284,8 @@ class IReclamationController extends Controller {
 
         return $this->render('BackendBundle:IReclamation:new.html.twig', array(
             'entity' => $entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'view' => 'edit'
         ));
     }
 
@@ -317,8 +318,10 @@ class IReclamationController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
-        $state = @$_GET['state'];
-
+        $view = 'edit';
+        if (@$_GET['view']) {
+            $view=$_GET['view'];
+        }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
         }
@@ -333,13 +336,12 @@ class IReclamationController extends Controller {
             'edit_form' => $editForm->createView(),
             'upload_form' => $this->uploadForm($entity),
             'files' => $files,
-            'state' => $state
+            'view' => $view
         ));
     }
 
     /**
      * Edits an existing IReclamation entity.
-     *
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -366,7 +368,6 @@ class IReclamationController extends Controller {
 
     /**
      * Deletes a IReclamation entity.
-     *
      */
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
