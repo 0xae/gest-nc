@@ -4,7 +4,7 @@ angular.module("app")
         var queryStr= Object.keys(conf)
                         .map(function (k){ return k+'='+encodeURIComponent(conf[k]); })
                         .join('&');
-        return $http.get('/arfa/web/app_dev.php/dashboard/stats/'+type + '?' + queryStr)
+        return $http.get('/arfa/web/app_dev.php/dashboard/stats/ajax/'+type + '?' + queryStr)
         .then(function (resp) {
             return resp.data;
         });

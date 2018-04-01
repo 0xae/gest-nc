@@ -106,9 +106,9 @@ backend_administration_main_profiles_remove:
     path:  /administration/remove_userp/{id}
     defaults:  { _controller: BackendBundle:Admin:removeUserProfile }
 
-dashboard_stats:
-    path:     /dashboard/stats/{type}
-    defaults: { _controller: BackendBundle:Default:stats }
+# dashboard_stats:
+#     path:     /dashboard/stats/{type}
+#     defaults: { _controller: BackendBundle:Default:stats }
 
 dashboard_stats_ajax:
     path:     /dashboard/stats/ajax/{type}

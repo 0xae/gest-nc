@@ -59,9 +59,138 @@ class StatsController extends Controller {
 
 		if ($type == 'avgResponseTime') {
 			$data = $this->getAvgResponseTime();
+		} else if ($type == 'by_department'){
+			$data = $this->groupByDepartment($year);
+		} else if ($type == 'by_incump') {
+			$data = $this->getIncumprimentoByDepartment($year);
+		} else if ($type == 'by_month') {
+			$data = $this->groupByMonth($year);
 		}
 
 		return new JsonResponse($data);
+	}
+
+	private function getIncumprimentoByDepartment($year) {
+		$complaints = '
+			select COUNT(c.type) as count,
+				c.type,
+				a.codigo as code
+			from complaint c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				  and state=:state
+			group by c.type,a.codigo
+		';
+
+		$sugestions = '
+			select COUNT(c.type) as count,
+				c.type,
+				a.codigo as code
+			from sugestion c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				and state=:state
+			group by c.type,a.codigo
+		';
+
+		$internalRecl = '
+			select COUNT(1) as count,
+				"reclamacao_interna" as type,
+				a.codigo as code
+			from reclamation_internal c
+			join app_entity a ON a.id = (select entity from user where id=c.created_by)
+			where year(c.created_at) = :year
+				and state=:state
+			group by type,a.codigo
+		';
+
+		$params = [
+			'year' => $year,
+			'state' => Stage::NO_CONFOR
+		];
+
+		$ary1 = $this->fetchAll($complaints, $params);
+		$ary2 = $this->fetchAll($sugestions, $params);
+		$ary3 = $this->fetchAll($internalRecl, $params);
+
+		$ary = array_merge($ary1, $ary2, $ary3);
+
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['code'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		return ['rows' => $table];
+	}
+
+	private function groupByMonth($year) {
+        $em = $this->getDoctrine()->getManager();
+		$service = $this->container->get('sga.admin.stats');
+		$ary1 = $service->groupByMonth($em, 'complaint');
+		$ary2 = $service->groupByMonth($em, 'sugestion');
+		$ary3 = $service->groupByMonth($em, 'comp_book', ['type'=>'comp_book']);
+		$ary4 = $service->groupByMonth($em, 'reclamation_internal', ['type'=>'reclamacao_interna']);
+		$ary = array_merge($ary1, $ary2, $ary3, $ary4);
+
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['period'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		for ($i=1; $i<13; $i++) {
+			$key = "$year-" . str_pad($i, 2, '0', STR_PAD_LEFT);
+			if (!array_key_exists($key, $table)) {
+				$table[$key] = [];
+			}
+		}
+
+		$db = ["rows" => $table];	
+		return $db;
+	}
+
+	private function groupByDepartment($year) {
+        $em = $this->getDoctrine()->getManager();
+		$service = $this->container->get('sga.admin.stats');
+
+		$ary1 = $service->groupByDepartment($em, 'complaint');
+		$ary2 = $service->groupByDepartment($em, 'sugestion');
+		$ary3 = $service->groupByDepartment($em, 'reclamation_internal', ['type'=>'reclamacao_interna']);
+		$ary4 = $service->groupByDepartment($em, 'comp_book', ['type'=>'comp_book']);
+		$ary = array_merge($ary1, $ary2, $ary3, $ary4);
+
+		$table = [];
+		foreach($ary as $val) {
+			$entry = [
+				'count' => $val['count'],
+				'type' => $val['type']	
+			];
+			$key = $val['code'];
+			if (array_key_exists($key, $table)) {
+				$table[$key][] = $entry;
+			} else {
+				$table[$key] = [$entry];
+			}
+		}
+
+		return ["rows" => $table];
 	}
 
 	public function getAvgResponseTime() {
@@ -136,5 +265,12 @@ class StatsController extends Controller {
 		return $this->container
 			->get('sga.admin.stats')
 			->count($em, $model, $opts);
+	}
+
+	private function fetchAll($sql, $params) {
+        $em = $this->getDoctrine()->getManager();
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
 	}
 }

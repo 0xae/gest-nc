@@ -45,7 +45,7 @@ function ($scope, Statistics) {
     }
 
     function renderResponseTimeAvg() {
-        Statistics.fetchData('ajax/avgResponseTime', {})
+        Statistics.fetchData('avgResponseTime', {})
         .then(function (data){
             var rows=data.rows;
             var categories=Object.keys(rows);
