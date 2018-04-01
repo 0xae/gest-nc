@@ -39,7 +39,12 @@
                                         Denuncia
                                     {% endif %}
                                 </td>
-                                <td>{{ entity.createdBy.name }}</td>
+                                <td>
+                                    {{ entity.createdBy.name }}
+                                    {% if entity.createdBy.entity %}
+                                     / {{ entity.createdBy.entity.name }}
+                                    {% endif %}
+                                </td>
                                 <td>{{ entity.createdAt|date('Y-m-d') }}</td>
                                 <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.name }}</td>

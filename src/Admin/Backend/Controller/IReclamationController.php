@@ -317,6 +317,7 @@ class IReclamationController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+        $state = @$_GET['state'];
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
@@ -331,7 +332,8 @@ class IReclamationController extends Controller {
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'upload_form' => $this->uploadForm($entity),
-            'files' => $files
+            'files' => $files,
+            'state' => $state
         ));
     }
 

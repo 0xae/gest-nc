@@ -253,8 +253,16 @@ class IReclamation {
 
     public function getObjCode() {
         $id = str_pad($this->id, 3, '0', STR_PAD_LEFT);
+        $code = '';
+
+        if ($this->getCreatedBy()->getEntity()) {
+            $code = $this->getCreatedBy()
+                         ->getEntity()
+                         ->getCode();
+        }
+
         return $id . '/RI/' . 
-                $this->createdBy->getEntity()->getCode() .
+                $code .
                 '/' . $this->createdAt->format("Y");
     }
 

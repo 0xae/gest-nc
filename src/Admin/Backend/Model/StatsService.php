@@ -34,44 +34,44 @@ class StatsService {
 	}
 
 	public function responseAvg($em, $model, $opts=[]) {
+		//  select `
+		//  id, created_at, response_date, 
+		//  (select count(1) from comp_book where created_at between cb.created_at and cb.response_date) as total, 
+		//  datediff(response_date, created_at) as diference, 
+		//  datediff(response_date, created_at) / (
+		//  	select count(1) from comp_book where created_at between cb.created_at and cb.response_date
+		//  ) as tempo_medio 
+		//  from comp_book cb 
+		//  where created_at between ('2018-03-19 00:00:00' and '2018-03-27 23:59:00')
+		//  and response_date is not null ;
 		$days = 15;
 		$type = 'type';
-		$params = [];		
-
+		$params = [];
 		if (@$opts['days']) {
 			$days = (int)$opts['days'];
 		}
-
 		if (@$opts['type']) {
 			$type="'".@$opts['type']."'";
 		}
-
 		$column = 'date_add(c.created_at, INTERVAL '.$days.' DAY)';
 		$avg = 'avg(datediff('.$column.', c.created_at))';
-
 		$q = 'select
 				'. $avg .' as count,
 				'. $type .' as type,
-				a.codigo as code
-
+				   a.codigo as code
 			from ' . $model . ' c
-
 			join app_entity a ON a.id = (
 				select entity from user where id=c.created_by
 			)
-
 			where year(c.created_at) = year(current_date)
-				and month(c.created_at) = month(current_date) 
+				and month(c.created_at) = month(current_date)
 				and response_date is not null
-
 			group by '.$type.', a.codigo
 		';
-
 		if (@$opts['state']) {
 			$q .= ' and state=:state ';
 			$params['state']=$opts['state'];
 		}
-
 		if (@$opts['type']) {
 			$q .= ' and type=:type ';
 			$params['type']=$opts['type'];
@@ -132,10 +132,12 @@ class StatsService {
 	}
 
 	private function fetchAll($em, $sql, $params) {
-		// TODO: research a way to get $em inside services
+		// TODO research a way to get $em inside services
+		//       something like this:
         // $em = $this->container->getDoctrine()->getManager();
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
 		return $stmt->fetchAll();
 	}
 }
+
