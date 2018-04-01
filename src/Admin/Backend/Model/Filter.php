@@ -23,13 +23,10 @@ class Filter {
     }
 
     public function ByState($em, $model, $state) {
-        $all = $em->getRepository('BackendBundle:' . $model)
-                  ->findAll();
+        $all = $em->getRepository('BackendBundle:' . $model)->findAll();
         $today = new \DateTime;
         $batchSize = 20;
-        $ary = [];
         $i = 0;
-
         foreach ($all as $obj) {
             $responseDate = $obj->getRespDate();
 
@@ -41,18 +38,27 @@ class Filter {
                 $i++;
             }
 
-            if ($obj->getState() == $state) {
-                $ary[] = $obj;
-            }            
-
             if ($i>0 && ($i % $batchSize) === 0) {
                 $em->flush();
                 $em->clear();
             }
         }
 
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = Settings::PER_PAGE;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage);
+
+        $fanta = $this->container
+            ->get('sga.admin.table.pagination')
+            ->fromQuery($q, $perPage, $pageIdx);
+
+        $entities = $q->getResult();
+
         // $em->flush();
         // $em->clear();
-        return $ary;
+        return [$entities, $fanta];
     }
 }

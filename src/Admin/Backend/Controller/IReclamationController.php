@@ -147,12 +147,13 @@ class IReclamationController extends Controller {
             $label = 'Ação da Reclamação';
         }
 
-        $ary = $this->container
+        $obj = $this->container
             ->get('sga.admin.filter')
             ->ByState($em, 'IReclamation', $state);
 
         return $this->render('BackendBundle:IReclamation:' . $tpl .'.html.twig', array(
-            'entities' => $ary,
+            'entities' => $obj[0],
+            'fanta' => $obj[1],
             'label' => $label,
             'state' => $state,
             'ACOMPANHAMENTO' => Stage::ACOMPANHAMENTO,

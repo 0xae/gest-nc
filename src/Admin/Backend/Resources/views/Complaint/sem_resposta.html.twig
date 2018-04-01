@@ -63,6 +63,11 @@
             {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
             <!-- /.box -->
         </div>
+        {{ pagerfanta(fanta, 'twitter_bootstrap3', {
+            'next_message': 'Proximo',
+            'prev_message': 'Anterior'
+            })
+        }}
     </div>
 
 {% endblock %}

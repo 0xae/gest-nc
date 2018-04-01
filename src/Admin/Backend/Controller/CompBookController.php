@@ -93,12 +93,13 @@ class CompBookController extends Controller {
             $label = 'Não Conformidades';
         }
 
-        $ary = $this->container
+        $obj = $this->container
             ->get('sga.admin.filter')
             ->ByState($em, 'CompBook', $state);
 
         return $this->render('BackendBundle:CompBook:' . $tpl . '.html.twig', array(
-            'objects' => $ary,
+            'objects' => $obj[0],
+            'fanta' => $obj[1],
             'label' => $label,
             'state' => $state            
         ));

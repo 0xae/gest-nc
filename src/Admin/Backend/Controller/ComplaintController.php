@@ -21,7 +21,7 @@ class ComplaintController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
-        $perPage = 10;
+        $perPage = Settings::PER_PAGE;
 
         $q = $this->container
             ->get('sga.admin.filter')
@@ -31,7 +31,7 @@ class ComplaintController extends Controller {
             ->get('sga.admin.table.pagination')
             ->fromQuery($q, $perPage, $pageIdx);
 
-        $entities = $q->getResult();            
+        $entities = $q->getResult();
 
         return $this->render('BackendBundle:Complaint:index.html.twig', array(
             'entities' => $entities,
@@ -135,12 +135,13 @@ class ComplaintController extends Controller {
             $label = 'Não Conformidades';
         }
 
-        $ary = $this->container
+        $obj = $this->container
             ->get('sga.admin.filter')
             ->ByState($em, 'Complaint', $state);
 
         return $this->render('BackendBundle:Complaint:' . $tpl . '.html.twig', array(
-            'objects' => $ary,
+            'objects' => $obj[0],
+            'fanta' => $obj[1],
             'type' => $label,
             'state' => $state,
             'upload_form' => $this->uploadForm(new Complaint)

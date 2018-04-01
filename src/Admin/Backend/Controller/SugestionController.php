@@ -102,12 +102,13 @@ class SugestionController extends Controller {
             $label = 'Não Conformidades';
         }
 
-        $ary = $this->container
+        $obj = $this->container
             ->get('sga.admin.filter')
             ->ByState($em, 'Sugestion', $state);
 
         return $this->render('BackendBundle:Sugestion:' . $tpl . '.html.twig', array(
-            'objects' => $ary,
+            'objects' => $obj[0],
+            'fanta' => $obj[1],
             'label' => $label,
             'state' => $state,
             'upload_form' => $this->uploadForm(new Sugestion)            
