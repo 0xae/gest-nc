@@ -155,6 +155,13 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
             }, function (err) {
                 return data;
             });
+
+            if (data.parType == 'par_annex') {
+                UploadService.byReference(data.annexReference + "__upload")
+                .then(function (resp){
+                    $scope.annexFiles = resp.files;
+                });    
+            }
         });
 
     }

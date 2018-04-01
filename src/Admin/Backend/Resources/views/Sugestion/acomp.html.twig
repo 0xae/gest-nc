@@ -78,7 +78,11 @@
                                                 Parecer 
                                                 {% if entity.parType == 'par_sec' %}
                                                     Cient&iacute;fico
-                                                {% else %} T&eacute;cnico {% endif %}
+                                                {% elseif entity.parType == 'par_tec' %} 
+                                                    T&eacute;cnico 
+                                                {% else %}
+                                                    C/ Anexo
+                                                {% endif %}
                                             </span>
                                         </a>
                                     {% else %}

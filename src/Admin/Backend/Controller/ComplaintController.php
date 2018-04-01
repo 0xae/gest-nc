@@ -12,6 +12,7 @@ use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\ComplaintType;
 use Admin\Backend\Form\UploadType;
 use Admin\Backend\Model\ExportDataExcel;
+use Admin\Backend\Model\Settings;
 
 /**
  * Complaint controller.

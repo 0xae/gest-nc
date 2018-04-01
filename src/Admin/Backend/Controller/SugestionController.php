@@ -237,6 +237,7 @@ class SugestionController extends Controller {
         }
 
         if ($entity->getParAuthor()) {
+            $obj["parType"] = $entity->getParType();
             $obj["parCode"] = $entity->getParCode();
             $obj["parDate"] = $entity->getParDate()->format(Settings::DATE_FMT);
             $obj["parAuthorName"] = $entity->getParAuthor()->getName();
@@ -262,6 +263,7 @@ class SugestionController extends Controller {
         $entity->setParSubject(@$data['parSubject']);
         $entity->setParDest(@$data['parDestination']);
         $entity->setParDescription(@$data['parDescription']);
+
         $entity->setParType($data['type']);
         $entity->setParAuthor($this->getUser());
         $entity->setParDate(new \DateTime());

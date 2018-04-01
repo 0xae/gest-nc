@@ -53,14 +53,6 @@
                                     </span>
 
                                     {% if entity.parAuthor %}
-                                        <a href="{{ path('administration_Complaint_parecer', {'id': entity.id}) }}" target="_blank">
-                                            <span class="label label-success" style="display:inline">
-                                                Parecer {{entity.parCode}}
-                                            </span>
-                                        </a>
-                                    {% endif %}
-
-                                    {% if entity.parAuthor %}
                                         <div class="dropdown" style="display: inline">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Resposta
@@ -75,6 +67,12 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        <br/>
+                                        <a href="{{ path('administration_Complaint_parecer', {'id': entity.id}) }}" target="_blank">
+                                            <span class="label label-success" style="display:inline">
+                                                Parecer {{entity.parCode}}
+                                            </span>
+                                        </a>
                                     {% else %}
                                         <div class="dropdown" style="display: inline" id="row-{{entity.id}}-dispatch">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

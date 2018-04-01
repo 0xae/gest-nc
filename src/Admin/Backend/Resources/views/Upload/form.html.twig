@@ -1,4 +1,8 @@
-{{ form_start(form) }}
+{{ form_start(form, {
+    'attr': {
+        'id' : 'upload-form'
+    }
+}) }}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
     <div class="row">
         <div class="col-md-12">

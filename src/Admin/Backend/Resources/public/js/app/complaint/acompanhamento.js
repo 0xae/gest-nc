@@ -101,6 +101,13 @@ function ($http, ComplaintService, $scope, UploadService, Admin) {
             .then(function (resp){
                 $scope.files = resp.files;
             });
+
+            if (data.parType == 'par_annex') {
+                UploadService.byReference(data.annexReference + "__upload")
+                .then(function (resp){
+                    $scope.annexFiles = resp.files;
+                });    
+            }
         });
     }
 

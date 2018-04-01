@@ -10,6 +10,29 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
     $scope.NO_RESPONSE = Admin.stage.NO_RESPONSE;
     $scope.RESPONDED = Admin.stage.RESPONDED;
 
+    $("#upload-form").submit(function(e){
+        e.preventDefault(); //Prevent Default action.            
+        var formURL = $("#upload-form").attr("action");
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data:  formData,
+            mimeType:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data, textStatus, jqXHR) {
+                $.notify("Anexo enviado.", "success");
+                $scope.updatePar();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $.notify("O anexo nao pode ser enviado.Tente novamente! " + textStatus, "danger");                                
+            }
+        });
+    });
+
     $scope.noResponseObj = function(obj) {
         if (!confirm("Confirmar " + obj.code + " sem resposta?")){
             return;
@@ -33,7 +56,7 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
     }
 
     $scope.respondSubmit = function() {
-        if (!confirm('Confirmar envio de parecer?')) {
+        if (!confirm('Confirmar envio de resposta?')) {
             return;
         }
 
@@ -71,7 +94,7 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
             $scope.modalTitle = "Visualizando " + labelX;
 
             $('#viewSugestionModal').modal();
-            
+
             UploadService.byReference(data.annexReference)
             .then(function (resp){
                 $scope.files = resp.files;
@@ -79,17 +102,19 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
             }, function (err) {
                 return data;
             });
-        })
+
+            if (data.parType == 'par_annex') {
+                UploadService.byReference(data.annexReference + "__upload")
+                .then(function (resp){
+                    $scope.annexFiles = resp.files;
+                });
+            }
+        });
     }
 
     $scope.openAnnexParModal = function (obj) {
         $scope.openParModal(obj, ANNEX_PAR_MODAL);
         $("#admin_backend_upload_reference").val(obj.annexReference + "__upload");        
-        $("#admin_backend_upload_submit").hide();
-    }
-
-    $scope.sendAnnexParecer = function() {
-        console.info($("#admin_backend_upload_reference").val());
     }
 
     $scope.openParModal = function (obj, modal) {
@@ -102,7 +127,6 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
         $scope.modalTitle = 'Atribuir ' + title;
         if (modal) {
             $(modal).modal();
-            $("#admin_backend_upload_reference").val("123");
         } else {
             $(PAR_MODAL).modal();
         }
@@ -128,7 +152,7 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
         $http.post('/arfa/web/app_dev.php/administration/Sugestion/'+id+'/update_par', req)
         .then(function (data){
             $scope.responseForm.response='';
-            $.notify($scope.modalTitle+" atribuido com sucesso!", "success");
+            $.notify("Parecer atribuido com sucesso!", "success");
             $("#row-" + id).addClass('success');
             $("#xop__"+id).remove();
             $("#xstat_"+id).text($scope.modalTitle);

@@ -10,6 +10,29 @@ function ($http, $scope, UploadService, ComplaintService) {
     var VIEW_MODAL='#viewComplaintModal';
     var type='Complaint';
 
+    $("#upload-form").submit(function(e){
+        e.preventDefault(); //Prevent Default action.            
+        var formURL = $("#upload-form").attr("action");
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data:  formData,
+            mimeType:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data, textStatus, jqXHR) {
+                $.notify("Anexo enviado.", "success");
+                $scope.respondSubmit();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $.notify("O anexo nao pode ser enviado.Tente novamente! " + textStatus, "danger");                                
+            }
+        });
+    });
+
     function openModal(obj, title, ModalRef) {
         $scope.mObject = obj;
         $scope.modalTitle = title;
@@ -24,11 +47,18 @@ function ($http, $scope, UploadService, ComplaintService) {
             $scope.modalTitle = "Visualizando Queixa/Denuncia";
 
             $(VIEW_MODAL).modal();
-
+        
             UploadService.byReference(data.annexReference)
             .then(function (resp){
                 $scope.files = resp.files;
             });
+
+            if (data.parType == 'par_annex') {
+                UploadService.byReference(data.annexReference + "__upload")
+                .then(function (resp){
+                    $scope.annexFiles = resp.files;
+                });    
+            }
         });
     }
 
@@ -62,15 +92,10 @@ function ($http, $scope, UploadService, ComplaintService) {
     $scope.annexParecer = function (obj, title) {
         openModal(obj, '', '#updateParAnnex');
         $("#admin_backend_upload_reference").val(obj.annexReference + "__upload");        
-        $("#admin_backend_upload_submit").hide();
-    }
-
-    $scope.sendAnnexParecer = function() {
-        console.info($("#admin_backend_upload_reference").val());
     }
 
     $scope.respondSubmit = function() {
-        if (!confirm('Confirmar envio de parecer?')){ 
+        if (!confirm('Confirmar envio de parecer?')) { 
             return;
         }
 
@@ -89,7 +114,7 @@ function ($http, $scope, UploadService, ComplaintService) {
         $http.post('/arfa/web/app_dev.php/administration/Complaint/'+id+'/update_par', req)
         .then(function (data){
             $scope.responseForm.response='';
-            $.notify($scope.modalTitle+" atribuido com sucesso!", "success");
+            $.notify("Parecer atribuido com sucesso!", "success");
             $("#row-" + id).addClass('success');
             $("#xop__"+id).remove();
             $("#xstat_"+id).text($scope.modalTitle);
@@ -97,7 +122,8 @@ function ($http, $scope, UploadService, ComplaintService) {
             
             $scope.responseForm = false;
             setTimeout(function(){
-                $('#respondModal').modal('hide');                
+                $('#respondModal').modal('hide');
+                $('#updateParAnnex').modal('hide');                
             }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
