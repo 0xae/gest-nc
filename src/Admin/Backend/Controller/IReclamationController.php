@@ -196,6 +196,14 @@ class IReclamationController extends Controller {
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
         }
 
+        if ($state == Stage::ANALYSIS) {
+            $entity->setAnalysisResp($this->getUser());
+        } else if ($state == Stage::DECISION) {
+            $entity->setDecisionResp($this->getUser());
+        } else if ($state == Stage::ACTION) {
+            $entity->setActionResp($this->getUser());
+        }
+
         $em->persist($entity);
         $em->flush();
 
@@ -320,7 +328,7 @@ class IReclamationController extends Controller {
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
         $view = 'edit';
         if (@$_GET['view']) {
-            $view=$_GET['view'];
+            $view=$entity->getState();
         }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
@@ -346,6 +354,10 @@ class IReclamationController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
+        $view = 'edit';
+        if (@$_GET['view']) {
+            $view=$_GET['view'];
+        }
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
@@ -357,7 +369,9 @@ class IReclamationController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             return $this->redirect($this->generateUrl('administration_IReclamation_edit', 
-                    array('id' => $id, 'is_update' => true)));
+                    array('id' => $id, 
+                          'is_update' => true, 
+                          'view' => $view)));
         }
 
         return $this->render('BackendBundle:IReclamation:edit.html.twig', array(

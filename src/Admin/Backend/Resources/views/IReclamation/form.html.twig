@@ -47,27 +47,27 @@
     <!-- Tab panes -->
     <div class="tab-content" style="padding:10px;">
         <div role="tabpanel"
-             class="tab-pane active"
+             class="tab-pane {%if view=='edit'%}active{%endif%}"
              id="frm_tab1">
             {{ include('BackendBundle:IReclamation:steps/register.html.twig') }}
         </div>
 
         <div role="tabpanel"
-             class="tab-pane"
+             class="tab-pane {%if view=='analysis'%}active{%endif%}"
              id="frm_tab2">
             <h3>Análise da Reclamação</h3>
             {{ include('BackendBundle:IReclamation:steps/analysis.html.twig') }}
         </div>
 
         <div role="tabpanel"
-             class="tab-pane"
+             class="tab-pane {%if view=='decision'%}active{%endif%}"
              id="frm_tab3">
             <h3>Decisão a ser tomada</h3>
             {{ include('BackendBundle:IReclamation:steps/decision.html.twig') }}
         </div>
 
         <div role="tabpanel"
-             class="tab-pane"
+             class="tab-pane {%if view=='action'%}active{%endif%}"
              id="frm_tab4">
             <h3>Ação a ser tomada</h3>
             {{ include('BackendBundle:IReclamation:steps/action.html.twig') }}
