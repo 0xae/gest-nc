@@ -22,10 +22,9 @@
                             <th>ID#</th>
                             <th>Utente</th>
                             <th>Fornecedor</th>
-                            <th>Autoridade enviado</th>
-                            <th>Data de registro</th>
-                            <th>Data de envio</th>
                             <th>Data de ocorrencia</th>
+                            <th>Data de registro</th>
+                            <th>Data de resposta</th>
                             <th>Data prevista (10 dias)</th>
                             <th>Criado por</th>
                             <th></th>
@@ -41,16 +40,9 @@
                                 </td>
                                 <td>{{ entity.clientName }}</td>
                                 <td>{{ entity.supplierName }}</td>
-                                <td id="td-{{entity.id}}-sendTo">
-                                    {{entity.sendTo}}
-                                </td>
-                                <td>
-                                    {{ entity.createdAt|date('Y-m-d') }}
-                                </td> 
-                                <td id="td-{{entity.id}}-sendDate">
-                                    {{ entity.sendDate|date('Y-m-d') }}
-                                </td> 
                                 <td>{{ entity.complaintDate|date('Y-m-d') }}</td>      
+                                <td>{{ entity.createdAt|date('Y-m-d') }}</td> 
+                                <td>{{ entity.responseDate|date('Y-m-d') }}</td>
                                 <td>{{ entity.respDate|date('Y-m-d') }}</td>
                                 <td>
                                     {{ entity.createdBy.name }}

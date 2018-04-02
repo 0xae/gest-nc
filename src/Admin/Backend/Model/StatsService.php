@@ -44,34 +44,34 @@ class StatsService {
 		//  from comp_book cb 
 		//  where created_at between ('2018-03-19 00:00:00' and '2018-03-27 23:59:00')
 		//  and response_date is not null ;
-		$days = 15;
 		$type = 'type';
-		$params = [];
-		if (@$opts['days']) {
-			$days = (int)$opts['days'];
-		}
+		$params = [
+			'start'=>$opts['start'],
+			'end'=>$opts['end']
+		];
 		if (@$opts['type']) {
 			$type="'".@$opts['type']."'";
 		}
-		$column = 'date_add(c.created_at, INTERVAL '.$days.' DAY)';
-		$avg = 'avg(datediff('.$column.', c.created_at))';
-		$q = 'select
-				'. $avg .' as count,
-				'. $type .' as type,
-				   a.codigo as code
-			from ' . $model . ' c
+
+		$q = "
+			select 
+				$type as type,
+				a.codigo as code,
+				sum(datediff(c.response_date, c.created_at)) / count(1) as count
+			from comp_book c
 			join app_entity a ON a.id = (
 				select entity from user where id=c.created_by
 			)
-			where year(c.created_at) = year(current_date)
-				and month(c.created_at) = month(current_date)
-				and response_date is not null
-			group by '.$type.', a.codigo
-		';
+			where c.created_at between (:start and :end)
+			and c.response_date is not null
+			group by a.id, $type
+		";
+
 		if (@$opts['state']) {
 			$q .= ' and state=:state ';
 			$params['state']=$opts['state'];
 		}
+
 		if (@$opts['type']) {
 			$q .= ' and type=:type ';
 			$params['type']=$opts['type'];

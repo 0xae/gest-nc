@@ -45,7 +45,10 @@ function ($scope, Statistics) {
     }
 
     function renderResponseTimeAvg() {
-        Statistics.fetchData('avgResponseTime', {})
+        var start=moment().format("YYYY-MM-DD") + " 00:00:00";
+        var end=moment(start).add('7', 'days').format("YYYY-MM-DD") + " 23:59:59";
+
+        Statistics.fetchData('avgResponseTime', {start:start, end:end})
         .then(function (data){
             var rows=data.rows;
             var categories=Object.keys(rows);
@@ -90,7 +93,6 @@ function ($scope, Statistics) {
             //     render
             // );
         });
-
     }
 
     function renderImcumprimentoPerDirection() { 

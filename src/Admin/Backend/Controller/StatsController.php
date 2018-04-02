@@ -58,7 +58,9 @@ class StatsController extends Controller {
 		}
 
 		if ($type == 'avgResponseTime') {
-			$data = $this->getAvgResponseTime();
+			$start=$_GET['start'];
+			$end=$_GET['end'];
+			$data = $this->getAvgResponseTime($start, $end);
 		} else if ($type == 'by_department'){
 			$data = $this->groupByDepartment($year);
 		} else if ($type == 'by_incump') {
@@ -193,19 +195,19 @@ class StatsController extends Controller {
 		return ["rows" => $table];
 	}
 
-	public function getAvgResponseTime() {
+	public function getAvgResponseTime($start, $end) {
 		$em = $this->getDoctrine()->getManager();		
 		$service = $this->container->get('sga.admin.stats');
 
-		$ary1 = $service->responseAvg($em, 'complaint', ['type' => Model::DENOUNCE, 'days'=>15]);
-		$ary2 = $service->responseAvg($em, 'complaint', ['type' => Model::COMPLAINT, 'days'=>15]);
-		$ary3 = $service->responseAvg($em, 'reclamation_internal', ['type'=>Model::RECLAMATION_INTERNAL, 'days'=>15]);
-		$ary4 = $service->responseAvg($em, 'sugestion', ['type' => Model::RECLAMATION_EXTERN, 'days'=>15]);
-		$ary5 = $service->responseAvg($em, 'sugestion', ['type' => Model::SUGESTION, 'days'=>15]);
-		$ary6 = $service->responseAvg($em, 'comp_book', ['type' => 'comp_book', 'days'=>10]);
+		$ary1 = $service->responseAvg($em, 'complaint', ['type' => Model::DENOUNCE, 'start'=>$start, 'end'=>$end]);
+		$ary2 = $service->responseAvg($em, 'complaint', ['type' => Model::COMPLAINT, 'start'=>$start, 'end'=>$end]);
+		$ary3 = $service->responseAvg($em, 'reclamation_internal', ['type'=>Model::RECLAMATION_INTERNAL, 'start'=>$start, 'end'=>$end]);
+		$ary4 = $service->responseAvg($em, 'sugestion', ['type' => Model::RECLAMATION_EXTERN, 'start'=>$start, 'end'=>$end]);
+		$ary5 = $service->responseAvg($em, 'sugestion', ['type' => Model::SUGESTION, 'start'=>$start, 'end'=>$end]);
+		$ary6 = $service->responseAvg($em, 'comp_book', ['type' => 'comp_book', 'start'=>$start, 'end'=>$end]);
 
 		$ary = array_merge($ary1, $ary2, $ary3, $ary4, $ary5, $ary6);
-		
+
 		$table = [];
 		foreach($ary as $val) {
 			$entry = [
