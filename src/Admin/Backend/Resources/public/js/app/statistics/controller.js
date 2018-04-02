@@ -40,18 +40,20 @@ function ($scope, Statistics) {
         startDate: startMonth,
         endDate: endMonth
     }, function(start, end, label) {
+        console.info("A new date range was chosen: " +  + ' to ' + end.format('YYYY-MM-DD'));
         var startFmt = start.format('YYYY-MM-DD') + " 00:00:00";
         var endFmt = end.format('YYYY-MM-DD') + " 23:59:59";
-        renderResponseTimeAvg(startFmt, endFmt);
+        var yearFmt = start.format('YYYY');
 
-        // console.info("A new date range was chosen: " +  + ' to ' + end.format('YYYY-MM-DD'));
-        // renderPerMonth(2018);
-        // renderByDepartments(2018);
-        // renderImcumprimentoPerDirection();
+        renderResponseTimeAvg(startFmt, endFmt);
+        renderPerMonth(yearFmt);
+        renderByDepartments(startFmt, endFmt);
+        renderTypeDistribution(startFmt, endFmt);
+        renderImcumprimentoPerDirection(startFmt, endFmt);
     });
 
-    function renderByDepartments(year) {
-        Statistics.fetchData('by_department', {year: year})
+    function renderByDepartments(start, end) {
+        Statistics.fetchData('by_department', {start: start, end: end})
         .then(function (data) {
             var rows = data.rows;
             var categories = Object.keys(rows);
@@ -141,8 +143,8 @@ function ($scope, Statistics) {
         });
     }
 
-    function renderImcumprimentoPerDirection() { 
-        Statistics.fetchData('by_incump', {year: 2018})
+    function renderImcumprimentoPerDirection(start, end) { 
+        Statistics.fetchData('by_incump', {start: start, end: end})
         .then(function (data) {
             var rows=data.rows;
             var categories=Object.keys(rows);
@@ -240,8 +242,21 @@ function ($scope, Statistics) {
         });
     }
 
+    function renderTypeDistribution(start, end) {
+        Statistics.fetchData('by_type', {start: start, end: end})
+        .then(function (data){
+            $scope.complaintCount=data.counts.queixa;
+            $scope.denounceCount=data.counts.denuncia;
+            $scope.internalReclCount=data.counts.reclamacao_interna;
+            $scope.reclamationCount=data.counts.reclamacao;
+            $scope.sugestionCount=data.counts.sugestao;
+            $scope.compbookCount=data.counts.comp_book;
+        });
+    }
+
     renderPerMonth(2018);
-    renderByDepartments(2018);
+    renderByDepartments(startMonth+" 00:00:00", endMonth+" 23:59:59");
     renderResponseTimeAvg(startMonth+" 00:00:00", endMonth+" 23:59:59");
-    renderImcumprimentoPerDirection();
+    renderImcumprimentoPerDirection(startMonth+" 00:00:00", endMonth+" 23:59:59");
+    renderTypeDistribution(startMonth+" 00:00:00", endMonth+" 23:59:59");
 }]);

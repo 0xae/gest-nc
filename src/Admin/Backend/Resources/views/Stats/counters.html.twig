@@ -1,7 +1,8 @@
 <div class="col-md-2">
     <div class="small-box bg-complaint">
         <div class="inner">
-            <h3>{{counters['queixa'][0]['count']}}</h3>
+            <h3>{{ '{{complaintCount}}' }}</h3>
+            {#<h3>{{counters['queixa'][0]['count']}}</h3>#}
             <p> </p>
         </div>
         <div class="icon">
@@ -16,7 +17,8 @@
 <div class="col-md-2">
     <div class="small-box bg-denounce">
         <div class="inner">
-            <h3>{{counters['denuncia'][0]['count']}}</h3>
+            <h3>{{ '{{denounceCount}}' }}</h3>
+            {#<h3>{{counters['denuncia'][0]['count']}}</h3>#}
             <p> </p>
         </div>
         <div class="icon">
@@ -31,7 +33,8 @@
 <div class="col-md-2">
     <div class="small-box bg-intern-recl">
         <div class="inner">
-            <h3>{{counters['reclamacao_interna'][0]['count']}}</h3>
+            <h3>{{ '{{internalReclCount}}' }}</h3>
+            {# <h3>{{counters['reclamacao_interna'][0]['count']}}</h3> #}
             <p> </p>
         </div>
         <div class="icon">
@@ -46,7 +49,8 @@
 <div class="col-md-2">
     <div class="small-box bg-extern-recl">
         <div class="inner">
-            <h3>{{counters['reclamacao'][0]['count']}}</h3>
+            <h3 id="reclamation-count">{{ '{{reclamationCount}}' }}</h3>
+            {# <h3>{{counters['reclamacao'][0]['count']}}</h3> #}
             <p> </p>
         </div>
         <div class="icon">
@@ -61,7 +65,8 @@
 <div class="col-md-2">
     <div class="small-box bg-sugestion">
         <div class="inner">
-            <h3>{{counters['sugestao'][0]['count']}}</h3>
+            <h3 id="sugestion-count">{{ '{{sugestionCount}}' }}</h3>
+            {# <h3>{{counters['sugestao'][0]['count']}}</h3> #}
             <p> </p>
         </div>
         <div class="icon">
@@ -76,7 +81,8 @@
 <div class="col-md-2">
     <div class="small-box bg-comp-book">
         <div class="inner">
-            <h3>{{counters['comp_book'][0]['count']}}</h3>
+            <h3 id="compbook-count">{{ '{{compbookCount}}' }}</h3>
+            {# <h3>{{counters['comp_book'][0]['count']}}</h3> #}
             <p> </p>
         </div>
         <div class="icon">

@@ -15,32 +15,11 @@ use Admin\Backend\Form\CategoryType;
  */
 class StatsController extends Controller {
     public function indexAction() {
-		$counters = $this->getCounters();
-		$total = (int) $counters[Model::DENOUNCE][0]["count"] +
-			(int) $counters[Model::COMPLAINT][0]["count"] +
-			(int) $counters[Model::RECLAMATION_EXTERN][0]["count"] +
-			(int) $counters[Model::SUGESTION][0]["count"] +
-			(int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] + 
-			(int) $counters[Model::COMP_BOOK][0]["count"]	
-		;
-
-		if ($total==0) {
-			$total=1;
-		}
-
-		$pie = [
-			Model::DENOUNCE => (int) $counters[Model::DENOUNCE][0]["count"] / $total,
-			Model::COMPLAINT => (int) $counters[Model::COMPLAINT][0]["count"] / $total,
-			Model::RECLAMATION_EXTERN => (int) $counters[Model::RECLAMATION_EXTERN][0]["count"] / $total,
-			Model::RECLAMATION_INTERNAL => (int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] / $total,			
-			Model::SUGESTION => (int) $counters[Model::SUGESTION][0]["count"] / $total,
-			Model::COMP_BOOK => (int) $counters[Model::COMP_BOOK][0]["count"] / $total,
-		];
+		$pie = $this->getTypeDistribution('2018-01-01', '2018-04-01');
 
         return $this->render('BackendBundle:Stats:index.html.twig', array(
-			'counters' => $counters,
-			'thirdy_party' => $this->getThirdPartyCounts(),
-			'pie' => $pie
+			'thirdy_party' => $this->getThirdPartyCounts('2018-01-01', '2018-04-01'),
+			'pie' => $pie['pie']
         ));
 	}
 
@@ -62,24 +41,70 @@ class StatsController extends Controller {
 			$end=$_GET['end'];
 			$data = $this->getAvgResponseTime($start, $end);
 		} else if ($type == 'by_department'){
-			$data = $this->groupByDepartment($year);
+			$start=$_GET['start'];
+			$end=$_GET['end'];
+			$data = $this->groupByDepartment($start, $end);
 		} else if ($type == 'by_incump') {
-			$data = $this->getIncumprimentoByDepartment($year);
-		} else if ($type == 'by_month') {
+			$start=$_GET['start'];
+			$end=$_GET['end'];
+			$data = $this->getIncumprimentoByDepartment($start, $end);
+		} else if ($type == 'by_type') {
+			$start=$_GET['start'];
+			$end=$_GET['end'];
+			$data = $this->getTypeDistribution($start, $end);
+		}  else if ($type == 'by_month') {
 			$data = $this->groupByMonth($year);
 		}
 
 		return new JsonResponse($data);
 	}
 
-	private function getIncumprimentoByDepartment($year) {
+	private function getTypeDistribution($start, $end) {	
+		$counters = $this->getCounters($start, $end);
+
+		$total = (int) $counters[Model::DENOUNCE][0]["count"] +
+			(int) $counters[Model::COMPLAINT][0]["count"] +
+			(int) $counters[Model::RECLAMATION_EXTERN][0]["count"] +
+			(int) $counters[Model::SUGESTION][0]["count"] +
+			(int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] + 
+			(int) $counters[Model::COMP_BOOK][0]["count"]	
+		;
+
+		if ($total==0) {
+			$total=1;
+		}
+
+		$pie = [
+			Model::DENOUNCE => (int) $counters[Model::DENOUNCE][0]["count"] / $total,
+			Model::COMPLAINT => (int) $counters[Model::COMPLAINT][0]["count"] / $total,
+			Model::RECLAMATION_EXTERN => (int) $counters[Model::RECLAMATION_EXTERN][0]["count"] / $total,
+			Model::RECLAMATION_INTERNAL => (int) $counters[Model::RECLAMATION_INTERNAL][0]["count"] / $total,			
+			Model::SUGESTION => (int) $counters[Model::SUGESTION][0]["count"] / $total,
+			Model::COMP_BOOK => (int) $counters[Model::COMP_BOOK][0]["count"] / $total,
+		];
+
+		return [
+			'total' => $total,
+			'pie' => $pie,
+			'counts' => [
+				Model::DENOUNCE => (int) $counters[Model::DENOUNCE][0]["count"],
+				Model::COMPLAINT => (int) $counters[Model::COMPLAINT][0]["count"],
+				Model::RECLAMATION_EXTERN => (int) $counters[Model::RECLAMATION_EXTERN][0]["count"],
+				Model::RECLAMATION_INTERNAL => (int) $counters[Model::RECLAMATION_INTERNAL][0]["count"],
+				Model::SUGESTION => (int) $counters[Model::SUGESTION][0]["count"],
+				Model::COMP_BOOK => (int) $counters[Model::COMP_BOOK][0]["count"],					
+			]
+		];
+	}
+
+	private function getIncumprimentoByDepartment($start, $end) {
 		$complaints = '
 			select COUNT(c.type) as count,
 				c.type,
 				a.codigo as code
 			from complaint c
 			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
+			where c.created_at >= :start and c.created_at <= :end
 				  and state=:state
 			group by c.type,a.codigo
 		';
@@ -90,7 +115,7 @@ class StatsController extends Controller {
 				a.codigo as code
 			from sugestion c
 			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
+			where c.created_at >= :start and c.created_at <= :end
 				and state=:state
 			group by c.type,a.codigo
 		';
@@ -101,14 +126,15 @@ class StatsController extends Controller {
 				a.codigo as code
 			from reclamation_internal c
 			join app_entity a ON a.id = (select entity from user where id=c.created_by)
-			where year(c.created_at) = :year
+			where c.created_at >= :start and c.created_at <= :end
 				and state=:state
 			group by type,a.codigo
 		';
 
 		$params = [
-			'year' => $year,
-			'state' => Stage::NO_CONFOR
+			'state' => Stage::NO_CONFOR,
+			'start'=>$start,
+			'end'=>$end
 		];
 
 		$ary1 = $this->fetchAll($complaints, $params);
@@ -168,14 +194,14 @@ class StatsController extends Controller {
 		return $db;
 	}
 
-	private function groupByDepartment($year) {
+	private function groupByDepartment($start, $end) {
         $em = $this->getDoctrine()->getManager();
 		$service = $this->container->get('sga.admin.stats');
 
-		$ary1 = $service->groupByDepartment($em, 'complaint');
-		$ary2 = $service->groupByDepartment($em, 'sugestion');
-		$ary3 = $service->groupByDepartment($em, 'reclamation_internal', ['type'=>'reclamacao_interna']);
-		$ary4 = $service->groupByDepartment($em, 'comp_book', ['type'=>'comp_book']);
+		$ary1 = $service->groupByDepartment($em, 'complaint', ['start'=>$start, 'end'=>$end]);
+		$ary2 = $service->groupByDepartment($em, 'sugestion', ['start'=>$start, 'end'=>$end]);
+		$ary3 = $service->groupByDepartment($em, 'reclamation_internal', ['type'=>'reclamacao_interna', 'start'=>$start, 'end'=>$end]);
+		$ary4 = $service->groupByDepartment($em, 'comp_book', ['type'=>'comp_book', 'start'=>$start, 'end'=>$end]);
 		$ary = array_merge($ary1, $ary2, $ary3, $ary4);
 
 		$table = [];
@@ -225,19 +251,19 @@ class StatsController extends Controller {
 		return ["rows" => $table];
 	}
 
-	public function getThirdPartyCounts() {
+	public function getThirdPartyCounts($start, $end) {
 		$ary = [
 			Model::DENOUNCE => 
-				(int) $this->count('complaint', ['state'=>Stage::NO_COMP, 'type'=>Model::DENOUNCE])
+				(int) $this->count('complaint', ['state'=>Stage::NO_COMP, 'type'=>Model::DENOUNCE, 'start'=>$start, 'end'=>$end])
 				[0]['count'],
 			Model::COMPLAINT => 
-				(int) $this->count('complaint', ['state'=>Stage::NO_COMP, 'type'=>Model::COMPLAINT])
+				(int) $this->count('complaint', ['state'=>Stage::NO_COMP, 'type'=>Model::COMPLAINT, 'start'=>$start, 'end'=>$end])
 				[0]['count'],
 			Model::RECLAMATION_EXTERN => 
-				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::RECLAMATION_EXTERN])
+				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::RECLAMATION_EXTERN, 'start'=>$start, 'end'=>$end])
 				[0]['count'],
 			Model::SUGESTION => 
-				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::SUGESTION])
+				(int) $this->count('sugestion', ['state'=>Stage::NO_COMP, 'type'=>Model::SUGESTION, 'start'=>$start, 'end'=>$end])
 				[0]['count'],
 			// Model::RECLAMATION_INTERNAL => 
 			// 	(int) $this->count('reclamation_internal', ['state'=>Stage::NO_COMP])
@@ -250,14 +276,14 @@ class StatsController extends Controller {
 		return $ary;
 	}
 
-    public function getCounters() {
+    public function getCounters($start, $end) {
 		$ary = [
-			Model::DENOUNCE => $this->count('complaint', ['type' => Model::DENOUNCE]),
-			Model::COMPLAINT => $this->count('complaint', ['type' => Model::COMPLAINT]),
-			Model::RECLAMATION_INTERNAL => $this->count('reclamation_internal'),
-			Model::RECLAMATION_EXTERN => $this->count('sugestion', ['type' => Model::RECLAMATION_EXTERN]),
-			Model::SUGESTION => $this->count('sugestion', ['type' => Model::SUGESTION]),
-			Model::COMP_BOOK => $this->count('comp_book'),	
+			Model::DENOUNCE => $this->count('complaint', ['type' => Model::DENOUNCE, 'start'=>$start, 'end'=>$end]),
+			Model::COMPLAINT => $this->count('complaint', ['type' => Model::COMPLAINT, 'start'=>$start, 'end'=>$end]),
+			Model::RECLAMATION_INTERNAL => $this->count('reclamation_internal', ['start'=>$start, 'end'=>$end]),
+			Model::RECLAMATION_EXTERN => $this->count('sugestion', ['type' => Model::RECLAMATION_EXTERN, 'start'=>$start, 'end'=>$end]),
+			Model::SUGESTION => $this->count('sugestion', ['type' => Model::SUGESTION, 'start'=>$start, 'end'=>$end]),
+			Model::COMP_BOOK => $this->count('comp_book', ['start'=>$start, 'end'=>$end]),	
 		];
 		return $ary;
 	}
