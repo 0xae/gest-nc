@@ -25,6 +25,19 @@
         {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <style>
+            .loading { 
+                position: fixed; 
+                left: 0px; 
+                top: 0px; 
+                width: 100%; 
+                height: 100%; 
+                z-index: 9999; 
+                background: 
+                    {% image '@BackendBundle/Resources/public/img/loading.gif' %}
+                    url({{ asset_url }}) center no-repeat #fff; 
+                    {% endimage %}                
+            }
+
             h3.app-title {
                 margin: 0px;
                 margin-top: 15px;
@@ -63,7 +76,7 @@
                 display: none !important;
             }
             .app-footer {
-                position: fixed;
+                /*position:fixed;*/
                 left: 0;
                 bottom: 0;
                 width: 100%;
@@ -78,6 +91,7 @@
     </head>
 
     <body class="skin-blue sidebar-mini pace-done fixed" ng-app="app">
+        <div class="loading"></div>
         {% block body %}
             <div class="wrapper">
             </div>
@@ -136,6 +150,13 @@
         {% endblock %}
 
         <div class="app-footer">
+            {% image '@BackendBundle/Resources/public/img/Arfa-logo.png' %}
+                <img src="{{ asset_url }}"
+                    class="user-image"
+                    alt="User Image!"
+                    width="70"
+                />
+            {% endimage %}
             <p>&copy; POWERED BY ARFA - 2018</p>
         </div>
     </body>

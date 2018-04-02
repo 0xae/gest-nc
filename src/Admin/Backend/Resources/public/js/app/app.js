@@ -39,3 +39,7 @@ $(".app-print-page").on("click", function () {
 });
 
 $("ul.pagination").addClass("hidden-print");
+
+$(window).load(function() {
+    $(".loading").fadeOut("slow");;
+});
