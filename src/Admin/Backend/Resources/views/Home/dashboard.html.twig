@@ -1,6 +1,7 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
 {% block content %}
+
 <div ng-controller="StatisticsController">
     <div class="row">
         <div class="col-md-12">
@@ -89,6 +90,15 @@
             </div>
         </div>
 
+        <div class="col-md-3 pull-right" style="margin-bottom: 20px">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon " id="sizing-addon3">
+                    <span class="fa fa-calendar"></span>
+                </span>
+                <input class="form-control" type="text" id="daterange" name="daterange" />
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div class="box">
                 <div class="">
@@ -98,7 +108,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

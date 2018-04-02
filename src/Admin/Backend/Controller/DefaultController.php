@@ -12,7 +12,7 @@ class DefaultController extends Controller {
 		$em = $this->getDoctrine()->getManager();
 		$userId = $this->getUser()->getId();
 		$month = $this->getCurrentMonth();
-		
+
 		$fotos = $em->getRepository('BackendBundle:Upload')
 					->findBy(['reference' => 'user_'.$userId]);
 		$photo = false;
