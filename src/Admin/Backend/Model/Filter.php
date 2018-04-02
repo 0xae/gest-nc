@@ -12,14 +12,20 @@ class Filter {
     /**
      * Common filter used in pagination
      */
-    public function from($em, $klass, $limit, $offset) {
+    public function from($em, $klass, $limit, $offset, $opts=[]) {
         $builder = $em->createQueryBuilder();
-        return $builder->select('x')
+        $q=$builder->select('x')
             ->from($klass, 'x')
             ->orderBy('x.id', 'asc')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->getQuery();
+        ;
+
+        foreach ($opts as $key => $value) {
+            $q->where($q->expr()->eq('x.' . $key, "'$value'"));
+        }
+
+        return $q->getQuery();
     }
 
     public function ByState($em, $model, $state) {
@@ -49,14 +55,13 @@ class Filter {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage);
+            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['state' => $state]);
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
             ->fromQuery($q, $perPage, $pageIdx);
 
         $entities = $q->getResult();
-
         // $em->flush();
         // $em->clear();
         return [$entities, $fanta];

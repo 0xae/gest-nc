@@ -78,7 +78,7 @@ class DefaultController extends Controller {
 
 	private function count($type, $model, $opts=[]) {
 		$q = '
-			select 
+			select
 				count(1) as count,
 				date_format(created_at, "%Y-%m") as period
 			from ' . $model . '
