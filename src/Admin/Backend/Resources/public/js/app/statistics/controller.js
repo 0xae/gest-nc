@@ -2,6 +2,53 @@ angular.module("app")
 .controller("StatisticsController", ['$scope', 'Statistics',
 function ($scope, Statistics) {
     console.info("--- init statistics controller ---");
+    var startMonth=moment().format("YYYY-MM-DD");
+    var endMonth=moment(startMonth).add('1', 'month').format('YYYY-MM-DD');
+
+    $('input[name="daterange"]').daterangepicker({
+        locale: {
+            format: 'YYYY-MM-DD',
+            "applyLabel": "Aplicar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Comeco",
+            "toLabel": "Fim",            
+            "daysOfWeek": [
+                "Dom",
+                "Seg",
+                "Ter",
+                "Qua",
+                "Qui",
+                "Sex",
+                "Sab"
+            ],
+            "monthNames": [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro"
+            ],
+        },
+        "linkedCalendars": false,
+        startDate: startMonth,
+        endDate: endMonth
+    }, function(start, end, label) {
+        var startFmt = start.format('YYYY-MM-DD') + " 00:00:00";
+        var endFmt = end.format('YYYY-MM-DD') + " 23:59:59";
+        renderResponseTimeAvg(startFmt, endFmt);
+
+        // console.info("A new date range was chosen: " +  + ' to ' + end.format('YYYY-MM-DD'));
+        // renderPerMonth(2018);
+        // renderByDepartments(2018);
+        // renderImcumprimentoPerDirection();
+    });
 
     function renderByDepartments(year) {
         Statistics.fetchData('by_department', {year: year})
@@ -44,10 +91,9 @@ function ($scope, Statistics) {
         });
     }
 
-    function renderResponseTimeAvg() {
-        var start=moment().format("YYYY-MM-DD") + " 00:00:00";
-        var end=moment(start).add('7', 'days').format("YYYY-MM-DD") + " 23:59:59";
-
+    function renderResponseTimeAvg(start, end) {
+        // start=start + " 00:00:00";
+        // var end=moment(start).add('7', 'days').format("YYYY-MM-DD") + " 23:59:59";
         Statistics.fetchData('avgResponseTime', {start:start, end:end})
         .then(function (data){
             var rows=data.rows;
@@ -196,6 +242,6 @@ function ($scope, Statistics) {
 
     renderPerMonth(2018);
     renderByDepartments(2018);
-    renderResponseTimeAvg();
+    renderResponseTimeAvg(startMonth+" 00:00:00", endMonth+" 23:59:59");
     renderImcumprimentoPerDirection();
 }]);

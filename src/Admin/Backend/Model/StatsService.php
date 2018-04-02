@@ -62,7 +62,7 @@ class StatsService {
 			join app_entity a ON a.id = (
 				select entity from user where id=c.created_by
 			)
-			where c.created_at between (:start and :end)
+			where c.created_at >= :start and c.created_at <= :end
 			and c.response_date is not null
 			group by a.id, $type
 		";

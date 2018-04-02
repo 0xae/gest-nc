@@ -4,6 +4,17 @@
     <div ng-controller="StatisticsController">
         {# counters #}
         <div class="row">
+            <div class="col-md-3 pull-right" style="margin-bottom: 20px">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon " id="sizing-addon3">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                    <input class="form-control" type="text" id="daterange" name="daterange" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             {{ include('BackendBundle:Stats:counters.html.twig') }}
         </div>
 
