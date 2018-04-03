@@ -28,7 +28,7 @@ class DefaultController extends Controller {
 
 		return $this->render('BackendBundle:Home:dashboard.html.twig', array(
 			"month" => $month,
-			"globalCounters" => $this->getGlobalCounts() 
+			"globalCounters" => $this->getGlobalCounts()
 		));
 	}
 
