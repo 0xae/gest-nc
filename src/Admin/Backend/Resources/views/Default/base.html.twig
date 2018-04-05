@@ -83,7 +83,7 @@
                 bottom: 0;
                 width: 100%;
                 background-color: #999;
-                color: #fff;
+                color: #fff;sorting_asc
                 text-align: center;
                 padding: 10px;
                 font-size: 14px;
@@ -95,7 +95,9 @@
                 display: none;
             }
 
-            table.dataTable thead .sorting::after {
+            table.dataTable thead .sorting::after, 
+            table.dataTable thead .sorting_asc::after, 
+            table.dataTable thead .sorting_dec::after {
                 content: "";
             }
         </style>

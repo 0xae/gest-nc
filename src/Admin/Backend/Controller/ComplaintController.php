@@ -28,16 +28,11 @@ class ComplaintController extends Controller {
             // ->from($em, Complaint::class, $perPage, ($pageIdx-1)*$perPage);
             ->from($em, Complaint::class, Settings::LIMIT, 0);
 
-        // $fanta = $this->container
-        //     ->get('sga.admin.table.pagination')
-        //     ->fromQuery($q, $perPage, $pageIdx);
-
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:Complaint:index.html.twig', array(
             'entities' => $entities,
             'pageIdx' => $pageIdx
-            // 'paginate' => $fanta,
         ));
     }
 
