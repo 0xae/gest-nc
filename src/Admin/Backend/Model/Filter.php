@@ -3,6 +3,7 @@ namespace Admin\Backend\Model;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Admin\Backend\Entity\Stage;
+use Admin\Backend\Model\Settings;
 
 class Filter {
     public function __construct(Container $container) {    
@@ -55,7 +56,8 @@ class Filter {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['state' => $state]);
+            // ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['state' => $state]);
+            ->from($em, 'BackendBundle:'.$model, Settings::LIMIT, 0, ['state' => $state]);
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')

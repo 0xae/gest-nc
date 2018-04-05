@@ -25,18 +25,18 @@ class IReclamationController extends Controller {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, IReclamation::class, $perPage, ($pageIdx-1)*$perPage);
+            ->from($em, IReclamation::class, Settings::LIMIT, 0);
 
-        $fanta = $this->container
-            ->get('sga.admin.table.pagination')
-            ->fromQuery($q, $perPage, $pageIdx);
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
 
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:IReclamation:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta,
             'pageIdx' => $pageIdx
+            // 'paginate' => $fanta,
         ));
     }
 

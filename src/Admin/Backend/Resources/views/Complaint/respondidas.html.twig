@@ -12,7 +12,7 @@
                 <!-- /.box-header -->
 
                 <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped datatable">
                         <thead>
                             <tr>
                                 <th>C&oacute;digo#</th>
@@ -70,10 +70,11 @@
             {{ include('BackendBundle:Complaint:modals/viewComplaint.html.twig') }}
             <!-- /.box -->
         </div>
-        {{ pagerfanta(fanta, 'twitter_bootstrap3', {
+
+        {# {{ pagerfanta(fanta, 'twitter_bootstrap3', {
             'next_message': 'Proximo',
             'prev_message': 'Anterior'
             })
-        }}
+        }} #}
     </div>
 {% endblock %}

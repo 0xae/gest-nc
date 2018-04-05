@@ -10,7 +10,7 @@
                 <!-- /.box-header -->
 
                 <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped" style="margin-bottom: 70px">
+                    <table class="table table-hover table-striped datatable" style="margin-bottom: 70px">
                         <thead>
                             <tr>                                  
                                 <th>Código #</th>
@@ -97,11 +97,11 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
-        {{ pagerfanta(fanta, 'twitter_bootstrap3', {
-            'next_message': 'Proximo',
-            'prev_message': 'Anterior'
-            })
-        }}
+            {# {{ pagerfanta(fanta, 'twitter_bootstrap3', {
+                'next_message': 'Proximo',
+                'prev_message': 'Anterior'
+                })
+            }} #}
         </div>
     </div>
 {% endblock %}

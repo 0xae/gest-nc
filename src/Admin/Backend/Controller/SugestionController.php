@@ -28,17 +28,18 @@ class SugestionController extends Controller {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, Sugestion::class, $perPage, ($pageIdx-1)*$perPage);
-
-        $fanta = $this->container
-            ->get('sga.admin.table.pagination')
-            ->fromQuery($q, $perPage, $pageIdx);
+            ->from($em, Sugestion::class, Settings::LIMIT, 0);
+            // ->from($em, Sugestion::class, $perPage, ($pageIdx-1)*$perPage);
+            
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
 
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:Sugestion:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta,
+            // 'paginate' => $fanta,
             'pageIdx' => $pageIdx
         ));
     }

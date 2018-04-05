@@ -43,3 +43,9 @@ $("ul.pagination").addClass("hidden-print");
 $(window).load(function() {
     $(".loading").fadeOut("slow");;
 });
+
+$(document).ready(function() {
+    $('.datatable').dataTable();
+    $("#DataTables_Table_0_previous").text("Anterior");
+    $("#DataTables_Table_0_next").text("Proximo");
+});

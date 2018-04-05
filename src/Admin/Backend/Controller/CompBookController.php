@@ -26,18 +26,19 @@ class CompBookController extends Controller {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, CompBook::class, $perPage, ($pageIdx-1)*$perPage);
+            // ->from($em, CompBook::class, $perPage, ($pageIdx-1)*$perPage);
+            ->from($em, CompBook::class, Settings::LIMIT, 0);
 
-        $fanta = $this->container
-            ->get('sga.admin.table.pagination')
-            ->fromQuery($q, $perPage, $pageIdx);
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
 
         $entities = $q->getResult();
 
         return $this->render('BackendBundle:CompBook:index.html.twig', array(
             'entities' => $entities,
-            'paginate' => $fanta,
             'pageIdx' => $pageIdx
+            // 'paginate' => $fanta,
         ));
     }
 

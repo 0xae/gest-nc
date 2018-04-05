@@ -24,6 +24,8 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('public/lib/datatable/css/jquery.dataTables.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('public/lib/datatable/css/dataTables.bootstrap.css') }}" />
         <style>
             .loading { 
                 position: fixed; 
@@ -87,6 +89,15 @@
                 font-size: 14px;
                 font-weight: bold;
             }
+
+            .dataTables_length,
+            .dataTables_info {
+                display: none;
+            }
+
+            table.dataTable thead .sorting::after {
+                content: "";
+            }
         </style>
     </head>
 
@@ -149,7 +160,7 @@
             </div>
         {% endblock %}
 
-        <div class="app-footer">
+        <div class="app-footer hidden-print">
             {% image '@BackendBundle/Resources/public/img/Arfa-logo.png' %}
                 <img src="{{ asset_url }}"
                     class="user-image"
@@ -159,5 +170,7 @@
             {% endimage %}
             <p>&copy; POWERED BY ARFA - 2018</p>
         </div>
+
+        <script src="{{ asset('public/lib/datatable/js/jquery.dataTables.min.js') }}"></script>
     </body>
 </html>
