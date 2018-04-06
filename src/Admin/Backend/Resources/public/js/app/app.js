@@ -54,7 +54,7 @@ $(document).ready(function() {
             "sInfoEmpty" : "Mostrando de 0 até 0 de 0 registos",
             "sInfoFiltered" : "(filtrado de _MAX_ registos no total)",
             "sInfoPostFix" :  "",
-            "sSearch" : "Procurar:",
+            "sSearch" : "Pesquisar ",
             "sUrl" : "",
             "oPaginate" : {
                 "sFirst" : "Primeiro",

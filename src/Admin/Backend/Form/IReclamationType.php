@@ -58,7 +58,7 @@ class IReclamationType extends AbstractType {
                 'attr' => array('rows' => 2)
             ))
             ->add('submit', 'submit', array(
-                'label' => 'Guardar',
+                'label' => 'Enviar formulario',
                 'attr' => array(
                     'class' => 'btn btn-success'
                 )

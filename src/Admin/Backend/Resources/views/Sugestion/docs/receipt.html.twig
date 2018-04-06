@@ -2,7 +2,7 @@
 
 {% block title %}Recibo de registro{% endblock %}
 
-{% block content -%}
+{% block content -%}    
     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
         <img src="{{ asset_url }}" 
              class="user-image" 
@@ -59,7 +59,7 @@
         </tbody>
     </table>
 
-    <h4>Mensagem da Receção</h4>
+    <h4 class="msg-recep">Mensagem de Receção</h4>
     <div class="">
         <textarea class="form-control" rows="5" id="msg"></textarea>
     </div>

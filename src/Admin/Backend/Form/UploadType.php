@@ -22,7 +22,7 @@ class UploadType extends AbstractType {
                 )
             )
             ->add('submit', 'submit', array(
-                'label' => 'Guardar',
+                'label' => 'Enviar formulário',
                 'attr' => array(
                     'class' => 'btn btn-success',
                     'ng-click' => 'onSubmitForm()'
