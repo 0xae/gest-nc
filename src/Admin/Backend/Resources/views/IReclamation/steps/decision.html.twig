@@ -12,11 +12,15 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Data</label>
-            {{ form_widget(form.decisionDate, {
-                'attr' : {
-                    'disabled' : entity.state != 'analysis'
-                }
-            }) }}
+            <br/>
+            {% if entity.state != 'decision' %}
+                <div class="hidden">
+                {{ form_widget(form.decisionDate) }}
+                </div>
+                <input disabled="" value="{{entity.decisionDate|date('Y-m-d')}}" />
+            {% else %}
+                {{ form_widget(form.decisionDate) }}
+            {% endif %}
         </div>
 
         <div class="form-group">

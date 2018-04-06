@@ -16,11 +16,15 @@
 
         <div class="form-group">
             <label>Data</label>
-            {{ form_widget(form.analysisDate, {
-                'attr' : {
-                    'disabled' : entity.state != 'analysis'
-                }
-            }) }}
+            <br/>
+            {% if entity.state != 'analysis' %}
+                <div class="hidden">
+                {{ form_widget(form.analysisDate) }}
+                </div>
+                <input disabled="" value="{{entity.analysisDate|date('Y-m-d')}}" />
+            {% else %}
+                {{ form_widget(form.analysisDate) }}
+            {% endif %}
         </div>
 
         <div class="form-group">
