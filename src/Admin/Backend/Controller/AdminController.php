@@ -35,10 +35,8 @@ class AdminController extends Controller {
         }
 
         return $this->render('BackendBundle:Admin:index.html.twig', array(
-            'user_list' => $users[0]->getResult(),
-            'user_fanta' => $users[1],
-            'profile_list' => $profiles[0]->getResult(),
-            'profile_fanta' => $profiles[1],
+            'user_list' => $users->getResult(),
+            'profile_list' => $profiles->getResult(),
 
             'user_form' => $userForm->createView(),            
             'profile_form' => $profileForm->createView(),            
@@ -54,14 +52,11 @@ class AdminController extends Controller {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, $class, $perPage, 
-                        ($pageIdx-1)*$perPage);
-
-        $fanta = $this->container
-            ->get('sga.admin.table.pagination')
-            ->fromQuery($q, $perPage, $pageIdx);
-
-        return [$q, $fanta];
+            ->from($em, $class, Settings::LIMIT, 0);
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
+        return $q;
     }
 
    /**
