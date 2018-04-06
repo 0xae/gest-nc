@@ -13,7 +13,7 @@
             <label>Data</label>
             {{ form_widget(form.factDate, {
                 'attr' : {
-                    'disabled' :
+                    'disabled' : entity.state != 'edit'
                 }
             }) }}
         </div>
@@ -22,12 +22,20 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Nome</label>
-            {{ form_widget(form.name) }}
+            {{ form_widget(form.name, {
+                'attr' : {
+                    'disabled' : entity.state != 'edit'
+                }
+            }) }}
         </div>
 
         <div class="form-group">
             <label>Direcção</label>
-            {{ form_widget(form.direction) }}
+            {{ form_widget(form.direction, {
+                'attr' : {
+                    'disabled' : entity.state != 'edit'
+                }
+            }) }}
         </div>
     </div>
 
@@ -35,7 +43,8 @@
         <div class="form-group">
             <label>Tipo</label>
             {{ form_widget(form.type, {'attr' : {
-                'ng-model' : 'defChoice'
+                'ng-model' : 'defChoice',
+                'disabled' : entity.state != 'edit'
             } }) }}
             <div style="padding: 10px;" ng-if="defChoice == 'c9'">
                 <span style="color:gray;">
@@ -57,7 +66,11 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Descri&ccedil;&atilde;o</label>
-            {{ form_widget(form.factDetail) }}
+            {{ form_widget(form.factDetail, {
+                'attr' : {
+                    'disabled' : entity.state != 'edit'
+                }
+            }) }}
         </div>
     </div>
 </div>

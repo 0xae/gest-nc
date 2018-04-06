@@ -179,12 +179,12 @@ class IReclamationController extends Controller {
         $state = $object['state'];
         if ($state == Stage::TRATAMENTO) {
             $entity->setState(Stage::TRATAMENTO);
-        } else if ($state == Stage::REJEITADO) { 
+        } else if ($state == Stage::REJEITADO) {
             $entity->setState(Stage::REJEITADO);
             $entity->setRejectionReason($object['rejectionReason']);
-        } else if ($state == Stage::SEM_RESPOSTA) { 
+        } else if ($state == Stage::SEM_RESPOSTA) {
             $entity->setState(Stage::SEM_RESPOSTA);
-        } else if ($state == Stage::NO_FAVORABLE) { 
+        } else if ($state == Stage::NO_FAVORABLE) {
             $entity->setState(Stage::NO_FAVORABLE);
         } else if ($state == Stage::NO_COMP) {
             $entity->setState(Stage::NO_COMP);
@@ -438,7 +438,7 @@ class IReclamationController extends Controller {
 
     private function createCreateForm(IReclamation $entity) {
         $entity->setFactDate(new \DateTime);
-        $entity->setStep(IReclamation::START);        
+        $entity->setState('edit');        
         $entity->setActionDate(new \DateTime);
         $entity->setDecisionDate(new \DateTime);
         $entity->setAnalysisDate(new \DateTime);    

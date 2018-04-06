@@ -16,7 +16,11 @@
 
         <div class="form-group">
             <label>Data</label>
-            {{ form_widget(form.analysisDate) }}
+            {{ form_widget(form.analysisDate, {
+                'attr' : {
+                    'disabled' : entity.state != 'analysis'
+                }
+            }) }}
         </div>
 
         <div class="form-group">
