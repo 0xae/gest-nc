@@ -95,6 +95,7 @@ class SugestionController extends Controller {
             $label = 'Arquivo concluído sem resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
+            $label = 'Arquivo concluído com resposta';
         } else if ($state == Stage::NO_COMP) {
             // $label = 'Competência de Terceiros';
             $label = 'Competência de terceiros';            

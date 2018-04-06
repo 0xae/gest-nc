@@ -89,7 +89,7 @@ class CompBookController extends Controller {
         if ($state == Stage::ACOMPANHAMENTO) {
             $label = 'Em acompanhamento';
         } else if ($state == Stage::RESPONDIDO) {
-            $label = 'Arquivo de resposta';
+            $label = 'Arquivo concluído com resposta';
         } else if ($state == Stage::NO_CONFOR) {
             $label = 'Não Conformidades';
         }

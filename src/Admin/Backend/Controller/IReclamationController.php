@@ -132,7 +132,7 @@ class IReclamationController extends Controller {
         } else if ($state == Stage::SEM_RESPOSTA) {
             $label = 'Arquivo concluído sem resposta';
         } else if ($state == Stage::RESPONDIDO) {
-            $label = 'Respondidas';
+            $label = 'Arquivo concluído com resposta';
         } else if ($state == Stage::NO_COMP) {
             $label = 'Competência de terceiros';
         } else if ($state == Stage::NO_FAVORABLE) {

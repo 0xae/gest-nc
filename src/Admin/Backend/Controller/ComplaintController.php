@@ -122,6 +122,7 @@ class ComplaintController extends Controller {
             $label = 'Arquivo concluído sem resposta';
             $tpl = 'sem_resposta';
         } else if ($state == Stage::RESPONDIDO) {
+            $label = 'Arquivo concluído com resposta';
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {
             $label = 'Competência de terceiros';
