@@ -130,7 +130,7 @@ class IReclamationController extends Controller {
         } else if ($state == Stage::TRATAMENTO) { 
             $label = 'Tratamento';
         } else if ($state == Stage::SEM_RESPOSTA) {
-            $label = 'Sem resposta';
+            $label = 'Arquivo concluído sem resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $label = 'Respondidas';
         } else if ($state == Stage::NO_COMP) {

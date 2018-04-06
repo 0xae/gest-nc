@@ -160,7 +160,7 @@ function ($http, SugestionService, UploadService, $scope, Admin) {
             
             $scope.responseForm = false;
             setTimeout(function(){
-                $(PAR_MODAL).modal('hide');                
+                $(ANNEX_PAR_MODAL).modal('hide');                
             }, 500);
         }, function (error) {
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            

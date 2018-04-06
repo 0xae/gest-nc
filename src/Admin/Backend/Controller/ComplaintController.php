@@ -119,7 +119,7 @@ class ComplaintController extends Controller {
         } else if ($state == Stage::TRATAMENTO) {
             $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
-            $label = 'Sem resposta';
+            $label = 'Arquivo concluído sem resposta';
             $tpl = 'sem_resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';

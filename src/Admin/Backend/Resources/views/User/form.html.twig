@@ -31,12 +31,20 @@
 <div class="col-md-6">
     <div class="form-group">
         <label>Departamento</label>
-        {{ form_widget(form.entity) }}
+        {{ form_widget(form.entity, {
+            'attr' : {
+                'disabled' : is_edit
+            }
+        }) }}
     </div>
 
     <div class="form-group">
         <label>Perfil</label>
-        {{ form_widget(form.profile) }}
+        {{ form_widget(form.profile, {
+            'attr' : {
+                'disabled' : is_edit
+            }
+        }) }}
     </div>
 
     <div class="form-group">

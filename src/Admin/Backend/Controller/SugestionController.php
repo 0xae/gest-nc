@@ -92,6 +92,7 @@ class SugestionController extends Controller {
             $tpl = 'treat';
         } else if ($state == Stage::SEM_RESPOSTA) {
             $tpl = 'sem_resposta';
+            $label = 'Arquivo concluído sem resposta';
         } else if ($state == Stage::RESPONDIDO) {
             $tpl = 'respondidas';
         } else if ($state == Stage::NO_COMP) {

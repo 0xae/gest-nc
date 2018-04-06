@@ -1,5 +1,7 @@
 {% extends 'BackendBundle:Default:docs.html.twig' %}
 
+{% block title %}Recibo de registro{% endblock %}
+
 {% block content -%}
 <div>
     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
@@ -64,7 +66,7 @@
         </tbody>
     </table>
 
-    <h4>Mensagem da Recepção</h4>
+    <h4>Mensagem da Receção</h4>
     <div class="" id="msgContainer">
         <textarea class="form-control" 
             rows="5" id="msg"></textarea>
@@ -73,8 +75,8 @@
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
-            Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
+            Criado por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
+            <br/> <span class="fa fa-calendar"></span> Criado em {{entity.createdAt|date('Y-m-d')}}
         </p>
     </div>
 

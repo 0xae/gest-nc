@@ -1,5 +1,7 @@
 {% extends 'BackendBundle:Default:docs.html.twig' %}
 
+{% block title %}Recibo de ocorrência a terceiros {% endblock %}
+
 {% block content -%}
 <div>
     {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
@@ -69,16 +71,16 @@
         </tbody>
     </table>
 
-    <h4>Mensagem da Recepcao</h4>
-    <div class="well" id="msgContainer">
-        <textarea class="form-control" id="msg"></textarea>
+    <h4>Resposta</h4>
+    <div id="msgContainer">
+        <textarea rows="5" class="form-control" id="msg"></textarea>
     </div>
 
     <div style="margin-top:70px;">
         <p style="font-size:12px;color:gray">
             <span class="fa fa-user"></span>
-            Criada por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
-            <br/> <span class="fa fa-calendar"></span> Criada em {{entity.createdAt|date('Y-m-d')}}
+            Criado por {{entity.createdBy.name}}/{{entity.createdBy.entity.name}}
+            <br/> <span class="fa fa-calendar"></span> Criado em {{entity.createdAt|date('Y-m-d')}}
         </p>
     </div>
 
