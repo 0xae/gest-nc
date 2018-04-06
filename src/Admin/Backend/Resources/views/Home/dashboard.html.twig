@@ -1,24 +1,33 @@
 {% extends 'BackendBundle:Default:layout.html.twig' %}
 
+{% block title %}Dashboard{% endblock %}
+
 {% block content %}
 
 <div ng-controller="StatisticsController">
     <div class="row">
+        <div class="col-md-3 pull-right" style="margin-bottom: 20px">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon " id="sizing-addon3">
+                    <span class="fa fa-calendar"></span>
+                </span>
+                <input class="form-control" type="text" id="daterange" name="daterange" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
             <center>
-                <h4>
-                    Numero de Ocorrências
-                </h4>
+                <h4>Numero de Ocorrências</h4>
             </center>
         </div>
 
         <div class="col-md-3">
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>
-                        {{globalCounters['total']}}
-                    </h3>
-                    <p>{{month}}</p>
+                    <h3>{{globalCounters['total']}}</h3>
+                    <p>Mês: {{month}}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-check"></i>
@@ -35,7 +44,7 @@
                     <h3>
                         {{globalCounters['answered']}}
                     </h3>
-                    <p>{{month}}</p>
+                    <p>Mês: {{month}}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-thumbs-up"></i>
@@ -52,7 +61,7 @@
                     <h3>
                         {{globalCounters['noAnswered']}}
                     </h3>
-                    <p>{{month}}</p>
+                    <p>Mês: {{month}}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-thumbs-down"></i>
@@ -69,7 +78,7 @@
                     <h3>
                         {{globalCounters['acomp']}}
                     </h3>
-                    <p>{{month}}</p>
+                    <p>Mês: {{month}}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-clock-o"></i>
@@ -87,15 +96,6 @@
                 <div class="box-body no-padding">
                     <div id="by_month"></div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 pull-right" style="margin-bottom: 20px">
-            <div class="input-group input-group-sm">
-                <span class="input-group-addon " id="sizing-addon3">
-                    <span class="fa fa-calendar"></span>
-                </span>
-                <input class="form-control" type="text" id="daterange" name="daterange" />
             </div>
         </div>
 
