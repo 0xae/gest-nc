@@ -266,6 +266,22 @@ class IReclamation {
                 '/' . $this->createdAt->format("Y");
     }
 
+    public function getTypeLabel() {
+        $ary = [
+            'c1' => 'Ações de Formação',
+            'c2' => 'Atendimento',
+            'c3' => 'Assistência Médica',
+            'c4' => 'Equipamentos',
+            'c5' => 'Instalações',
+            'c6' => 'Limpeza',
+            'c7' => 'Segurança',
+            'c8' => 'Viaturas e logística de deslocação',
+            'c9' => 'Outros'
+        ];
+
+        return @$ary[$this->type];
+    }
+
     public function getTypeData() {
         return $this->typeData;
     }

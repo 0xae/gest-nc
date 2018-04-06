@@ -65,3 +65,8 @@ $(document).ready(function() {
         }        
     });
 });
+
+
+$("input[data-disabled='data-disabled'], select[data-disabled='data-disabled']").each(function (){
+    $(this).attr("ng-disabled", "true");
+});

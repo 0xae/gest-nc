@@ -352,10 +352,7 @@ class IReclamationController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BackendBundle:IReclamation')->find($id);
-        $view = 'edit';
-        if (@$_GET['view']) {
-            $view=$_GET['view'];
-        }
+        $view = $entity->getState();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');

@@ -17,7 +17,7 @@
                 <div class="hidden">
                 {{ form_widget(form.actionDate) }}
                 </div>
-                <input disabled="" value="{{entity.actionDate|date('Y-m-d')}}" />
+                <input disabled="" class="form-control" value="{{entity.actionDate|date('Y-m-d')}}" />
             {% else %}
                 {{ form_widget(form.actionDate) }}
             {% endif %}
@@ -25,11 +25,15 @@
 
         <div class="form-group">
             <label>Descri&ccedil;&atilde;o</label>
-            {{ form_widget(form.actionDetail, {
-                'attr' : {
-                    'disabled' : entity.state != 'action'
-                }                
-            }) }}
+            <br/>
+            {% if entity.state != 'action' %}
+                <div class="hidden">
+                {{ form_widget(form.actionDetail) }}
+                </div>
+                <textarea class="form-control" disabled="">{{entity.actionDetail}}</textarea>
+            {% else %}
+                {{ form_widget(form.actionDetail) }}
+            {% endif %}
         </div>
     </div>
 
@@ -50,3 +54,4 @@
 {% endif %}
 
 {% endif %}
+

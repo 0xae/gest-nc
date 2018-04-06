@@ -16,7 +16,7 @@
                 <div class="hidden">
                 {{ form_widget(form.factDate) }}
                 </div>
-                <input disabled="" value="{{entity.factDate|date('Y-m-d')}}" />
+                <input class="form-control" disabled="" class="form-control" value="{{entity.factDate|date('Y-m-d')}}" />
             {% else %}
                 {{ form_widget(form.factDate) }}
             {% endif %}
@@ -26,30 +26,43 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Nome</label>
-            {{ form_widget(form.name, {
-                'attr' : {
-                    'disabled' : entity.state != 'edit'
-                }
-            }) }}
+            {% if entity.state != 'edit' %}
+                <div class="hidden">
+                {{ form_widget(form.name) }}
+                </div>
+                <input class="form-control" disabled="" value="{{entity.name}}" />
+            {% else %}
+                {{ form_widget(form.name) }}
+            {% endif %}
         </div>
 
         <div class="form-group">
             <label>Direcção</label>
-            {{ form_widget(form.direction, {
-                'attr' : {
-                    'disabled' : entity.state != 'edit'
-                }
-            }) }}
+            {% if entity.state != 'edit' %}
+                <div class="hidden">
+                {{ form_widget(form.direction) }}
+                </div>
+                <input class="form-control" disabled="" value="{{entity.direction}}" />
+            {% else %}
+                {{ form_widget(form.direction) }}
+            {% endif %}
         </div>
     </div>
 
     <div class="col-md-6" ng-init="defChoice = 'c1'">
         <div class="form-group">
             <label>Tipo</label>
-            {{ form_widget(form.type, {'attr' : {
-                'ng-model' : 'defChoice',
-                'disabled' : entity.state != 'edit'
-            } }) }}
+
+            {% if entity.state != 'edit' %}
+                <div class="hidden">
+                {{ form_widget(form.type) }}
+                </div>
+                <input class="form-control" value="{{entity.typeLabel}}" disabled="" />
+            {% else %}
+                {{ form_widget(form.type, {'attr' : {
+                    'ng-model' : 'defChoice'
+                } }) }}
+            {% endif %}
             <div style="padding: 10px;" ng-if="defChoice == 'c9'">
                 <span style="color:gray;">
                     <strong>Descreva</strong>
@@ -70,11 +83,14 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Descri&ccedil;&atilde;o</label>
-            {{ form_widget(form.factDetail, {
-                'attr' : {
-                    'disabled' : entity.state != 'edit'
-                }
-            }) }}
+            {% if entity.state != 'edit' %}
+                <div class="hidden">
+                {{ form_widget(form.factDetail) }}
+                </div>
+                <textarea class="form-control" rows="4" disabled="">{{entity.factDetail}}</textarea>
+            {% else %}
+                {{ form_widget(form.factDetail) }}
+            {% endif %}
         </div>
     </div>
 </div>

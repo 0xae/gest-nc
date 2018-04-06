@@ -137,6 +137,10 @@ function ($http, $scope, UploadService, Admin, IReclService) {
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+
+            setTimeout(() => {
+                $("#admin_backend_ireclamation_submit").click();
+            }, 500);
         });
     }
 
