@@ -43,6 +43,33 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         });
     }
 
+    $scope.setIReclDetails = function(type) {
+        if (type == 'analysis') {
+            $scope.ireclDetails = {
+                label: 'Análise',
+                resp: $scope.entity.analysisResp,
+                date:$scope.entity.analysisDate,
+                description: $scope.entity.analysisDetail
+            };
+        } else if (type == 'decision') {
+            $scope.ireclDetails = {
+                label: 'Decisão',
+                resp: $scope.entity.decisionResp,
+                date:$scope.entity.decisionDate,
+                description: $scope.entity.decisionDetail
+            };
+        } else if (type == 'action') {
+            $scope.ireclDetails = {
+                label: 'Ação',
+                resp: $scope.entity.actionResp,
+                date:$scope.entity.actionDate,
+                description: $scope.entity.actionDetail
+            };
+        } else {
+            $scope.ireclDetails = {};
+        }
+    }
+
     $scope.viewIRecl = function (id, type) {
         var labelX = 'Reclamacao Interna';
         $scope.entity = undefined;

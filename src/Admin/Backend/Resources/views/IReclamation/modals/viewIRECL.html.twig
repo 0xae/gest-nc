@@ -31,20 +31,23 @@
                         </a>
                     </li>
 
-                    <li role="presentation">
-                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <li role="presentation" ng-if="entity.step == 'concluded'">
+                        <a href="#ireclDetails" aria-controls="home" role="tab" 
+                            data-toggle="tab" ng-click="setIReclDetails('analysis')">
                             <span>An&aacute;lise</span>
                         </a>
                     </li>
 
-                    <li role="presentation">
-                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <li role="presentation" ng-if="entity.step == 'concluded'">
+                        <a href="#ireclDetails" aria-controls="home" role="tab" 
+                            data-toggle="tab" ng-click="setIReclDetails('decision')">
                             <span>Decis&atilde;o</span>
                         </a>
                     </li>
 
-                    <li role="presentation">
-                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <li role="presentation" ng-if="entity.step == 'concluded'">
+                        <a href="#ireclDetails" aria-controls="home" role="tab" 
+                           data-toggle="tab"  ng-click="setIReclDetails('action')">
                             <span>A&ccedil;&atilde;o</span>
                         </a>
                     </li>
@@ -117,6 +120,27 @@
 
                     <div role="tabpanel" class="tab-pane" id="anexos">
                         {{ include('BackendBundle:Upload:listing-ng.html.twig', {}) }}
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="ireclDetails">
+                        <h3>{{'{{ireclDetails.label}}'}} da Reclamação Interna</h3>
+                        <div class="form-group">
+                            <label>Respons&aacute;vel</label>
+                            <input class="form-control" disabled="disabled" value="{{ '{{ireclDetails.resp}}' }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input class="form-control" disabled="disabled" value="{{ '{{ireclDetails.date}}' }}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea 
+                                ng-model="ireclDetails.description" disabled
+                                class="form-control"
+                                rows="2" placeholder="..."></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

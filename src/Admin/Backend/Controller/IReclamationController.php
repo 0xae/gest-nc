@@ -101,6 +101,9 @@ class IReclamationController extends Controller {
                     ->find($id);
 
         $cb = $entity->getCreatedBy();
+        $analysisResp = $this->fmtUser($entity->getAnalysisResp());
+        $decisionResp = $this->fmtUser($entity->getDecisionResp());
+        $actionResp = $this->fmtUser($entity->getActionResp());
 
         $obj = [
             "id" => $entity->getId(),
@@ -114,6 +117,19 @@ class IReclamationController extends Controller {
             "factDetail" => $entity->getFactDetail(),
             "createByName" => $cb->getName(),
             "createByEnt" => $cb->getEntity()->getName(),
+            "step" => $entity->getStep(),
+            // analysis
+            "analysisDate" => $entity->getAnalysisDate()->format(Settings::DATE_FMT),
+            "analysisResp" => $analysisResp,
+            "analysisDetail" => $entity->getAnalysisDetail(),
+            // decision
+            "decisionDate" => $entity->getDecisionDate()->format(Settings::DATE_FMT),
+            "decisionResp" => $decisionResp,
+            "decisionDetail" => $entity->getDecisionDetail(),
+            // action
+            "actionDate" => $entity->getActionDate()->format(Settings::DATE_FMT),
+            "actionResp" => $actionResp,
+            "actionDetail" => $entity->getActionDetail(),
         ];
 
         return new JsonResponse($obj);
@@ -360,6 +376,8 @@ class IReclamationController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        // we shouldnt update the state
+        $entity->setState($view);
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -395,6 +413,14 @@ class IReclamationController extends Controller {
         }
 
         return $this->redirect($this->generateUrl('administration_IReclamation'));
+    }
+
+    private function fmtUser($user) {
+        $fmt = $user;
+        if ($user) {
+            $fmt = $user->getName() . '/' . $user->getEntity()->getName();
+        }
+        return $fmt;
     }
 
     private function createDeleteForm($id) {
