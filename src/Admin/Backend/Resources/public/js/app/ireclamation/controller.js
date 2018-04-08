@@ -73,6 +73,8 @@ function ($http, $scope, UploadService, Admin, IReclService) {
     $scope.viewIRecl = function (id, type) {
         var labelX = 'Reclamacao Interna';
         $scope.entity = undefined;
+        $('a[href="#home"]').tab('show'); 
+
         getRecl(id).then(function (data){
             $scope.entity = data;
             $scope.modalTitle = "Visualizando " + labelX;
