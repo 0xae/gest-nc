@@ -5,10 +5,13 @@
 {% block body  %}
 
 <style>
+body {
+    font-family: Helvetica;
+}
 .app-footer {
     background-color: transparent;
     color: #333;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     display: none;
 }
@@ -31,7 +34,7 @@
 }
 
 .input-group input {
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
@@ -66,7 +69,7 @@
                         </div>
                         {% endimage %}
 
-                        <a href="#" style="color:#BF1F7B;text-transform:uppercase;margin-bottom:15px;margin-top:10px;font-size:14px;text-align:center;">
+                        <a href="#" style="color:#BF1F7B;text-transform:uppercase;margin-bottom:15px;margin-top:10px;font-size:15px;text-align:center;">
                             <b>Gestão de Ocorrências Arfa</b>
                         </a>
                     </center>
@@ -80,7 +83,7 @@
                                 <span class="input-group-addon" id="basic-addon1">
                                     <span class="fa fa-user"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder={{ 'security.login.username'|trans({}, 'FOSUserBundle') }} name="_username" value="{{ last_username }}" required="required">
+                                <input type="text" class="form-control" placeholder='Nome do usuário' name="_username" value="{{ last_username }}" required="required">
                             </div>
                         </div>
 
@@ -120,10 +123,13 @@
             </div>
 
             <div style="text-align: center;margin:auto;">
-                <h4 style="margin-bottom:0px;">Qualidade e Seguran&ccedil;a ao servi&ccedil;o de Todos</h4>
-                <a href="www.arfa.cv" style="color: #BF1F7B">
+                <h4 style="margin-bottom:0px;">Qualidade e Seguran&ccedil;a ao servi&ccedil;o de Todos!</h4>
+
+                <a href="http://www.arfa.cv" style="color: #BF1F7B">
                     www.arfa.cv
                 </a>
+
+                <p style="margin-top:20px"><strong>&copy; POWERED BY ARFA - 2018</strong></p>
             </div>
         {% endblock fos_user_content %}
     {% endblock %}

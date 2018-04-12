@@ -19,7 +19,13 @@ class UserType extends AbstractType {
             ->add('username')
             ->add('plainPassword', 'password')
             ->add('passwordConf', 'password')
-            
+            ->add('isActive')
+            ->add('isActive', 'choice', array(
+                'choices'  => array(
+                    true => 'Ativo',
+                    false => 'Inativo'
+                ),
+            ))
             // ->add('password_confir', 'password')
             ->add('entity', 'entity', array(
                 'class' => 'BackendBundle:AppEntity',

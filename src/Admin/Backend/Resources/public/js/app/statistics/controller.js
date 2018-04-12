@@ -232,6 +232,9 @@ function ($scope, Statistics) {
                 'Dezembro'
             ];
 
+            console.info("months: ", months);            
+            console.info("series: ", series);
+
             Statistics.renderBar('Ocorrência por mês',
                 'Ocorrencias',
                 '',

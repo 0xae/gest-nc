@@ -66,6 +66,17 @@ class User extends BaseUser {
      */
      private $createdBy;
 
+         /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="is_active", referencedColumnName="id", nullable=true)
+     * })
+     * 
+     */
+    private $isActive;
+
     /**
      * @var \Admin\Backend\Entity\Profile
      *
@@ -91,6 +102,14 @@ class User extends BaseUser {
         parent::__construct();
         $this->createdAt = new \DateTime();
     }
+
+    public function isActive(){
+		return $this->isActive;
+	}
+
+	public function setIsActive($val){
+		$this->isActive = $val;
+	}
 
     public function getProfile(){
 		return $this->profile;

@@ -103,6 +103,7 @@ class UserController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(User $entity) {
+        $entity->setIsActive(true);
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('administration_user_create'),
             'method' => 'POST',
