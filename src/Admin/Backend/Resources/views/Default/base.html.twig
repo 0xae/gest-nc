@@ -130,6 +130,14 @@
             .bg-norm {
                 background-color: #222d32;
             }
+
+            .sidebar ul li a {
+                padding-left: 15px;
+            }
+
+            .sidebar ul li a img {
+                margin-right: 14px;
+            }
         </style>
     </head>
 
@@ -191,23 +199,6 @@
             <div class="wrapper">
             </div>
         {% endblock %}
-
-        <div class="app-footer ">
-            <div class="row">
-                <div class="col-md-2 col-md-offset-6">
-                    <center>
-                        {% image '@BackendBundle/Resources/public/img/Arfa-logo.png' %}
-                            <img src="{{ asset_url }}"
-                                class="user-image"
-                                alt="User Image!"
-                                width="70"
-                            />
-                        {% endimage %}
-                        <p>&copy; POWERED BY ARFA - 2018</p>
-                    </center>
-                </div>
-            </div>
-        </div>
 
         <script src="{{ asset('public/lib/datatable/js/jquery.dataTables.min.js') }}"></script>
     </body>

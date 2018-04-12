@@ -39,7 +39,7 @@
 
             <li class="header" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
-                    <i class="fa fa-cog"></i>
+                    <img src="{{ asset('icons/statistics.svg') }}" width="25" />
                     PARAMETRIZA&Ccedil;&Atilde;O
                 </a>
 
@@ -406,6 +406,8 @@
             </li>
         {% endif %}
 
+        <li style="padding:0px;">
+        </li>
         {#  NÃO CONFORMIDADES #}
         {# {% if is_granted('ROLE_ADMIN') or 
               is_granted(expression('"ADMINISTRATION_CORRECTION" in user.getRoles()')) %}
@@ -417,6 +419,23 @@
             </li>
         {% endif %} #}
       </ul>
+
+        <div style="color: #fff;position: absolute;bottom: 0;margin:auto;">
+            <div style="margin-left: 50px;">
+                <center>
+                    {# {% image '@BackendBundle/Resources/public/img/Arfa-logo.png' %}
+                        <img src="{{ asset_url }}"
+                            class="user-image"
+                            alt="User Image!"
+                            width="70"
+                        />
+                    {% endimage %} #}
+                    <p><strong>&copy; POWERED BY ARFA - 2018</strong></p>
+                </center>
+            </div>
+        </div>
     </section>
     <!-- /.sidebar -->
+
+
   </aside>
