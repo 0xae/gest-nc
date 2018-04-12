@@ -1,5 +1,5 @@
 angular.module("app")
-.controller("AdminController", ['$scope', '$http', function ($scope, $http) {
+.controller("AdminController", ['$scope', '$http', '$q', function ($scope, $http, $q) {
     var url = new URL(location.href);
     var tab=url.searchParams.get('tab');
     $scope.permissions = [];
@@ -17,57 +17,70 @@ angular.module("app")
     }
 
     $scope.profileChanged = function(id) {
-        console.info(id);
         $scope.profileId = id;
         $scope.permissions = [];
         $scope.isLoading = true;
 
         fetchPermissions(id)
         .then(function (data){
-            $scope.permissions = data;
+            console.info("profile permissions are: ", data);
+            $scope.profilePermissions = data;
             $scope.isLoading = false;            
         }, function () {
             $scope.isLoading = true;            
         });
     }
 
-    $scope.addPermission = function (profileId, permissionId) {
-        var permissionLabel = $("#perm-" + permissionId).attr("data-label");
-
-        if (!permissionLabel) {
-            return;
-        }
+    $scope.assocPermissions = function () {
+        var profileId=$scope.profileId;
+        var queue = $("#permissionsToAdd").val()
+            .map(function (permission){
+                return addPermissionPromise(profileId, permission);
+            });
+        
 
         $scope.isLoading = true;
 
-        $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
-                    'profile_id=' + profileId+
-                    '&permission=' + permissionId+
-                    '&permission_label=' + permissionLabel)
+        $q.all(queue)
         .then(function (_resp) {
             var resp=_resp.data;
-            $.notify("Permissao adicionado com sucesso", "success");
-            $scope.permissions.push(resp);
-            $scope.isLoading = false;
+            $.notify("Permissões adicionadas com sucesso", "success");
+            $scope.profileChanged(profileId);
             return resp;
         }, function (error) {            
-            $scope.isLoading = false;            
+            $scope.isLoading = false;
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
 
-    $scope.removePermission = function (id, index) {
-        if (!confirm("Deseja mesmo remover essa permissao?")) {
+
+    $scope.removeAssocPermissions = function() {
+        if (!confirm("Deseja mesmo remover as permissões selecionadas?")) {
             return;
         }
 
-        $http.get('/arfa/web/app_dev.php/administration/remove_permission/' + id)
-        .then(function (_resp) {
-            var resp=_resp.data;
-            $.notify("Permissao removida com sucesso", "success");
-            $scope.permissions.splice(index, 1);            
-            return resp;
+        var permissions = $("#permissionsAssoc").val();
+        var queue = permissions.map(function (p){
+            return $http.get('/arfa/web/app_dev.php/administration/remove_permission/' + p); 
+        });
+
+        $q.all(queue)
+        .then(function (done){
+            $scope.profileChanged($scope.profileId);
+            $.notify("Permissões removidas com sucesso", "success");            
+        }, function (error){
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
+
+    function addPermissionPromise(profileId, permissionId) {
+        var permissionLabel = $("#perm-" + permissionId).attr("data-label");
+        return $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
+            'profile_id=' + profileId+
+            '&permission=' + permissionId+
+            '&permission_label=' + permissionLabel);
+    }
+
 }])
 
 .controller('UploadController', ['$http', '$scope', function ($http, $scope) {

@@ -40,7 +40,7 @@ angular.module("app")
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
 

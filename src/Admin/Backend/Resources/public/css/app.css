@@ -56,3 +56,8 @@ div.wizard-tab .tab-content {
 /* .main-sidebar, .left-side { 
     width: 270px;
 } */
+
+div.permission-block select {
+    min-height: 280px;
+    background-color: aliceblue;
+}
