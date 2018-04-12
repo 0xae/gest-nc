@@ -1,21 +1,19 @@
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
-     <ul class="sidebar-menu">
+        <ul class="sidebar-menu">
         <li class="header active" style="padding:0px;">
-            <a href="{{ path('sga_dashboard') }}" class="bg-999">
-                <i class="fa fa-cog"></i>
-                <span>
-                    MENU INICIAL
-                </span>
+            <a href="{{ path('sga_dashboard') }}" class="bg-norm" style="font-weight: bold">
+                <img src="{{ asset('icons/home.svg') }}" width="27" />
+                <span>HOME</span>
             </a>
         </li>
 
         {#  Administracao / Parametrizacao #}
         {% if is_granted('ROLE_ADMIN') %}
             <li class="header" style="padding:0px;">
-                <a href="javascript:void(0)" class="bg-999">
-                    <i class="fa fa-cog"></i>
+                <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
+                    <img src="{{ asset('icons/admin.svg') }}" width="25" />
                     <span>ADMINISTRA&Ccedil;&Atilde;O</span>
                 </a>
 
@@ -40,7 +38,7 @@
             </li>
 
             <li class="header" style="padding:0px;">
-                <a href="javascript:void(0)" class="bg-999">
+                <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
                     <i class="fa fa-cog"></i>
                     PARAMETRIZA&Ccedil;&Atilde;O
                 </a>
@@ -75,8 +73,9 @@
               is_granted(expression('"ADMINISTRATION_COMPLAINT_NC" in user.getRoles()'))
         %}
             <li class="header tree-view" style="padding:0px;">
-                <a href="javascript:void(0)" class="bg-999">
-                    <i class="fa fa-cog"></i>
+                <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
+                    {# <i class="fa fa-cog"></i> #}
+                    <img src="{{ asset('icons/complaint.svg') }}" width="25" />
                     GEST&Atilde;O DE QUEIXAS/DEN&Uacute;NCIAS
                 </a>
 
@@ -139,7 +138,9 @@
                           is_granted(expression('"ADMINISTRATION_COMPLAINT_SC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Complaint_bystate', {'state' : 'sem_competencia'})  }}">
-                            <i class="fa fa-circle-o text-gray"></i> <span>Competência de terceiros</span></a>
+                            <i class="fa fa-circle-o text-gray"></i> 
+                            <img src="" />
+                            <span>Competência de terceiros</span></a>
                         </li>
                     {% endif %}
 
@@ -167,9 +168,9 @@
               is_granted(expression('"ADMINISTRATION_SUGESTION_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
-                <a href="#" class="bg-999">
-                    <i class="fa fa-cog"></i>
-                    GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES EXTERNAS/SUGESTAO
+                <a href="#" class="bg-norm" style="font-weight: bold">
+                    <img src="{{ asset('icons/exreclamation.svg') }}" width="25" />
+                    GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES EXTERNAS
                 </a>
 
                 <ul class="treeview-menu" style="">
@@ -262,8 +263,8 @@
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
-                <a href="javascript:void(0)" class="bg-999">
-                    <i class="fa fa-cog"></i>
+                <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
+                    <img src="{{ asset('icons/ireclamation.svg') }}" width="25" />
                     GEST&Atilde;O DE RECLAMA&Ccedil;&Atilde;O INTERNA
                 </a>
 
@@ -349,8 +350,8 @@
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
-                <a href="javascript:void(0)" class="bg-999" style="text-transform: uppercase"> {# lazy #}
-                    <i class="fa fa-cog"></i>
+                <a href="javascript:void(0)" class="bg-norm" style="text-transform: uppercase;font-weight: bold"> {# lazy #}
+                    <img src="{{ asset('icons/compbook.svg') }}" width="25" />
                     Livro de reclama&ccedil;&otilde;es
                 </a>
 
@@ -398,9 +399,9 @@
         {% if is_granted('ROLE_ADMIN') or 
               is_granted(expression('"BACKEND_ADMINISTRATION_STATS" in user.getRoles()')) %}
             <li class="header" style="padding:0px;">
-                <a href="{{ path('backend_administration_stats') }}" class="bg-999">
-                    <i class="fa fa-cog"></i>
-                    ESTAT&Iacute;STICA                
+                <a href="{{ path('backend_administration_stats') }}" style="font-weight: bold" class="bg-norm">
+                    <img src="{{ asset('icons/statistics.svg') }}" width="25" />
+                    ESTAT&Iacute;STICA
                 </a>
             </li>
         {% endif %}
@@ -409,7 +410,7 @@
         {# {% if is_granted('ROLE_ADMIN') or 
               is_granted(expression('"ADMINISTRATION_CORRECTION" in user.getRoles()')) %}
             <li class="header" style="padding:0px;">
-                <a href="{{ path('administration_Correction') }}" class="bg-999">
+                <a href="{{ path('administration_Correction') }}" class="bg-norm">
                     <i class="fa fa-cog"></i>
                     <span>NÃO CONFORMIDADES</span>
                 </a>
