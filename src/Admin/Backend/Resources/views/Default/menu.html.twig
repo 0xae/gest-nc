@@ -12,7 +12,7 @@
         </li>
 
         {#  Administracao / Parametrizacao #}
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') or is_granted(expression('"BACKEND_ADMINISTRATION_MAIN" in user.getRoles()'))  %}
             <li class="header" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
                     <img src="{{ asset('icons/admin.svg') }}" width="25" />
@@ -25,20 +25,13 @@
                         <i class="fa fa-circle-o text-gray"></i>
                         <span>Gest&atilde;o de Acesso</span></a>
                     </li>
-                    {# <li>
-                        <a href="{{ path('administration_Module') }}">
-                        <i class="fa fa-circle-o text-gray"></i>
-                        <span>M&oacute;dulos</span></a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('administration_Location') }}">
-                        <i class="fa fa-circle-o text-gray"></i>
-                        <span>Morada/Localidade</span></a>
-                    </li> #}
                 </ul>
             </li>
+        {% endif %}
 
+        {% if is_granted('ROLE_ADMIN') 
+            or is_granted(expression('"ADMINISTRATION_ENTITIES" in user.getRoles()'))
+            or is_granted(expression('"ADMINISTRATION_DOCUMENT" in user.getRoles()'))  %}
             <li class="header" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
                     <img src="{{ asset('icons/param.svg') }}" width="25" />
@@ -46,18 +39,25 @@
                 </a>
 
                 <ul class="treeview-menu" style="display: none">
+                    {% if is_granted('ROLE_ADMIN') 
+                        or is_granted(expression('"ADMINISTRATION_ENTITIES" in user.getRoles()')) 
+                    %}
+                        <li>
+                            <a href="{{ path('administration_entities') }}">
+                            <i class="fa fa-circle-o text-gray"></i>
+                            <span>Departamentos</span></a>
+                        </li>
+                    {% endif %}
 
-                    <li>
-                        <a href="{{ path('administration_entities') }}">
-                        <i class="fa fa-circle-o text-gray"></i>
-                        <span>Departamentos</span></a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('administration_Document') }}">
-                        <i class="fa fa-circle-o text-gray"></i>
-                        <span>Anexos</span></a>
-                    </li>
+                    {% if is_granted('ROLE_ADMIN') 
+                        or is_granted(expression('"ADMINISTRATION_DOCUMENT" in user.getRoles()')) 
+                    %}
+                        <li>
+                            <a href="{{ path('administration_Document') }}">
+                            <i class="fa fa-circle-o text-gray"></i>
+                            <span>Anexos</span></a>
+                        </li>
+                    {% endif %}
                 </ul>
             </li>
         {% endif %}
@@ -348,6 +348,7 @@
               is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_ACOMP" in user.getRoles()')) or
+              is_granted(expression('"ADMINISTRATION_COMPBOOK_RESP" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()'))
         %}
             <li class="header" style="padding:0px;">
@@ -379,7 +380,7 @@
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()')) %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'respondido'}) }}">
                             <i class="fa fa-circle-o text-gray"></i> <span>Arquivo de respostas</span></a>

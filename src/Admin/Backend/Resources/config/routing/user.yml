@@ -19,6 +19,10 @@ administration_user_edit:
     path:     /{id}/edit
     defaults: { _controller: "BackendBundle:User:edit" }
 
+# administration_user_changePassword:
+#     path:     /changePassword
+#     defaults: { _controller: "BackendBundle:User:changePassword" }
+
 administration_user_update:
     path:     /{id}/update
     defaults: { _controller: "BackendBundle:User:update" }

@@ -94,6 +94,10 @@ backend_administration_add_permission:
     path:  /administration/add_permission
     defaults:  { _controller: BackendBundle:Admin:addPermission }
 
+backend_administration_permission_map:
+    path:  /administration/permission_map
+    defaults:  { _controller: BackendBundle:Admin:permissionMap }
+
 backend_administration_remove_permission:
     path:  /administration/remove_permission/{id}
     defaults:  { _controller: BackendBundle:Admin:removePermission }

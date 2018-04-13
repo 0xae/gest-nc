@@ -67,9 +67,7 @@ class AdminController extends Controller {
     public function permissionsOfAction($id) {
         $em = $this->getDoctrine()->getManager();
         $results = $em->getRepository('BackendBundle:ProfilePermission')
-        ->findBy(array(
-            'profile' => $id
-        ));
+        ->findBy(array('profile' => $id));
 
         $ary = [];
         foreach ($results as $val) {
@@ -162,6 +160,10 @@ class AdminController extends Controller {
         }
 
         return new JsonResponse($resp);
+    }
+
+    public function permissionMapAction() {
+        return new JsonResponse(Settings::getPermissions());
     }
 
    /**

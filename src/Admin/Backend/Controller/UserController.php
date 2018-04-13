@@ -5,6 +5,7 @@ namespace Admin\Backend\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
@@ -84,14 +85,14 @@ class UserController extends Controller {
 
         return $this->render('BackendBundle:User:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     private function alreadyExists($field, $value) {        
         $em = $this->getDoctrine()->getManager();        
         $resp = $em->getRepository('BackendBundle:User')
-                ->findBy([$field=>$value]);
+            ->findBy([$field=>$value]);
         return $resp;
     }
 
@@ -159,12 +160,29 @@ class UserController extends Controller {
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         $photo = false;
-
         $fotos = $em->getRepository('BackendBundle:Upload')
-                    ->findBy(['reference' => 'user_'.$entity->getId()]);
-        
+            ->findBy(['reference' => 'user_'.$entity->getId()]);
+
+        $changePassword = $this->container->get('fos_user.change_password.form');
+
         foreach ($fotos as $f) {
             $photo = $f->getFilename();
+        }
+
+        $user = $this->getUser();
+        // if (!is_object($user) || !$user instanceof UserInterface) {
+        //     throw new AccessDeniedException('This user does not have access to this section.');
+        // }
+        $form = $this->container->get('fos_user.change_password.form');
+        $formHandler = $this->container->get('fos_user.change_password.form.handler');
+        $process = $formHandler->process($user);
+        $tab='';
+        $flashMsg='';
+
+        if ($process) {
+            $flashMsg = 'Password actualizado com sucesso';
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $tab='tab4';
         }
 
         return $this->render('BackendBundle:User:edit.html.twig', array(
@@ -172,7 +190,11 @@ class UserController extends Controller {
             'edit_form'  => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'photo_form' => $this->uploadForm($entity),
-            'user_photo' => $photo
+            'user_photo' => $photo,
+            'user_id' => $user->getId(),
+            'change_password_form' => $changePassword->createView(),
+            'tab' => $tab,
+            'flashMsg' => $flashMsg
         ));
     }
 

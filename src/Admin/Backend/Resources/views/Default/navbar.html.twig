@@ -9,10 +9,10 @@
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-lg pull-left">
         {% image '@BackendBundle/Resources/public/img/arfa.jpg' %}
-            <img src="{{ asset_url }}" 
-                 class="user-image" 
-                 alt="User Image!" 
-                 width="100" 
+            <img src="{{ asset_url }}"
+                 class="user-image"
+                 alt="User Image!"
+                 width="100"
             />
         {% endimage %}
     </span>
@@ -82,8 +82,8 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <a class="btn btn-success btn-block" 
-                                                style="background-color: #fff;color:#00a65a;margin-top: 10px" href="{{ path('administration_user_edit', {'id' : app.user.id}) }}">
+                                            <a class="btn btn-success btn-success-inverted btn-block" 
+                                                href="{{ path('administration_user_edit', {'id' : app.user.id}) }}">
                                                 <img src="{{ asset('icons/account.svg') }}" class="pull-left" width="20" />
                                                 Minha Conta
                                             </a>

@@ -61,3 +61,14 @@ div.permission-block select {
     min-height: 280px;
     background-color: aliceblue;
 }
+
+.btn-success-inverted {
+    background-color: #fff;
+    color: #00a65a;
+    margin-top: 10px;
+}
+
+.btn-success-inverted:hover {
+    background-color: #00a65a;
+    color: #fff;
+}

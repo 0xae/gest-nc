@@ -2,15 +2,8 @@ angular.module("app")
 .controller("AdminController", ['$scope', '$http', '$q', function ($scope, $http, $q) {
     var url = new URL(location.href);
     var tab=url.searchParams.get('tab');
+    var permissionMap=null;
     $scope.permissions = [];
-
-    function fetchPermissions (profileId) { 
-        return $http.get('/arfa/web/app_dev.php/administration/permissions_of/' + profileId)
-        .then(function (_resp) {
-            var resp=_resp.data;
-            return resp;
-        });
-    }
 
     if (tab) { 
         $('#adminTab a[href="#'+tab+'"]').tab('show');  
@@ -18,14 +11,39 @@ angular.module("app")
 
     $scope.profileChanged = function(id) {
         $scope.profileId = id;
-        $scope.permissions = [];
         $scope.isLoading = true;
+        $scope.profilePermissions = [];
 
         fetchPermissions(id)
-        .then(function (data){
-            console.info("profile permissions are: ", data);
-            $scope.profilePermissions = data;
-            $scope.isLoading = false;            
+        .then(function (rawPermissions){
+            fetchPermissionsMap()
+            .then(function (map){
+                // $scope.profilePermissions = data;
+                var data = {};
+                var keys=Object.keys(map);
+
+                console.info("map: ", map);
+                console.info("rawPermissions: ", rawPermissions);
+
+                rawPermissions.forEach(function (p){
+                    // get group entry which this permission belongs to
+                    var entry = getEntryWith(keys, map, function (v){ 
+                        return v.code.toLowerCase() === p.permission.toLowerCase();
+                    });
+
+                    // create cache if it doenst exists
+                    if (!data[entry.k]) {
+                        data[entry.k]=[];                        
+                    }
+
+                    // update it
+                    data[entry.k].push(p);
+                });
+
+                console.info(data);
+                $scope.profilePermissions = data;
+                $scope.isLoading = false;
+            });
         }, function () {
             $scope.isLoading = true;            
         });
@@ -34,10 +52,9 @@ angular.module("app")
     $scope.assocPermissions = function () {
         var profileId=$scope.profileId;
         var queue = $("#permissionsToAdd").val()
-            .map(function (permission){
-                return addPermissionPromise(profileId, permission);
-            });
-        
+        .map(function (permission){
+            return addPermissionPromise(profileId, permission);
+        });
 
         $scope.isLoading = true;
 
@@ -52,7 +69,6 @@ angular.module("app")
             $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
         });
     }
-
 
     $scope.removeAssocPermissions = function() {
         if (!confirm("Deseja mesmo remover as permissões selecionadas?")) {
@@ -81,6 +97,44 @@ angular.module("app")
             '&permission_label=' + permissionLabel);
     }
 
+    function fetchPermissions (profileId) { 
+        return $http.get('/arfa/web/app_dev.php/administration/permissions_of/' + profileId)
+        .then(function (_resp) {
+            var resp=_resp.data;
+            return resp;
+        });
+    }
+
+    function fetchPermissionsMap() {
+        var defer = $q.defer();
+        if (permissionMap == null) {
+            $http.get('/arfa/web/app_dev.php/administration/permission_map')
+            .then(function (_resp) {
+                permissionMap=_resp.data;
+                defer.resolve(_resp.data);
+            }, defer.reject);
+        } else {
+            defer.resolve(permissionMap);
+        }
+        return defer.promise;
+    }
+
+    function getEntryWith(keys, values, fn) {
+        var value=null, found=false;    
+        keys.forEach(function (k){
+            var v=values[k];
+            v.forEach(function (v1){
+                if (fn(v1)) {
+                    value={k:k, v:v1};
+                    found=true;
+                    return;
+                }
+            });
+
+            if (found) return;
+        });
+        return value;
+    }
 }])
 
 .controller('UploadController', ['$http', '$scope', function ($http, $scope) {

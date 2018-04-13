@@ -28,7 +28,6 @@
                         {{entity.email}}
                     </div>
                 </div>
-
             </div>
             <!-- /.box-header -->
 
@@ -47,6 +46,13 @@
                                 <span>Adicionar Foto</span>
                             </a>
                         </li>
+
+                        <li role="presentation">
+                            <a href="#tab4" aria-controls="home" role="tab" data-toggle="tab">
+                                <span>Mudar password</span>
+                            </a>
+                        </li>
+
                         {# <li role="presentation">
                             <a href="#tab3" aria-controls="home" role="tab" data-toggle="tab">
                                 <span>Permiss&otilde;es</span>
@@ -71,6 +77,10 @@
                                 {% endfor %}
                             </ul>
                         </div>
+
+                        <div role="tabpanel" class="tab-pane" id="tab4">
+                            {{ include('BackendBundle:User:changePassword.html.twig', {'form' : change_password_form}) }}
+                        </div>
                     </div>
                 </div>
 
@@ -84,3 +94,21 @@
 
 {% endblock %}
 
+{% block jsCode %}
+<script>
+    $(document).ready(function () {
+        var flashMsg='{{flashMsg}}';
+        var tab='{{tab}}';
+        if (flashMsg) {
+            $.notify(flashMsg,  "success");
+        }
+
+        console.info('tab: ', tab);
+        console.info('flashMsg: ', flashMsg);
+
+        if (tab) {
+            $('a[href="#'+tab+'"]').tab('show');
+        }
+    });
+</script>
+{% endblock %}

@@ -17,9 +17,11 @@
         <label>Associa&ccedil;&atilde;o</label>
         <select class="form-control" multiple id="permissionsAssoc">
             <option ng-if="isLoading">Carregando...</option>
-            <option ng-repeat="p in profilePermissions" value="{{'{{p.id}}'}}">
-                {{ '{{p.permissionLabel}}' }}
-            </option>
+            <optgroup label="{{ '{{gLabel}}' }}" ng-repeat="(gLabel,gValue) in profilePermissions">
+                <option ng-repeat="p in gValue" value="{{'{{p.id}}'}}">
+                    {{ '{{p.permissionLabel}}' }}
+                </option>
+            </optgroup>
         </select>
     </div>
 </div>
@@ -28,10 +30,14 @@
     <div class="form-group">
         <label>Selecionar permiss&atilde;o</label>
         <select class="form-control" multiple id="permissionsToAdd">
-            {% for p in permissions %}
-                <option id="perm-{{p['code']}}" 
-                        data-label="{{p['label']}}" 
-                        value="{{p['code']}}">{{p['label']}}</option>
+            {% for pg,pv in permissions %}
+                <optgroup label="{{pg}}">
+                    {% for p in pv %}
+                        <option id="perm-{{p['code']}}" 
+                            data-label="{{p['label']}}" 
+                            value="{{p['code']}}">{{p['label']}}</option>
+                    {% endfor %}
+                </optgroup>
             {% endfor %}
         </select>
     </div>
