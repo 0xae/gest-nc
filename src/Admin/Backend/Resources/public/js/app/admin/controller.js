@@ -22,25 +22,19 @@ angular.module("app")
                 var data = {};
                 var keys=Object.keys(map);
 
-                console.info("map: ", map);
-                console.info("rawPermissions: ", rawPermissions);
-
                 rawPermissions.forEach(function (p){
                     // get group entry which this permission belongs to
                     var entry = getEntryWith(keys, map, function (v){ 
                         return v.code.toLowerCase() === p.permission.toLowerCase();
                     });
-
                     // create cache if it doenst exists
                     if (!data[entry.k]) {
                         data[entry.k]=[];                        
                     }
-
                     // update it
                     data[entry.k].push(p);
                 });
 
-                console.info(data);
                 $scope.profilePermissions = data;
                 $scope.isLoading = false;
             });
