@@ -66,15 +66,9 @@ class User extends BaseUser {
      */
      private $createdBy;
 
-         /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="is_active", referencedColumnName="id", nullable=true)
-     * })
-     * 
-     */
+    /**
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+    */
     private $isActive;
 
     /**
