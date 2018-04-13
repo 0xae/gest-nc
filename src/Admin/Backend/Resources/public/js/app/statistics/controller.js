@@ -220,7 +220,7 @@ function ($scope, Statistics) {
             var months = [
                 'Janeiro',
                 'Fevereiro',
-                'Marco',
+                'Março',
                 'Abril',
                 'Maio',
                 'Junho',
