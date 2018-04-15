@@ -3,29 +3,29 @@
 {% block content -%}
 
 <style>
-    body {
-        background: url("{{ asset('BG-2.png') }}") !important;
-        background-size: cover;
-        background-clip: padding-box;
-    }
-    .content-wrapper {
-        background: transparent;
-    }
-    .ibox {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        border-radius: 0px;
-    }
+body {
+    background: url("{{ asset('BG-2.png') }}") !important;
+    background-size: cover;
+    background-clip: padding-box;
+}
+.content-wrapper {
+    background: transparent;
+}
+.ibox {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 0px;
+}
 </style>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12" style="margin-bottom: 20px;">
+        <div class="col-md-12" style="margin-bottom: 14px;">
             <h4>Resultados da sua pesquisa:<br/>
             <small>100 resultados</small></h4>
             <br/>
         </div>
 
-        <div class="col-md-12">
+        {# <div class="col-md-12">
             <div class="box ibox">
                 <div class="box-header">
                     <h2 class="box-title">Doc B1 - Queixa ABC sobre...</h2>
@@ -44,7 +44,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> #}
 
         <div class="col-md-12">
             <div class="box ibox">
@@ -52,9 +52,11 @@
                     <h2 class="box-title">
                         Doc B1 - Queixa ABC sobre...
                     </h2>
-                    <span class="pull-right" style="color: #444">
+                    <span class="pull-right" style="color: #666">
                         <img src="{{ asset('icons/calendar-green.svg') }}" width="25" />
-                        <strong>19/03/2018</strong>
+                        <span style="padding-top:5px">
+                            <strong>19/03/2018</strong>
+                        </span>
                     </span>
                     <br/>
                     <span class="label label-default">
