@@ -27,6 +27,40 @@ class Stage {
     const DECISION='decision';
     const CONCLUDED='concluded';
 
+    public static function format($state) {
+        if ($state == self::ACOMPANHAMENTO) {
+            return 'Acompanhamento';
+        } else if ($state == self::TRATAMENTO) {
+            return 'Tratamento';
+        } else if ($state == self::ACEITADO) {
+            return 'Aceite';
+        } else if ($state == self::REJEITADO) {
+            return 'Rejeitado';
+        } else if ($state == self::RESPONDIDO) {
+            return 'Respondido';
+        } else if ($state == self::SEM_RESPOSTA) {
+            return 'Sem resposta';
+        } else if ($state == self::FAVORABLE) {
+            return 'Favoravel';
+        } else if ($state == self::NO_FAVORABLE) {
+            return 'Não favoravel';           
+        } else if ($state == self::NO_COMP) {
+            return 'Competência de terceiros';            
+        } else if ($state == self::NO_CONFOR) {            
+            return 'Não Conformidades';
+        } else if ($state == self::ANALYSIS) {
+            return 'Análise';
+        } else if ($state == self::ACTION) {
+            return 'Ação';
+        } else if ($state == self::DECISION) {
+            return 'Decisão';
+        } else if ($state == self::CONCLUDED) {
+            return 'Concluida';
+        } else {
+            return $state;
+        }
+    }
+
     /**
      * @var integer
      *

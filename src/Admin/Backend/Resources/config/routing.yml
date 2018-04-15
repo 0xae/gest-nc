@@ -98,6 +98,10 @@ backend_administration_permission_map:
     path:  /administration/permission_map
     defaults:  { _controller: BackendBundle:Admin:permissionMap }
 
+backend_administration_search:
+    path:  /administration/search
+    defaults:  { _controller: BackendBundle:Admin:search }
+
 backend_administration_remove_permission:
     path:  /administration/remove_permission/{id}
     defaults:  { _controller: BackendBundle:Admin:removePermission }

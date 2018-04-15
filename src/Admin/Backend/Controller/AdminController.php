@@ -25,7 +25,7 @@ class AdminController extends Controller {
 
         $users = $this->paginate($em, User::class, 'page_user');
         $profiles = $this->paginate($em, Profile::class, 'page_profile');
-              
+
         $assocProfile = $this->createAssocProfileForm();
         $permissions = Settings::getPermissions();
 
@@ -37,7 +37,6 @@ class AdminController extends Controller {
         return $this->render('BackendBundle:Admin:index.html.twig', array(
             'user_list' => $users->getResult(),
             'profile_list' => $profiles->getResult(),
-
             'user_form' => $userForm->createView(),            
             'profile_form' => $profileForm->createView(),            
             'assoc_profile_form' => $assocProfile->createView(),
@@ -46,17 +45,11 @@ class AdminController extends Controller {
         ));
     }
 
-    private function paginate($em, $class, $pageParam) {
-        $pageIdx = !array_key_exists($pageParam, $_GET) ? 1 : $_GET[$pageParam];
-        $perPage = Settings::PER_PAGE;
-
-        $q = $this->container
-            ->get('sga.admin.filter')
-            ->from($em, $class, Settings::LIMIT, 0);
-        // $fanta = $this->container
-        //     ->get('sga.admin.table.pagination')
-        //     ->fromQuery($q, $perPage, $pageIdx);
-        return $q;
+    public function searchAction() {
+        $query = @$_GET['q'];
+        return $this->render('BackendBundle:Admin:search.html.twig', array(
+            'q' => $query
+        ));
     }
 
    /**
@@ -210,5 +203,17 @@ class AdminController extends Controller {
         ));
         return $form;
     }
-}
 
+    private function paginate($em, $class, $pageParam) {
+        $pageIdx = !array_key_exists($pageParam, $_GET) ? 1 : $_GET[$pageParam];
+        $perPage = Settings::PER_PAGE;
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, $class, Settings::LIMIT, 0);
+        // $fanta = $this->container
+        //     ->get('sga.admin.table.pagination')
+        //     ->fromQuery($q, $perPage, $pageIdx);
+        return $q;
+    }
+}

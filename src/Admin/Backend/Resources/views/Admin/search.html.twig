@@ -1,0 +1,91 @@
+{% extends 'BackendBundle:Default:layout.html.twig' %}
+
+{% block content -%}
+
+<style>
+    body {
+        background: url("{{ asset('BG-2.png') }}") !important;
+        background-size: cover;
+        background-clip: padding-box;
+    }
+    .content-wrapper {
+        background: transparent;
+    }
+    .ibox {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border-radius: 0px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="margin-bottom: 20px;">
+            <h4>Resultados da sua pesquisa:<br/>
+            <small>100 resultados</small></h4>
+            <br/>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box ibox">
+                <div class="box-header">
+                    <h2 class="box-title">Doc B1 - Queixa ABC sobre...</h2>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        Align nav links, forms, buttons, or text, using the .navbar-left or .navbar-right 
+                        utility classes. Both classes will add a CSS float in the specified direction. 
+                        For example, to align nav links, put them in a separate 
+                        with the respective utility class applied.
+                    </blockquote>
+
+                    <a href="#" class="btn btn-success pull-right btn-flat">
+                        <strong>Ver Ficheiro</strong>
+                        <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box ibox">
+                <div class="box-header">
+                    <h2 class="box-title">
+                        Doc B1 - Queixa ABC sobre...
+                    </h2>
+                    <span class="pull-right" style="color: #444">
+                        <img src="{{ asset('icons/calendar-green.svg') }}" width="25" />
+                        <strong>19/03/2018</strong>
+                    </span>
+                    <br/>
+                    <span class="label label-default">
+                        {{ 'Acompanhamento' | status }}
+                    </span>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        Align nav links, forms, buttons, or text, using the .navbar-left or .navbar-right 
+                        utility classes. Both classes will add a CSS float in the specified direction. 
+                        For example, to align nav links, put them in a separate 
+                        with the respective utility class applied.
+                    </blockquote>
+
+
+                    <a href="#" class="btn btn-success btn-sm pull-right btn-flat">
+                        <strong>Ver Ficheiro</strong>
+                        <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsCode %}
+<script>
+$(document).ready(function (){
+});
+</script>
+{% endblock %}
