@@ -27,7 +27,10 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Queixa</a>
+                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                            <span ng-if="entity.type == 'queixa'">Queixa</span>
+                            <span ng-if="entity.type == 'denuncia'">Den&uacute;ncia</span>
+                        </a>
                     </li>
                     <li role="presentation" ng-if="entity.parAuthorName">
                         <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
