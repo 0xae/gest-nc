@@ -45,8 +45,9 @@
                 <ul class="nav navbar-nav">
                     <li ng-class="{'active-search': searchMode, 'user user-menu': true}" style="border-left: 1px solid #ddd;height:55px">
                         <a href="#" ng-class="{'active-search': searchMode}" style="font-size:14px;border-left:0px;"
-                           ng-click="searchMode = !searchMode">
-                            <img class="user-image" src="{{ asset('icons/search.svg') }}"  />
+                           ng-click="searchMode = !searchMode">                            
+                            <img class="user-image" ng-if="!searchMode" src="{{ asset('icons/search.svg') }}"  />
+                            <img class="user-image" ng-if="searchMode" src="{{ asset('icons/search-white.svg') }}"  />
                         </a>
                     </li>
 
