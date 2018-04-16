@@ -93,7 +93,7 @@ class Filter {
                     :codeType,
                     '/',
                     (select codigo from app_entity where 
-                    id=(select entity from user where id=created_by)),
+                    id=(select entity from user where id=created_by limit 1)),
                     '/',
                     year(created_at)
                 ) as code_label,
