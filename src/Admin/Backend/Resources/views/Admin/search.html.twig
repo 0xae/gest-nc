@@ -19,9 +19,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12" style="margin-bottom: 14px;">
-            <h4>Resultados da sua pesquisa:<br/>
-            {# <small>{{results|length}} resultados</small> #}
-            </h4>
+            {% if (results|length) == 0 %}
+                <h4 style="text-align:center">
+                    N&atilde;o foi encontrado nenhum resultado para a pesquisa '{{q}}'<br/>
+                    <small>Queira redefinir a sua pesquisa</small>
+                </h4>
+            {% else %}
+                <h4>Resultados da sua pesquisa</h4>
+            {% endif %}
             <br/>
         </div>
 
@@ -46,7 +51,7 @@
                         </span>
                     </div>
                     <div class="box-body">
-                        <blockquote>
+                        <blockquote style="border-left: 0px;">
                         {% if res.code_type in ['SG', 'RE'] %}
                             {{res.description}}
                         {% elseif res.code_type in ['QX', 'DN'] %}
@@ -83,7 +88,6 @@
                                 <img src="{{ asset('icons/view-white.svg') }}" width="25" />
                             </a>
                         {% endif %}
-
                     </div>
                 </div>
             {% endfor %}

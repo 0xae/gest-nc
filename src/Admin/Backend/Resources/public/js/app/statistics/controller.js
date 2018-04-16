@@ -40,7 +40,6 @@ function ($scope, Statistics) {
         startDate: startMonth,
         endDate: endMonth
     }, function(start, end, label) {
-        console.info("A new date range was chosen: " +  + ' to ' + end.format('YYYY-MM-DD'));
         var startFmt = start.format('YYYY-MM-DD') + " 00:00:00";
         var endFmt = end.format('YYYY-MM-DD') + " 23:59:59";
         var yearFmt = start.format('YYYY');
@@ -231,9 +230,6 @@ function ($scope, Statistics) {
                 'Novembro',
                 'Dezembro'
             ];
-
-            console.info("months: ", months);            
-            console.info("series: ", series);
 
             Statistics.renderBar('Ocorrência por mês',
                 'Ocorrencias',

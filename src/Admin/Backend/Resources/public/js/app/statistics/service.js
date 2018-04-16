@@ -150,7 +150,7 @@ angular.module("app")
 
     function produceArray(rows, type) {
         var categories = Object.keys(rows);
-        return categories.map(function (c) {
+        var res=categories.map(function (c) {
             return rows[c].filter(function (t) {
                 return t.type == type;
             })
@@ -158,6 +158,8 @@ angular.module("app")
                 return parseInt(t.count);
             });
         });
+
+        return res;
     }
 
     function produceYearArray(rows, type){
@@ -177,6 +179,14 @@ angular.module("app")
                 ary.push(0);
             }
         });
+
+        if (ary.length > 12) {
+            console.warn("[BUG] length is not correct");
+            console.warn("[BUG] ary ", ary);
+            console.warn("[BUG] keys ", keys);
+            ary.pop();
+        }
+
         return ary;
     }
 
