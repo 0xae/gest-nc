@@ -122,7 +122,7 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="fact_detail", type="string", length=250, nullable=false)
+     * @ORM\Column(name="fact_detail", type="text", nullable=false)
      */
     private $factDetail; 
 

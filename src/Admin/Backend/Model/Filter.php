@@ -28,17 +28,20 @@ class Filter {
         return $q->getQuery();
     }
 
-    public function ByCode($em, $model, $code) {
+    public function ByCode($em, $code) {
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
         $perPage = 5;
         $codeName='';
 
-        if ($model == '') {
-        }
-
-        $q = $this->container
-            ->get('sga.admin.filter')
-            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['code' => $code]);
+        $ary1 = $this->fetchByCode($em, 'sugestion', $code, 'SG');
+        $ary2 = $this->fetchByCode($em, 'sugestion', $code, 'RE');
+        $ary3 = $this->fetchByCode($em, 'complaint', $code, 'QX');
+        $ary4 = $this->fetchByCode($em, 'complaint', $code, 'DN');
+        $ary5 = $this->fetchByCode($em, 'comp_book', $code, 'LR');
+        $ary5 = $this->fetchByCode($em, 'reclamation_internal', $code, 'RI');
+        
+        $ary = array_merge($ary1, $ary2, $ary3, $ary4, $ary5);
+        return $ary;
     }
 
     public function ByState($em, $model, $state) {
@@ -66,10 +69,12 @@ class Filter {
         $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
         $perPage = Settings::PER_PAGE;
 
-        $q = $this->container
-            ->get('sga.admin.filter')
-            // ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['state' => $state]);
-            ->from($em, 'BackendBundle:'.$model, Settings::LIMIT, 0, ['state' => $state]);
+        $q = $this->from($em, 
+            'BackendBundle:'.$model, 
+            Settings::LIMIT, 
+            0, 
+            ['state' => $state]
+        );
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
@@ -78,4 +83,31 @@ class Filter {
         $entities = $q->getResult();
         return [$entities, $fanta];
     }
+
+    private function fetchByCode($em, $model, $codeParam, $codeType) {
+        $sql = "
+            select * from (
+                select *, concat(
+                    lpad(id, '3', '0'),
+                    '/',
+                    :codeType,
+                    '/',
+                    (select codigo from app_entity where 
+                    id=(select entity from user where id=created_by)),
+                    '/',
+                    year(created_at)
+                ) as code_label,
+                :codeType as code_type
+            from $model) s1
+            where code_label like concat('%',trim(:code),'%')
+            limit 3
+        ";
+        $params=[
+            'code'=>$codeParam, 
+            'codeType'=>$codeType
+        ];
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
 }

@@ -20,39 +20,73 @@
     <div class="row">
         <div class="col-md-12" style="margin-bottom: 14px;">
             <h4>Resultados da sua pesquisa:<br/>
-            <small>100 resultados</small></h4>
+            {# <small>{{results|length}} resultados</small> #}
+            </h4>
             <br/>
         </div>
 
         <div class="col-md-12">
-            <div class="box ibox">
-                <div class="box-header">
-                    <h2 class="box-title">
-                        Doc B1 - Queixa ABC sobre...
-                    </h2>
-                    <span class="pull-right" style="color: #666">
-                        <img src="{{ asset('icons/calendar-green.svg') }}" width="25" />
-                        <span style="padding-top:5px">
-                            <strong>19/03/2018</strong>
+            {% for res in results %}
+                <div class="box ibox">
+                    <div class="box-header">
+                        <a href="#">
+                            <h2 class="box-title">
+                                #{{res.code_label}}
+                            </h2>
+                        </a>
+                        <span class="pull-right" style="color: #666">
+                            <img src="{{ asset('icons/calendar-green.svg') }}" width="25" />
+                            <span style="padding-top:5px">
+                                <strong>{{res.created_at|date('d/m/Y')}}</strong>
+                            </span>
                         </span>
-                    </span>
-                    <br/>
-                    <span class="label label-default">
-                        {{ 'Acompanhamento' | status }}
-                    </span>
-                </div>
-                <div class="box-body">
-                    <blockquote>Align nav links, forms, buttons, or text, using the .navbar-left or .navbar-right 
-                    utility classes. Both classes will add a CSS float in the specified direction. 
-                    For example, to align nav links, put them in a separate 
-                    with the respective utility class applied.</blockquote>
+                        <br/>
+                        <span class="label label-default">
+                            {{ res.state | status }}
+                        </span>
+                    </div>
+                    <div class="box-body">
+                        <blockquote>
+                        {% if res.code_type in ['SG', 'RE'] %}
+                            {{res.description}}
+                        {% elseif res.code_type in ['QX', 'DN'] %}
+                            {{res.fact_detail}}
+                        {% elseif res.code_type == 'RI' %}
+                            {{res.fact_detail}}
+                        {% elseif res.code_type == 'LR' %}
+                            {{res.complaint}}
+                        {% endif %}
+                        </blockquote>
 
-                    <a href="#" class="btn btn-success btn-sm pull-right btn-flat">
-                        <strong>Ver Ficheiro</strong>
-                        <img src="{{ asset('icons/view-white.svg') }}" width="25" />
-                    </a>
+                        {% if res.code_type in ['SG', 'RE'] %}
+                            <a href="{{ path('administration_Sugestion_edit', { 'id': res.id }) }}"
+                                class="btn btn-success btn-sm pull-right btn-flat">
+                                <strong>Ver Ficheiro</strong>
+                                <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                            </a>
+                        {% elseif res.code_type in ['QX', 'DN'] %}
+                            <a href="{{ path('administration_Complaint_edit', { 'id': res.id }) }}"
+                                class="btn btn-success btn-sm pull-right btn-flat">
+                                <strong>Ver Ficheiro</strong>
+                                <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                            </a>
+                        {% elseif res.code_type == 'RI' %}
+                            <a href="{{ path('administration_IReclamation_edit', { 'id': res.id }) }}"
+                                class="btn btn-success btn-sm pull-right btn-flat">
+                                <strong>Ver Ficheiro</strong>
+                                <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                            </a>
+                        {% elseif res.code_type == 'LR' %}
+                            <a href="{{ path('administration_CompBook_edit', { 'id': res.id }) }}"
+                                class="btn btn-success btn-sm pull-right btn-flat">
+                                <strong>Ver Ficheiro</strong>
+                                <img src="{{ asset('icons/view-white.svg') }}" width="25" />
+                            </a>
+                        {% endif %}
+
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
     </div>

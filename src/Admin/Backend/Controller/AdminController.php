@@ -44,24 +44,16 @@ class AdminController extends Controller {
     }
 
     public function searchAction() {
+        $em = $this->getDoctrine()->getManager();
         $query = @$_GET['q'];
-        return $this->render('BackendBundle:Admin:search.html.twig', array(
-            'q' => $query
-        ));
-    }
-
-    private function searchFor($klass, $param) {
-        "select concat(lpad(id, '3', '0'),'/',
-                <something>, '/',
-                (select codigo from app_entity where id=(select entity from user where id=created_by)),'/',
-                year(created_at)) as code
-                from sugestion ;";
-
-        $code="select lpad(id, '3', '0');";
-
         $obj = $this->container
             ->get('sga.admin.filter')
-            ->ByState($em, $klass, $state);
+            ->ByCode($em, $query);
+
+        return $this->render('BackendBundle:Admin:search.html.twig', array(
+            'q' => $query,
+            'results' => $obj
+        ));
     }
 
    /**
