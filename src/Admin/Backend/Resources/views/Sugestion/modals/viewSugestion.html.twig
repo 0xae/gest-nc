@@ -5,7 +5,11 @@
       {# modal-header #}
       <div class="modal-header bg-arfa">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
+        <h4 class="modal-title">
+            Visualizando
+            <span ng-if="entity.type == 'reclamacao'">Reclama&ccedil;&atilde;o</span>
+            <span ng-if="entity.type == 'sugestao'">Sugestão</span>
+        </h4>
       </div>
 
       {# modal-body #}
@@ -31,7 +35,7 @@
                     <li role="presentation" class="active">
                         <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
                             <span ng-if="entity.type == 'reclamacao'">Reclama&ccedil;&atilde;o</span>
-                            <span ng-if="entity.type == 'sugestao'">Sugestao</span>
+                            <span ng-if="entity.type == 'sugestao'">Sugestão</span>
                         </a>
                     </li>
 
@@ -65,7 +69,7 @@
                         <div class="form-group">
                             <label>
                                 <span ng-if="entity.type == 'reclamacao'">Reclama&ccedil;&atilde;o</span>
-                                <span ng-if="entity.type == 'sugestao'">Sugestao</span>
+                                <span ng-if="entity.type == 'sugestao'">Sugestão</span>
                             </label>
                             <textarea 
                                 ng-model="entity.description" disabled

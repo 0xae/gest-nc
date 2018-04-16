@@ -3,7 +3,11 @@
         <div class="modal-content">
         <div class="modal-header bg-arfa">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">{{ '{{modalTitle}}' }}</h4>
+            <h4 class="modal-title">
+                Visualizando
+                <span ng-if="entity.type == 'queixa'">Queixa</span>
+                <span ng-if="entity.type == 'denuncia'">Den&uacute;ncia</span>
+            </h4>
         </div>
         <form ng-submit="respondSubmit()" name="responseForm">
         <div class="modal-body">
