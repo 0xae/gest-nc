@@ -230,18 +230,25 @@
               is_granted(expression('"ADMINISTRATION_SUGESTION_SC" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_SUGESTION_NC" in user.getRoles()'))
         %}
-            <li class="header" style="padding:0px;">
+            <li class="header tree-view {{ app.request.attributes.get("_route") == 'administration_Sugestion_new' or 
+                                 app.request.attributes.get("_route") == 'administration_Sugestion' or
+                                 app.request.attributes.get("_route") == 'administration_Sugestion_byState'
+                                ? 'active' : '' }}" style="padding:0px;">
                 <a href="#" class="bg-norm" style="font-weight: bold">
                     <img src="{{ asset('icons/exreclamation.svg') }}" width="25" />
                     GEST&Atilde;O DE RECLAMA&Ccedil;&Otilde;ES EXTERNAS
                 </a>
 
-                <ul class="treeview-menu" style="">
+                <ul class="treeview-menu active" style="">
                     {% if is_granted('ROLE_ADMIN') or 
                         is_granted(expression('"ADMINISTRATION_SUGESTION_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_new') }}">
-                            <span class="fa-circle text-gray"></span> <span>Registo</span>
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_new' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                <span>Registo</span>
                             </a>
                         </li>
                     {% endif %}
@@ -250,7 +257,11 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion') }}">
-                            <span class="fa-circle text-gray"></span> <span>Listagem</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
@@ -258,7 +269,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'acompanhamento'})  }}">
-                            <span class="fa-circle text-gray"></span> <span>Acompanhamento</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'acompanhamento' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Acompanhamento</span></a>
                         </li>
                     {% endif %}
 
@@ -266,7 +282,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_TREAT" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'tratamento'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>Tratamento</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'tratamento' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Tratamento</span></a>
                         </li>
                     {% endif %}
 
@@ -274,7 +295,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'respondido'})  }}">
-                            <span class="fa-circle text-gray"></span> <span>Arquivo de respostas</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'respondido' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Arquivo de respostas</span></a>
                         </li>
                     {% endif %}
 
@@ -282,7 +308,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_NORESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_resposta'})  }}">
-                            <span class="fa-circle text-gray"></span> <span>Arquivo sem resposta</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'sem_resposta' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            <span>Arquivo sem resposta</span></a>
                         </li>
                     {% endif %}
 
@@ -290,7 +321,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_NF" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'nao_favoravel'})  }}">
-                            <span class="fa-circle text-gray"></span> <span>Não favoraveis</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'nao_favoravel' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            <span>Não favoraveis</span></a>
                         </li>
                     {% endif %}
 
@@ -298,7 +334,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_SC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'sem_competencia'})  }}">
-                            <span class="fa-circle text-gray"></span> <span>Competência de terceiros</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'sem_competencia' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            <span>Competência de terceiros</span></a>
                         </li>
                     {% endif %}
 
@@ -306,7 +347,12 @@
                         is_granted(expression('"ADMINISTRATION_SUGESTION_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_Sugestion_byState', {'state' : 'nao_conformidade'})  }}">
-                            <span class="fa-circle text-gray"></span> N&atilde;o Conformidades</a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_Sugestion_byState' and
+                                        app.request.attributes.get("state") == 'nao_conformidade' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            N&atilde;o Conformidades</a>
                         </li>
                     {% endif %}
                 </ul>            
@@ -325,7 +371,10 @@
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACTION" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()'))
         %}
-            <li class="header" style="padding:0px;">
+            <li class="header tree-view {{ app.request.attributes.get("_route") == 'administration_IReclamation_new' or 
+                                 app.request.attributes.get("_route") == 'administration_IReclamation' or
+                                 app.request.attributes.get("_route") == 'administration_IReclamation_byState'
+                                ? 'active' : '' }}" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-norm" style="font-weight: bold">
                     <img src="{{ asset('icons/ireclamation.svg') }}" width="25" />
                     GEST&Atilde;O DE RECLAMA&Ccedil;&Atilde;O INTERNA
@@ -335,7 +384,11 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_new') }}">
-                            <span class="fa-circle text-gray"></span> <span>Registo</span>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_new' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Registo</span>
                             </a>
                         </li>
                     {% endif %}
@@ -343,14 +396,23 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation') }}">
-                            <span class="fa-circle text-gray"></span> <span>Listagem</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_IReclamation' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'acompanhamento'})  }}">
-                                <span class="fa-circle text-gray"></span> <span>Acompanhamento</span>
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                            app.request.attributes.get("state") == 'acompanhamento' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                <span>Acompanhamento</span>
                             </a>
                         </li>
                     {% endif %}
@@ -358,14 +420,25 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ANALYSIS" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'analysis'}) }}">
-                        <span class="fa-circle text-gray"></span> <span>Análise</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                        app.request.attributes.get("state") == 'analysis' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Análise</span>
+                        </a>
                     </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_DECISION" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'decision'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>Decisão</span>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                        app.request.attributes.get("state") == 'decision' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Decisão</span>
                         </a>
                     </li>
                     {% endif %}
@@ -373,7 +446,12 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_ACTION" in user.getRoles()')) %}
                     <li>
                         <a href="{{ path('administration_IReclamation_byState', {'state' : 'action'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>Ação</span>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                        app.request.attributes.get("state") == 'action' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Ação</span>
                         </a>
                     </li>
                     {% endif %}
@@ -381,7 +459,12 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'respondido'})  }}">
-                                <span class="fa-circle text-gray"></span> <span>Arquivo de resposta</span>
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                            app.request.attributes.get("state") == 'respondido' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                <span>Arquivo de resposta</span>
                             </a>
                         </li>
                     {% endif %}
@@ -389,7 +472,12 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NORESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'sem_resposta'})  }}">
-                                <span class="fa-circle text-gray"></span> <span>Arquivo sem resposta</span>
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                            app.request.attributes.get("state") == 'sem_resposta' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                <span>Arquivo sem resposta</span>
                             </a>
                         </li>
                     {% endif %}
@@ -397,7 +485,12 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_IRECLAMATION_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_IReclamation_byState', {'state' : 'nao_conformidade'})  }}">
-                                <span class="fa-circle text-gray"></span> N&atilde;o Conformidades
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_IReclamation_byState' and
+                                            app.request.attributes.get("state") == 'nao_conformidade' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                N&atilde;o Conformidades
                             </a>
                         </li>
                     {% endif %}
@@ -413,7 +506,10 @@
               is_granted(expression('"ADMINISTRATION_COMPBOOK_RESP" in user.getRoles()')) or
               is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()'))
         %}
-            <li class="header" style="padding:0px;">
+            <li class="header tree-view {{ app.request.attributes.get("_route") == 'administration_CompBook_new' or 
+                                 app.request.attributes.get("_route") == 'administration_CompBook' or
+                                 app.request.attributes.get("_route") == 'administration_CompBook_byState'
+                                ? 'active' : '' }}" style="padding:0px;">
                 <a href="javascript:void(0)" class="bg-norm" style="text-transform: uppercase;font-weight: bold"> {# lazy #}
                     <img src="{{ asset('icons/compbook.svg') }}" width="25" />
                     Livro de reclama&ccedil;&otilde;es
@@ -423,7 +519,11 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_NEW" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_new') }}">
-                            <span class="fa-circle text-gray"></span> <span>Registo</span>
+                                <svg id="meter" class="circle-html5" 
+                                    fill={{ app.request.attributes.get("_route") == 'administration_CompBook_new' ? '#00a65a' : '#ccc' }}>
+                                    <circle r="4" cx="50%" cy="50%"></circle>
+                                </svg>
+                                <span>Registo</span>
                             </a>
                         </li>
                     {% endif %}
@@ -431,28 +531,47 @@
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook') }}">
-                            <span class="fa-circle text-gray"></span> <span>Listagem</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_CompBook' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Listagem</span></a>
                         </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_ACOMP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'acompanhamento'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>Acompanhamento</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_CompBook_byState' and
+                                        app.request.attributes.get("state") == 'acompanhamento' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>
+                            <span>Acompanhamento</span></a>
                         </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_RESP" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'respondido'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>Arquivo de respostas</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_CompBook_byState' and
+                                        app.request.attributes.get("state") == 'respondido' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                            
+                            <span>Arquivo de respostas</span></a>
                         </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') or is_granted(expression('"ADMINISTRATION_COMPBOOK_NC" in user.getRoles()')) %}
                         <li>
                             <a href="{{ path('administration_CompBook_byState', {'state' : 'nao_conformidade'}) }}">
-                            <span class="fa-circle text-gray"></span> <span>N&atilde;o Conformidades</span></a>
+                            <svg id="meter" class="circle-html5" 
+                                fill={{ app.request.attributes.get("_route") == 'administration_CompBook_byState' and
+                                        app.request.attributes.get("state") == 'nao_conformidade' ? '#00a65a' : '#ccc' }}>
+                                <circle r="4" cx="50%" cy="50%"></circle>
+                            </svg>                                                        
+                            <span>N&atilde;o Conformidades</span></a>
                         </li>
                     {% endif %}
                 </ul> 
@@ -462,7 +581,7 @@
         {#  Estatistica #}
         {% if is_granted('ROLE_ADMIN') or 
               is_granted(expression('"BACKEND_ADMINISTRATION_STATS" in user.getRoles()')) %}
-            <li class="header" style="padding:0px;">
+            <li class="header {{ app.request.attributes.get("_route") == 'backend_administration_stats' ? 'active' : '' }}" style="padding:0px;">
                 <a href="{{ path('backend_administration_stats') }}" style="font-weight: bold" class="bg-norm">
                     <img src="{{ asset('icons/statistics.svg') }}" width="25" />
                     RELAT&Oacute;RIO ESTAT&Iacute;STICO
