@@ -3,6 +3,8 @@
         <label>Selecionar perfil</label>
         <select class="form-control" ng-model="profileAdd" 
                 multiple ng-change="profileChanged(profileAdd)">
+            <option ng-if="!profileId">"Selecionar"</option>
+
             {% for p in profiles %}
                 <option id="profile-{{p.id}}" 
                         ng-click="ativateProfile({{p.id}}, '{{p.name}}')"
@@ -16,6 +18,7 @@
     <div class="form-group">
         <label>Associa&ccedil;&atilde;o</label>
         <select class="form-control" multiple id="permissionsAssoc">
+            <option ng-if="!profileId">"Menu associado"</option>
             <option ng-if="isLoading">Carregando...</option>
             <optgroup label="{{ '{{gLabel}}' }}" ng-repeat="(gLabel,gValue) in profilePermissions">
                 <option ng-repeat="p in gValue" value="{{'{{p.id}}'}}">
@@ -35,7 +38,10 @@
                     {% for p in pv %}
                         <option id="perm-{{p['code']}}" 
                             data-label="{{p['label']}}" 
-                            value="{{p['code']}}">{{p['label']}}</option>
+                            value="{{p['code']}}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                {{p['label']}}
+                            </option>
                     {% endfor %}
                 </optgroup>
             {% endfor %}

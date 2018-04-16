@@ -100,7 +100,7 @@ class SugestionController extends Controller {
             // $label = 'Competência de Terceiros';
             $label = 'Competência de terceiros';            
         } else if ($state == Stage::NO_FAVORABLE) {
-            $label = 'Não favoraveis';
+            $label = 'Não favoráveis';
         } else if ($state == Stage::NO_CONFOR) {
             $label = 'Não Conformidades';
         }
