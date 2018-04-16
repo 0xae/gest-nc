@@ -99,7 +99,7 @@ class Filter {
                 ) as code_label,
                 :codeType as code_type
             from $model) s1
-            where code_label like concat('%',trim(:code),'%')
+            where concat('%',code_label,'%') like concat('%',trim(:code),'%')
             limit 3
         ";
         $params=[
