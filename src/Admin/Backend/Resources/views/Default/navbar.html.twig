@@ -43,8 +43,8 @@
         <div class="col-md-2 pull-right"> 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="user user-menu" style="border-left: 1px solid #ddd;height:55px">
-                        <a href="#" class="dropdown-toggle" style="font-size:14px;border-left:0px;"
+                    <li ng-class="{'active-search': searchMode, 'user user-menu': true}" style="border-left: 1px solid #ddd;height:55px">
+                        <a href="#" ng-class="{'active-search': searchMode}" style="font-size:14px;border-left:0px;"
                            ng-click="searchMode = !searchMode">
                             <img class="user-image" src="{{ asset('icons/search.svg') }}"  />
                         </a>
