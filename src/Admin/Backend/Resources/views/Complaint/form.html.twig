@@ -77,15 +77,15 @@
             </div>
 
             <div class="form-group" ng-init="setCategory('{{entity.complaintCategory}}')">
-                <input type="checkbox" ng-model="categoryConf.cat_sf.active" ng-disabled="categoryConf.cat_sa.active" />
+                <input type="checkbox" ng-model="categoryConf.cat_sf.active" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" />
                 <label>Setor Farmacêutico</label>
                 <div>
                     <ul class="unstyled">
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op1" ng-disabled="categoryConf.cat_sa.active" /> Biocidas</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op2" ng-disabled="categoryConf.cat_sa.active" /> Medicamentos de Uso Humano</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op3" ng-disabled="categoryConf.cat_sa.active" /> Produtos Cosméticos</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op4" ng-disabled="categoryConf.cat_sa.active" /> Produtos Químico-farmacêuticos</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op5" ng-disabled="categoryConf.cat_sa.active" /> Outros</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op1" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" /> Biocidas</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op2" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" /> Medicamentos de Uso Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op3" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" /> Produtos Cosméticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op4" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" /> Produtos Químico-farmacêuticos</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sf.op5" ng-disabled="categoryConf.cat_sa.active || {{entity.disabled}}" /> Outros</li>
                     </ul>
                 </div>
                 {{ form_widget(form.complaintCategory, {'attr': {
@@ -95,14 +95,14 @@
             </div>
 
             <div class="form-group">
-                <input type="checkbox" ng-model="categoryConf.cat_sa.active" ng-disabled="categoryConf.cat_sf.active" />
+                <input type="checkbox" ng-model="categoryConf.cat_sa.active" ng-disabled="categoryConf.cat_sf.active || {{entity.disabled}}" />
                 <label>Setor Alimentar</label>
                 <div>
                     <ul class="unstyled">
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op1" ng-disabled="categoryConf.cat_sf.active" /> Alimentos destinados ao Consumo Humano</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op2" ng-disabled="categoryConf.cat_sf.active" /> Suplementos e Aditivos Alimentares</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op3" ng-disabled="categoryConf.cat_sf.active" /> Alimentos com propriedades Funcionais</li>
-                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op4" ng-disabled="categoryConf.cat_sf.active" /> Outros</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op1" ng-disabled="categoryConf.cat_sf.active || {{entity.disabled}}" /> Alimentos destinados ao Consumo Humano</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op2" ng-disabled="categoryConf.cat_sf.active || {{entity.disabled}}" /> Suplementos e Aditivos Alimentares</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op3" ng-disabled="categoryConf.cat_sf.active || {{entity.disabled}}" /> Alimentos com propriedades Funcionais</li>
+                        <li><input type="checkbox" ng-model="categoryConf.cat_sa.op4" ng-disabled="categoryConf.cat_sf.active || {{entity.disabled}}" /> Outros</li>
                     </ul>
                 </div>
             </div>
