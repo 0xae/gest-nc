@@ -22,10 +22,8 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $userForm = $this->createUserForm();
         $profileForm = $this->createProfileForm();
-
         $users = $this->paginate($em, User::class, 'page_user');
         $profiles = $this->paginate($em, Profile::class, 'page_profile');
-
         $assocProfile = $this->createAssocProfileForm();
         $permissions = Settings::getPermissions();
 
@@ -50,6 +48,20 @@ class AdminController extends Controller {
         return $this->render('BackendBundle:Admin:search.html.twig', array(
             'q' => $query
         ));
+    }
+
+    private function searchFor($klass, $param) {
+        "select concat(lpad(id, '3', '0'),'/',
+                <something>, '/',
+                (select codigo from app_entity where id=(select entity from user where id=created_by)),'/',
+                year(created_at)) as code
+                from sugestion ;";
+
+        $code="select lpad(id, '3', '0');";
+
+        $obj = $this->container
+            ->get('sga.admin.filter')
+            ->ByState($em, $klass, $state);
     }
 
    /**

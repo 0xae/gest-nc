@@ -19,14 +19,26 @@ class Filter {
             ->from($klass, 'x')
             ->orderBy('x.id', 'asc')
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
-        ;
+            ->setFirstResult($offset);
 
         foreach ($opts as $key => $value) {
             $q->where($q->expr()->eq('x.' . $key, "'$value'"));
         }
 
         return $q->getQuery();
+    }
+
+    public function ByCode($em, $model, $code) {
+        $pageIdx = !array_key_exists('page', $_GET) ? 1 : $_GET['page'];
+        $perPage = 5;
+        $codeName='';
+
+        if ($model == '') {
+        }
+
+        $q = $this->container
+            ->get('sga.admin.filter')
+            ->from($em, 'BackendBundle:'.$model, $perPage, ($pageIdx-1)*$perPage, ['code' => $code]);
     }
 
     public function ByState($em, $model, $state) {
@@ -64,8 +76,6 @@ class Filter {
             ->fromQuery($q, $perPage, $pageIdx);
 
         $entities = $q->getResult();
-        // $em->flush();
-        // $em->clear();
         return [$entities, $fanta];
     }
 }
