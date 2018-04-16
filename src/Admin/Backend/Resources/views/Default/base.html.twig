@@ -75,7 +75,7 @@
             .response-area textarea {                
             }
             .sf-toolbar {
-                /*display: none !important;*/
+                display: none !important;
             }
             .app-footer {
                 /*position:fixed;*/
@@ -143,6 +143,10 @@
             body.sidebar-collapse aside {
                 display: none;
             }
+
+            body.sidebar-collapse section.content {
+                margin-left: -30px;
+            }
             span.fa-circle {
                 font-size: 10px;
                 margin-right: 5px;
@@ -155,8 +159,6 @@
 
     <body class="skin-blue sidebar-mini pace-done fixed" ng-app="app">
         <div class="loading"></div>
-
-        <p> ROUTE IS {{ app.request.attributes.get("_route") }} </p>
 
         {% block body %}
             <div class="wrapper">
