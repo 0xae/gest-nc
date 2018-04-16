@@ -93,12 +93,12 @@ class Filter {
                     :codeType,
                     '/',
                     (select codigo from app_entity where 
-                    id=(select entity from user where id=created_by limit 1)),
+                    id=(select entity from user where id=kkk.created_by)),
                     '/',
                     year(created_at)
                 ) as code_label,
                 :codeType as code_type
-            from $model) s1
+            from $model kkk) s1
             where concat('%',code_label,'%') like concat('%',trim(:code),'%')
         ";
         $params=[
@@ -110,3 +110,4 @@ class Filter {
 		return $stmt->fetchAll();
 	}
 }
+
