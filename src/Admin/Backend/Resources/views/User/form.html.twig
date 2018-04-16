@@ -38,7 +38,7 @@
         <label>Departamento</label>
         {{ form_widget(form.entity, {
             'attr' : {
-                'disabled' : is_edit
+                'disabled' : is_edit and not (is_granted(expression('"ROLE_ADMIN" in user.getRoles()')))
             }
         }) }}
     </div>
@@ -47,7 +47,7 @@
         <label>Perfil</label>
         {{ form_widget(form.profile, {
             'attr' : {
-                'disabled' : is_edit
+                'disabled' : is_edit and not (is_granted(expression('"ROLE_ADMIN" in user.getRoles()')))
             }
         }) }}
     </div>
