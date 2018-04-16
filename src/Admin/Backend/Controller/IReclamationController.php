@@ -347,6 +347,9 @@ class IReclamationController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IReclamation entity.');
         }
+        if (@$_GET['search']) {
+            $entity->isDisabled=true;
+        }
 
         $editForm = $this->createEditForm($entity);
 

@@ -68,25 +68,25 @@
                         </blockquote>
 
                         {% if res.code_type in ['SG', 'RE'] %}
-                            <a href="{{ path('administration_Sugestion_edit', { 'id': res.id }) }}"
+                            <a href="{{ path('administration_Sugestion_edit', { 'id': res.id, 'search':true }) }}"
                                 class="btn btn-success btn-sm pull-right btn-flat">
                                 <strong>Ver Ficheiro</strong>
                                 <img src="{{ asset('icons/view-white.svg') }}" width="25" />
                             </a>
                         {% elseif res.code_type in ['QX', 'DN'] %}
-                            <a href="{{ path('administration_Complaint_edit', { 'id': res.id }) }}"
+                            <a href="{{ path('administration_Complaint_edit', { 'id': res.id, 'search':true }) }}"
                                 class="btn btn-success btn-sm pull-right btn-flat">
                                 <strong>Ver Ficheiro</strong>
                                 <img src="{{ asset('icons/view-white.svg') }}" width="25" />
                             </a>
                         {% elseif res.code_type == 'RI' %}
-                            <a href="{{ path('administration_IReclamation_edit', { 'id': res.id }) }}"
+                            <a href="{{ path('administration_IReclamation_edit', { 'id': res.id, 'search':true }) }}"
                                 class="btn btn-success btn-sm pull-right btn-flat">
                                 <strong>Ver Ficheiro</strong>
                                 <img src="{{ asset('icons/view-white.svg') }}" width="25" />
                             </a>
                         {% elseif res.code_type == 'LR' %}
-                            <a href="{{ path('administration_CompBook_edit', { 'id': res.id }) }}"
+                            <a href="{{ path('administration_CompBook_edit', { 'id': res.id, 'search':true }) }}"
                                 class="btn btn-success btn-sm pull-right btn-flat">
                                 <strong>Ver Ficheiro</strong>
                                 <img src="{{ asset('icons/view-white.svg') }}" width="25" />

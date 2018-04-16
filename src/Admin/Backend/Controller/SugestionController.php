@@ -388,6 +388,10 @@ class SugestionController extends Controller {
             throw $this->createNotFoundException('Unable to find Sugestion entity.');
         }
 
+        if (@$_GET['search']) {
+            $entity->isDisabled=true;
+        }
+
         $editForm = $this->createEditForm($entity);
         $files = $em->getRepository('BackendBundle:Upload')
                     ->findBy(['reference' => $entity->getAnnexReference()]);

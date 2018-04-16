@@ -214,8 +214,10 @@ class Sugestion {
      */
     private $annexReference;
 
+    public $isDisabled=false;    
     public function isDisabled() {
-        return $this->state == Stage::RESPONDIDO ||
+        return $this->isDisabled ||
+            $this->state == Stage::RESPONDIDO ||
             $this->state == Stage::SEM_RESPOSTA;
     }
 
