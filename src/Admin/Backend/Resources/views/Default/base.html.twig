@@ -75,7 +75,7 @@
             .response-area textarea {                
             }
             .sf-toolbar {
-                display: none !important;
+                /*display: none !important;*/
             }
             .app-footer {
                 /*position:fixed;*/
@@ -88,6 +88,13 @@
                 padding: 8px;
                 font-size: 14px;
                 font-weight: bold;
+            }
+            .circle-html5 {
+                float: left;
+                width: 10px;
+                height: 10px;
+                margin-top: 5px;
+                margin-right: 5px;
             }
             .dataTables_length,
             .dataTables_info {
@@ -148,6 +155,9 @@
 
     <body class="skin-blue sidebar-mini pace-done fixed" ng-app="app">
         <div class="loading"></div>
+
+        <p> ROUTE IS {{ app.request.attributes.get("_route") }} </p>
+
         {% block body %}
             <div class="wrapper">
             </div>
