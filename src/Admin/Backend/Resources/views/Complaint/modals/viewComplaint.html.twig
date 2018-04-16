@@ -75,7 +75,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Queixa</label>
+                            <label>
+                                <span ng-if="entity.type == 'queixa'">Queixa</span>
+                                <span ng-if="entity.type == 'denuncia'">Den&uacute;ncia</span>
+                            </label>
                             <textarea ng-model="entity.factDetail"
                                 disabled="disabled" 
                                 class="form-control"
