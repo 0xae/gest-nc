@@ -100,7 +100,6 @@ class Filter {
                 :codeType as code_type
             from $model) s1
             where concat('%',code_label,'%') like concat('%',trim(:code),'%')
-            limit 3
         ";
         $params=[
             'code'=>$codeParam, 
