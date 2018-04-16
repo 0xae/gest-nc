@@ -214,7 +214,12 @@ class Sugestion {
      */
     private $annexReference;
 
-        /**
+    public function isDisabled() {
+        return $this->state == Stage::RESPONDIDO ||
+            $this->state == Stage::SEM_RESPOSTA;
+    }
+
+    /**
      * Set entity
      *
      * @param \Admin\Backend\Entity\AppEntity $entity

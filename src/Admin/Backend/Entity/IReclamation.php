@@ -201,6 +201,11 @@ class IReclamation {
      */
     private $responseAuthor;   
 
+    public function isDisabled() {
+        return $this->state == Stage::RESPONDIDO ||
+                $this->state == Stage::SEM_RESPOSTA;
+    }
+
     public function getLabelStep() {
         $label = "";
         if ($this->step == 2) {

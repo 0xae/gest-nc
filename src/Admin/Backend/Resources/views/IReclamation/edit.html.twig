@@ -68,10 +68,12 @@
                                 })
                             }}
 
+                            {% if not entity.disabled %}
                             {{ include('BackendBundle:Upload:form.html.twig', {
                                     'form' : upload_form
                                 })
                             }}
+                            {% endif %}
                         </div>
                     </div>
 

@@ -275,6 +275,11 @@ class Complaint {
      */
     private $annexReference;
 
+    public function isDisabled() {
+        return $this->state == Stage::RESPONDIDO ||
+                $this->state == Stage::SEM_RESPOSTA;
+    }
+
     public function setResponseDate($value) {        
         $this->responseDate = $value;
         return $this;

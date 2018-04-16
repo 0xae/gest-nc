@@ -110,4 +110,3 @@ class Filter {
 		return $stmt->fetchAll();
 	}
 }
-

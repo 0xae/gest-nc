@@ -218,6 +218,11 @@ class CompBook {
 		return $this->complaintDate;
     }
     
+    public function isDisabled() {
+        return $this->state == Stage::RESPONDIDO ||
+                $this->state == Stage::SEM_RESPOSTA;
+    }
+
     public function getRespDate(){
         $date = clone $this->createdAt;
         $date->add(new \DateInterval("P10D"));

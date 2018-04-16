@@ -195,22 +195,22 @@ function ($scope, Statistics) {
                     color: '#c82061'
                 },
                 {
-                    name: "Sugestao",
+                    name: "Sugestão",
                     data: Statistics.produceYearArray(objects, 'sugestao'),
                     color: '#1155cc'
                 },
                 {
-                    name: "Reclamacao Externa",
+                    name: "Reclamação Externa",
                     data: Statistics.produceYearArray(objects, 'reclamacao'),
                     color: '#4e802c'
                 },
                 {
-                    name: "Reclamacao Interna",
+                    name: "Reclamação Interna",
                     data: Statistics.produceYearArray(objects, 'reclamacao_interna'),
                     color: '#6eb63e'
                 },
                 {
-                    name: "Livro de reclamacao",
+                    name: "Livro de reclamação",
                     data: Statistics.produceYearArray(objects, 'comp_book'),
                     color: '#f39c12'
                 }
