@@ -168,7 +168,6 @@ class ComplaintController extends Controller {
         } else if ($state == Stage::NO_COMP) {
             $entity->setState(Stage::NO_COMP);
         } else {
-            // throw new Exception
             throw $this->createNotFoundException('Invalid state provided: "'.$state.'"');
         }
 
