@@ -17,7 +17,7 @@ angular.module("app")
             $scope.modalTitle = "Visualizando " + label(type);
             $('#viewComplaintModal').modal();
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -42,7 +42,7 @@ angular.module("app")
             $.notify(obj.code+" arquivado com sucesso.", "success");            
             $("#row-" + obj.id).addClass('success');
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -87,7 +87,7 @@ angular.module("app")
                 $('#respondModal').modal('hide');                
             }, 500);
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -102,7 +102,7 @@ angular.module("app")
             $scope.modalTitle = "Visualizando " + labelX;
             $('#viewSugestionModal').modal();
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 }]);

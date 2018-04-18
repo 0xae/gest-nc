@@ -41,7 +41,7 @@ function ($http, ComplaintService, $scope, UploadService, Admin) {
             $.notify(obj.code+" aceite para tratamento.", "success");            
             $("#row-" + obj.id).remove();
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -65,12 +65,12 @@ function ($http, ComplaintService, $scope, UploadService, Admin) {
             $("#row-"+obj.id+"-no-comp").show();
             $("#row-"+obj.id+"-dispatch").remove();
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
     $scope.rejectSubmit = function() { 
-        if (!confirm("Confirmar QueixaD/Denunca como nao favoravel?")) return;
+        if (!confirm("Confirmar QueixaD/Denunca como não favoravel?")) return;
         var req = {
             id: $scope.mObject.id,
             state: NO_FAVORAVEL,
@@ -79,12 +79,12 @@ function ($http, ComplaintService, $scope, UploadService, Admin) {
 
         $http.post('/arfa/web/app_dev.php/administration/'+type+'/update_state/'+req.id, req)
         .then(function (data) {
-            $.notify($scope.mObject.code+" marcado como nao favoravel!", "warning");
+            $.notify($scope.mObject.code+" marcado como não favoravel!", "warning");
             $scope.mObject.response = '';
             $("#row-" + req.id).remove();
             $('#rejectModal').modal('hide');
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 

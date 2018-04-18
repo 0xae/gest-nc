@@ -47,8 +47,8 @@
 
 {% if entity.state == 'decision' %}
     <button id="send-to-action" type="button" 
-            class="btn btn-default"
-            ng-click="sendTo({{entity.id}}, state.ACTION, 'ação')">
+            class="btn btn-default send-to-btn"
+            ng-click="sendTo({{entity.id}}, state.ACTION, 'ação', state.ANALYSIS)">
         Enviar formul&aacute;rio
     </button>
 {% endif %}

@@ -5,7 +5,7 @@ angular.module("app")
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
             return error;
         }); 
     }
@@ -15,7 +15,7 @@ angular.module("app")
         .then(function (data){
             return data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
             return error;
         });
     }
@@ -25,7 +25,7 @@ angular.module("app")
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
             return error;
         });
     }

@@ -10,7 +10,7 @@ angular.module("app")
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -19,7 +19,7 @@ angular.module("app")
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");
         });
     }
 
@@ -39,7 +39,7 @@ function ($http, $scope, UploadService, Admin, IReclService) {
         .then(function (resp){
             return resp.data;
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
@@ -115,12 +115,12 @@ function ($http, $scope, UploadService, Admin, IReclService) {
                 $(RESPOND_MODAL).modal('hide');                
             }, 500);
         }, function (error) {
-            $.notify("A operacao nao pode ser efectuada.Tente novamente!", "danger");            
+            $.notify("A operacao não pode ser efectuada.Tente novamente!", "danger");            
         });
     }
 
     $scope.notFavorable = function (id, label) {
-        if (!confirm("Confirmar " + label + " como nao favoravel ?")){
+        if (!confirm("Confirmar " + label + " como não favoravel ?")){
             return;
         }
 
@@ -154,7 +154,7 @@ function ($http, $scope, UploadService, Admin, IReclService) {
 function ($http, $scope, UploadService, Admin, IReclService) {
     $scope.state = Admin.stage;
 
-    $scope.sendTo = function (id, state, label) {
+    $scope.sendTo = function (id, state, label, oldState) {
         if (!confirm('Confirmar envio para ' + label + ' ?')) {
             return;
         }
@@ -166,10 +166,12 @@ function ($http, $scope, UploadService, Admin, IReclService) {
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");
-
-            // setTimeout(() => {
-            //     $("#admin_backend_ireclamation_submit").click();
-            // }, 500);
+        
+            setTimeout(() => {
+                if (oldState) {                
+                    location.href = '/arfa/web/app_dev.php/administration/IReclamation/by_state/'+oldState;                    
+                }
+            }, 1200);
         });
     }
 
@@ -185,6 +187,13 @@ function ($http, $scope, UploadService, Admin, IReclService) {
             $("#row-" + id).addClass('success');
             $("#row-" + id + "-dispatch").remove();
             $("#ir-analysis-"+id).attr("style", "display:inherit !important");
+
+            setTimeout(() => {
+                // $("#admin_backend_ireclamation_submit").click();
+                if (oldState) {                
+                    location.href = '/arfa/web/app_dev.php/administration/IReclamation/by_state/action';
+                }
+            }, 1200);
         });
     }
 }]);
