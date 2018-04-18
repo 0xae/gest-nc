@@ -79,7 +79,7 @@ class User extends BaseUser {
      *   @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      * })
      */
-     private $profile;
+    private $profile;
 
     /**
      * @var \Admin\Backend\Entity\AppEntity
@@ -90,6 +90,12 @@ class User extends BaseUser {
      * })
      */
     private $entity;
+
+    /**
+     * @ORM\Column(name="context", type="string", length=100, nullable=true)
+     */
+    private $context;    
+
     private $passwordConf;
 
     public function __construct() {
@@ -104,6 +110,14 @@ class User extends BaseUser {
 	public function setIsActive($val){
 		$this->isActive = $val;
 	}
+
+    public function getContext(){
+		return $this->context;
+	}
+
+	public function setContext($context){
+		$this->context = $context;
+	}    
 
     public function getProfile(){
 		return $this->profile;
