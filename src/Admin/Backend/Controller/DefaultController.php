@@ -39,6 +39,7 @@ class DefaultController extends Controller {
 			(int) $this->count(Model::COMPLAINT, 'complaint')[0]['count'],
 			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion')[0]['count'],
 			(int) $this->count(Model::SUGESTION, 'sugestion')[0]['count'],
+			(int) $this->count(Model::COMP_BOOK, 'comp_book')[0]['count'],			
 			(int) $this->countIRECL(),
 		];
 
@@ -48,7 +49,8 @@ class DefaultController extends Controller {
 			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
 			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
 			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
-			(int) $this->countIRECL($params),				
+			(int) $this->count(Model::COMP_BOOK, 'comp_book', $params)[0]['count'],			
+			(int) $this->countIRECL($params),
 		];
 
 		$params=['state'=>Stage::SEM_RESPOSTA];
@@ -57,39 +59,53 @@ class DefaultController extends Controller {
 			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
 			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
 			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
-			(int) $this->countIRECL($params),				
+			(int) $this->countIRECL($params),
 		];
-		
+
 		$params=['state'=>Stage::ACOMPANHAMENTO];
 		$acomp = [
 			(int) $this->count(Model::DENOUNCE, 'complaint', $params)[0]['count'],
 			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
 			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
 			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
-			(int) $this->countIRECL($params),				
+			(int) $this->count(Model::COMP_BOOK, 'comp_book', $params)[0]['count'],
+			(int) $this->countIRECL($params),
+		];
+
+		$params=['state'=>Stage::NO_CONFOR];
+		$nc = [
+			(int) $this->count(Model::DENOUNCE, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::COMPLAINT, 'complaint', $params)[0]['count'],
+			(int) $this->count(Model::RECLAMATION_EXTERN, 'sugestion', $params)[0]['count'],
+			(int) $this->count(Model::SUGESTION, 'sugestion', $params)[0]['count'],
+			(int) $this->count(Model::COMP_BOOK, 'comp_book', $params)[0]['count'],
+			(int) $this->countIRECL($params),
 		];
 
 		return [
 			"total" => array_sum($all),
 			"answered" => array_sum($answered),
 			"noAnswered" => array_sum($noAnswered),
-			"acomp" => array_sum($acomp)
+			"acomp" => array_sum($acomp),
+			"notConfor" => array_sum($nc)
 		];
 	}
 
 	private function count($type, $model, $opts=[]) {
 		$q = '
-			select
-				count(1) as count,
-				date_format(created_at, "%Y-%m") as period
-			from ' . $model . '
-			where year(created_at) = year(current_date)
-				  and month(created_at) = month(current_date) 
-			and type = :type';
+		select
+			count(1) as count,
+			date_format(created_at, "%Y-%m") as period
+		from ' . $model . '
+		where year(created_at) = year(current_date)
+				and month(created_at) = month(current_date) 
+		';
+		$params = [];
 
-		$params = [
-			'type' => $type
-		];
+		if (@$opts['type']) {
+			$q .= ' and type=:type ';
+			$params['type']=$opts['type'];
+		}
 
 		if (@$opts['state']) {
 			$q .= ' and state=:state ';

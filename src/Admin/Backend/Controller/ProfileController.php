@@ -7,40 +7,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\Backend\Entity\Profile;
 use Admin\Backend\Form\ProfileType;
+use Admin\Backend\Model\Settings;
 
 /**
  * Profile controller.
  *
  */
-class ProfileController extends Controller
-{
-
+class ProfileController extends Controller {
     /**
      * Lists all Profile entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('BackendBundle:Profile')->findAll();
 
         return $this->render('BackendBundle:Profile:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Profile entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Profile();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            if (!$entity->getContext()) {
+                $entity->setContext(Settings::SGRS_CTX);
+            }
             $entity->setCreatedAt(new \DateTime);
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);

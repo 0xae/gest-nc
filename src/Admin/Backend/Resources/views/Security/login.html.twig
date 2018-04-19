@@ -42,9 +42,9 @@ body {
 
 .input-group .input-group-addon {
     border-radius: 20px;
-    background-color: #00a65a;
+    background-color: #BF1F7B;
     color: #fff;
-    border-color: #00a65a;
+    border-color: #BF1F7B;
 }
 
 .input-group .input-group-addon span.fa {
@@ -52,7 +52,7 @@ body {
 }
 </style>
 
-<body class="hold-transition login-page" style="background: url({{ asset('LoginBG.png') }}) no-repeat;background-size: cover;background-clip: padding-box;">
+<body class="hold-transition login-page" style="background: url({{ asset('FundoEcraSistemaSGQ.jpg') }}) no-repeat;background-size: cover;background-clip: padding-box;">
     {% block content %}
         {% block fos_user_content %}
             <div class="login-box">
@@ -64,9 +64,9 @@ body {
                         </div>
                         {% endimage %}
 
-                        <a href="#" style="color:#BF1F7B;text-transform:uppercase;margin-bottom:15px;margin-top:10px;font-size:15px;text-align:center;">
+                        {# <a href="#" style="color:#BF1F7B;text-transform:uppercase;margin-bottom:15px;margin-top:10px;font-size:15px;text-align:center;">
                             <b>Gestão de Ocorrências Arfa</b>
-                        </a>
+                        </a> #}
                     </center>
 
                     <!-- /.login-logo -->
@@ -92,7 +92,7 @@ body {
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block" style="border-radius:20px;"  value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}">
+                            <button type="submit" class="btn btn-success btn-block" style="border-color:#BF1F7B;background-color: #BF1F7B;border-radius:20px;"  value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}">
                                 <span class="fa fa-check pull-left" style="font-size:20px;margin-top:5px;"></span>
                                 <span style="font-size:20px">Entrar</span>
                             </button>
@@ -117,7 +117,7 @@ body {
                 <!-- /.login-box-body -->
             </div>
 
-            <div style="text-align: center;margin:auto;">
+            {# <div style="text-align: center;margin:auto;">
                 <h4 style="margin-bottom:0px;">Qualidade e Seguran&ccedil;a ao servi&ccedil;o de Todos!</h4>
 
                 <a href="http://www.arfa.cv" style="color: #BF1F7B">
@@ -125,7 +125,7 @@ body {
                 </a>
 
                 <p style="margin-top:20px"><strong>&copy; POWERED BY ARFA - 2018</strong></p>
-            </div>
+            </div> #}
         {% endblock fos_user_content %}
     {% endblock %}
 </body>

@@ -35,6 +35,13 @@ class Profile {
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="context", type="string", length=250, nullable=true)
+     */
+    private $context;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -51,6 +58,15 @@ class Profile {
      * 
      */
     private $createdBy;
+
+    public function setContext($value) {
+        $this->context = $value;
+        return $this;
+    }
+
+    public function getContext() {
+        return $this->context;
+    }
 
     /**
      * Get id

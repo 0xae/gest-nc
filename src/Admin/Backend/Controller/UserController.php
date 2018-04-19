@@ -11,6 +11,7 @@ use Admin\Backend\Entity\User;
 use Admin\Backend\Form\UserType;
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
+use Admin\Backend\Model\Settings;
 
 /**
  * User controller.
@@ -61,6 +62,10 @@ class UserController extends Controller {
         
         if ($form->isValid() && $loginFieldsOk) {
             $em = $this->getDoctrine()->getManager();
+
+            if (!$entity->getContext()) {
+                $entity->setContext(Settings::SGRS_CTX);
+            }
             $entity->setEnabled(true);
             $user = $this->getUser();
             $entity->setCreatedBy($user);
@@ -122,7 +127,7 @@ class UserController extends Controller {
 
         return $this->render('BackendBundle:User:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 

@@ -14,6 +14,7 @@ class ProfileType extends AbstractType {
         $builder
             ->add('name')
             ->add('description')
+            ->add('context')
             ->add('submit', 'submit', array(
                 'label' => 'Enviar formulário',
                 'attr' => array(

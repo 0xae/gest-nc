@@ -4,6 +4,8 @@ namespace Admin\Backend\Model;
 class Settings {
     const DATE_FMT = "Y-m-d";
     const PER_PAGE = 10;
+    const SGRS_CTX = "SGRS";
+    const NC_CTX = "NC";
     const LIMIT=200;
 
     public static function getPermissions() {
