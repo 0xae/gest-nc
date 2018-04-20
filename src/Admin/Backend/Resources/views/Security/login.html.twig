@@ -50,9 +50,19 @@ body {
 .input-group .input-group-addon span.fa {
     font-size: 20px;
 }
+
+body {
+    background-image: url('{{ asset('FundoEcraSistemaSGQ.jpg') }}');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:100%;
+}
 </style>
 
-<body class="hold-transition login-page" style="height:100%;background-image: url({{ asset('FundoEcraSistemaSGQ.jpg') }});background-position: center;background-size: cover;background-repeat: no-repeat;">
+<body class="hold-transition login-page">
+    <div class="">
+    </div>
     {% block content %}
         {% block fos_user_content %}
             <div class="login-box">
@@ -116,7 +126,6 @@ body {
                 </div>
                 <!-- /.login-box-body -->
             </div>
-
             {# <div style="text-align: center;margin:auto;">
                 <h4 style="margin-bottom:0px;">Qualidade e Seguran&ccedil;a ao servi&ccedil;o de Todos!</h4>
 
