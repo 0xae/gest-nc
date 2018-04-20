@@ -18,10 +18,12 @@ class ComplaintType extends AbstractType {
             ->add('name')
             ->add('address')
             ->add('locality')
-            ->add('phone')
-            ->add('email', 'email',[
+            ->add('phone', 'number', array(
                 'required' => false
-            ])
+            ))
+            ->add('email', 'email', array(
+                'required' => false
+            ))
             ->add('type', 'choice', array(
                 'choices'  => array(
                     'queixa' => 'Queixa',
@@ -30,10 +32,18 @@ class ComplaintType extends AbstractType {
             ))
             ->add('complaintCategory')
             ->add('opName')
-            ->add('opAddress')
-            ->add('opLocality')
-            ->add('opPhone')
-            ->add('opEmail')
+            ->add('opAddress', 'text', array(
+                'required' => false
+            ))
+            ->add('opLocality', 'text', array(
+                'required' => false
+            ))
+            ->add('opPhone', 'number', array(
+                'required' => false
+            ))
+            ->add('opEmail', 'email', array(
+                'required' => false
+            ))
             ->add('factDate')
             ->add('factLocality')
             ->add('factDetail', 'textarea', array(

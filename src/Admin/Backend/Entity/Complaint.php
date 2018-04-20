@@ -79,7 +79,7 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="op_address", type="string", length=250, nullable=false)
+     * @ORM\Column(name="op_address", type="string", length=250, nullable=true)
      */
     private $opAddress;
 
@@ -93,14 +93,14 @@ class Complaint {
     /**
      * @var string
      *
-     * @ORM\Column(name="op_phone", type="string", length=250, nullable=false)
+     * @ORM\Column(name="op_phone", type="string", length=250, nullable=true)
      */
     private $opPhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="op_email", type="string", length=250, nullable=false)
+     * @ORM\Column(name="op_email", type="string", length=250, nullable=true)
      */
     private $opEmail;
 
