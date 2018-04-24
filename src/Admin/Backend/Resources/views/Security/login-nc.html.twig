@@ -70,7 +70,7 @@ body {
                     </center>
 
                     <!-- /.login-logo -->
-                    <form action={{ path("fos_user_security_check") }} method="post" style="margin-top:30px;clear:both">
+                    <form action={{ path("nc_check") }} method="post" style="margin-top:30px;clear:both">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
                         <div class="form-group has-feedback">
