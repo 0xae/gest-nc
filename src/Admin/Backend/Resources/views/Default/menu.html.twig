@@ -84,9 +84,9 @@
 
             <ul class="treeview-menu" style="">
                 <li>
-                    <a href="{{ path('administration_CompBook_new') }}">
+                    <a href="{{ path('backend_administration_nc') }}">
                         <svg id="meter" class="circle-html5" 
-                            fill={{ app.request.attributes.get("_route") == 'administration_CompBook_new' ? '#00a65a' : '#ccc' }}>
+                            fill={{ app.request.attributes.get("_route") == 'backend_administration_nc_listing' ? '#00a65a' : '#ccc' }}>
                             <circle r="4" cx="50%" cy="50%"></circle>
                         </svg>
                         <span>Controlo de Não Conformidades</span>
@@ -94,9 +94,9 @@
                 </li>
 
                 <li>
-                    <a href="{{ path('administration_CompBook') }}">
+                    <a href="{{ path('backend_administration_nc') }}">
                     <svg id="meter" class="circle-html5" 
-                        fill={{ app.request.attributes.get("_route") == 'administration_CompBook' ? '#00a65a' : '#ccc' }}>
+                        fill={{ app.request.attributes.get("_route") == 'backend_administration_nc_listing' ? '#00a65a' : '#ccc' }}>
                         <circle r="4" cx="50%" cy="50%"></circle>
                     </svg>
                     <span>Listagem</span></a>
@@ -173,18 +173,6 @@
         <li style="padding:0px;">
         </li>
       </ul>
-
-        {# <div style="color: #fff;position: absolute;bottom: 0;margin:auto;">
-            <div style="margin-left: 75px;">
-                <center>
-                    <img src="{{ asset('icons/whitearfa.png') }}"
-                        class="user-image"
-                        alt="User Image!"
-                        width="130"
-                    />
-                </center>
-            </div>
-        </div> #}
     </section>
     <!-- /.sidebar -->
 

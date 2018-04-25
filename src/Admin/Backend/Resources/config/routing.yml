@@ -78,6 +78,14 @@ backend_administration_user:
     resource: "@BackendBundle/Resources/config/routing/user.yml"
     prefix:   /administration/user
 
+backend_administration_nc:
+    path:  /administration/nc-objects
+    defaults:  { _controller: BackendBundle:NC:index }
+
+backend_administration_nc_search:
+    path:  /administration/nc-objects/search
+    defaults:  { _controller: BackendBundle:NC:search }
+
 backend_administration_main:
     path:  /administration/main
     defaults:  { _controller: BackendBundle:Admin:index }
