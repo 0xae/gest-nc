@@ -209,15 +209,19 @@ class AdminController extends Controller {
     }
 
     private function paginate($em, $class, $pageParam) {
-        $pageIdx = !array_key_exists($pageParam, $_GET) ? 1 : $_GET[$pageParam];
+        $pageIdx = !array_key_exists($pageParam, $_GET)
+            ? 1 : $_GET[$pageParam];
         $perPage = Settings::PER_PAGE;
+        $params = ['context' => Settings::NC_CTX];
 
         $q = $this->container
-            ->get('sga.admin.filter')
-            ->from($em, $class, Settings::LIMIT, 0);
+        ->get('sga.admin.filter')
+        ->from($em,$class,Settings::LIMIT,0,$params);
+
         // $fanta = $this->container
         //     ->get('sga.admin.table.pagination')
         //     ->fromQuery($q, $perPage, $pageIdx);
         return $q;
     }
 }
+

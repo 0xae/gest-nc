@@ -6,7 +6,7 @@ use Admin\Backend\Entity\Stage;
 use Admin\Backend\Model\Settings;
 
 class Filter {
-    public function __construct(Container $container) {    
+    public function __construct(Container $container) {
         $this->container = $container;
     } 
 

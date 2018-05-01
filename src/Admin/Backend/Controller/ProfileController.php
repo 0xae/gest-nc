@@ -11,17 +11,15 @@ use Admin\Backend\Model\Settings;
 
 /**
  * Profile controller.
- *
  */
 class ProfileController extends Controller {
     /**
      * Lists all Profile entities.
-     *
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BackendBundle:Profile')->findAll();
-
+        $entities = $em->getRepository('BackendBundle:Profile')
+                    ->findAll();
         return $this->render('BackendBundle:Profile:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -29,7 +27,6 @@ class ProfileController extends Controller {
 
     /**
      * Creates a new Profile entity.
-     *
      */
     public function createAction(Request $request) {
         $entity = new Profile();
@@ -38,10 +35,7 @@ class ProfileController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            if (!$entity->getContext()) {
-                $entity->setContext(Settings::SGRS_CTX);
-            }
+            $entity->setContext(Settings::NC_CTX);
             $entity->setCreatedAt(new \DateTime);
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
@@ -102,7 +96,8 @@ class ProfileController extends Controller {
             );
         }
 
-        $entity = $em->getRepository('BackendBundle:Profile')->find($id);
+        $entity = $em->getRepository('BackendBundle:Profile')
+                ->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Profile entity.');
@@ -111,7 +106,7 @@ class ProfileController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('BackendBundle:Profile:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }

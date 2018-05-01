@@ -67,6 +67,7 @@ class UserController extends Controller {
                 $entity->setContext(Settings::SGRS_CTX);
             }
             $entity->setEnabled(true);
+            $entity->setContext(Settings::NC_CTX);
             $user = $this->getUser();
             $entity->setCreatedBy($user);
             $em->persist($entity);

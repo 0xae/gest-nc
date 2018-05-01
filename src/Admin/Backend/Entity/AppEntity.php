@@ -41,6 +41,13 @@ class AppEntity {
     private $code;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="context", type="string", length=45, nullable=true)
+     */
+    private $context;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -64,6 +71,14 @@ class AppEntity {
 
     public function getCode() {
         return $this->code;
+    }
+
+    public function setContext($value) {
+        $this->context = $value;
+    }
+
+    public function getContext() {
+        return $this->context;
     }
 
     public function setDescription($value) {

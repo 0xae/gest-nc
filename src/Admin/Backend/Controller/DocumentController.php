@@ -28,7 +28,8 @@ class DocumentController extends Controller {
         $q = $this->container
             ->get('sga.admin.filter')
             ->from($em, Document::class, $perPage,
-                        ($pageIdx-1)*$perPage);
+                        ($pageIdx-1)*$perPage,
+                        ['context' => Settings::NC_CTX]);
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
@@ -53,7 +54,8 @@ class DocumentController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setCreatedBy($this->getUser());            
+            $entity->setCreatedBy($this->getUser()); 
+            $entity->setContext(Settings::NC_CTX);           
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('administration_Document_edit', 

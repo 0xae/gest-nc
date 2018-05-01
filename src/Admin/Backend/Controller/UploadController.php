@@ -25,7 +25,8 @@ class UploadController extends Controller {
 
         $q = $this->container
             ->get('sga.admin.filter')
-            ->from($em, Upload::class, $perPage, ($pageIdx-1)*$perPage);
+            ->from($em, Upload::class, $perPage, ($pageIdx-1)*$perPage,
+            ['context' => Settings::NC_CTX]);
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
@@ -51,6 +52,7 @@ class UploadController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
+            $entity->setContext(Settings::NC_CTX);
             $entity->setCreatedAt(new \DateTime);
 
             $file = $entity->getFile();
@@ -67,30 +69,31 @@ class UploadController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            $path = 'administration_Upload_show';
-            $pathArgs = array('id' => $entity->getId());
+            // $path = 'administration_Upload_show';
+            // $pathArgs = array('id' => $entity->getId());
 
-            if ($entity->getContext()) {
-                /**
-                 * {
-                 *    "path" : "",
-                 *    "path_args" : ""
-                 * }
-                 */                
-                $context = json_decode($entity->getContext());
-                if (isset($context->path)) {
-                    $path = $context->path;
-                }
+            // if ($entity->getContext()) {
+            //     /**
+            //      * {
+            //      *    "path" : "",
+            //      *    "path_args" : ""
+            //      * }
+            //      */                
+            //     $context = json_decode($entity->getContext());
+            //     if (isset($context->path)) {
+            //         $path = $context->path;
+            //     }
 
-                if (isset($context->path_args)) {
-                    $pathArgs = (array)$context->path_args;
-                }
-            }
-
-            return $this->redirect($this->generateUrl($path, $pathArgs));
+            //     if (isset($context->path_args)) {
+            //         $pathArgs = (array)$context->path_args;
+            //     }
+            // }
+            return $this->redirect(
+                $this->generateUrl($path, $pathArgs));
         }
 
-        return $this->render('BackendBundle:Upload:new.html.twig', array(
+        return $this->render('BackendBundle:Upload:new.html.twig', 
+            array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));

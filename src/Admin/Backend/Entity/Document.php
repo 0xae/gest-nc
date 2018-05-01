@@ -28,6 +28,13 @@ class Document {
     /**
      * @var string
      *
+     * @ORM\Column(name="context", type="string", length=45, nullable=true)
+     */
+    private $context;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="string", length=45, nullable=true)
      */
     private $description;    
@@ -49,6 +56,14 @@ class Document {
      * 
      */
     private $createdBy;
+
+    public function setContext($value) {
+        $this->context = $value;
+    }
+
+    public function getContext() {
+        return $this->context;
+    }
 
     /**
      * Get id

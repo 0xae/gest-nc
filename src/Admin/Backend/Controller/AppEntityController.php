@@ -28,7 +28,8 @@ class AppEntityController extends Controller {
         $q = $this->container
             ->get('sga.admin.filter')
             ->from($em, AppEntity::class, $perPage, 
-                        ($pageIdx-1)*$perPage);
+                        ($pageIdx-1)*$perPage, 
+                        ['context' => Settings::NC_CTX]);
 
         $fanta = $this->container
             ->get('sga.admin.table.pagination')
@@ -56,6 +57,7 @@ class AppEntityController extends Controller {
             $userId = $this->getUser();
             $entity->setCreatedBy($userId);
             $entity->setCreatedAt(new \DateTime);
+            $entity->setContext(Settings::NC_CTX);
 
             $em->persist($entity);
             $em->flush();
