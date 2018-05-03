@@ -12,9 +12,7 @@ use Admin\Backend\Form\CategoryType;
  * Category controller.
  *
  */
-class CategoryController extends Controller
-{
-
+class CategoryController extends Controller {
     /**
      * Lists all Category entities.
      *
