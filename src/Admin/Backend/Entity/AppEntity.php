@@ -94,8 +94,7 @@ class AppEntity {
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -105,10 +104,8 @@ class AppEntity {
      * @param string $name
      * @return AppEntity
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -117,8 +114,7 @@ class AppEntity {
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -128,10 +124,8 @@ class AppEntity {
      * @param \DateTime $createdAt
      * @return AppEntity
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -140,8 +134,7 @@ class AppEntity {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -151,10 +144,8 @@ class AppEntity {
      * @param integer $createdBy
      * @return AppEntity
      */
-    public function setCreatedBy($createdBy)
-    {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
-
         return $this;
     }
 
@@ -163,8 +154,7 @@ class AppEntity {
      *
      * @return integer 
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 

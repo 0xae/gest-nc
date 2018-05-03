@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Admin\Backend\Model\Settings;
 use Admin\Backend\Entity\Upload;
 use Admin\Backend\Form\UploadType;
 
@@ -15,8 +16,7 @@ use Admin\Backend\Form\UploadType;
  */
 class UploadController extends Controller {
     /**
-     * Lists all Upload entities.
-     *
+     * Lists all Upload entities
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();

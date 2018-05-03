@@ -18,7 +18,7 @@ class UserType extends AbstractType {
             ->add('name')
             ->add('email', 'email')
             ->add('username')
-            ->add('context')            
+            ->add('context')
             ->add('plainPassword', 'password')
             ->add('passwordConf', 'password')
             ->add('isActive')
@@ -36,7 +36,7 @@ class UserType extends AbstractType {
                     ->where("u.context = '".Settings::NC_CTX."'")
                     ->orderBy('u.name', 'ASC');
                 },
-                'choice_label' => 'name'                
+                'choice_label' => 'name'
             ))
             ->add('profile', 'entity', array(
                 'class' => 'BackendBundle:Profile',
