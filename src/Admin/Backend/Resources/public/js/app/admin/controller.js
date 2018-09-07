@@ -27,6 +27,7 @@ angular.module("app")
                     var entry = getEntryWith(keys, map, function (v){ 
                         return v.code.toLowerCase() === p.permission.toLowerCase();
                     });
+
                     // create cache if it doenst exists
                     if (!data[entry.k]) {
                         data[entry.k]=[];                        
@@ -71,7 +72,7 @@ angular.module("app")
 
         var permissions = $("#permissionsAssoc").val();
         var queue = permissions.map(function (p){
-            return $http.get('/arfa/web/app_dev.php/administration/remove_permission/' + p); 
+            return $http.get('/arfa-nc/web/app_dev.php/administration/remove_permission/' + p); 
         });
 
         $q.all(queue)
@@ -85,14 +86,14 @@ angular.module("app")
 
     function addPermissionPromise(profileId, permissionId) {
         var permissionLabel = $("#perm-" + permissionId).attr("data-label");
-        return $http.get('/arfa/web/app_dev.php/administration/add_permission?' + 
+        return $http.get('/arfa-nc/web/app_dev.php/administration/add_permission?' + 
             'profile_id=' + profileId+
             '&permission=' + permissionId+
             '&permission_label=' + permissionLabel);
     }
 
     function fetchPermissions (profileId) { 
-        return $http.get('/arfa/web/app_dev.php/administration/permissions_of/' + profileId)
+        return $http.get('/arfa-nc/web/app_dev.php/administration/permissions_of/' + profileId)
         .then(function (_resp) {
             var resp=_resp.data;
             return resp;
@@ -102,7 +103,7 @@ angular.module("app")
     function fetchPermissionsMap() {
         var defer = $q.defer();
         if (permissionMap == null) {
-            $http.get('/arfa/web/app_dev.php/administration/permission_map')
+            $http.get('/arfa-nc/web/app_dev.php/administration/permission_map')
             .then(function (_resp) {
                 permissionMap=_resp.data;
                 defer.resolve(_resp.data);
@@ -137,7 +138,7 @@ angular.module("app")
             return;
         }
 
-        $http.get('/arfa/web/app_dev.php/administration/Upload/' + id+"/remove")
+        $http.get('/arfa-nc/web/app_dev.php/administration/Upload/' + id+"/remove")
         .then(function (resp){
             var file = "#upload_" + id;
             $.notify("Anexo removido com sucesso.", "success");

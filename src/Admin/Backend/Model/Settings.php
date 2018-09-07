@@ -17,6 +17,7 @@ class Settings {
         //     }
         // }
         $ary = [
+            // administration
             "ADMINISTRAÇÃO" => [
                 [
                     "label" => "Administração",
@@ -28,6 +29,7 @@ class Settings {
                 ],
             ],
 
+            // parametrizacao
             "PARAMETRIZAÇÃO" => [
                 [
                     "label" => "Departamentos",
@@ -39,147 +41,39 @@ class Settings {
                 ]
             ],
 
-            // complaint
-            "GESTÃO DE QUEIXAS/DENÚNCIAS" => [
+            // nao conformidades
+            "GESTÃO DE NÃO CONFORMIDADES" => [
                 [
-                    "label" => "Registro",
-                    "code" => "ADMINISTRATION_COMPLAINT_NEW",
+                    "label" => "Controlo de Não Conformidades",
+                    "code" => "BACKEND_ADMINISTRATION_NC",
                 ],
                 [
                     "label" => "Listagem",
-                    "code" => "ADMINISTRATION_COMPLAINT",
-                ],
-                [
-                    "label" => "Acompanhamento",
-                    "code" => "ADMINISTRATION_COMPLAINT_ACOMP",
-                ],
-                [
-                    "label" => "Tratamento",
-                    "code" => "ADMINISTRATION_COMPLAINT_TREAT",
-                ],
-                [
-                    "label" => "Arquivo de Resposta",
-                    "code" => "ADMINISTRATION_COMPLAINT_RESP",
-                ],
-                [
-                    "label" => "Arquivos concluídos sem resposta",
-                    "code" => "ADMINISTRATION_COMPLAINT_NORESP",
-                ],
-                [
-                    "label" => "Não favoraveis",
-                    "code" => "ADMINISTRATION_COMPLAINT_NF",
-                ],
-                [
-                    "label" => "Competência de terceiros",
-                    "code" => "ADMINISTRATION_COMPLAINT_SC",
-                ],
-                [
-                    "label" => "Não Conformidades",
-                    "code" => "ADMINISTRATION_COMPLAINT_NC",
-                ],
+                    "code" => "BACKEND_ADMINISTRATION_NC",
+                ]
             ],
 
-            // sugestion
-            "GESTÃO DE RECLAMAÇÕES EXTERNAS" => [
-                [
-                    "label" => "Registro",
-                    "code" => "ADMINISTRATION_SUGESTION_NEW",
-                ],
-                [
-                    "label" => "Listagem",
-                    "code" => "ADMINISTRATION_SUGESTION",
-                ],
-                [
-                    "label" => "Acompanhamento",
-                    "code" => "ADMINISTRATION_SUGESTION_ACOMP",
-                ],
-                [
-                    "label" => "Tratamento",
-                    "code" => "ADMINISTRATION_SUGESTION_TREAT",
-                ],
-                [
-                    "label" => "Arquivo de Resposta",
-                    "code" => "ADMINISTRATION_SUGESTION_RESP",
-                ],
-                [
-                    "label" => "Arquivos concluídos sem resposta",
-                    "code" => "ADMINISTRATION_SUGESTION_NORESP",
-                ],
-                [
-                    "label" => "Não favoraveis",
-                    "code" => "ADMINISTRATION_SUGESTION_NF",
-                ],
-                [
-                    "label" => "Competência de terceiros",
-                    "code" => "ADMINISTRATION_SUGESTION_SC",
-                ],
-                [
-                    "label" => "Não Conformidades",
-                    "code" => "ADMINISTRATION_SUGESTION_NC",
-                ],
-            ],
 
-            // Ireclamation
-            "GESTÃO DE RECLAMAÇÕES INTERNAS" => [
+            "GESTÃO DE ACÇÕES CORRETIVAS E PREVENTIVAS" => [
                 [
-                    "label" => "Registro",
-                    "code" => "ADMINISTRATION_IRECLAMATION_NEW",
+                    "label" => "Registo",
+                    "code" => "ADMINISTRATION_CORRECTION_NEW",
                 ],
                 [
                     "label" => "Listagem",
-                    "code" => "ADMINISTRATION_IRECLAMATION",
+                    "code" => "ADMINISTRATION_CORRECTION",
                 ],
                 [
-                    "label" => "Acompanhamento",
-                    "code" => "ADMINISTRATION_IRECLAMATION_ACOMP",
+                    "label" => "Análise das causas",
+                    "code" => "ADMINISTRATION_CORRECTION_BYSTATE",
                 ],
                 [
-                    "label" => "Análise",
-                    "code" => "ADMINISTRATION_IRECLAMATION_ANALYSIS",
+                    "label" => "Acções a implementar",
+                    "code" => "ADMINISTRATION_CORRECTION_BYSTATE",
                 ],
                 [
-                    "label" => "Decisão",
-                    "code" => "ADMINISTRATION_IRECLAMATION_DECISION",
-                ],
-                [
-                    "label" => "Ação",
-                    "code" => "ADMINISTRATION_IRECLAMATION_ACTION",
-                ],
-                [
-                    "label" => "Arquivo de Resposta",
-                    "code" => "ADMINISTRATION_IRECLAMATION_RESP",
-                ],
-                [
-                    "label" => "Arquivos concluídos sem resposta",
-                    "code" => "ADMINISTRATION_IRECLAMATION_NORESP",
-                ],
-                [
-                    "label" => "Não Conformidades",
-                    "code" => "ADMINISTRATION_IRECLAMATION_NC",
-                ],
-            ],
-
-            // Livro de Reclamação
-            "GESTÃO DE LIVRO DE RECLAMAÇÕES" => [
-                [
-                    "label" => "Registro",
-                    "code" => "ADMINISTRATION_COMPBOOK_NEW",
-                ],
-                [
-                    "label" => "Listagem",
-                    "code" => "ADMINISTRATION_COMPBOOK",
-                ],
-                [
-                    "label" => "Acompanhamento",
-                    "code" => "ADMINISTRATION_COMPBOOK_ACOMP",
-                ],
-                [
-                    "label" => "Arquivo de Resposta",
-                    "code" => "ADMINISTRATION_COMPBOOK_RESP",
-                ],
-                [
-                    "label" => "Não Conformidades",
-                    "code" => "ADMINISTRATION_COMPBOOK_NC",
+                    "label" => "Avaliações da Eficácia",
+                    "code" => "ADMINISTRATION_CORRECTION_BYSTATE",
                 ],
             ],
 
